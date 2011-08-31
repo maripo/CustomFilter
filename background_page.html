@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script language="JavaScript" src="src/db/DbObj.js"></script>
+		<script language="JavaScript" src="src/db/Rule.js"></script>
+		<script language="JavaScript" src="src/db/Word.js"></script>
+		<script language="JavaScript" src="../src/util.js"></script>
+		<script language="JavaScript">
+			var ruleList = new Array();
+			var appliedRuleMap = new Array();
+			chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab)
+			{
+				// ON/OFF
+				var isDisabled = ('true' == localStorage.blockDisabled);
+				if (isDisabled) {
+					
+					return;
+				}
+				var url = tab.url;
+				if (url !== undefined && changeInfo.status == "complete") 
+				{
+					chrome.tabs.sendRequest(tabId,
+					{
+						command:'init',
+						rules: ruleList,
+						tabId: tabId
+					},
+					function(list)
+					{
+						try {
+							chrome.browserAction.setIcon(
+							{
+								path:((list.length>0)?'icon.png':'icon_disabled.png'),
+								tabId:tabId
+							});
+						} catch (ex) 
+						{
+							alert(ex)
+						}
+						appliedRuleMap[tab.id] = list;
+						chrome.tabs.sendRequest(tab.id, 
+						{
+							command: 'badge'
+						}, getBadgeAction(tabId));
+					});
+				}
+			});
+			function getBadgeAction (tabId) 
+			{
+				return function (count) 
+				{
+					try 
+					{
+						chrome.browserAction.setBadgeText({
+							text:''+count,
+							tabId: tabId
+						});
+						chrome.browserAction.setTitle({
+							title:count+"件ブロックしました",
+							tabId:tabId
+						});
+					} catch (ex) {
+						alert(ex)
+					}
+					chrome.tabs.sendRequest(tabId, {
+						command: 'badge'
+					}, getBadgeAction(tabId));
+				}
+			};
+			var initDone = false;
+			var peer = RulePeer.getInstance();
+			var wordPeer = WordPeer.getInstance();
+			
+			
+			function onStart () 
+			{
+				peer.createTable(createWordTable);
+			}
+			function createWordTable () 
+			{
+				wordPeer.createTable(loadLists);
+			}
+			function loadLists () 
+			{
+				peer.select('', 
+					onRuleListLoaded, null);
+			}
+			function onRuleListLoaded (list) 
+			{
+				ruleList = list;
+				wordPeer.select('', onWordListLoaded, null);
+			}
+			function onWordListLoaded (wordList) 
+			{
+				var ruleMap = new Array();
+				for (var i=0, l=ruleList.length; i<l; i++) 
+				{
+					ruleMap[ruleList[i].rule_id] = ruleList[i];
+				}
+				for (var i = 0, l = wordList.length; i < l; i++) 
+				{
+					var rule = ruleMap[wordList[i].rule_id];
+					if (rule) 
+					{
+						rule.words.push(wordList[i]);
+					}
+				}
+				loadRulePickerSrc();
+			}
+			
+			function reloadLists () 
+			{
+				loadLists();
+			}
+			
+			function openRulePicker (selectedRule) 
+			{
+				try 
+				{
+					chrome.tabs.getSelected(null,function(tab)
+					{
+						chrome.tabs.sendRequest(tab.id, 
+						{
+							command: 'ruleMaker',
+							src: rulePickerSrc,
+							rule: selectedRule,
+							appliedRuleList: appliedRuleMap[tab.id]
+						}, getRulePickerOnCommandFunc(tab.id));
+					});
+				} 
+				catch (ex) {alert(ex)}
+			}
+			function getRulePickerOnCommandFunc (tabId)
+			{
+				return function (command)
+				{
+					try 
+					{
+						var exPeer;
+						if ('save' == command.command) 
+						{
+							var rule =command.obj;
+							var saveRuleTask = new SaveRuleTask(rule, reloadLists, tabId);
+							saveRuleTask.exec();
+						}
+							
+						if ('delete' == command.command) 
+						{
+							exPeer.deleteObject(command.obj, reloadLists);
+						}
+					} 
+					catch (e) 
+					{
+						alert(e)
+					}
+					chrome.tabs.getSelected(null,function(tab)
+					{
+						chrome.tabs.sendRequest(tab.id, 
+						{
+							command: 'ruleMakerRegister'
+						}, rulePickerOnCommand);
+					});
+					
+				}
+			}
+			function getAppliedRules (cb) 
+			{
+				chrome.tabs.getSelected(null,function(tab)
+				{
+					try 
+					{
+						cb(appliedRuleMap[tab.id]);
+					} 
+					catch (ex) {alert(ex)}
+				});
+				
+			}
+			var rulePickerSrc = '';
+			function loadRulePickerSrc()
+			{
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function()
+				{
+					if (xhr.readyState==4) 
+					{
+						if (xhr.status==0 || xhr.status==200) 
+						{
+							rulePickerBody = xhr.responseXML.getElementById('rule_maker_body');
+							var div = document.createElement('DIV');
+							div.appendChild(rulePickerBody);
+							rulePickerSrc = div.innerHTML;
+						}
+					}
+					
+				}
+				xhr.open("GET", chrome.extension.getURL('/rule_maker.html'), true);
+				xhr.send();
+			}
+			
+			var SaveRuleTask = function (rule, reloadLists, tabId) 
+			{
+				var saveWords = new Array();
+				var deleteWords = new Array();
+				alert("nyaaaa");
+				
+				for (var i=0, l=rule.words.length; i<l; i++) 
+				{
+					var word = rule.words[i];
+					if (word.isNew) 
+					{
+						saveWords.push(word);
+					}
+					else if (word.deleted) 
+					{
+						deleteWords.push(word);
+					}
+				}
+				
+				this.rule = rule;
+				this.tabId = tabId;
+				
+				this.saveWords = saveWords;
+				this.deleteWords = deleteWords;
+				
+				this.reloadLists /* function */ = reloadLists;
+				//すべてがおわったらreloadListsを実行する				
+			};
+			SaveRuleTask.prototype.exec = function () 
+			{
+				//peer, wordPeer
+				peer.saveObject(this.rule, this.getNextTask());	
+			};
+			SaveRuleTask.prototype.getNextTask = function () 
+			{
+				var self = this;
+				return function () 
+				{
+					var nextSaveWord = self.getNextSaveWord();
+					if (nextSaveWord) 
+					{
+						wordPeer.saveObject(nextSaveWord, self.getNextTask());
+						return;
+					}
+					var nextDeleteWord = self.getNextDeleteWord();
+					if (nextDeleteWord) 
+					{
+						wordPeer.deleteObject(nextDeleteWord, self.getNextTask());
+						return;
+					}
+					chrome.tabs.sendRequest(self.tabId,
+					{
+						command:'ruleSaveDone',
+						rules: ruleList,
+						tabId: self.tabId,
+						rule: self.rule
+					}
+					, getRulePickerOnCommandFunc(self.tabId)
+					);
+					self.reloadLists();
+				}
+			};
+			SaveRuleTask.prototype.getNextSaveWord = function () 
+			{
+				for (var i=0, l=this.saveWords.length; i<l; i++) 
+				{
+					var word = this.saveWords[i];
+					if (word.dirty) 
+					{
+						word.rule_id = this.rule.rule_id;
+						return word;
+					}
+				}
+				return null;
+			};
+			SaveRuleTask.prototype.getNextDeleteWord = function () 
+			{
+				for (var i=0, l=this.deleteWords.length; i<l; i++) 
+				{
+					var word = this.deleteWords[i];
+					if (word.dirty) 
+					{
+						word.rule_id = this.rule.rule_id;
+						return word;
+					}
+				}
+			};
+		</script>
+		<title>CustomBlocker</title>
+	</head>
+	<body onLoad="onStart()">
+	</body>
+</html>

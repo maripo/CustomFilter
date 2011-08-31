@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="./css/index.css"/>
+		<script language="JavaScript" src="src/db/DbObj.js"></script>
+		<script language="JavaScript" src="src/db/Rule.js"></script>
+		<script language="JavaScript" src="src/db/Word.js"></script>
+		<script language="JavaScript" src="../src/util.js"></script>
+		<title>CustomBlocker</title>
+	</head>
+	<body style="width:480px;" onload="getAppliedRules()">
+		<div id="header">
+			<div class="menu">
+				<input type="button" id="buttonOn" onclick="setBlockOn(true)" value="ON"/>
+				<input type="button" id="buttonOff" onclick="setBlockOn(false)" value="OFF"/>
+				<a href="javascript:void(0)" onclick="openPreference()">Preference</a>
+				<a href="javascript:void(0)" onclick="window.close()">[x]</a>
+			</div>
+			<h1>CustomBlocker</h1>
+		</div>
+		<h2>Active Rules</h2>
+		<ul id="activeRules">
+		</ul>
+		<div>
+			<a href="javascript:void(0)" onclick="openRuleMaker()">[+] New Rule for this Site</a>
+		</div>
+		<script language="JavaScript">
+			var peer = RulePeer.getInstance();
+			function openRuleMaker()
+			{
+				var bgWindow = chrome.extension.getBackgroundPage();
+				bgWindow.openRulePicker();
+				window.close();
+			}
+			
+			function getAppliedRules()
+			{
+				refreshButton();
+				
+				var bgWindow = chrome.extension.getBackgroundPage();
+				
+				bgWindow.getAppliedRules(function(list)
+				{
+					try 
+					{
+						renderApplierRules(list);
+					} 
+					catch (ex) {
+					}
+				});
+				
+			}
+			function setBlockOn (on) 
+			{
+				localStorage.blockDisabled = (on)?'false':'true';
+				refreshButton();
+			}
+			function refreshButton () 
+			{
+					var isDisabled = ('true' == localStorage.blockDisabled);
+					document.getElementById('buttonOn').disabled = !isDisabled;
+					document.getElementById('buttonOff').disabled = isDisabled;
+			}
+			function renderApplierRules(list)
+			{
+				var ul = document.getElementById('activeRules');
+				if (list && list.length > 0) 
+				{
+					for (var i = 0, l = list.length; i < l; i++) 
+					{
+						var rule = list[i];
+						var li = document.createElement('LI');
+						li.innerHTML = Util.escapeHTML(rule.title);
+						var editButton = document.createElement('INPUT');
+						editButton.type = 'BUTTON';
+						editButton.addEventListener('click', getEditRuleAction(rule), true);
+						editButton.value = "EDIT";
+						
+						
+						var disableButton = document.createElement('input');
+						disableButton.type = 'BUTTON';
+						disableButton.value = (rule.is_disabled)?'OFF':'ON';
+						disableButton.addEventListener ('click', getDisableAction(rule,disableButton), false);
+						
+						li.appendChild(disableButton);
+						li.appendChild(editButton);
+						ul.appendChild(li);
+					}
+				}
+				else {
+					var emptyLi = document.createElement('LI');
+					emptyLi.innerHTML = 'None';
+					ul.appendChild(emptyLi);
+				}
+			}
+			
+			function getEditRuleAction(rule)
+			{
+				return function()
+				{
+					var bgWindow = chrome.extension.getBackgroundPage();
+					bgWindow.openRulePicker(rule);
+					window.close();
+				}
+			}
+			
+			function openPreference()
+			{
+				window.open('pref/index.html');
+			}
+			function getDisableAction (rule, disableButton)
+			{
+				return function (event)
+				{
+					rule.is_disabled = !rule.is_disabled;
+					disableButton.value = (rule.is_disabled)?'OFF':'ON';
+					try 
+					{
+						peer.saveObject(rule, function () 
+						{
+							var bgWindow = chrome.extension.getBackgroundPage();
+							bgWindow.reloadLists();
+						});
+					}
+					catch (ex)
+					{
+						document.write(ex);
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

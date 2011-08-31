@@ -1,0 +1,29 @@
+{
+  "name" : "CustomBlocker",
+  "version" : "1.0",
+  "description" : "フィルタを自由に作れる",
+  "background_page" : "index.html",
+  "browser_action": {
+      "default_title": "CustomBlocker preference",
+      "default_icon": "icon.png",
+      "popup": "index.html"
+  },
+  "options_page":"pref/index.html",
+  "background_page":"background_page.html",
+  "content_scripts" : [
+    {
+      "matches" : [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js" : ["src/util.js","src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js", "src/contentscript.js", "src/rule_maker.js","src/path_analyzer.js"],
+      "run_at" : "document_idle",
+      "all_frames" : false
+    }
+  ],
+  "permissions" : ["background","tabs","chrome://favicon/"]
+  ,
+  "icons" : {
+    "48" : "icon.png"
+  }
+}

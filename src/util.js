@@ -13,17 +13,11 @@ Util.escapeHTML = function (str)
 Util.getElementsByXPath = function (xpath)
 {
 	var list = new Array();
-	try 
+	var result = document.evaluate(xpath, document, null, XPathResult.ANY_TYPE, null);
+	var node;
+	while (node = result.iterateNext()) 
 	{
-		var result = document.evaluate(xpath, document, null, XPathResult.ANY_TYPE, null);
-		var node;
-		while (node = result.iterateNext()) 
-		{
-			list.push(node);
-		}
-	} 
-	catch (e) 
-	{
+		list.push(node);
 	}
 	return list;
 };

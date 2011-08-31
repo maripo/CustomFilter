@@ -28,7 +28,7 @@
 			<div class="section">
 				<h2>条件</h2>
 				<div class="input_section"><div class="label"><span style="border:solid 1px blue">　</span>XPath</div><input type="text" id="rule_maker_search_block_xpath"/><input type="button" value="XPathを取得" id="rule_maker_button_search_block_xpath"/><a href="#" class="help">?</a></div>
-				<div class="section_alert" id="rule_maker_alert_search_block_xpath">該当する要素がありません</div>
+				<div class="section_alert" style="display:none" id="rule_maker_alert_search_block_xpath">XPathが不正です</div>
 				<div class="input_section"><div class="label">説明</div><input type="text" id="rule_maker_search_block_description"/></div>
 				<div class="description">
 					該当する要素の中にNGワードが含まれていた場合に発動します
@@ -37,7 +37,7 @@
 			<div class="section">
 				<h2>隠す要素</h2>
 				<div class="input_section"><div class="label"><span style="border:solid 1px red">　</span> XPath</div><input type="text" id="rule_maker_hide_block_xpath"/><input type="button" value="XPathを取得" id="rule_maker_button_hide_block_xpath"/><a href="#" class="help">?</a></div>
-				<div class="section_alert" id="rule_maker_alert_hide_block_xpath">該当する要素がありません</div>
+				<div class="section_alert" style="display:none" id="rule_maker_alert_hide_block_xpath">XPathが不正です</div>
 				<div class="input_section"><div class="label">説明</div><input type="text" id="rule_maker_hide_block_description"/></div>
 				<div class="description">
 					「検索する要素」にNGワードが含まれていると、ここで指定した要素を非表示にします

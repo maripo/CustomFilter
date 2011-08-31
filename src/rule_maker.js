@@ -389,8 +389,11 @@ RuleMakerDialog.prototype.getRefreshSearchBlockXPathAction = function ()
 };
 RuleMakerDialog.prototype.refreshXPathSelectedStyles = function ()
 {
+	var searchAlertElement = document.getElementById('rule_maker_alert_search_block_xpath');
+	var hideAlertElement = document.getElementById('rule_maker_alert_search_block_xpath');
 	try {
 		var xpathNodes = Util.getElementsByXPath(document.getElementById('rule_maker_hide_block_xpath').value);
+		hideAlertElement.style.display = 'none';
 		if (this.prevHideXPathNodes)
 		{
 			for (var i=0, l=this.prevHideXPathNodes.length; i<l; i++) {
@@ -405,10 +408,12 @@ RuleMakerDialog.prototype.refreshXPathSelectedStyles = function ()
 	}
 	catch (e)
 	{
-		console.log("TODO RuleMakerDialog.prototype.refreshHideBlockXPath ERROR "+ e);
+		alert("hide error");
+		hideAlertElement.style.display = 'block';
 	}
 	try {
 		var xpathNodes = Util.getElementsByXPath(document.getElementById('rule_maker_search_block_xpath').value);
+		searchAlertElement.style.display = 'none';
 		if (this.prevSearchXPathNodes)
 		{
 			for (var i=0, l=this.prevSearchXPathNodes.length; i<l; i++) {
@@ -423,7 +428,7 @@ RuleMakerDialog.prototype.refreshXPathSelectedStyles = function ()
 	}
 	catch (e)
 	{
-		console.log("TODO RuleMakerDialog.prototype.refreshHideBlockXPath ERROR "+ e);
+		searchAlertElement.style.display = 'block';
 	}
 	
 };

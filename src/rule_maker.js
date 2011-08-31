@@ -347,7 +347,6 @@ var RuleMakerDialog = function(rule, src, _zIndex, ruleMaker)
 	document.getElementById('rule_maker_search_block_xpath').addEventListener ('keyup',this.getRefreshSearchBlockXPathAction(), false);
 	document.getElementById('rule_maker_hide_block_xpath').addEventListener ('change',this.getRefreshHideBlockXPathAction(), false);
 	document.getElementById('rule_maker_search_block_xpath').addEventListener ('change',this.getRefreshSearchBlockXPathAction(), false);
-	document.getElementById('rule_maker_title').focus();
 	document.getElementById('rule_maker_test_button').addEventListener('click', function () 
 	{
 		window.ruleMaker.applyInput();

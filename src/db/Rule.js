@@ -77,5 +77,25 @@ Rule.Validator.validate = function (params)
 	//site_regexpが一致しない (警告)
 	if (''==params.title) errors.push("ルールのタイトルが空です。");
 	if (''==params.site_regexp) errors.push("サイトの正規表現が空です。");
+	if (''!=params.search_block_xpath) {
+		try
+		{
+			getElementsByXPath(params.search_block_xpath);
+		}
+		catch (e)
+		{
+			errors.push('ブロック対象XPathが不正です。');
+		}
+	}
+	if (''!=params.hide_block_xpath) {
+		try
+		{
+			getElementsByXPath(params.hide_block_xpath);
+		}
+		catch (e)
+		{
+			errors.push('検索対象XPathが不正です。');
+		}
+	}
 	return errors;
 };

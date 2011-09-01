@@ -390,9 +390,10 @@ RuleMakerDialog.prototype.getRefreshSearchBlockXPathAction = function ()
 RuleMakerDialog.prototype.refreshXPathSelectedStyles = function ()
 {
 	var searchAlertElement = document.getElementById('rule_maker_alert_search_block_xpath');
-	var hideAlertElement = document.getElementById('rule_maker_alert_search_block_xpath');
+	var hideAlertElement = document.getElementById('rule_maker_alert_hide_block_xpath');
 	try {
-		var xpathNodes = Util.getElementsByXPath(document.getElementById('rule_maker_hide_block_xpath').value);
+		var input = document.getElementById('rule_maker_hide_block_xpath');
+		var xpathNodes = (input.value!='')?Util.getElementsByXPath(input.value):[];
 		hideAlertElement.style.display = 'none';
 		if (this.prevHideXPathNodes)
 		{
@@ -408,11 +409,11 @@ RuleMakerDialog.prototype.refreshXPathSelectedStyles = function ()
 	}
 	catch (e)
 	{
-		alert("hide error");
 		hideAlertElement.style.display = 'block';
 	}
 	try {
-		var xpathNodes = Util.getElementsByXPath(document.getElementById('rule_maker_search_block_xpath').value);
+		var input = document.getElementById('rule_maker_search_block_xpath');
+		var xpathNodes = (input.value!='')?Util.getElementsByXPath(input.value):[];
 		searchAlertElement.style.display = 'none';
 		if (this.prevSearchXPathNodes)
 		{

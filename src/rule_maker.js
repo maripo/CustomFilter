@@ -391,9 +391,12 @@ RuleMakerDialog.prototype.refreshXPathSelectedStyles = function ()
 {
 	var searchAlertElement = document.getElementById('rule_maker_alert_search_block_xpath');
 	var hideAlertElement = document.getElementById('rule_maker_alert_hide_block_xpath');
+	var searchCountElement = document.getElementById('rule_maker_count_search_block_xpath');
+	var hideCountElement = document.getElementById('rule_maker_count_hide_block_xpath');
 	try {
 		var input = document.getElementById('rule_maker_hide_block_xpath');
 		var xpathNodes = (input.value!='')?Util.getElementsByXPath(input.value):[];
+		hideCountElement.innerHTML = xpathNodes.length;
 		hideAlertElement.style.display = 'none';
 		if (this.prevHideXPathNodes)
 		{
@@ -409,11 +412,14 @@ RuleMakerDialog.prototype.refreshXPathSelectedStyles = function ()
 	}
 	catch (e)
 	{
+		//Invalid XPath
 		hideAlertElement.style.display = 'block';
+		hideCountElement.innerHTML = '-';
 	}
 	try {
 		var input = document.getElementById('rule_maker_search_block_xpath');
 		var xpathNodes = (input.value!='')?Util.getElementsByXPath(input.value):[];
+		searchCountElement.innerHTML = xpathNodes.length;
 		searchAlertElement.style.display = 'none';
 		if (this.prevSearchXPathNodes)
 		{
@@ -429,7 +435,9 @@ RuleMakerDialog.prototype.refreshXPathSelectedStyles = function ()
 	}
 	catch (e)
 	{
+		//Invalid XPath
 		searchAlertElement.style.display = 'block';
+		searchCountElement.innerHTML = '-';
 	}
 	
 };

@@ -11,58 +11,37 @@ var PathAnalyzer = function (_node)
 {
 	this.targetNode = _node;
 	this.pathList = null;
-	var ancestors = new Array/*<PathElement>*/();
+	this.ancestors = new Array/*<PathElement>*/();
+};
+PathAnalyzer.prototype.createPathList = function () 
+{
 	{
-		var node = _node;
+		var node = this.targetNode;
 		while (node) 
 		{
-			ancestors.push(new PathElement(node));
+			this.ancestors.push(new PathElement(node));
 			if (document.body == node) break;
 			node = node.parentNode;
 		}
 	}
-	for (var i=0, l=ancestors.length; i<l; i++) 
+	for (var i=0, l=this.ancestors.length; i<l; i++) 
 	{
-		var childNode = (i>0)?ancestors[i-1]:null;
-		var node = ancestors[i];
+		var childNode = (i>0)? this.ancestors[i-1]:null;
+		var node = this.ancestors[i];
 		node.isTarget = (0==i);
-		node.countSimilarChildNodes(childNode,_node);
 	}
-	var currentEdgeElements = new Array();
-	this.sequence = new Array();
-	for (var i = 0, l = ancestors.length; i < l; i++) 
-	{
-		var element = ancestors[i];
-		if (element.similarChildNodesCount<=1 && i>0 && i<ancestors.length-1) 
-		{
-			currentEdgeElements.push(element);
-		}
-		else 
-		{
-			if (i > 0) 
-			{
-				this.sequence.push(new PathEdge(currentEdgeElements));
-				currentEdgeElements = new Array();
-			}
-			this.sequence.push(new PathNode(element));
-		}
-	}
-	this.ancestors = ancestors;
-};
-PathAnalyzer.prototype.createPathList = function () 
-{
-	if (this.pathList) return this.pathList;
-	this.pathList = new Array();
-	var types = new Array();
-	this.filters = new Array();
-	this.trace(0, types);
-	if (this.filters.length>0) 
-	{
-		for (var i = 0, l = this.filters.length; i < l; i++) 
-		{
-			this.filters[i].analyze(this.pathList);
-		}
-	}
+	//ここから先をおしゃれに実装すべし
+	/*
+	 * 判断の基準になるのは
+	 * 自身のclass (最強) 
+	 * 	- 自身が複数クラスなら
+	 *    - そのすべてのクラスについてマッチを調べる
+	 *  - 自身が単独クラスなら
+	 *    - @class=["hoge"]
+	 *    - 部分一致
+	 * tagName (必須)
+	 * id (自分自身にidがついてる場合は必ず出す。絞り込む場合は、その上位のidをいくつか使う)
+	 */
 	return this.pathList;
 };
 
@@ -170,11 +149,6 @@ PathElement.prototype.countSimilarChildNodes = function (child, rootNode)
 	this.childTagName = child.node.tagName;
 	this.similarChildNodesCount = count;
 }
-PathElement.notEmpty = function (str) 
-{
-	return (str && ''!=str);
-}
-
 var PartialFilter = function (targetNode, edge, branchNode,index, isMulti, allowId) 
 {
 		this.targetNode = targetNode;
@@ -441,7 +415,14 @@ FilterCondition.prototype.getFullXPath = function ()
 	else 
 		return this.xpath;
 }
+// TODO フルパスを表示できるようにすべき 
+// TODO Utilに引っ越すべき
+PathElement.notEmpty = function (str) 
+{
+	return (str && ''!=str);
+}
 
+// TODO Utilに引っ越すべき
 function getRelativeElementsByXPath(targetNode, xpath)
 {
 	var list = new Array();

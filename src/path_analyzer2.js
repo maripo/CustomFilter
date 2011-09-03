@@ -2,6 +2,11 @@
  * PathAnalyzer
  * @param {Object} _node
  */
+/*
+ * Usage
+			var analyzer = new PathAnalyzer(node);
+			var list = analyzer.createPathList();
+ */
 var PathAnalyzer = function (_node) 
 {
 	this.targetNode = _node;

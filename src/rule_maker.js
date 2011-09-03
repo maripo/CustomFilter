@@ -791,3 +791,13 @@ RuleElement.getUnselectForSearchFunc = function (element)
 		
 	};
 };
+
+/**
+ * PathFilter
+ * @param {Object} xpath
+ */
+var PathFilter = function (xpath) 
+{
+	this.xpath = xpath;
+	this.elements = Util.getElementsByXPath(xpath);
+}

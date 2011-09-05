@@ -16,7 +16,7 @@
         "http://*/*",
         "https://*/*"
       ],
-      "js" : ["src/util.js","src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js", "src/contentscript.js", "src/rule_maker.js","src/path_analyzer.js"],
+      "js" : ["src/util.js","src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js", "src/contentscript.js", "src/rule_maker.js","src/path_analyzer2.js"],
       "run_at" : "document_idle",
       "all_frames" : false
     }

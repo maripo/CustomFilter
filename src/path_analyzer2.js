@@ -1,6 +1,5 @@
 /**
  * PathAnalyzer
- * @param {Object} _node
  */
 /*
  * Usage
@@ -18,10 +17,10 @@ PathAnalyzer.prototype.createPathList = function ()
 	{
 		var node = this.targetNode;
 		var index = 0;
-		while (node && 'BODY'!=node.className) 
+		while (node) 
 		{
-			this.ancestors.push(new PathElement(node, index));
 			if (document.body == node) break;
+			this.ancestors.push(new PathElement(node, index));
 			node = node.parentNode;
 			index ++;
 		}
@@ -38,11 +37,24 @@ PathAnalyzer.prototype.createPathList = function ()
 	this.scan(0, new Array());
 	for (var i=0, l=this.uniqPathList.length; i<l; i++)
 	{
-		console.log(this.uniqPathList[i])
 		this.pathList.push(new PathFilter(this.uniqPathList[i]));
 	}
-	console.log("length=" + this.uniqPathList.length);
-	return this.pathList; 
+	this.pathList.sort(
+			function(a,b)
+			{
+					return (a.elements.length==b.elements.length)?
+							(a.xpath.length-b.xpath.length):(a.elements.length - b.elements.length);
+			});
+	var list = new Array();
+	var prevPath = null;
+	for (var i=0, l=this.pathList.length; i<l; i++)
+	{
+		var path = this.pathList[i];
+		if (!prevPath || prevPath.elements.length!=path.elements.length)
+			list.push(path);
+		prevPath = path;
+	}
+	return list; 
 };
 PathAnalyzer.SEQ_LIMIT = 2;
 PathAnalyzer.prototype.scan = function (index, seq)
@@ -51,7 +63,8 @@ PathAnalyzer.prototype.scan = function (index, seq)
 	for (var i=0, l=current.options.length; i<l; i++) 
 	{
 		var cloneSeq = PathAnalyzer.cloneArray(seq);
-		cloneSeq.push(current.options[i]);
+		var option = current.options[i]; 
+		cloneSeq.push({path:option, index:index});
 		if (cloneSeq.length<PathAnalyzer.SEQ_LIMIT && this.ancestors.length>index+1)
 			this.scan(index+1, PathAnalyzer.cloneArray(PathAnalyzer.cloneArray(cloneSeq)));
 		this.addSeq(cloneSeq);
@@ -59,13 +72,28 @@ PathAnalyzer.prototype.scan = function (index, seq)
 	//Add Nothing
 	if (index>0 && seq.length<PathAnalyzer.SEQ_LIMIT && this.ancestors.length>index+1)
 		this.scan(index+1, PathAnalyzer.cloneArray(seq));
+	if (current.node.id) {
+		var cloneSeq = PathAnalyzer.cloneArray(seq);
+		cloneSeq.push({path:'id("'+current.node.id+'")',index:index, hasId:true});
+		this.addSeq(cloneSeq);
+	}
 };
 PathAnalyzer.prototype.addSeq = function (seq)
 {
 	var str = '';
 	for (var i=0, l=seq.length; i<l; i++)
 	{
-		str = seq[i] + str;
+		var next = (i<l-1)?seq[i+1]:null;
+		var current = seq[i];
+		str = current.path + str;
+		if (current.hasId) 
+		{
+			
+		}
+		else if ((next && next.index==current.index+1) || 'BODY'==current.path)
+			str = '/' + str;
+		else
+			str = '//' + str;
 	}
 	if (!Util.arrayContains(this.uniqPathList, str)) this.uniqPathList.push(str);
 }
@@ -77,7 +105,7 @@ PathAnalyzer.cloneArray = function (orig)
 	var array = new Array();
 	for (var i=0, l=orig.length; i<l; i++) 
 	{
-		array[i] = orig[i]; 
+		array[i] = {path:orig[i].path, index:orig[i].index}; 
 	}
 	return array;
 };
@@ -98,22 +126,22 @@ var PathElement = function (node, index)
 	var tagName = this.node.tagName;
 	
 	this.options = new Array();
-	if (this.classes.length>1 || index == 0)
+	if ((this.classes.length>1 || index == 0) && 'BODY'!=tagName)
 	{
 		for (var i=0, l=this.classes.length; i<l; i++)
 		{
-			var xpath = '//'
-				+tagName
+			var xpath = tagName
 				+'[contains(concat(" ",normalize-space(@class)," "),"'
 				+this.classes[i]
 				+'")]';
 			this.options.push(xpath);
 		}
 	}
-	else if (this.classes.length==1)
+	else if (this.classes.length==1 && 'BODY'!=tagName)
 	{
 		var className = this.classes[0];
-		this.options.push('//'+this.node.tagName+'[@class="'+className+'"]');
+		this.options.push(this.node.tagName+'[@class="'+className+'"]');
 	}
-	this.options.push("//"+this.node.tagName);	
+	if ('DIV'!=tagName && 'UL' != tagName)
+		this.options.push(this.node.tagName);	
 };

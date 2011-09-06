@@ -48,7 +48,7 @@ Util.getRelativeElementsByXPath = function(targetNode, xpath)
 };
 Util.arrayContains = function (array, str) 
 {
-	for (var i=0, l=array.length; i<l; i++) if (str==array[i].xpath) return true;
+	for (var i=0, l=array.length; i<l; i++) if (str==array[i]) return true;
 	return false;
 };
 

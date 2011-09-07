@@ -42,17 +42,20 @@ RuleMaker.prototype.getOnMouseoverAction = function (node)
 			origStyle = selectedNode.style.outline;
 			origHref = selectedNode.href;
 			selectedNode.href = 'javascript:void(0)'
-			if (self.ruleMakerDialog.xpathPickerTarget == RuleMakerDialog.XPATH_PICKER_TARGET_NONE) 
+			if (self.ruleMakerDialog.xpathPickerTarget == RuleMakerDialog.XPATH_PICKER_TARGET_NONE
+					&& selectedNode.unfocus) 
 			{
 				selectedNode.unfocus();
 			}
-			else if (self.ruleMakerDialog.xpathPickerTarget == RuleMakerDialog.XPATH_PICKER_TARGET_SEARCH) 
+			else if (self.ruleMakerDialog.xpathPickerTarget == RuleMakerDialog.XPATH_PICKER_TARGET_SEARCH
+					&& selectedNode.focusForSearch) 
 			{
 				selectedNode.focusForSearch();
 			}
-			else if (self.ruleMakerDialog.xpathPickerTarget == RuleMakerDialog.XPATH_PICKER_TARGET_HIDE) 
+			else if (self.ruleMakerDialog.xpathPickerTarget == RuleMakerDialog.XPATH_PICKER_TARGET_HIDE 
+					&& selectedNode.focusForHide) 
 			{
-				selectedNode.focusForHide();
+					selectedNode.focusForHide();
 			}
 			return;
 		}
@@ -401,12 +404,14 @@ RuleMakerDialog.prototype.refreshXPathSelectedStyles = function ()
 		if (this.prevHideXPathNodes)
 		{
 			for (var i=0, l=this.prevHideXPathNodes.length; i<l; i++) {
-				this.prevHideXPathNodes[i].unselectForHide();
+				if (this.prevHideXPathNodes[i].unselectForHide)
+					this.prevHideXPathNodes[i].unselectForHide();
 			}
 		}
 		for (var i=0, l=xpathNodes.length; i<l; i++)
 		{
-			xpathNodes[i].selectForHide();
+			if (xpathNodes[i].selectForHide)
+				xpathNodes[i].selectForHide();
 		}
 		this.prevHideXPathNodes = xpathNodes;
 	}
@@ -424,12 +429,14 @@ RuleMakerDialog.prototype.refreshXPathSelectedStyles = function ()
 		if (this.prevSearchXPathNodes)
 		{
 			for (var i=0, l=this.prevSearchXPathNodes.length; i<l; i++) {
-				this.prevSearchXPathNodes[i].unselectForSearch();
+				if (this.prevSearchXPathNodes[i].unselectForSearch)
+					this.prevSearchXPathNodes[i].unselectForSearch();
 			}
 		}
 		for (var i=0, l=xpathNodes.length; i<l; i++)
 		{
-			xpathNodes[i].selectForSearch();
+			if (xpathNodes[i].selectForSearch)
+				xpathNodes[i].selectForSearch();
 		}
 		this.prevSearchXPathNodes = xpathNodes;
 	}
@@ -585,7 +592,8 @@ PathPickerDialog.prototype.show = function (event, list, target)
 		var elements = this.currentFilter.elements;
 		for (var i=0, l=elements.length; i<l; i++) 
 		{
-			elements[i].tmpUnselect();
+			if (elements[i].tmpUnselect)
+				elements[i].tmpUnselect();
 		}
 	}
 };
@@ -611,7 +619,7 @@ PathPickerDialog.prototype.getOnmouseroverAction = function (filter, target)
 			var xpathNodes = Util.getElementsByXPath(filter.xpath);
 			for (var i = 0; i < xpathNodes.length; i++) 
 			{
-				if (xpathNodes[i] != selectedNode && !xpathNodes[i].avoidStyle) 
+				if (xpathNodes[i] != selectedNode && !xpathNodes[i].avoidStyle && xpathNodes[i].tmpSelectForHide) 
 				{
 					if (isTargetHide) xpathNodes[i].tmpSelectForHide();
 					else  xpathNodes[i].tmpSelectForSearch();

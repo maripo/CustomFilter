@@ -7,45 +7,6 @@
 		<script language="JavaScript" src="src/db/Word.js"></script>
 		<script language="JavaScript" src="../src/util.js"></script>
 		<script language="JavaScript">
-			var ruleList = new Array();
-			var appliedRuleMap = new Array();
-			chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab)
-			{
-				// ON/OFF
-				var isDisabled = ('true' == localStorage.blockDisabled);
-				if (isDisabled) {
-					
-					return;
-				}
-				var url = tab.url;
-				if (url !== undefined && changeInfo.status == "complete") 
-				{
-					chrome.tabs.sendRequest(tabId,
-					{
-						command:'init',
-						rules: ruleList,
-						tabId: tabId
-					},
-					function(list)
-					{
-						try {
-							chrome.browserAction.setIcon(
-							{
-								path:((list.length>0)?'icon.png':'icon_disabled.png'),
-								tabId:tabId
-							});
-						} catch (ex) 
-						{
-							alert(ex)
-						}
-						appliedRuleMap[tab.id] = list;
-						chrome.tabs.sendRequest(tab.id, 
-						{
-							command: 'badge'
-						}, getBadgeAction(tabId));
-					});
-				}
-			});
 			function getBadgeAction (tabId) 
 			{
 				return function (count) 
@@ -164,6 +125,43 @@
 					
 				}
 			}
+			var tabOnUpdate = function(tabId, changeInfo, tab)
+			{
+				// ON/OFF
+				var isDisabled = ('true' == localStorage.blockDisabled);
+				if (isDisabled) {
+					return;
+				}
+				var url = tab.url;
+				if (url !== undefined && changeInfo.status == "complete") 
+				{
+					chrome.tabs.sendRequest(tabId,
+					{
+						command:'init',
+						rules: ruleList,
+						tabId: tabId
+					},
+					function(list)
+					{
+						try {
+							chrome.browserAction.setIcon(
+							{
+								path:((list.length>0)?'icon.png':'icon_disabled.png'),
+								tabId:tabId
+							});
+						} catch (ex) 
+						{
+							alert(ex)
+						}
+						appliedRuleMap[tab.id] = list;
+						chrome.tabs.sendRequest(tab.id, 
+						{
+							command: 'badge'
+						}, getBadgeAction(tabId));
+					});
+				}
+			}
+			
 			function getAppliedRules (cb) 
 			{
 				chrome.tabs.getSelected(null,function(tab)
@@ -284,6 +282,14 @@
 					}
 				}
 			};
+
+			var ruleList = new Array();
+			var appliedRuleMap = new Array();
+			if (!chrome.tabs.customBlockerOnUpdateSet)
+			{
+				chrome.tabs.onUpdated.addListener(tabOnUpdate);
+			}
+			chrome.tabs.customBlockerOnUpdateSet = true;			
 		</script>
 		<title>CustomBlocker</title>
 	</head>

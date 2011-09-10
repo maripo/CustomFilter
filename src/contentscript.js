@@ -10,11 +10,15 @@ var RuleExecutor =
 	
 };
 
+var rules;
 window.ruleMaker = null;
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 {
 	if ('init'==request.command &&request.rules) 
 	{
+		if (window.customBlockerInitDone) return;
+		window.customBlockerInitDone = true;
+		rules = new Array();
 		bgCallback = sendResponse;
 		checkRules(request.rules);
 	}
@@ -33,7 +37,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	}
 	else if ('ruleSaveDone==request.command')
 	{
-		alert("RuleSaveDone!!! ID=" + request.rule.rule_id);
 		if (window.ruleMaker)
 		{
 			window.ruleMaker.onSaveDone(request.rule);
@@ -46,7 +49,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	}
 });
 
-var rules = new Array();
 
 function checkRules(list)
 {

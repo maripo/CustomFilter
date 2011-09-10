@@ -288,6 +288,11 @@
 			if (!chrome.tabs.customBlockerOnUpdateSet)
 			{
 				chrome.tabs.onUpdated.addListener(tabOnUpdate);
+				chrome.tabs.onRemoved.addListener
+					(function(tabId, removeInfo) 
+						{
+							appliedRuleMap[tabId] = null;
+						});
 			}
 			chrome.tabs.customBlockerOnUpdateSet = true;			
 		</script>

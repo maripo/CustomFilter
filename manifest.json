@@ -2,7 +2,6 @@
   "name" : "CustomBlocker",
   "version" : "1.0",
   "description" : "フィルタを自由に作れる",
-  "background_page" : "index.html",
   "browser_action": {
       "default_title": "CustomBlocker preference",
       "default_icon": "icon.png",

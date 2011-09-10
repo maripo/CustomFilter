@@ -32,7 +32,7 @@
 			var initDone = false;
 			var peer = RulePeer.getInstance();
 			var wordPeer = WordPeer.getInstance();
-			
+			var existingTabs = new Array();
 			
 			function onStart () 
 			{
@@ -51,6 +51,17 @@
 			{
 				ruleList = list;
 				wordPeer.select('', onWordListLoaded, null);
+			}
+			function removeFromExistingTabList (tabIdToRemove)
+			{
+				for (var id in existingTabs)
+				{
+					if (tabIdToRemove==id) existingTabs[id] = null;
+				}
+			}
+			function addToExistingTabList (tabIdToAdd)
+			{
+				existingTabs[tabIdToAdd] = true;				
 			}
 			function onWordListLoaded (wordList) 
 			{
@@ -127,6 +138,7 @@
 			}
 			var tabOnUpdate = function(tabId, changeInfo, tab)
 			{
+				addToExistingTabList(tabId);
 				// ON/OFF
 				var isDisabled = ('true' == localStorage.blockDisabled);
 				if (isDisabled) {
@@ -291,7 +303,22 @@
 				chrome.tabs.onRemoved.addListener
 					(function(tabId, removeInfo) 
 						{
+							removeFromExistingTabList(tabId);
 							appliedRuleMap[tabId] = null;
+						});
+				chrome.tabs.onSelectionChanged.addListener
+					(function(tabId, selectInfo) 
+						{
+							var ids = new Array();
+							for (var index in existingTabs) 
+							{ 
+								if (existingTabs[index] && index!=tabId)
+								{
+									//TODO send "stop" message to "index" tab.
+								}
+									ids.push(index);
+							}
+							//TODO send "resume" message to "tabIndex" tab.
 						});
 			}
 			chrome.tabs.customBlockerOnUpdateSet = true;			

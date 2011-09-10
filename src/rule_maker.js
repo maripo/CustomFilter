@@ -171,7 +171,6 @@ RuleMaker.prototype.applyInput = function ()
 	this.rule.hide_block_description = document.getElementById('rule_maker_hide_block_description').value;
 	this.rule.block_anyway = document.getElementById('rule_maker_block_anyway').checked;
 	
-	
 };
 RuleMaker.prototype.addWord = function(wordStr)
 {
@@ -304,7 +303,6 @@ var RuleMakerDialog = function(rule, src, _zIndex, ruleMaker)
 		document.getElementById('rule_maker_title').value = document.title;
 		document.getElementById('rule_maker_example_url').value = location.href;
 	}
-	
 	var dragger = document.getElementById('rule_maker_body_drag');
 	dragger.addEventListener('mousedown', this.getOnMousedownAction(), false);
 	document.body.addEventListener('mousemove', this.getOnMousemoveAction(), false);

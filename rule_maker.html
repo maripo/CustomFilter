@@ -13,39 +13,39 @@
 			</div>
 			<div class="section">
 				<h2>ルールのタイトル</h2>
-				<div><input type="text" id="rule_maker_title"/></div>
+				<div><input type="text" class="rule_maker_textbox" id="rule_maker_title"/></div>
 			</div>
 			<div class="section">
 				<h2>サイト</h2>
-				<div class="input_section"><div class="label">正規表現</div><input type="text" id="rule_maker_site_regexp"/><a href="#" class="help">?</a></div>
+				<div class="input_section"><div class="label">正規表現</div><input type="text" class="rule_maker_textbox" id="rule_maker_site_regexp"/><a href="#" class="help">?</a></div>
 				<div class="section_alert" id="rule_maker_alert_site_regexp">このページのURLにはマッチしません</div>
-				<div class="input_section"><div class="label">URL例</div><input type="text" id="rule_maker_example_url"/></div>
-				<div class="input_section"><div class="label">説明</div><input type="text" id="rule_maker_site_description"/></div>
+				<div class="input_section"><div class="label">URL例</div><input type="text" class="rule_maker_textbox" id="rule_maker_example_url"/></div>
+				<div class="input_section"><div class="label">説明</div><input type="text" class="rule_maker_textbox" id="rule_maker_site_description"/></div>
 				<div class="description">
 					該当するサイトでルールが適用されます
 				</div>
 			</div>
 			<div class="section">
 				<h2>条件</h2>
-				<div class="input_section"><div class="label"><span style="border:solid 1px blue" id="rule_maker_count_search_block_xpath">　</span>XPath</div><input type="text" id="rule_maker_search_block_xpath"/><input type="button" value="XPathを取得" id="rule_maker_button_search_block_xpath"/><a href="#" class="help">?</a></div>
+				<div class="input_section"><div class="label"><span style="border:solid 1px blue" id="rule_maker_count_search_block_xpath">　</span>XPath</div><input type="text" class="rule_maker_textbox" id="rule_maker_search_block_xpath"/><input type="button" value="XPathを取得" id="rule_maker_button_search_block_xpath"/><a href="#" class="help">?</a></div>
 				<div class="section_alert" style="display:none" id="rule_maker_alert_search_block_xpath">XPathが不正です</div>
-				<div class="input_section"><div class="label">説明</div><input type="text" id="rule_maker_search_block_description"/></div>
+				<div class="input_section"><div class="label">説明</div><input type="text" class="rule_maker_textbox" id="rule_maker_search_block_description"/></div>
 				<div class="description">
 					該当する要素の中にNGワードが含まれていた場合に発動します
 				</div>
 			</div>
 			<div class="section">
 				<h2>隠す要素</h2>
-				<div class="input_section"><div class="label"><span style="border:solid 1px red" id="rule_maker_count_hide_block_xpath">　</span> XPath</div><input type="text" id="rule_maker_hide_block_xpath"/><input type="button" value="XPathを取得" id="rule_maker_button_hide_block_xpath"/><a href="#" class="help">?</a></div>
+				<div class="input_section"><div class="label"><span style="border:solid 1px red" id="rule_maker_count_hide_block_xpath">　</span> XPath</div><input type="text" class="rule_maker_textbox" id="rule_maker_hide_block_xpath"/><input type="button" value="XPathを取得" id="rule_maker_button_hide_block_xpath"/><a href="#" class="help">?</a></div>
 				<div class="section_alert" style="display:none" id="rule_maker_alert_hide_block_xpath">XPathが不正です</div>
-				<div class="input_section"><div class="label">説明</div><input type="text" id="rule_maker_hide_block_description"/></div>
+				<div class="input_section"><div class="label">説明</div><input type="text" class="rule_maker_textbox" id="rule_maker_hide_block_description"/></div>
 				<div class="description">
 					「検索する要素」にNGワードが含まれていると、ここで指定した要素を非表示にします
 				</div>
 			</div>
 			<div class="section">
 				<h2>NGワード</h2>
-				<div><input type="text" id="rule_maker_keyword"/>
+				<div><input type="text" class="rule_maker_textbox" id="rule_maker_keyword"/>
 				<input type="checkbox" id="rule_maker_keyword_regexp_checkbox"/><label for="rule_maker_keyword_regexp_checkbox">正規表現<a href="#" class="help">?</a></label>
 				<input type="button" id="rule_maker_add_keyword_button" value="ADD"/></div>
 				<div id="rule_maker_keywords"></div>

@@ -89,6 +89,9 @@
 	outline:none!important;
 	border:auto!important;
 }
+#rule_maker_body input[type="text"] {
+	border:solid 1px #888!important;
+}
 #rule_maker_body div.section div.description {
 	clear:both;
 	font-size:0.7em;

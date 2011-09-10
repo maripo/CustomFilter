@@ -35,7 +35,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 			window.ruleMaker.bgCallback = sendResponse;
 		}
 	}
-	else if ('ruleSaveDone==request.command')
+	else if ('ruleSaveDone'==request.command)
 	{
 		if (window.ruleMaker)
 		{
@@ -46,6 +46,18 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	else if ('ruleMakerRegister'==request.command) 
 	{
 		window.ruleMaker.bgCallback = sendResponse;
+	}
+	else if ('stop'==request.command) 
+	{
+		bgCallback = sendResponse;
+		if (blockInterval) window.clearInterval(blockInterval);
+		blockInterval = null;
+	}
+	else if ('resume'==request.command) 
+	{
+		bgCallback = sendResponse;
+		if (!blockInterval)
+			blockInterval = window.setInterval(execBlock, 2000);
 	}
 });
 

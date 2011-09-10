@@ -307,18 +307,35 @@
 							appliedRuleMap[tabId] = null;
 						});
 				chrome.tabs.onSelectionChanged.addListener
-					(function(tabId, selectInfo) 
+					(function(_tabId, selectInfo) 
 						{
+							var tabId = parseInt(_tabId);
 							var ids = new Array();
-							for (var index in existingTabs) 
+							for (var _index in existingTabs) 
 							{ 
+								var index = parseInt(_index);
 								if (existingTabs[index] && index!=tabId)
 								{
 									//TODO send "stop" message to "index" tab.
+									//try
+									//{
+										chrome.tabs.sendRequest(index, 
+											{
+												command: 'stop'
+											}, getBadgeAction(index));
+									//}
+									//catch (ex) {console.log(ex);console.log("errorIndex=" + index);}
 								}
 									ids.push(index);
 							}
-							//TODO send "resume" message to "tabIndex" tab.
+							try
+							{
+								chrome.tabs.sendRequest(tabId, 
+									{
+										command: 'resume'
+									}, getBadgeAction(tabId));
+							}
+							catch (ex) {console.log(ex);}
 						});
 			}
 			chrome.tabs.customBlockerOnUpdateSet = true;			

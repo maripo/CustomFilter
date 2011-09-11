@@ -1,4 +1,7 @@
 {
+	"extLocale": {
+		"message": "ja"
+	},
 	"extDescription": {
 		"message": "サイト・要素・NGワードなどを指定してフィルタを自由に作れる"
 	}

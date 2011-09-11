@@ -204,7 +204,7 @@
 					}
 					
 				}
-				xhr.open("GET", chrome.extension.getURL('/rule_editor.html'), true);
+				xhr.open("GET", chrome.extension.getURL('/rule_editor_'+chrome.i18n.getMessage("extLocale")+'.html'), true);
 				xhr.send();
 			}
 			

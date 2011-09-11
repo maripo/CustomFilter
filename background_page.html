@@ -94,7 +94,7 @@
 					{
 						chrome.tabs.sendRequest(tab.id, 
 						{
-							command: 'ruleMaker',
+							command: 'ruleEditor',
 							src: rulePickerSrc,
 							rule: selectedRule,
 							appliedRuleList: appliedRuleMap[tab.id]
@@ -130,7 +130,7 @@
 					{
 						chrome.tabs.sendRequest(tab.id, 
 						{
-							command: 'ruleMakerRegister'
+							command: 'ruleEditorRegister'
 						}, rulePickerOnCommand);
 					});
 					
@@ -196,7 +196,7 @@
 					{
 						if (xhr.status==0 || xhr.status==200) 
 						{
-							rulePickerBody = xhr.responseXML.getElementById('rule_maker_body');
+							rulePickerBody = xhr.responseXML.getElementById('rule_editor_body');
 							var div = document.createElement('DIV');
 							div.appendChild(rulePickerBody);
 							rulePickerSrc = div.innerHTML;
@@ -204,7 +204,7 @@
 					}
 					
 				}
-				xhr.open("GET", chrome.extension.getURL('/rule_maker.html'), true);
+				xhr.open("GET", chrome.extension.getURL('/rule_editor.html'), true);
 				xhr.send();
 			}
 			

@@ -23,11 +23,11 @@
 		<ul id="activeRules">
 		</ul>
 		<div>
-			<a href="javascript:void(0)" onclick="openRuleMaker()">[+] New Rule for this Site</a>
+			<a href="javascript:void(0)" onclick="openRuleEditor()">[+] New Rule for this Site</a>
 		</div>
 		<script language="JavaScript">
 			var peer = RulePeer.getInstance();
-			function openRuleMaker()
+			function openRuleEditor()
 			{
 				var bgWindow = chrome.extension.getBackgroundPage();
 				bgWindow.openRulePicker();

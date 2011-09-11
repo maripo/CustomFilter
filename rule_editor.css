@@ -2,7 +2,7 @@
  * Rule Maker
  */
 
-#rule_maker_container {
+#rule_editor_container {
 	background-color : white!important;
 	font-size : small!important;
 	text-align : left!important;
@@ -14,13 +14,13 @@
 	top :10px;
 	-webkit-box-shadow: 1px 1px 2px #000!important;
 }
-#rule_maker_body {
+#rule_editor_body {
 	cursor:default!important;
 	color:black!important;
 	font-size:1em!important;
 	width:400px;
 }
-#rule_maker_body * {
+#rule_editor_body * {
 	text-align:left;;
 	background:none!important;
 	text-indent:0px!important;
@@ -30,7 +30,7 @@
 	padding:0px!important;
 	margin:0px!important;
 }
-#rule_maker_body div,#rule_maker_body h2{
+#rule_editor_body div,#rule_editor_body h2{
 	width:auto!important;
 	overflow:visible!important;
 	height:auto!important;
@@ -40,7 +40,7 @@
 	line-height:normal!important;
 	border:none!important;
 }
-#rule_maker_body a {
+#rule_editor_body a {
 	background:none!important;
 	text-indent:0px!important;
 	position:static!important;
@@ -52,12 +52,12 @@
 	margin-top:0px!important;
 	margin-bottom:0px!important;
 }
-#rule_maker_body h2 {
+#rule_editor_body h2 {
 	color:black!important;
 	font-size:1em!important;
 	font-weight:bold!important;
 }
-#rule_maker_body div.section {
+#rule_editor_body div.section {
 	border: solid 1px #888!important;
 	margin:4px!important;
 	padding:4px!important;
@@ -65,11 +65,11 @@
 	-webkit-box-shadow: inset 0px 0px 2px #888!important;
 }
 
-#rule_maker_body div.input_section{
+#rule_editor_body div.input_section{
 	clear:both;
 	height:24px;
 }
-#rule_maker_body div.label{
+#rule_editor_body div.label{
 	height:inherit;
 	width:40px!important;
 	text-align:right!important;
@@ -80,7 +80,7 @@
 	line-height:24px;
 	
 }
-#rule_maker_body input{
+#rule_editor_body input{
 	height:auto!important;
 	color:black!important;
 	font-size:1em!important;
@@ -89,15 +89,15 @@
 	outline:none!important;
 	border:auto!important;
 }
-#rule_maker_body input[type="text"] {
+#rule_editor_body input[type="text"] {
 	border:solid 1px #888!important;
 }
-#rule_maker_body div.section div.description {
+#rule_editor_body div.section div.description {
 	clear:both;
 	font-size:0.7em;
 	color: #444;
 }
-#rule_maker_keywords span.word {
+#rule_editor_keywords span.word {
 	
 	margin:0px 2px 2px 0px!important;
 	padding-left:4px!important;
@@ -105,49 +105,49 @@
 	border-radius:8px!important;
 	white-space:normal;
 }
-#rule_maker_keywords span.regexp {
+#rule_editor_keywords span.regexp {
 	background-color:#fdd!important;
 	border: solid 1px #f77!important;
 }
-#rule_maker_keywords span.not_regexp {
+#rule_editor_keywords span.not_regexp {
 	background-color:#def!important;
 	border: solid 1px #78f!important;
 }
-#rule_maker_keywords span.word .deleteButton {
+#rule_editor_keywords span.word .deleteButton {
 	color:#444;
 	font-size:0.8em;
 	text-decoration:none;
 }
-#rule_maker_title {
+#rule_editor_title {
 	width:240px;
 }
-#rule_maker_site_regexp {
+#rule_editor_site_regexp {
 	width:180px;
 }
-#rule_maker_example_url {
+#rule_editor_example_url {
 	width:180px;
 }
-#rule_maker_site_description {
-	width:180px;
-	
-}
-#rule_maker_search_block_xpath {
+#rule_editor_site_description {
 	width:180px;
 	
 }
-#rule_maker_search_block_description {
+#rule_editor_search_block_xpath {
 	width:180px;
 	
 }
-#rule_maker_hide_block_xpath {
+#rule_editor_search_block_description {
 	width:180px;
 	
 }
-#rule_maker_hide_block_description {
+#rule_editor_hide_block_xpath {
 	width:180px;
 	
 }
-#rule_maker_keyword {
+#rule_editor_hide_block_description {
+	width:180px;
+	
+}
+#rule_editor_keyword {
 	width:120px;
 }
 
@@ -205,7 +205,7 @@
 	background: -webkit-gradient(linear, center top, center bottom, from(#ff6666), to(#dd0000))!important;
 
 }
-#rule_maker_body_drag {
+#rule_editor_body_drag {
 	height:24px;
 	font-weight:bold;
 	background: -webkit-gradient(linear, center top, center bottom, from(#99aaff), to(#6688dd))!important;
@@ -218,7 +218,7 @@
 	text-shadow: 1px 1px 1px #666;
 }
 
-#rule_maker_body_drag a.close{
+#rule_editor_body_drag a.close{
 	text-decoration:none;
 	height:inherit;;
 	color:white;
@@ -227,7 +227,7 @@
 	text-align:right;
 }
 
-#rule_maker_alert{
+#rule_editor_alert{
 	background-color:#fea!important;
 	border: solid 1px #fc0!important;
 	border-radius:8px!important;
@@ -237,13 +237,13 @@
 	font-size:12px;
 	display:none;
 }
-#rule_maker_body div.section_alert{
+#rule_editor_body div.section_alert{
 	color:red;
 	display:none;
 	font-size:85%;
 }
 
-#rule_maker_body a.help {
+#rule_editor_body a.help {
 	background-color:#aaa!important;
 	color:white!important;
 	text-decoration:none;!important;

@@ -11,7 +11,7 @@ var RuleExecutor =
 };
 
 var rules;
-window.ruleMaker = null;
+window.ruleEditor = null;
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 {
 	if ('init'==request.command &&request.rules) 
@@ -26,26 +26,26 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	{
 		badgeCallback = sendResponse;
 	}
-	else if ('ruleMaker'==request.command) 
+	else if ('ruleEditor'==request.command) 
 	{
-		if (!window.ruleMaker) 
+		if (!window.ruleEditor) 
 		{
-			window.ruleMaker = new RuleMaker(request.rule, request.src);
-			window.ruleMaker.initialize();
-			window.ruleMaker.bgCallback = sendResponse;
+			window.ruleEditor = new RuleEditor(request.rule, request.src);
+			window.ruleEditor.initialize();
+			window.ruleEditor.bgCallback = sendResponse;
 		}
 	}
 	else if ('ruleSaveDone'==request.command)
 	{
-		if (window.ruleMaker)
+		if (window.ruleEditor)
 		{
-			window.ruleMaker.onSaveDone(request.rule);
-			window.ruleMaker.bgCallback = sendResponse;
+			window.ruleEditor.onSaveDone(request.rule);
+			window.ruleEditor.bgCallback = sendResponse;
 		}
 	}
-	else if ('ruleMakerRegister'==request.command) 
+	else if ('ruleEditorRegister'==request.command) 
 	{
-		window.ruleMaker.bgCallback = sendResponse;
+		window.ruleEditor.bgCallback = sendResponse;
 	}
 	else if ('stop'==request.command) 
 	{

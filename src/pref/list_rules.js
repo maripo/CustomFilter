@@ -203,12 +203,12 @@ RuleContainer.prototype.getDeleteAction = function ()
  var RuleEditor = function () 
  {
 	this.rule = null;
-	this.saveButton = document.getElementById('rule_maker_save_button');
+	this.saveButton = document.getElementById('rule_editor_save_button');
 	this.saveButton.addEventListener('click', this.getSaveAction(), true);
-	this.addWordButton = document.getElementById('rule_maker_add_keyword_button');
+	this.addWordButton = document.getElementById('rule_editor_add_keyword_button');
 	this.addWordButton.addEventListener('click', this.getAddWordAction(), true);
-	document.getElementById('rule_maker_keyword').addEventListener('keydown', this.getAddWordByEnterAction(), true);
-	this.alertDiv = document.getElementById('rule_maker_alert');
+	document.getElementById('rule_editor_keyword').addEventListener('keydown', this.getAddWordByEnterAction(), true);
+	this.alertDiv = document.getElementById('rule_editor_alert');
  };
  RuleEditor.prototype.getSaveAction = function () 
  {
@@ -222,23 +222,23 @@ RuleContainer.prototype.getDeleteAction = function ()
  RuleEditor.prototype.selectRule = function (/* Rule */ rule) 
  {
  	this.rule = rule;
-	document.getElementById('rule_maker_keywords').innerHTML = '';
+	document.getElementById('rule_editor_keywords').innerHTML = '';
 	if (rule.rule_id && rule.rule_id > 0) 
 	{
-		document.getElementById('rule_maker_title').value = rule.title;
-		document.getElementById('rule_maker_site_regexp').value = rule.site_regexp;
-		document.getElementById('rule_maker_example_url').value = rule.example_url;
-		document.getElementById('rule_maker_site_description').value = rule.site_description;
-		document.getElementById('rule_maker_search_block_xpath').value = rule.search_block_xpath;
-		document.getElementById('rule_maker_search_block_description').value = rule.search_block_description;
-		document.getElementById('rule_maker_hide_block_xpath').value = rule.hide_block_xpath;
-		document.getElementById('rule_maker_hide_block_description').value = rule.hide_block_description;
-		document.getElementById('rule_maker_block_anyway').checked = rule.block_anyway;
+		document.getElementById('rule_editor_title').value = rule.title;
+		document.getElementById('rule_editor_site_regexp').value = rule.site_regexp;
+		document.getElementById('rule_editor_example_url').value = rule.example_url;
+		document.getElementById('rule_editor_site_description').value = rule.site_description;
+		document.getElementById('rule_editor_search_block_xpath').value = rule.search_block_xpath;
+		document.getElementById('rule_editor_search_block_description').value = rule.search_block_description;
+		document.getElementById('rule_editor_hide_block_xpath').value = rule.hide_block_xpath;
+		document.getElementById('rule_editor_hide_block_description').value = rule.hide_block_description;
+		document.getElementById('rule_editor_block_anyway').checked = rule.block_anyway;
 	}
 	for (var i=0, l=rule.words.length; i<l; i++) 
 	{
 		var word = rule.words[i];
-		document.getElementById('rule_maker_keywords').appendChild(this.getWordElement(word));
+		document.getElementById('rule_editor_keywords').appendChild(this.getWordElement(word));
 	}
 };
 
@@ -267,29 +267,29 @@ RuleEditor.prototype.saveRule = function ()
 {
 	//Validation	
 	var validateErrors = Rule.Validator.validate({
-		title : document.getElementById('rule_maker_title').value,
-		site_regexp : document.getElementById('rule_maker_site_regexp').value,
-		example_url : document.getElementById('rule_maker_example_url').value,
-		site_description : document.getElementById('rule_maker_site_description').value,
-		search_block_xpath : document.getElementById('rule_maker_search_block_xpath').value,
-		search_block_description : document.getElementById('rule_maker_search_block_description').value,
-		hide_block_xpath : document.getElementById('rule_maker_hide_block_xpath').value,
-		hide_block_description : document.getElementById('rule_maker_hide_block_description').value
+		title : document.getElementById('rule_editor_title').value,
+		site_regexp : document.getElementById('rule_editor_site_regexp').value,
+		example_url : document.getElementById('rule_editor_example_url').value,
+		site_description : document.getElementById('rule_editor_site_description').value,
+		search_block_xpath : document.getElementById('rule_editor_search_block_xpath').value,
+		search_block_description : document.getElementById('rule_editor_search_block_description').value,
+		hide_block_xpath : document.getElementById('rule_editor_hide_block_xpath').value,
+		hide_block_description : document.getElementById('rule_editor_hide_block_description').value
 	});
 	if (validateErrors.length>0)
 	{
 		this.showMessage(validateErrors.join('<br/>'));
 		return;
 	}
-	this.rule.title = document.getElementById('rule_maker_title').value;
-	this.rule.site_regexp = document.getElementById('rule_maker_site_regexp').value;
-	this.rule.example_url = document.getElementById('rule_maker_example_url').value;
-	this.rule.site_description = document.getElementById('rule_maker_site_description').value;
-	this.rule.search_block_xpath = document.getElementById('rule_maker_search_block_xpath').value;
-	this.rule.search_block_description = document.getElementById('rule_maker_search_block_description').value;
-	this.rule.hide_block_xpath = document.getElementById('rule_maker_hide_block_xpath').value;
-	this.rule.hide_block_description = document.getElementById('rule_maker_hide_block_description').value;
-	this.rule.block_anyway = document.getElementById('rule_maker_block_anyway').checked;
+	this.rule.title = document.getElementById('rule_editor_title').value;
+	this.rule.site_regexp = document.getElementById('rule_editor_site_regexp').value;
+	this.rule.example_url = document.getElementById('rule_editor_example_url').value;
+	this.rule.site_description = document.getElementById('rule_editor_site_description').value;
+	this.rule.search_block_xpath = document.getElementById('rule_editor_search_block_xpath').value;
+	this.rule.search_block_description = document.getElementById('rule_editor_search_block_description').value;
+	this.rule.hide_block_xpath = document.getElementById('rule_editor_hide_block_xpath').value;
+	this.rule.hide_block_description = document.getElementById('rule_editor_hide_block_description').value;
+	this.rule.block_anyway = document.getElementById('rule_editor_block_anyway').checked;
 	peer.saveObject(this.rule, reloadBackground);
 	
 }
@@ -341,7 +341,7 @@ RuleEditor.prototype.getAddWordAction = function ()
 RuleEditor.prototype.saveWord = function ()
 {
 	var self = this;
-	var str = document.getElementById('rule_maker_keyword').value;
+	var str = document.getElementById('rule_editor_keyword').value;
 	if (!str || ''==str)
 	{
 		alert("empty");
@@ -353,8 +353,8 @@ RuleEditor.prototype.saveWord = function ()
 	wordPeer.saveObject(word, function () 
 	{
 		self.rule.words.push(word);
-		document.getElementById('rule_maker_keywords').appendChild(self.getWordElement(word));
-		document.getElementById('rule_maker_keyword').value = '';
+		document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
+		document.getElementById('rule_editor_keyword').value = '';
 	}, 
 	function ()
 	{

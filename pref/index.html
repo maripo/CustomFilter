@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>CustomBlocker</title>
-		<link rel="stylesheet" href="../rule_maker.css"/>
+		<link rel="stylesheet" href="../rule_editor.css"/>
 		<link rel="stylesheet" href="../css/pref/list_rules.css"/>
 		<script language="JavaScript" src="../src/db/DbObj.js"></script>
 		<script language="JavaScript" src="../src/db/Rule.js"></script>
@@ -16,48 +16,48 @@
 			<div>
 				<a href="help.html">HELP</a>
 			</div>
-			<div id="rule_maker_body">
+			<div id="rule_editor_body">
 			<div class="section">
 				<h2>ルールのタイトル</h2>
-				<div><input type="text" id="rule_maker_title"/></div>
+				<div><input type="text" id="rule_editor_title"/></div>
 			</div>
 			<div class="section">
 				<h2>サイト</h2>
-				<div>正規表現<input type="text" id="rule_maker_site_regexp"/></div>
-				<div>URL例<input type="text" id="rule_maker_example_url"/></div>
-				<div>説明<input type="text" id="rule_maker_site_description"/></div>
+				<div>正規表現<input type="text" id="rule_editor_site_regexp"/></div>
+				<div>URL例<input type="text" id="rule_editor_example_url"/></div>
+				<div>説明<input type="text" id="rule_editor_site_description"/></div>
 				<div class="description">
 					該当するサイトでルールが適用されます
 				</div>
 			</div>
 			<div class="section">
 				<h2>条件</h2>
-				<div>XPath<input type="text" id="rule_maker_search_block_xpath"/></div>
-				<div>説明<input type="text" id="rule_maker_search_block_description"/></div>
+				<div>XPath<input type="text" id="rule_editor_search_block_xpath"/></div>
+				<div>説明<input type="text" id="rule_editor_search_block_description"/></div>
 				<div class="description">
 					該当する要素の中にNGワードが含まれていた場合に発動します
 				</div>
 			</div>
 			<div class="section">
 				<h2>隠す要素</h2>
-				<div>XPath<input type="text" id="rule_maker_hide_block_xpath"/></div>
-				<div>説明<input type="text" id="rule_maker_hide_block_description"/></div>
+				<div>XPath<input type="text" id="rule_editor_hide_block_xpath"/></div>
+				<div>説明<input type="text" id="rule_editor_hide_block_description"/></div>
 				<div class="description">
 					「検索する要素」にNGワードが含まれていると、ここで指定した要素を非表示にします
 				</div>
 			</div>
 			<div class="section">
 				<h2>NGワード</h2>
-				<div>keyword<input type="text" id="rule_maker_keyword"/><input type="button" id="rule_maker_add_keyword_button" value="ADD"/></div>
-				<div id="rule_maker_keywords"></div>
+				<div>keyword<input type="text" id="rule_editor_keyword"/><input type="button" id="rule_editor_add_keyword_button" value="ADD"/></div>
+				<div id="rule_editor_keywords"></div>
 				<div>
-					<input type="checkbox" id="rule_maker_block_anyway"/><label for="rule_maker_block_anyway">Block Anyway</label>
+					<input type="checkbox" id="rule_editor_block_anyway"/><label for="rule_editor_block_anyway">Block Anyway</label>
 				</div>
 			</div>
-			<div id="rule_maker_alert">
+			<div id="rule_editor_alert">
 				<!-- Alert Message -->
 			</div>
-			<input type="button" value="保存" id="rule_maker_save_button"/>
+			<input type="button" value="保存" id="rule_editor_save_button"/>
 			</div>
 		<div id="ruleListContainer">
 			<ul id="ruleList">

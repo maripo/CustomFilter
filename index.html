@@ -23,9 +23,15 @@
 		<ul id="activeRules">
 		</ul>
 		<div>
-			<a href="javascript:void(0)" onclick="openRuleEditor()">[+] New Rule for this Site</a>
+			<a href="javascript:void(0)" onclick="openRuleEditor()">[+] <span class="custom_filter_localize_newRuleForThisSite">New Rule for this Site</span></a>
 		</div>
 		<script language="JavaScript">
+		try {
+			Util.localize();
+			} catch (ex) {
+				document.write(ex);
+				return;
+			}
 			var peer = RulePeer.getInstance();
 			function openRuleEditor()
 			{
@@ -36,6 +42,12 @@
 			
 			function getAppliedRules()
 			{
+				try {
+				Util.localize();
+				} catch (ex) {
+					document.write(ex);
+					return;
+				}
 				refreshButton();
 				
 				var bgWindow = chrome.extension.getBackgroundPage();

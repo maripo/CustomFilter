@@ -4,5 +4,6 @@
 	},
 	"extDescription": {
 		"message": "Filter any element on any web site with any condition with XPath and RegExp"
-	}
+	},
+	"newRuleForThisSite": {"message":"New Rule for this Site"}
 }

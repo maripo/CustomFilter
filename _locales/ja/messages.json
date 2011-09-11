@@ -4,5 +4,6 @@
 	},
 	"extDescription": {
 		"message": "サイト・要素・NGワードなどを指定してフィルタを自由に作れる"
-	}
+	},
+	"newRuleForThisSite": {"message":"このサイト用のルールを新規作成"}
 }

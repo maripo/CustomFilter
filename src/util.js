@@ -62,3 +62,17 @@ Util.notEmpty = function (str)
 {
 	return !Util.isEmpty(str);
 }
+Util.LOCALIZE_CLASS_REGEXP = new RegExp('custom_filter_localize_([^ ]+)');
+Util.localize = function ()
+{
+	var elements = document.getElementsByTagName('SPAN');
+	for (var i=0, l=elements.length; i<l; i++)
+	{
+		var element = elements[i];
+		if (!element) continue;
+		if (null!=element.className && element.className.match(Util.LOCALIZE_CLASS_REGEXP))
+		{
+			element.innerHTML = chrome.i18n.getMessage(RegExp.$1);
+		}
+	}
+}

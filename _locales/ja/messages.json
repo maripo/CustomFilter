@@ -5,5 +5,7 @@
 	"extDescription": {
 		"message": "サイト・要素・NGワードなどを指定してフィルタを自由に作れる"
 	},
-	"newRuleForThisSite": {"message":"このサイト用のルールを新規作成"}
+	"newRuleForThisSite": {"message":"このサイト用のルールを新規作成"},
+	"preference": {"message":"設定・ルール一覧"},
+	"activeRules": {"message":"適用中のルール"}
 }

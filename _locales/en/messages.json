@@ -23,5 +23,7 @@
 	"prefTitle":{"message":"Rules"},
 	"buttonLabelEdit":{"message":"Edit"},
 	"buttonLabelDelete":{"message":"Delete"},
-	"dialogDelete":{"message":"Are you sure to delete this rule?"}
+	"dialogDelete":{"message":"Are you sure to delete this rule?"},
+	"tooltipCount":{"message":"__count__ Elements are Hidden."},
+	"tooltipCountSingle":{"message":"1 Element is Hidden."}
 }

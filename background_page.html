@@ -18,7 +18,7 @@
 							tabId: tabId
 						});
 						chrome.browserAction.setTitle({
-							title:count+"件ブロックしました",
+							title: count+"件ブロックしました",
 							tabId:tabId
 						});
 					} catch (ex) {
@@ -33,7 +33,13 @@
 			var peer = RulePeer.getInstance();
 			var wordPeer = WordPeer.getInstance();
 			var existingTabs = new Array();
-			
+			function getBadgeTooltipString (count)
+			{
+				if (count > 1)
+					return chrome.i18n.getMessage("tooltipCount").replace("__count__",count);
+				else
+					return chrome.i18n.getMessage("tooltipCountSingle");
+			}
 			function onStart () 
 			{
 				peer.createTable(createWordTable);

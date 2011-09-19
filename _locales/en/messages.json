@@ -13,5 +13,15 @@
 	"sectionSite":{"message":"Site"},
 	"sectionSearch":{"message":"Elements to Search"},
 	"sectionHide":{"message":"Elements to Hide"},
-	"sectionWord":{"message":"Words"}
+	"sectionWord":{"message":"Words"},
+	"regex":{"message":"RegEx"},
+	"exampleUrl":{"message":"Example URL"},
+	"description":{"message":"Description"},
+	"descriptionHide":{"message":"Matched elements will disappear if they meet the condition."},
+	"descriptionSearch":{"message":"The filter works when these elements contain \"Words\"."},
+	"descriptionSite":{"message":"This rule is applied on matched sites."},
+	"prefTitle":{"message":"Rules"},
+	"buttonLabelEdit":{"message":"Edit"},
+	"buttonLabelDelete":{"message":"Delete"},
+	"dialogDelete":{"message":"Are you sure to delete this rule?"}
 }

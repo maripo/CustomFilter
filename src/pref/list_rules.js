@@ -151,7 +151,7 @@ RuleContainer.prototype.createSelectButton = function ()
 {
 	var button = document.createElement('INPUT');
 	button.type = 'BUTTON';
-	button.value = 'Edit';
+	button.value = chrome.i18n.getMessage('buttonLabelEdit');
 	button.addEventListener('click', this.getSelectAction(), true);
 	return button;
 };
@@ -160,7 +160,7 @@ RuleContainer.prototype.createDeleteButton = function ()
 {
 	var button = document.createElement('INPUT');
 	button.type = 'BUTTON';
-	button.value = 'Delete';
+	button.value = chrome.i18n.getMessage('buttonLabelDelete');
 	button.addEventListener('click', this.getDeleteAction(), true);
 	return button;
 };
@@ -193,7 +193,7 @@ RuleContainer.prototype.getDeleteAction = function ()
 	var self = this;
 	return function () 
 	{
-		if (window.confirm("本当にこのルールを消しても良いですか?")) {
+		if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
 			peer.deleteObject(self.rule);
 			self.liElement.parentNode.removeChild(self.liElement);
 		}

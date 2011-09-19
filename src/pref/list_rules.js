@@ -12,7 +12,7 @@ function onStart ()
 	ruleEditor = new RuleEditor();
 	console.log("onStart");
 	peer.createTable(createWordTable);
-	Util.localize();
+	CustomBlockerUtil.localize();
 }
 function createWordTable () 
 {
@@ -85,12 +85,12 @@ RuleContainer.prototype.getLiElement = function ()
 	var titleDiv = document.createElement('DIV');
 	titleDiv.className = 'title';
 	
-	titleDiv.innerHTML = Util.escapeHTML(Util.shorten(this.rule.title, 20));
+	titleDiv.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.shorten(this.rule.title, 20));
 	
 	
 	var urlDiv = document.createElement('DIV');
 	urlDiv.className = 'url';
-	urlDiv.innerHTML = Util.escapeHTML(Util.shorten(this.rule.site_regexp,30));
+	urlDiv.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.shorten(this.rule.site_regexp,30));
 	
 	var keywordsDiv = document.createElement('DIV');
 	keywordsDiv.className = 'keywords';
@@ -102,7 +102,7 @@ RuleContainer.prototype.getLiElement = function ()
 		keywords.push(this.rule.words[i].word);
 	}
 	
-	keywordsDiv.innerHTML = Util.escapeHTML(keywords.join(' '));
+	keywordsDiv.innerHTML = CustomBlockerUtil.escapeHTML(keywords.join(' '));
 	
 	informationDiv.appendChild(titleDiv);
 	informationDiv.appendChild(urlDiv);
@@ -299,7 +299,7 @@ RuleEditor.prototype.getWordElement = function (word)
 	
 	var span = document.createElement('SPAN');
 	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
-	span.innerHTML = Util.escapeHTML(word.word);
+	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
 	
 	var deleteButton = document.createElement('A');
 	deleteButton.className = 'deleteButton';

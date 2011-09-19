@@ -136,8 +136,8 @@ var hiddenNodes = new Array();
 function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide)
 {
 	var needRefreshBadge = false;
-	var searchNodes = Util.getElementsByXPath(rule.search_block_xpath);
-	var hideNodes = Util.getElementsByXPath(rule.hide_block_xpath);
+	var searchNodes = CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath);
+	var hideNodes = CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
 	for (var i = 0, l = searchNodes.length; i < l; i++) 
 	{
 		var node = searchNodes[i];

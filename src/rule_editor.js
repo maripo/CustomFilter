@@ -204,7 +204,7 @@ RuleEditor.prototype.getWordElement = function (word)
 	var span = document.createElement('SPAN');
 	
 	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
-	span.innerHTML = Util.escapeHTML(word.word);
+	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
 	span.avoidStyle = true;
 	
 	var deleteButton = document.createElement('A');
@@ -396,7 +396,7 @@ RuleEditorDialog.prototype.refreshXPathSelectedStyles = function ()
 	var hideCountElement = document.getElementById('rule_editor_count_hide_block_xpath');
 	try {
 		var input = document.getElementById('rule_editor_hide_block_xpath');
-		var xpathNodes = (input.value!='')?Util.getElementsByXPath(input.value):[];
+		var xpathNodes = (input.value!='')?CustomBlockerUtil.getElementsByXPath(input.value):[];
 		hideCountElement.innerHTML = xpathNodes.length;
 		hideAlertElement.style.display = 'none';
 		if (this.prevHideXPathNodes)
@@ -421,7 +421,7 @@ RuleEditorDialog.prototype.refreshXPathSelectedStyles = function ()
 	}
 	try {
 		var input = document.getElementById('rule_editor_search_block_xpath');
-		var xpathNodes = (input.value!='')?Util.getElementsByXPath(input.value):[];
+		var xpathNodes = (input.value!='')?CustomBlockerUtil.getElementsByXPath(input.value):[];
 		searchCountElement.innerHTML = xpathNodes.length;
 		searchAlertElement.style.display = 'none';
 		if (this.prevSearchXPathNodes)
@@ -550,7 +550,7 @@ PathPickerDialog.prototype.show = function (event, list, target)
 		a.href = 'javascript:void(0)';
 		var span = document.createElement('SPAN');
 		span.className = 'xpath';
-		span.innerHTML = Util.escapeHTML(list[i].xpath); 
+		span.innerHTML = CustomBlockerUtil.escapeHTML(list[i].xpath); 
 		var badge = document.createElement('SPAN');
 		badge.className = 'badge';
 
@@ -614,7 +614,7 @@ PathPickerDialog.prototype.getOnmouseroverAction = function (filter, target)
 		}
 		try 
 		{
-			var xpathNodes = Util.getElementsByXPath(filter.xpath);
+			var xpathNodes = CustomBlockerUtil.getElementsByXPath(filter.xpath);
 			for (var i = 0; i < xpathNodes.length; i++) 
 			{
 				if (xpathNodes[i] != selectedNode && !xpathNodes[i].avoidStyle && xpathNodes[i].tmpSelectForHide) 
@@ -805,5 +805,5 @@ RuleElement.getUnselectForSearchFunc = function (element)
 var PathFilter = function (xpath) 
 {
 	this.xpath = xpath;
-	this.elements = Util.getElementsByXPath(xpath);
+	this.elements = CustomBlockerUtil.getElementsByXPath(xpath);
 }

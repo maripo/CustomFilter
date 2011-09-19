@@ -27,7 +27,7 @@
 		</div>
 		<script language="JavaScript">
 		try {
-			Util.localize();
+			CustomBlockerUtil.localize();
 			} catch (ex) {
 				document.write(ex);
 				return;
@@ -43,7 +43,7 @@
 			function getAppliedRules()
 			{
 				try {
-				Util.localize();
+				CustomBlockerUtil.localize();
 				} catch (ex) {
 					document.write(ex);
 					return;
@@ -83,7 +83,7 @@
 					{
 						var rule = list[i];
 						var li = document.createElement('LI');
-						li.innerHTML = Util.escapeHTML(rule.title);
+						li.innerHTML = CustomBlockerUtil.escapeHTML(rule.title);
 						var editButton = document.createElement('INPUT');
 						editButton.type = 'BUTTON';
 						editButton.addEventListener('click', getEditRuleAction(rule), true);

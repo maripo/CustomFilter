@@ -95,7 +95,7 @@ PathAnalyzer.prototype.addSeq = function (seq)
 		else
 			str = '//' + str;
 	}
-	if (!Util.arrayContains(this.uniqPathList, str)) this.uniqPathList.push(str);
+	if (!CustomBlockerUtil.arrayContains(this.uniqPathList, str)) this.uniqPathList.push(str);
 }
 
 

@@ -80,7 +80,7 @@ Rule.Validator.validate = function (params)
 	if (''!=params.search_block_xpath) {
 		try
 		{
-			Util.getElementsByXPath(params.search_block_xpath);
+			CustomBlockerUtil.getElementsByXPath(params.search_block_xpath);
 		}
 		catch (e)
 		{
@@ -90,7 +90,7 @@ Rule.Validator.validate = function (params)
 	if (''!=params.hide_block_xpath) {
 		try
 		{
-			Util.getElementsByXPath(params.hide_block_xpath);
+			CustomBlockerUtil.getElementsByXPath(params.hide_block_xpath);
 		}
 		catch (e)
 		{

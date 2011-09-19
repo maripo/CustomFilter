@@ -7,5 +7,11 @@
 	},
 	"newRuleForThisSite": {"message":"New Rule for this Site"},
 	"preference": {"message":"Preference"},
-	"activeRules": {"message":"Applied Rules"}
+	"activeRules": {"message":"Applied Rules"},
+	"help":{"message":"Help"},
+	"sectionRuleTitle":{"message":"Title"},
+	"sectionSite":{"message":"Site"},
+	"sectionSearch":{"message":"Elements to Search"},
+	"sectionHide":{"message":"Elements to Hide"},
+	"sectionWord":{"message":"Words"}
 }

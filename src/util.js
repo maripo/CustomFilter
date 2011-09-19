@@ -75,4 +75,8 @@ Util.localize = function ()
 			element.innerHTML = chrome.i18n.getMessage(RegExp.$1);
 		}
 	}
-}
+};
+Util.showHelp = funciton (fileName)
+{
+	console.log("Util.showHelp fileName=" + fileName);
+};

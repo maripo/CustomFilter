@@ -12,6 +12,7 @@ function onStart ()
 	ruleEditor = new RuleEditor();
 	console.log("onStart");
 	peer.createTable(createWordTable);
+	Util.localize();
 }
 function createWordTable () 
 {

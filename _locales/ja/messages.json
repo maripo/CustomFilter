@@ -7,5 +7,11 @@
 	},
 	"newRuleForThisSite": {"message":"このサイト用のルールを新規作成"},
 	"preference": {"message":"設定・ルール一覧"},
-	"activeRules": {"message":"適用中のルール"}
+	"activeRules": {"message":"適用中のルール"},
+	"help":{"message":"ヘルプ"},
+	"sectionRuleTitle":{"message":"ルールのタイトル"},
+	"sectionSite":{"message":"サイト"},
+	"sectionSearch":{"message":"条件"},
+	"sectionHide":{"message":"隠す要素"},
+	"sectionWord":{"message":"NGワード"}
 }

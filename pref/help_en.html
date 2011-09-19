@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>CustomBlocker</title>
+		<link rel="stylesheet" href="../rule_editor.css"/>
+		<link rel="stylesheet" href="../css/pref/list_rules.css"/>
+		<script language="JavaScript" src="../src/db/DbObj.js"></script>
+		<script language="JavaScript" src="../src/db/Rule.js"></script>
+		<script language="JavaScript" src="../src/db/Word.js"></script>
+		<script language="JavaScript" src="../src/util.js"></script>
+		<script language="JavaScript" src="../src/pref/list_rules.js"></script>
+	</head>
+	<body onload="onStart()">
+		<h1>Help</h1>
+		<h2>使い道は?</h2>
+		<p>
+			Webサイトの一部を、柔軟にカスタマイズできるルールによって非表示にしたり、逆に強調表示したりすることのできる拡張です。
+			たとえば、「Twitterを見ているとき、投稿本文に◯◯という文字が含まれていたらツイート全体を非表示にする」「ソーシャルブックマークで、◯◯というタグのついているエントリは強調して表示する」といったことができます。
+		</p>
+		<h2>まずは簡単にルールを作ってみたい</h2>
+		<p>
+			まずは好きなサイトに行ってアイコンをクリックします。
+			窓が出るので、新規作成します。
+			タイトルは、自分がわかりやすいように適当につけてください。
+			XPathでURLを指定します。
+			「どの要素に」「どんな文字が含まれていたら」「どの要素を非表示にする」というルールを設定します。
+			「どの要素に」を選びます。XPathを選択ボタンを選びます
+			
+		</p>
+		<h2>XPathって?</h2>
+		<p>
+			よくわからなければ、「XPathを取得」ボタンを押してください。いくつか候補が表示されます。その中で、意図した通りの要素がヒットするようなXPathを選んでください。
+		</p>
+		<h2>キーワード追加時の「正規表現」のチェックボックスの意味は?</h2>
+		<p>
+			よくわからなかったらチェック無しで登録しても構いません。
+		</p>
+		<h2>アイコンの上に出ている数字の意味は?</h2>
+		<p>
+			表示中のページの中で、ルールに合致して処理の行われた要素の数をあらわします。
+		</p>
+		<h2>一時的にフィルタをオフにするには?</h2>
+		<p>
+			拡張自体をオフにする方法と、一部のルールのみをオフにする方法があります。
+		</p>
+		<h2>作者</h2>
+		<p>
+			ごうだまりぽ goda.mariko@gmail.com<br/>
+			<a href="http://www.maripo.org">http://www.maripo.org</a>
+		</p>
+	</body>
+</html>

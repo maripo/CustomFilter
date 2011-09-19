@@ -370,6 +370,13 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		document.getElementById('rule_editor_alert_site_regexp').style.display = (matched)?'none':'block';
 	},
 	false);
+	var helpLinks = CustomBlockerUtil.getElementsByXPath('id("rule_editor_body")//a[@class="help"]');
+	for (var i=0, l=helpLinks.length; i<l; i++) 
+	{
+		var link = helpLinks[i];
+		link.addEventListener('click',CustomBlockerUtil.getShowHelpAction(link.href),false);
+		link.href = 'javascript:void(0)';
+	}
 };
 RuleEditorDialog.prototype.getRefreshHideBlockXPathAction = function ()
 {

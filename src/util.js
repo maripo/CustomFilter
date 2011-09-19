@@ -76,7 +76,18 @@ CustomBlockerUtil.localize = function ()
 		}
 	}
 };
-CustomBlockerUtil.showHelp = funciton (fileName)
+CustomBlockerUtil.REGEX_FILE_NAME = new RegExp('/([a-zA-Z0-9_]+\.html)$');
+CustomBlockerUtil.getShowHelpAction = function (_fileName)
+{
+	CustomBlockerUtil.REGEX_FILE_NAME.test(_fileName);
+	var fileName = RegExp.$1;
+	return function (event) 
+	{
+		CustomBlockerUtil.showHelp(fileName);
+	}
+}
+CustomBlockerUtil.showHelp = function (fileName)
 {
 	console.log("CustomBlockerUtil.showHelp fileName=" + fileName);
+	window.open(chrome.extension.getURL('/help/'+ chrome.i18n.getMessage('extLocale') + '/' +fileName));
 };

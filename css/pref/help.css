@@ -1,0 +1,15 @@
+#wrapper {
+	width:800px;	
+}
+h2 {
+	font-size:110%;
+	border-top:solid 1px #888;
+	background-color:#eee;
+	font-weight:normal;
+	padding-left:4px;
+}
+p {
+	font-size:90%;
+	color:#222;
+	padding:4px;
+}

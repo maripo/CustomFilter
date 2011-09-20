@@ -14,16 +14,20 @@ body {
 	float:right;
 	text-align:right;
 }
-h1 {
-	font-size:1.4em;
-	margin-right:200px;
-	width:auto;
-	margin-top:0px;
-	margin-left:0px;
-	margin-bottom:0px;
-	padding:0px;
-	height:inherit;
-}
 p {
 	margin:4px;
+}
+h1 {
+	font-size:110%;
+	border-bottom:solid 1px #888;
+	background-color:#eee;
+	font-weight:normal;
+	margin:0px;
+	padding: 0px 4px;
+	-webkit-box-shadow: 1px 0px 2px #444;
+}
+p {
+	font-size:90%;
+	color:#222;
+	padding:4px;
 }

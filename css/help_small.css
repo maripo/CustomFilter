@@ -14,8 +14,8 @@ body {
 	float:right;
 	text-align:right;
 }
-#header h1 {
-	font-size:1em;
+h1 {
+	font-size:1.4em;
 	margin-right:200px;
 	width:auto;
 	margin-top:0px;
@@ -23,4 +23,7 @@ body {
 	margin-bottom:0px;
 	padding:0px;
 	height:inherit;
+}
+p {
+	margin:4px;
 }

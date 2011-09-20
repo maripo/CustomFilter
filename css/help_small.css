@@ -1,0 +1,26 @@
+body {
+	margin:0px;
+	padding:0px;
+	font-family:sans-serif;;
+}
+#header {
+	height:30px;
+	background-color:#ddd;
+	line-height:30px;
+}
+#header .menu {
+	width:260px;
+	height:inherit;
+	float:right;
+	text-align:right;
+}
+#header h1 {
+	font-size:1em;
+	margin-right:200px;
+	width:auto;
+	margin-top:0px;
+	margin-left:0px;
+	margin-bottom:0px;
+	padding:0px;
+	height:inherit;
+}

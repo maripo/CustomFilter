@@ -99,11 +99,11 @@
 }
 #rule_editor_keywords span.word {
 	
-	margin:0px 2px 2px 0px!important;
+	margin:0px 0px 2px 0px!important;
 	padding-left:4px!important;
 	padding-right:4px!important;
 	border-radius:8px!important;
-	white-space:normal;
+	white-space:nowrap;
 }
 #rule_editor_keywords span.regexp {
 	background-color:#fdd!important;

@@ -304,7 +304,7 @@ RuleEditor.prototype.getWordElement = function (word)
 	var deleteButton = document.createElement('A');
 	deleteButton.className = 'deleteButton';
 	deleteButton.href = 'javascript:void(0)'
-	deleteButton.innerHTML = '[x]'
+	deleteButton.innerHTML = ' [x] '
 	deleteButton.addEventListener('click', this.getDeleteWordAction(word, span), true);
 	span.appendChild(deleteButton);
 	

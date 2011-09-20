@@ -90,5 +90,5 @@ CustomBlockerUtil.showHelp = function (fileName)
 {
 	console.log("CustomBlockerUtil.showHelp fileName=" + fileName);
 	window.open(chrome.extension.getURL('/help/'+ chrome.i18n.getMessage('extLocale') + '/' +fileName),
-			"mini","top=0,left=0,width=300 height=300 resizable=yes");
+			"mini","top=0,left=0,width=480 height=500 resizable=yes");
 };

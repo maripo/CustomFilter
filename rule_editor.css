@@ -22,7 +22,7 @@
 }
 #rule_editor_body * {
 	text-align:left;;
-	background:none!important;
+	background:none;
 	text-indent:0px!important;
 	position:static!important;
 	font-family:sans-serif!important;

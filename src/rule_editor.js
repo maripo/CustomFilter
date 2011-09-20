@@ -377,7 +377,14 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		link.addEventListener('click',CustomBlockerUtil.getShowHelpAction(link.href),false);
 		link.href = 'javascript:void(0)';
 	}
+	document.getElementById('rule_editor_keyword_regexp_checkbox').addEventListener('click',RuleEditorDialog.changeKeywordColor, false);
+	RuleEditorDialog.changeKeywordColor(null);
 };
+RuleEditorDialog.changeKeywordColor = function (sender)
+{
+	document.getElementById('rule_editor_keyword').style.backgroundColor =
+		(document.getElementById('rule_editor_keyword_regexp_checkbox').checked)?'#fdd':'#def';
+}
 RuleEditorDialog.prototype.getRefreshHideBlockXPathAction = function ()
 {
 	var self = this;

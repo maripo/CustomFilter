@@ -97,9 +97,12 @@
 	font-size:0.7em;
 	color: #444;
 }
+#rule_editor_keywords {
+	padding: 4px 2px!important;	
+}
 #rule_editor_keywords span.word {
 	
-	margin:0px 0px 2px 0px!important;
+	margin:0px 2px 2px 0px!important;
 	padding-left:4px!important;
 	padding-right:4px!important;
 	border-radius:8px!important;

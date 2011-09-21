@@ -11,7 +11,7 @@
 	"help":{"message":"ヘルプ"},
 	"sectionRuleTitle":{"message":"ルールのタイトル"},
 	"sectionSite":{"message":"サイト"},
-	"sectionSearch":{"message":"条件"},
+	"sectionSearch":{"message":"検索する要素"},
 	"sectionHide":{"message":"隠す要素"},
 	"sectionWord":{"message":"NGワード"},
 	"regex":{"message":"正規表現"},

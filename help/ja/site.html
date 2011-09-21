@@ -5,13 +5,17 @@
 		<link rel="stylesheet" href="../../css/help_small.css"/>
 	</head>
 	<body>
-	<h1>サイト</h1>
-	<p>
-		「どのサイトでルールが適用されるか」を指定します。
-		正規表現に合致するサイトでルールが適用されます。
-	</p>
-	<p>
-		「URL例」は、ルールの管理ページからリンクされます。
-	</p>
+		<h1>サイト</h1>
+		<p>
+			「どのサイトでルールが適用されるか」を指定します。
+			正規表現に合致するサイトでルールが適用されます。たとえば……
+		</p>
+		<ul>
+			<li><strong>http://www\.example\.com/</strong> を指定した場合、 <strong>http://www.example.com/</strong> や <strong>http://www.example.com/search?word=xxxxx</strong> などで適用されます。</li>
+			<li><strong>http://www\.example\.com/user/[0-9]+/</strong> を指定した場合、 <strong>http://www.example.com/user/12345/</strong> や <strong>http://www.example.com/user/23456/</strong> などで適用されます。</li>
+		</ul>
+		<p>
+			「URL例」と「説明」の欄はメモに利用してください。ルール一覧ページからは「URL例」にリンクされます。
+		</p>
 	</body>
 </html>

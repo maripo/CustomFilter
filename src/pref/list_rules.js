@@ -210,9 +210,18 @@ RuleContainer.prototype.getDeleteAction = function ()
 	this.addWordButton.addEventListener('click', this.getAddWordAction(), true);
 	document.getElementById('rule_editor_keyword').addEventListener('keydown', this.getAddWordByEnterAction(), true);
 	this.alertDiv = document.getElementById('rule_editor_alert');
- };
+
+	document.getElementById('rule_editor_keyword_regexp_checkbox').addEventListener('click',RuleEditor.changeKeywordColor, false);
+	RuleEditor.changeKeywordColor(null);
+};
+RuleEditor.changeKeywordColor = function (sender)
+{
+	document.getElementById('rule_editor_keyword').style.backgroundColor =
+		(document.getElementById('rule_editor_keyword_regexp_checkbox').checked)?'#fdd':'#def';
+
+}
  RuleEditor.prototype.getSaveAction = function () 
- {
+{
  	var self = this;
 	
  	return function () 
@@ -350,6 +359,8 @@ RuleEditor.prototype.saveWord = function ()
 	}
 	var word = new Word();
 	word.word = str;
+	var checked = document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
+	word.is_regexp = checked;
 	word.rule_id = self.rule.rule_id;
 	wordPeer.saveObject(word, function () 
 	{

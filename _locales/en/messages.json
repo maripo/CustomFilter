@@ -25,5 +25,10 @@
 	"buttonLabelDelete":{"message":"Delete"},
 	"dialogDelete":{"message":"Are you sure to delete this rule?"},
 	"tooltipCount":{"message":"__count__ Elements are Hidden."},
-	"tooltipCountSingle":{"message":"1 Element is Hidden."}
+	"tooltipCountSingle":{"message":"1 Element is Hidden."},
+	"errorTitleEmpty":{"message":"Title cannot be empty"},
+	"errorSiteRegexEmpty":{"message":"Site RegEx cannot be empty"},
+	"errorHideXpathInvalid":{"message":"XPath for \"Elements to Hide\" is invalid"},
+	"errorSearchXpathInvalid":{"message":"XPath for \"Elements to Search\" is invalid"},
+	"saveDone":{"message":"The rule is successfully saved."}
 }

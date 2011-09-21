@@ -25,5 +25,10 @@
 	"buttonLabelDelete":{"message":"削除"},
 	"dialogDelete":{"message":"本当にこのルールを削除しますか?"},
 	"tooltipCount":{"message":"__count__件ブロックしました"},
-	"tooltipCountSingle":{"message":"1件ブロックしました"}
+	"tooltipCountSingle":{"message":"1件ブロックしました"},
+	"errorTitleEmpty":{"message":"ルールのタイトルが空です。"},
+	"errorSiteRegexEmpty":{"message":"サイトの正規表現が空です。"},
+	"errorHideXpathInvalid":{"message":"ブロック対象XPathが不正です。"},
+	"errorSearchXpathInvalid":{"message":"検索対象XPathが不正です。"},
+	"saveDone":{"message":"セーブしました"}
 }

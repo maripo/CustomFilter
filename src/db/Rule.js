@@ -71,12 +71,8 @@ Rule.Validator = {
 Rule.Validator.validate = function (params)
 {
 	var errors = new Array();
-	//タイトルがからっぽ
-	//site_regexpがからっぽ
-	//search_block_xpathかhide_block_xpathがからっぽ
-	//site_regexpが一致しない (警告)
-	if (''==params.title) errors.push("ルールのタイトルが空です。");
-	if (''==params.site_regexp) errors.push("サイトの正規表現が空です。");
+	if (''==params.title) errors.push(chrome.i18n.getMessage('errorTitleEmpty'));
+	if (''==params.site_regexp) errors.push(chrome.i18n.getMessage('errorSiteRegexEmpty'));
 	if (''!=params.search_block_xpath) {
 		try
 		{
@@ -84,7 +80,7 @@ Rule.Validator.validate = function (params)
 		}
 		catch (e)
 		{
-			errors.push('ブロック対象XPathが不正です。');
+			errors.push(chrome.i18n.getMessage('errorHideXpathInvalid'));
 		}
 	}
 	if (''!=params.hide_block_xpath) {
@@ -94,7 +90,7 @@ Rule.Validator.validate = function (params)
 		}
 		catch (e)
 		{
-			errors.push('検索対象XPathが不正です。');
+			errors.push(chrome.i18n.getMessage('errorSearchXpathInvalid'));
 		}
 	}
 	return errors;

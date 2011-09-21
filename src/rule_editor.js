@@ -71,7 +71,7 @@ RuleEditor.prototype.onSaveDone = function (rule)
 	{
 		this.rule.words[i].word_id = rule.words[i].word_id;
 	}
-	this.ruleEditorDialog.showMessage("セーブしました");
+	this.ruleEditorDialog.showMessage(chrome.i18n.getMessage('saveDone'));
 }
 
 RuleEditor.prototype.getOnClickAction = function (node) 
@@ -715,7 +715,7 @@ RuleElement.getFocusForHideFunc = function (element)
 {
 	return function()
 	{
-		//TODO 保存
+		//TODO Save
 		element.isFocusedForHide = true;
 		element.style.outline = RuleElement.STYLE_FOCUS_FOR_HIDE;
 	};
@@ -724,7 +724,7 @@ RuleElement.getFocusForSearchFunc = function (element)
 {
 	return function()
 	{
-		//TODO 保存
+		//TODO Save
 		element.isFocusedForHide = true;
 		element.style.outline = RuleElement.STYLE_FOCUS_FOR_SEARCH;
 	};

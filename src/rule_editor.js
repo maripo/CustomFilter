@@ -360,7 +360,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 			{
 				addToHiddenNodes(node);
 				node.style.backgroundColor = '#ccc';
-			}
+			}, true
 		);	
 	}, false);
 	document.getElementById('rule_editor_site_regexp').addEventListener ('keyup',function()

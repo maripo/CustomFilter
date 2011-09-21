@@ -133,7 +133,7 @@ function addToHiddenNodes(node)
 }
 var blockedCount = 0;
 var hiddenNodes = new Array();
-function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide)
+function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide, isTesting)
 {
 	var needRefreshBadge = false;
 	var searchNodes = (rule.block_anyway)?[]:CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath);
@@ -165,7 +165,7 @@ function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide)
 			if (onHide)
 				onHide(node);
 		}
-		else if (node.hideDone && !shouldBeHidden) 
+		else if (isTesting && node.hideDone && !shouldBeHidden) 
 		{
 			if (node.defaultStyles) {
 				node.style.backgroundColor = node.defaultStyles.backgroundColor;

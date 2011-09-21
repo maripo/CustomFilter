@@ -14,25 +14,30 @@
 	<body onload="onStart()">
 		<div id="wrapper">
 		<h1>CustomBlocker Help</h1>
-		<h2>使い道は?</h2>
+		<h2>How it works?</h2>
 		<p>
-			Webサイトの一部を、柔軟にカスタマイズできるルールによって非表示にすることのできる拡張です。
-			たとえば、「Twitterを見ているとき、投稿本文に◯◯という文字が含まれていたらツイート全体を非表示にする」「ソーシャルブックマークで、◯◯というタグのついているコメントを非表示にする」といったことができます。
+			This extension allows you create filters freely.
+			For example....
 		</p>
-		<h2>まずは簡単にルールを作ってみたい</h2>
-		<p>
-			まずは好きなサイトに行ってアイコンをクリックします。
-			窓が出るので、新規作成します。
-			タイトルは、自分がわかりやすいように適当につけてください。
-			XPathでURLを指定します。
-			「どの要素に」「どんな文字が含まれていたら」「どの要素を非表示にする」というルールを設定します。
-			「どの要素に」を選びます。XPathを選択ボタンを選びます
-			
-		</p>
+		<ul>
+			<li>Block tweets posted by specific apps on twitter</li>
+			<li>Block comments which contain unpleasant words or tags on social bookmark sites</li>
+			<li>Remove results on specific domains from Google search results</li>
+		</ul>
+		<h2>Simple way to create rules</h2>
+		<ol>
+			<li>Visit your favorite site.</li>
+			<li>Click the icon and open pref dialog.</li>
+			<li>Click "New Rule for this Site"</li>
+			<li>Edit site RegEx if necessary</li>
+			<li>Click "Get XPath" button and select XPath which hits desired elements</li>
+			<li>Input some keywords</li>
+			<li>Save the rule and reload the page</li>
+		</ol>
 		<p>
 			<img src="../img/help/help1-ja.png"/>
 		</p>
-		<h2>XPathって?</h2>
+		<h2>What is XPath?</h2>
 		<p>
 			XPathは、HTMLの構成要素の中から特定の条件を満たす要素をピックアップするための表現です。
 		</p>
@@ -69,6 +74,10 @@
 		<p>
 			表示中のページの中で、ルールに合致して非表示になった要素の数をあらわします。
 		</p>
+		<p>
+			<img src="../img/help/blocked.png"/>
+		</p>
+		
 		<h2>一時的にフィルタをオフにするには?</h2>
 		<p>
 			拡張自体をオフにする方法と、一部のルールのみをオフにする方法があります。
@@ -80,9 +89,9 @@
 			特定のルールのみのオン・オフを切り替えるには、ツールバーのアイコンをクリックしたときに表示される「適用中のルール」の「ON」「OFF」ボタンを使います。
 			もしくは、ルール一覧画面で「ON」「OFF」ボタンを押します。
 		</p>
-		<h2>作者</h2>
+		<h2>Developer</h2>
 		<p>
-			ごうだまりぽ goda.mariko@gmail.com<br/>
+			Mariko GODA goda.mariko@gmail.com<br/>
 			<a href="http://www.maripo.org">http://www.maripo.org</a>
 		</p>
 		</div>

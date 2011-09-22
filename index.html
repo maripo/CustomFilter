@@ -97,6 +97,7 @@
 						var disableButton = document.createElement('input');
 						disableButton.type = 'BUTTON';
 						disableButton.value = (rule.is_disabled)?'OFF':'ON';
+						disableButton.style.backgroundColor = (rule.is_disabled)?'#f48':'#4f8';
 						disableButton.addEventListener ('click', getDisableAction(rule,disableButton), false);
 						
 						li.appendChild(disableButton);
@@ -131,6 +132,7 @@
 				{
 					rule.is_disabled = !rule.is_disabled;
 					disableButton.value = (rule.is_disabled)?'OFF':'ON';
+					disableButton.style.backgroundColor = (rule.is_disabled)?'#f8a':'#4f8';
 					try 
 					{
 						peer.saveObject(rule, function () 

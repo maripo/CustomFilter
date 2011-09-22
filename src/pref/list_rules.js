@@ -143,7 +143,7 @@ RuleContainer.prototype.createDisableBox = function ()
 	var input = document.createElement('INPUT');
 	input.type = 'BUTTON';
 	input.value = (this.rule.is_disabled)?'OFF':'ON';
-	
+	input.style.backgroundColor = (this.rule.is_disabled)?'#f8a':'#4f8';
 	span.appendChild(input);
 	input.addEventListener('click', this.getDisableAction(input), true);
 	return span;
@@ -173,6 +173,7 @@ RuleContainer.prototype.getDisableAction = function (inputButton)
 	{
 		rule.is_disabled = !rule.is_disabled;
 		inputButton.value = (rule.is_disabled)?'OFF':'ON';
+		inputButton.style.backgroundColor = (this.rule.is_disabled)?'#f8a':'#4f8';
 		peer.saveObject(rule);
 		reloadBackground();
 	}

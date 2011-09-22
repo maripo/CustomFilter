@@ -12,8 +12,10 @@
 	<body style="width:480px;" onload="getAppliedRules()">
 		<div id="header">
 			<div class="menu">
-				<input type="button" id="buttonOn" onclick="setBlockOn(true)" value="ON"/>
-				<input type="button" id="buttonOff" onclick="setBlockOn(false)" value="OFF"/>
+				<input type="radio" name="extenstion_enable" id="buttonOn" onclick="setBlockOn(true)"/>
+				<label for="">ON</label>
+				<input type="radio" name="extenstion_enabled" id="buttonOff" onclick="setBlockOn(false)"/>
+				<label for="">OFF</label>
 				<a href="javascript:void(0)" onclick="openPreference()"><span class="custom_filter_localize_preference">Preference</span></a>
 				<a href="javascript:void(0)" onclick="window.close()">[x]</a>
 			</div>
@@ -73,8 +75,8 @@
 			function refreshButton () 
 			{
 					var isDisabled = ('true' == localStorage.blockDisabled);
-					document.getElementById('buttonOn').disabled = !isDisabled;
-					document.getElementById('buttonOff').disabled = isDisabled;
+					document.getElementById('buttonOn').checked = !isDisabled;
+					document.getElementById('buttonOff').checked = isDisabled;
 			}
 			function renderApplierRules(list)
 			{

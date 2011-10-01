@@ -18,7 +18,7 @@
 							tabId: tabId
 						});
 						chrome.browserAction.setTitle({
-							title: count+"件ブロックしました",
+							title: getBadgeTooltipString(count),
 							tabId:tabId
 						});
 					} catch (ex) {
@@ -147,6 +147,7 @@
 				addToExistingTabList(tabId);
 				// ON/OFF
 				var isDisabled = ('true' == localStorage.blockDisabled);
+				_setIconDisabled(isDisabled, tabId);
 				if (isDisabled) {
 					return;
 				}
@@ -316,6 +317,8 @@
 					(function(_tabId, selectInfo) 
 						{
 							var tabId = parseInt(_tabId);
+							var isDisabled = ('true' == localStorage.blockDisabled);
+							_setIconDisabled(isDisabled, tabId);
 							var ids = new Array();
 							for (var _index in existingTabs) 
 							{ 
@@ -343,6 +346,26 @@
 							}
 							catch (ex) {console.log(ex);}
 						});
+			}
+			function setIconDisabled (isDisabled) 
+			{
+				chrome.tabs.getSelected(null,function(tab)
+				{
+					_setIconDisabled(isDisabled,tab.id);
+				});
+			}
+			function _setIconDisabled (isDisabled, tabId)
+			{
+				chrome.browserAction.setBadgeText({
+					text:(isDisabled)?'OFF':'',
+					tabId: tabId
+				});
+				chrome.browserAction.setIcon(
+				{
+					path:(isDisabled)?'icon_disabled.png':'icon.png',
+					tabId:tabId
+				});	
+				
 			}
 			chrome.tabs.customBlockerOnUpdateSet = true;			
 		</script>

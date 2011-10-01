@@ -5,7 +5,7 @@
   "description" : "__MSG_extDescription__",
   "browser_action": {
       "default_title": "CustomBlocker preference",
-      "default_icon": "icon.png",
+      "default_icon": "icon_disabled.png",
       "popup": "index.html"
   },
   "options_page":"pref/index.html",

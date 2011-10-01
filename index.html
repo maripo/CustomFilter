@@ -66,6 +66,8 @@
 			function setBlockOn (on) 
 			{
 				localStorage.blockDisabled = (on)?'false':'true';
+				var bgWindow = chrome.extension.getBackgroundPage();
+				bgWindow.setIconDisabled(!on);
 				refreshButton();
 			}
 			function refreshButton () 

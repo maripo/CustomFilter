@@ -85,7 +85,7 @@ RuleContainer.prototype.getLiElement = function ()
 	var titleDiv = document.createElement('DIV');
 	titleDiv.className = 'title';
 	
-	titleDiv.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.shorten(this.rule.title, 20));
+	titleDiv.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.shorten(this.rule.title, 30));
 	
 	
 	var urlDiv = document.createElement('DIV');
@@ -96,13 +96,14 @@ RuleContainer.prototype.getLiElement = function ()
 	keywordsDiv.className = 'keywords';
 	
 	var keywords = new Array();
-	
 	for (var i=0, l=this.rule.words.length; i<l; i++) 
 	{
-		keywords.push(this.rule.words[i].word);
+		var keywordSpan = document.createElement('SPAN');
+		keywordSpan.className = (this.rule.words[i].is_regexp)?"keyword regex":"keyword normal";
+		keywordSpan.innerHTML = this.rule.words[i].word
+		keywordsDiv.appendChild(keywordSpan);
 	}
 	
-	keywordsDiv.innerHTML = CustomBlockerUtil.escapeHTML(keywords.join(' '));
 	
 	informationDiv.appendChild(titleDiv);
 	informationDiv.appendChild(urlDiv);

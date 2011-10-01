@@ -9,12 +9,15 @@ h1 {
 h2 {
 	font-size:120%;
 }
+#prefMain {
+	width:910px;	
+}
 #ruleListContainer {
 	width:auto;
-	height:420px;
+	height:480px;
 	-webkit-box-shadow: inset 0px 0px 2px #888!important;
 	padding:0px;
-	margin:0px;
+	margin: 0px;
 	overflow-y:scroll;
 	border:solid #bbb 1px;
 }
@@ -25,7 +28,7 @@ h2 {
 	-webkit-box-shadow: 0px 0px 2px #888!important;
 }
 #rule_editor_body {
-	width:400px;
+	width:340px;
 	float:right;
 }
 #ruleList li {
@@ -35,6 +38,7 @@ h2 {
 	padding:0px;
 	position:relative;
 	cursor:pointer;
+	overflow:hidden;
 }
  #ruleList li:nth-child(odd) {
  	background-color:#d0e0ff;
@@ -61,7 +65,7 @@ h2 {
  	width:180px;
 	float:right;
 	height:inherit;
-	line-height:18px;
+	line-height:17px;
  }
  #ruleList li div.buttonContainer input {
  	width:55px;
@@ -90,16 +94,33 @@ h2 {
 	left:10px;
 	top:20px;
 }
-#ruleList li div.information div.keywords{
+#ruleList li div.information div.keywords {
  	position:absolute;
-	font-size:0.7em;
-	left:50%;
-	top:20px;
+	font-size:0.6em;
+	left:250px;
+	top:22px;
 }
-#ruleList li div.information a.exampleUrl
-{
+#ruleList div.keywords span.keyword{
+	margin-right:4px;
+	padding:0px 2px;
+	border-radius:8px!important;
+	
+}
+#ruleList div.keywords span.regex{
+	background-color:#fdd!important;
+	border: solid 1px #f77!important;
+}
+#ruleList div.keywords span.normal{
+	background-color:#def!important;
+	border: solid 1px #78f!important;
+}
+#ruleList li div.information a.exampleUrl {
 	position:absolute;
 	font-size:0.7em;
-	left:40%;
+	left:210px;
 	top:20px;
+}
+#rule_editor_body {
+	border:solid 1px #888;
+	margin-left:4px;	
 }

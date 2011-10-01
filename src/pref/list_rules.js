@@ -184,6 +184,7 @@ RuleContainer.prototype.getSelectAction = function ()
 	var self = this;
 	return function () 
 	{
+		document.getElementById('rule_editor_alert').style.display = 'none';
 		ruleEditor.selectRule(self.rule);
 		deselectAll();
 		self.liElement.className = 'selected';
@@ -302,7 +303,11 @@ RuleEditor.prototype.saveRule = function ()
 	this.rule.hide_block_xpath = document.getElementById('rule_editor_hide_block_xpath').value;
 	this.rule.hide_block_description = document.getElementById('rule_editor_hide_block_description').value;
 	this.rule.block_anyway = document.getElementById('rule_editor_block_anyway').checked;
-	peer.saveObject(this.rule, reloadBackground);
+	var self = this;
+	peer.saveObject(this.rule, function (){
+		self.showMessage(chrome.i18n.getMessage('saveDone'));
+		reloadBackground();
+	});
 	
 }
 RuleEditor.prototype.getWordElement = function (word) 
@@ -356,7 +361,6 @@ RuleEditor.prototype.saveWord = function ()
 	var str = document.getElementById('rule_editor_keyword').value;
 	if (!str || ''==str)
 	{
-		alert("empty");
 		return;
 	}
 	var word = new Word();

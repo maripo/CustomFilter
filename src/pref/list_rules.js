@@ -9,6 +9,7 @@ var peer = RulePeer.getInstance();
 var wordPeer = WordPeer.getInstance();
 function onStart () 
 {
+	document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html'; 
 	ruleEditor = new RuleEditor();
 	console.log("onStart");
 	peer.createTable(createWordTable);

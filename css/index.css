@@ -33,21 +33,32 @@ h2 {
 	padding:0px;
 }
 #ruleList li {
-	height:36px;
+	height:24px;
 	list-style-type:none;
 	margin:0px;
 	padding:0px;
 	position:relative;
+	clear:both;
 }
 #activeRules {
 	margin:0px;
 	padding:0px;
 }
 #activeRules li {
+	height:36px;
 	list-style-type
 }
  #activeRules li:nth-child(odd) {
  	background-color:#def;
  }
  #activeRules li:nth-child(even) {
+ }
+ .buttonContainer {
+ 	float:right;
+ 	width:100px;
+ 	text-align:right;
+ 	height:inherig;
+ 	margin:0px;
+ 	padding:0px;
+ 	clear:both;
  }

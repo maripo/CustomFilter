@@ -88,10 +88,14 @@
 						var rule = list[i];
 						var li = document.createElement('LI');
 						li.innerHTML = CustomBlockerUtil.escapeHTML(rule.title);
+						
+						var buttonContainer = document.createElement('SPAN');
+						buttonContainer.className = 'buttonContainer';
+						
 						var editButton = document.createElement('INPUT');
 						editButton.type = 'BUTTON';
 						editButton.addEventListener('click', getEditRuleAction(rule), true);
-						editButton.value = "EDIT";
+						editButton.value = chrome.i18n.getMessage('buttonLabelEdit');
 						
 						
 						var disableButton = document.createElement('input');
@@ -100,8 +104,9 @@
 						disableButton.style.backgroundColor = (rule.is_disabled)?'#f48':'#4f8';
 						disableButton.addEventListener ('click', getDisableAction(rule,disableButton), false);
 						
-						li.appendChild(disableButton);
-						li.appendChild(editButton);
+						buttonContainer.appendChild(disableButton);
+						buttonContainer.appendChild(editButton);
+						li.appendChild(buttonContainer);
 						ul.appendChild(li);
 					}
 				}

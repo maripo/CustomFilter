@@ -9,7 +9,7 @@ body {
 	line-height:30px;
 }
 #header .menu {
-	width:260px;
+	width:280px;
 	height:inherit;
 	float:right;
 	text-align:right;
@@ -45,7 +45,7 @@ h2 {
 	padding:0px;
 }
 #activeRules li {
-	height:36px;
+	height:28px;
 	list-style-type
 }
  #activeRules li:nth-child(odd) {
@@ -57,7 +57,7 @@ h2 {
  	float:right;
  	width:100px;
  	text-align:right;
- 	height:inherig;
+ 	height:inherit;
  	margin:0px;
  	padding:0px;
  	clear:both;

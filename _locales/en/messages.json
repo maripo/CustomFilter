@@ -32,5 +32,7 @@
 	"errorSearchXpathInvalid":{"message":"XPath for \"Elements to Search\" is invalid"},
 	"saveDone":{"message":"The rule is successfully saved."},
 	"descriptionEmpty":{"message":"There is no rule.Make rules for your favorite sites."},
-	"helpEmpty":{"message":"[Learn how to make rules]"}
+	"helpEmpty":{"message":"[Learn how to make rules]"},
+	"import":{"message":"Import"},
+	"export":{"message":"Export"}
 }

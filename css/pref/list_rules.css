@@ -100,17 +100,17 @@ h2 {
 	left:250px;
 	top:22px;
 }
-#ruleList div.keywords span.keyword{
+#ruleList div.keywords span.keyword {
 	margin-right:4px;
 	padding:0px 2px;
 	border-radius:8px!important;
 	
 }
-#ruleList div.keywords span.regex{
+#ruleList div.keywords span.regex {
 	background-color:#fdd!important;
 	border: solid 1px #f77!important;
 }
-#ruleList div.keywords span.normal{
+#ruleList div.keywords span.normal {
 	background-color:#def!important;
 	border: solid 1px #78f!important;
 }
@@ -123,4 +123,10 @@ h2 {
 #rule_editor_body {
 	border:solid 1px #888;
 	margin-left:4px;	
+}
+#ruleEmptyAlert {
+	display:none;
+	padding:10px;
+	text-align:center;
+	color:#888;
 }

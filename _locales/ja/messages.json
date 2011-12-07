@@ -30,5 +30,7 @@
 	"errorSiteRegexEmpty":{"message":"サイトの正規表現が空です。"},
 	"errorHideXpathInvalid":{"message":"ブロック対象XPathが不正です。"},
 	"errorSearchXpathInvalid":{"message":"検索対象XPathが不正です。"},
-	"saveDone":{"message":"セーブしました"}
+	"saveDone":{"message":"セーブしました"},
+	"descriptionEmpty":{"message":"まだルールが1件もありません。<br/>お気に入りのサイトでルールを作りましょう。"},
+	"helpEmpty":{"message":"[ルールの作り方]"}
 }

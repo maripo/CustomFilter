@@ -9,7 +9,8 @@ var peer = RulePeer.getInstance();
 var wordPeer = WordPeer.getInstance();
 function onStart () 
 {
-	document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html'; 
+	document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
+	document.getElementById('help_link_empty').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html'; 
 	ruleEditor = new RuleEditor();
 	console.log("onStart");
 	peer.createTable(createWordTable);
@@ -25,9 +26,21 @@ function loadLists ()
 	console.log("loadLists");
 	peer.select('', onRuleListLoaded, null);
 }
+function showEmptyAlert ()
+{
+	document.getElementById('ruleList').style.display = 'none';
+	document.getElementById('ruleEmptyAlert').style.display = 'block';
+}
+function hideEmptyAlert ()
+{
+	document.getElementById('ruleList').style.display = 'block';
+	document.getElementById('ruleEmptyAlert').style.display = 'none';
+}
 function onRuleListLoaded (list) 
 {
 	console.log("onRuleListLoaded");
+	if (!list || list.length==0)
+		showEmptyAlert();
 	ruleList = list;
 	wordPeer.select('', onWordListLoaded, null);
 }
@@ -306,6 +319,7 @@ RuleEditor.prototype.saveRule = function ()
 	this.rule.block_anyway = document.getElementById('rule_editor_block_anyway').checked;
 	var self = this;
 	peer.saveObject(this.rule, function (){
+		showEmptyAlert();
 		self.showMessage(chrome.i18n.getMessage('saveDone'));
 		reloadBackground();
 	});

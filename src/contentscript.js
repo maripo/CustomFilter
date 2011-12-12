@@ -1,6 +1,6 @@
 /*
  2011 Maripo GODA
- 
+
  */
 var bgCallback = null;
 var badgeCallback = null;

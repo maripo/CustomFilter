@@ -22,6 +22,15 @@ var Import =
 	{
 		console.log('Import.readContent');
 		console.log(event.target.result);
+		try
+		{
+			var importedList = JSON.parse(event.target.result);
+			alert(importedList.length);
+			
+		} catch (ex)
+		{
+			alert('Error');
+		}
 	}
 
 };

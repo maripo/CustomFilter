@@ -7,6 +7,7 @@ var Import =
 	{
 		var fileSelector = document.getElementById('fileSelector');
 		fileSelector.addEventListener('change', Import.readFile);
+		CustomBlockerUtil.localize();
 	},
 	readFile: function (event)
 	{

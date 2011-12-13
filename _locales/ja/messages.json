@@ -20,7 +20,7 @@
 	"descriptionHide":{"message":"「検索する要素」にNGワードが含まれていると、ここで指定した要素を非表示にします"},
 	"descriptionSearch":{"message":"該当する要素の中にNGワードが含まれていた場合に発動します"},
 	"descriptionSite":{"message":"該当するサイトでルールが適用されます"},
-	"prefTitle":{"message":"ルール一覧"},
+	"prefTitle":{"message":"ルールの管理"},
 	"buttonLabelEdit":{"message":"編集"},
 	"buttonLabelDelete":{"message":"削除"},
 	"dialogDelete":{"message":"本当にこのルールを削除しますか?"},

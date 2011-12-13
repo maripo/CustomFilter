@@ -9,6 +9,7 @@ var Export =
 	{
 		Export.ruleWrapperList = new Array();
 		Export.loadLists();
+		CustomBlockerUtil.localize();
 	},
 	exportSelected: function()
 	{

@@ -12,7 +12,6 @@ function onStart ()
 	document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
 	document.getElementById('help_link_empty').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html'; 
 	ruleEditor = new RuleEditor();
-	console.log("onStart");
 	peer.createTable(createWordTable);
 	CustomBlockerUtil.localize();
 }

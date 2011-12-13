@@ -8,6 +8,7 @@
 		<script language="JavaScript" src="../src/db/DbObj.js"></script>
 		<script language="JavaScript" src="../src/db/Rule.js"></script>
 		<script language="JavaScript" src="../src/db/Word.js"></script>
+		<script language="JavaScript" src="../src/pref/import_export.js"></script>
 		<script language="JavaScript" src="../src/pref/export.js"></script>
 		<script language="JavaScript" src="../src/util.js"></script>
 	</head>
@@ -36,7 +37,7 @@
 			</div>
 		</div>
 		<div>
-			<input type="button" onclick="javascript:alert('TODO')" value="選択したルールをエクスポート"/>
+			<input type="button" onclick="javascript:Export.exportSelected()" value="選択したルールをエクスポート"/>
 		</div>
 	</body>
 </html>

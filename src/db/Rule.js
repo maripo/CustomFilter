@@ -36,7 +36,6 @@ RulePeer.getInstance = function ()
 	instance.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP);
 	
 	RulePeer.instance =  instance;
-	
 	return RulePeer.instance;
 }
 

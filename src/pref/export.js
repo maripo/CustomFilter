@@ -3,7 +3,10 @@
  */
 var Export = 
 {
-
+	onStart: function ()
+	{
+		
+	},
 	showDialog: function()
 	{
 		var fileSelector = document.getElementById('fileSelector');

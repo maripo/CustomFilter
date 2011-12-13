@@ -120,6 +120,17 @@ h2 {
 	left:210px;
 	top:20px;
 }
+#ruleList li div.sub {
+	position:absolute;
+	left:40px;
+	top:0px;
+	width:400px;	
+}
+#ruleList li input.check {
+	position:absolute;
+	left:10px;
+	top:10px;
+}
 #rule_editor_body {
 	border:solid 1px #888;
 	margin-left:4px;	

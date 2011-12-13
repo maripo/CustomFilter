@@ -319,7 +319,7 @@ RuleEditor.prototype.saveRule = function ()
 	this.rule.block_anyway = document.getElementById('rule_editor_block_anyway').checked;
 	var self = this;
 	peer.saveObject(this.rule, function (){
-		showEmptyAlert();
+		hideEmptyAlert();
 		self.showMessage(chrome.i18n.getMessage('saveDone'));
 		reloadBackground();
 	});

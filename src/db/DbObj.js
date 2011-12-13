@@ -137,6 +137,7 @@ DbPeer.prototype = {
 		sql += valList.join(',');
 		sql += ')';
 		var self = this;
+		console.log(sql)
 		try 
 		{
 			db.transaction(function(tx) 

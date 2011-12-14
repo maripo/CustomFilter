@@ -7,6 +7,8 @@ var Import =
 	{
 		var fileSelector = document.getElementById('fileSelector');
 		fileSelector.addEventListener('change', Import.readFile);
+		document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
+		document.getElementById('help_link_empty').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html'; 
 		CustomBlockerUtil.localize();
 	},
 	readFile: function (event)

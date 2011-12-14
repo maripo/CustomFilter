@@ -13,13 +13,15 @@
 		<script language="JavaScript" src="../src/util.js"></script>
 	</head>
 	<body onload="onStart()">
-		<h1><span class="custom_filter_localize_prefTitle">Manage Rules</span></h1>
-			<div>
-				<a href="index.html"><span class="custom_filter_localize_prefTitle">Manage Rules</span></span></a>
-				<a href="help.html" id="help_link"><span class="custom_filter_localize_help">Help</span></a>
-				<a href="export.html" id="export_link"><span class="custom_filter_localize_export">Export</span></a>
-				<a href="import.html" id="import_link"><span class="custom_filter_localize_import">Import</span></a>
-			</div>
+		<div id="header">
+			<h1>CustomBlocker Prefs</h1>
+			<ul>
+				<li class="selected"><a href="index.html"><span class="custom_filter_localize_prefTitle">Manage Rules</span></span></a></li>
+				<li><a href="export.html" id="export_link"><span class="custom_filter_localize_export">Export</span></a></li>
+				<li><a href="import.html" id="import_link"><span class="custom_filter_localize_import">Import</span></a></li>
+				<li><a href="help.html" id="help_link"><span class="custom_filter_localize_help">Help</span></a></li>
+			</ul>
+		</div>
 			<div id="prefMain">
 				<div id="rule_editor_body">
 				<div class="section">

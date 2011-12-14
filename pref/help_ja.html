@@ -12,15 +12,17 @@
 		<script language="JavaScript" src="../src/util.js"></script>
 		<script language="JavaScript" src="../src/pref/list_rules.js"></script>
 	</head>
-	<body onload="onStart()">
+	<body onload="javascript:CustomBlockerUtil.localize();">
+	<div id="header">
+			<h1>CustomBlocker Prefs</h1>
+		<ul>
+			<li><a href="index.html"><span class="custom_filter_localize_prefTitle">Manage Rules</span></a></li>
+			<li><a href="export.html" id="export_link"><span class="custom_filter_localize_export">Export</span></a></li>
+			<li><a href="import.html" id="import_link"><span class="custom_filter_localize_import">Import</span></a></li>
+			<li class="selected"><a href="help_ja.html" id="help_link"><span class="custom_filter_localize_help">Help</span></a></li>
+		</ul>
+	</div>
 		<div id="wrapper">
-		<h1>CustomBlocker Help</h1>
-		<div>
-			<a href="index.html"><span class="custom_filter_localize_prefTitle">Manage Rules</span></a>
-			<a href="help.html" id="help_link"><span class="custom_filter_localize_help">Help</span></a>
-			<a href="export.html" id="export_link"><span class="custom_filter_localize_export">Export</span></a>
-			<a href="import.html" id="import_link"><span class="custom_filter_localize_import">Import</span></a>
-		</div>
 		<h2>使い道は?</h2>
 		<p>
 		

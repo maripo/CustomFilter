@@ -9,6 +9,8 @@ var Export =
 	{
 		Export.ruleWrapperList = new Array();
 		Export.loadLists();
+		document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
+		document.getElementById('help_link_empty').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html'; 
 		CustomBlockerUtil.localize();
 	},
 	exportSelected: function()

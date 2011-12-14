@@ -141,3 +141,45 @@ h2 {
 	text-align:center;
 	color:#888;
 }
+/*
+	Header & Footer
+*/
+
+#header {
+	padding:0px;
+	margin-bottom:6px;
+}
+#header h1{
+	font-weight:normal;
+}
+#header ul {
+	height:24px;
+	border-top:solid 1px #ccc;
+	border-bottom:solid 1px #aaa;
+	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#dddddd))!important;
+	padding:0px;
+	margin:0px;
+}
+#header ul li {
+	display:block;
+	list-style-type:none;
+	width:140px;
+	height:inherit;
+	float:left;
+	text-align:center;
+	border-left:solid 1px #fff;
+	border-right:solid 1px #aaa;
+}
+#header ul li a {
+	height:inherit;
+	width:inherit;
+	display:block;
+	text-decoration:none;
+	color: #444;
+}
+#header ul li.selected {
+	background: -webkit-gradient(linear, center top, center bottom, from(#ffeedd), to(#ffddcc))!important;
+}
+#header ul li.selected a {
+
+}

@@ -1,13 +1,22 @@
 RuleWrapper = function (rule)
-	{
-		this.rule = rule;
-		this.liElement = document.createElement('LI');
+{
+	this.rule = rule;
+	this.liElement = document.createElement('LI');
 	this.subLiElement = document.createElement('DIV');
 	this.subLiElement.className = 'sub';
-	
+
 	this.checkbox = document.createElement('INPUT');
 	this.checkbox.type = 'checkbox';
 	this.checkbox.className = 'check';
+	
+	var checkbox = this.checkbox;
+	this.liElement.addEventListener ('click', 
+		function (event)
+		{
+			checkbox.checked = !checkbox.checked;
+		}, 
+		false);
+	
 	this.liElement.appendChild(this.checkbox);
 	
 	var informationDiv = document.createElement('DIV');

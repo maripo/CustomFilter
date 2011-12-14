@@ -30,23 +30,25 @@
 			<input type="file" id="fileSelector"/>
 		</div>
 		
-		<h2>インポートしたルール</h2>
-		<input type="checkbox"/>すべて
-		<div id="ruleListContainer">
-			<ul id="ruleList">
-			</ul>
-			<div id="ruleEmptyAlert">
-				<span class="custom_filter_localize_descriptionEmpty">
+		<div id="imported" style="display:none">
+			<h2>インポートしたルール</h2>
+			<input type="checkbox"/>すべて
+			<div id="ruleListContainer">
+				<ul id="ruleList">
+				</ul>
+				<div id="ruleEmptyAlert">
+					<span class="custom_filter_localize_descriptionEmpty">
 					There is no rule.
 					Make rules for your favorite sites.
-				</span>
-				<div>
-					<a href="help.html" id="help_link_empty"><span class="custom_filter_localize_helpEmpty">How to make rules</span></a>
+					</span>
+					<div>
+						<a href="help.html" id="help_link_empty"><span class="custom_filter_localize_helpEmpty">How to make rules</span></a>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div>
-			<input type="button" onclick="javascript:Import.saveSelected()" value="選択したルールをインポート"/>
+			<div>
+				<input type="button" onclick="javascript:Import.saveSelected()" value="選択したルールをインポート"/>
+			</div>
 		</div>
 	</body>
 </html>

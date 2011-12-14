@@ -23,7 +23,6 @@ var Import =
 	},
 	readContent: function (event)
 	{
-		console.log('Import.readContent');
 		console.log(event.target.result);
 		var importedList = JSON.parse(event.target.result);
 		Import.list = new Array();
@@ -33,6 +32,7 @@ var Import =
 			Import.list.push(listElement);
 			document.getElementById('ruleList').appendChild(listElement.liElement);
 		}
+		document.getElementById('imported').style.display = 'block';
 	},
 	saveSelected: function (event)
 	{

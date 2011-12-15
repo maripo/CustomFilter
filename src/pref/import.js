@@ -21,6 +21,9 @@ var Import =
 		reader.readAsText(file, 'utf8');
 		reader.onload =  Import.readContent;
 	},
+	toggleAllCheckboxes: function (sender) {
+		RuleWrapper.toggleAllCheckboxes (sender, Import.list);
+	},
 	readContent: function (event)
 	{
 		console.log(event.target.result);

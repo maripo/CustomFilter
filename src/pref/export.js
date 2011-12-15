@@ -28,6 +28,9 @@ var Export =
 		var url = "data:application/octet-stream," + encodeURIComponent(JSON.stringify(ruleList));
 		window.open(url);
 	},
+	toggleAllCheckboxes: function (sender) {
+		RuleWrapper.toggleAllCheckboxes (sender, Export.ruleWrapperList);
+	},
 	loadLists: function  () 
 	{
 		peer.select('', Export.onRuleListLoaded, null);
@@ -48,7 +51,6 @@ var Export =
 		for (var i = 0, l = wordList.length; i < l; i++) 
 		{
 			var rule = ruleMap[wordList[i].rule_id];
-			console.log("rule=" + rule);
 			if (rule) 
 			{
 				rule.words.push(wordList[i]);

@@ -66,4 +66,12 @@ RuleWrapper = function (rule)
 	this.liElement.appendChild(this.subLiElement);
 	informationDiv.appendChild(exampleLink);
 	
-}
+};
+RuleWrapper.toggleAllCheckboxes = function (sender, wrapperList)
+{
+	var checked = sender.checked;
+	for (var i=0, l=wrapperList.length; i<l; i++)
+	{
+		wrapperList[i].checkbox.checked = checked;
+	}
+};

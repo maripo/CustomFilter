@@ -32,7 +32,7 @@
 		
 		<div id="imported" style="display:none">
 			<h2>インポートしたルール</h2>
-			<input type="checkbox"/>すべて
+			<input type="checkbox" onchange="javascript:Import.toggleAllCheckboxes(this)" id="checkboxToggleAll"/><label for="checkboxToggleAll">すべて</label>
 			<div id="ruleListContainer">
 				<ul id="ruleList">
 				</ul>

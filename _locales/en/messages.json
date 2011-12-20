@@ -35,5 +35,8 @@
 	"helpEmpty":{"message":"[Learn how to make rules]"},
 	"import":{"message":"Import"},
 	"export":{"message":"Export"},
-	"importDone":{"message":"Import completed successfully"}
+	"importDone":{"message":"Import completed successfully"},
+	"selectRulesToExport":{"message":"Select "},
+	"selectFileToImport":{"message":"Select a file to import."},
+	"selectRulesToImport":{"message":"Select rules to import."}
 }

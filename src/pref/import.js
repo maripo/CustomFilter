@@ -39,6 +39,7 @@ var Import =
 	},
 	saveSelected: function (event)
 	{
+		document.getElementById('button_import').disabled = true;
 		for (var i=0; i<Import.list.length; i++) 
 		{
 			var element = Import.list[i];
@@ -59,7 +60,12 @@ var Import =
 			else Import.savingRuleIndex ++;
 		}
 		Import.savingRuleIndex ++;
-		if (!rule) return;
+		if (!rule)
+		{
+			alert(chrome.i18n.getMessage('importDone'));
+			document.getElementById('button_import').disabled = false;
+			return;
+		}
 		rule.rule.rule_id = 0;
 		Import.rulePeer.saveObject (rule.rule, 
 			function (insertedRule) 

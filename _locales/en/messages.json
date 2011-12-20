@@ -34,5 +34,6 @@
 	"descriptionEmpty":{"message":"There is no rule.Make rules for your favorite sites."},
 	"helpEmpty":{"message":"[Learn how to make rules]"},
 	"import":{"message":"Import"},
-	"export":{"message":"Export"}
+	"export":{"message":"Export"},
+	"importDone":{"message":"Import completed successfully"}
 }

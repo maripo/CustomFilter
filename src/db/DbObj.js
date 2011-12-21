@@ -22,11 +22,9 @@ DbPeer.prototype = {
 			{
 				tx.executeSql(sql, [], function()
 				{
-					alert("drop1")
 				}, 
 				function()
 				{
-					alert("drop2")
 				});
 			});
 		} catch (ex) 

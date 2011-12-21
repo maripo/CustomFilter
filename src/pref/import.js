@@ -27,15 +27,23 @@ var Import =
 	readContent: function (event)
 	{
 		console.log(event.target.result);
-		var importedList = JSON.parse(event.target.result);
-		Import.list = new Array();
-		for (var i=0; i<importedList.length; i++) 
+		try
 		{
-			var listElement = new RuleWrapper(importedList[i]);
-			Import.list.push(listElement);
-			document.getElementById('ruleList').appendChild(listElement.liElement);
+			var importedList = JSON.parse(event.target.result);
+			Import.list = new Array();
+			for (var i=0; i<importedList.length; i++) 
+			{
+				var listElement = new RuleWrapper(importedList[i]);
+				Import.list.push(listElement);
+				document.getElementById('ruleList').appendChild(listElement.liElement);
+			}
+			document.getElementById('imported').style.display = 'block';
 		}
-		document.getElementById('imported').style.display = 'block';
+		catch (ex) 
+		{
+			console.log(ex);
+			alert(chrome.i18n.getMessage('importErrorInvalidFormat'));
+		}
 	},
 	saveSelected: function (event)
 	{

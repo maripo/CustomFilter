@@ -22,7 +22,7 @@
 							tabId:tabId
 						});
 					} catch (ex) {
-						alert(ex)
+						console.log(ex)
 					}
 					chrome.tabs.sendRequest(tabId, {
 						command: 'badge'
@@ -107,7 +107,7 @@
 						}, getRulePickerOnCommandFunc(tab.id));
 					});
 				} 
-				catch (ex) {alert(ex)}
+				catch (ex) {console.log(ex)}
 			}
 			function getRulePickerOnCommandFunc (tabId)
 			{
@@ -130,7 +130,7 @@
 					} 
 					catch (e) 
 					{
-						alert(e)
+						console.log(e)
 					}
 					chrome.tabs.getSelected(null,function(tab)
 					{
@@ -170,7 +170,7 @@
 							});
 						} catch (ex) 
 						{
-							alert(ex)
+							console.log(ex)
 						}
 						appliedRuleMap[tab.id] = list;
 						chrome.tabs.sendRequest(tab.id, 
@@ -189,7 +189,7 @@
 					{
 						cb(appliedRuleMap[tab.id]);
 					} 
-					catch (ex) {alert(ex)}
+					catch (ex) {console.log(ex)}
 				});
 				
 			}

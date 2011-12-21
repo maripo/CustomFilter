@@ -38,5 +38,6 @@
 	"importDone":{"message":"Import completed successfully"},
 	"selectRulesToExport":{"message":"Select "},
 	"selectFileToImport":{"message":"Select a file to import."},
-	"selectRulesToImport":{"message":"Select rules to import."}
+	"selectRulesToImport":{"message":"Select rules to import."},
+	"importErrorInvalidFormat":{"message":"Error: Invalid format"}
 }

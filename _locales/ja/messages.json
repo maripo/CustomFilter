@@ -36,7 +36,8 @@
 	"import":{"message":"インポート"},
 	"export":{"message":"エクスポート"},
 	"importDone":{"message":"インポートが正常に完了しました"},
-	"selectRulesToExport":{"message":"エクスポートするファイルを選んでください"},
+	"selectRulesToExportt":{"message":"エクスポートするファイルを選んでください"},
 	"selectFileToImport":{"message":"インポートするファイルを選んでください"},
-	"selectRulesToImport":{"message":"インポートするルールを選んでください"}
+	"selectRulesToImport":{"message":"インポートするルールを選んでください"},
+	"importErrorInvalidFormat":{"message":"インポートファイルのフォーマットが正しくありません"}
 }

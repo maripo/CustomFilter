@@ -110,6 +110,7 @@ function stopBlockAction ()
 
 function execBlock()
 {
+	if (!rules) return;
 	for (var i = 0; i < rules.length; i++) 
 		if (!rules[i].is_disabled) 
 		{

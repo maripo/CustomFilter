@@ -113,8 +113,11 @@ RuleEditor.getMaxZIndex = function ()
 	{
 		var element = elements[i];
 		var style = window.getComputedStyle(element);
-		if (style && style.zIndex && 'auto'!=style.zIndex && style.zIndex>max)
-			max = style.zIndex;
+		
+		if (style && style.zIndex && 'auto'!=style.zIndex && parseInt(style.zIndex)>max)
+		{
+			max = parseInt(style.zIndex);
+		}
 	}
 	return max;
 };

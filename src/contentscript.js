@@ -91,6 +91,10 @@ function startBlock()
 {
 	for (var i=0, l=rules.length; i<l; i++) 
 	{
+		if (rules[i].block_anyway)
+		{
+			CustomBlockerUtil.xpathToCss(rules[i].hide_block_xpath);
+		}
 		for (var j=0; j< rules[i].words.length; j++) 
 		{
 			var word = rules[i].words[j];

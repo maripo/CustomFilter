@@ -51,7 +51,6 @@ function onWordListLoaded (wordList)
 	{
 		ruleMap[ruleList[i].rule_id] = ruleList[i];
 		ruleContainerList.push(new RuleContainer(ruleList[i]));
-		console.log("rule title=" + ruleList[i].title);
 	}
 	for (var i = 0, l = wordList.length; i < l; i++) 
 	{

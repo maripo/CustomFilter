@@ -21,6 +21,23 @@ CustomBlockerUtil.getElementsByXPath = function (xpath)
 	}
 	return list;
 };
+var REGEX_DOUBLE_SLASH = new RegExp('//','g');
+var REGEX_SLASH = new RegExp('/','g');
+var REGEX_SINGLE_CLASS_NAME = new RegExp('\\[@class=[\'\"](.*?)[\'\"]\\]', 'g');
+var REGEX_MULTIPLE_CLASS_NAME = new RegExp('\\[contains\\(concat\\([\'\"] [\'\"],normalize-space\\(@class\\),[\'\"] [\'\"]\\),[\'\"](.*?)[\'\"]\\)\\]', 'g');
+var REGEX_ID = new RegExp('id\\([\'\"](.*?)[\'\"]\\)', 'g');
+var REGEX_FAIL = new RegExp('.*[\\[\\]\\(\\)\"\'].*');
+CustomBlockerUtil.xpathToCss = function (str)
+{
+	var xpath = str;
+	xpath = xpath.replace(REGEX_ID, "#$1");
+	xpath = xpath.replace(REGEX_SINGLE_CLASS_NAME, ".$1");
+	xpath = xpath.replace(REGEX_MULTIPLE_CLASS_NAME, ".$1");
+	xpath = xpath.replace(REGEX_DOUBLE_SLASH, ' ');
+	xpath = xpath.replace(REGEX_SLASH, '>');
+	if (REGEX_FAIL.test(xpath)) return null;
+	return xpath;
+}
 
 CustomBlockerUtil.shorten = function (text, limit)
  {

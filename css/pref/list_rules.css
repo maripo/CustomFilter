@@ -100,6 +100,13 @@ h2 {
 	left:250px;
 	top:22px;
 }
+#ruleList div.keywords span.blockAnyway {
+	margin-right:4px;
+	padding:0px 2px;
+	background-color:#dfd!important;
+	border: solid 1px #4d4!important;
+	border-radius:8px!important;
+}
 #ruleList div.keywords span.keyword {
 	margin-right:4px;
 	padding:0px 2px;

@@ -91,9 +91,14 @@ function startBlock()
 {
 	for (var i=0, l=rules.length; i<l; i++) 
 	{
-		if (rules[i].block_anyway)
+		if (rules[i].block_anyway && !rules[i].is_disabled)
 		{
-			CustomBlockerUtil.xpathToCss(rules[i].hide_block_xpath);
+			var xpath = CustomBlockerUtil.xpathToCss(rules[i].hide_block_xpath);
+			if (xpath!=null)
+			{
+				addBlockCss(xpath);
+				rules[i].staticXpath = xpath;
+			}
 		}
 		for (var j=0; j< rules[i].words.length; j++) 
 		{
@@ -106,6 +111,18 @@ function startBlock()
 	blockInterval = setInterval(execBlock, 2000);
 }
 
+var styleTag = null;
+function addBlockCss (xpath)
+{
+	if (styleTag==null)
+	{
+		styleTag = document.createElement('STYLE');
+		styleTag.type = 'text/css';
+		document.getElementsByTagName('HEAD')[0].appendChild(styleTag);
+	}
+	styleTag.innerHTML = styleTag.innerHTML + (xpath + '{display:none;}');
+}
+
 function stopBlockAction () 
 {
 	if (blockTimeout) clearTimeout(blockTimeout);
@@ -115,8 +132,8 @@ function stopBlockAction ()
 function execBlock()
 {
 	if (!rules) return;
-	for (var i = 0; i < rules.length; i++) 
-		if (!rules[i].is_disabled) 
+	for (var i = 0; i < rules.length; i++)
+		if (!rules[i].is_disabled && !rules[i].staticXpath) 
 		{
 			applyRule(rules[i], false, 
 				function (node) 

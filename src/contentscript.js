@@ -107,8 +107,16 @@ function startBlock()
 				word.regExp = new RegExp(word.word, 'i')
 		}
 	}
-	blockTimeout = setTimeout(execBlock, 50);
-	blockInterval = setInterval(execBlock, 2000);
+	var needBlocking = false;
+	for (var i=0, l=rules.length; i<l; i++) 
+	{
+		if (!rules[i].is_disabled && rules[i].staticXpath) needBlocking = true;
+	}
+	if (needBlocking)
+	{
+		blockTimeout = setTimeout(execBlock, 50);
+		blockInterval = setInterval(execBlock, 2000);
+	}
 }
 
 var styleTag = null;

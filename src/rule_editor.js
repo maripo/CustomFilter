@@ -358,6 +358,10 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		{
 			hiddenNodes[i].style.display = 'block';
 		}
+		if (styleTag)
+		{
+			styleTag.parentNode.removeChild(styleTag);
+		}
 		applyRule(rule, true,
 			function (node) 
 			{
@@ -369,7 +373,6 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	document.getElementById('rule_editor_site_regexp').addEventListener ('keyup',function()
 	{
 		var matched = new RegExp(document.getElementById('rule_editor_site_regexp').value).test(location.href);
-		console.log("PUNI " + matched);
 		document.getElementById('rule_editor_alert_site_regexp').style.display = (matched)?'none':'block';
 	},
 	false);

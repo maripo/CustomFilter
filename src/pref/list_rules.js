@@ -109,12 +109,22 @@ RuleContainer.prototype.getLiElement = function ()
 	keywordsDiv.className = 'keywords';
 	
 	var keywords = new Array();
-	for (var i=0, l=this.rule.words.length; i<l; i++) 
+	if (this.rule.block_anyway)
 	{
-		var keywordSpan = document.createElement('SPAN');
-		keywordSpan.className = (this.rule.words[i].is_regexp)?"keyword regex":"keyword normal";
-		keywordSpan.innerHTML = this.rule.words[i].word
-		keywordsDiv.appendChild(keywordSpan);
+		var span = document.createElement('SPAN');
+		span.innerHTML = 'Block Anyway';
+		span.className = 'blockAnyway';
+		keywordsDiv.appendChild(span);
+	}
+	else
+	{
+		for (var i=0, l=this.rule.words.length; i<l; i++) 
+		{
+			var keywordSpan = document.createElement('SPAN');
+			keywordSpan.className = (this.rule.words[i].is_regexp)?"keyword regex":"keyword normal";
+			keywordSpan.innerHTML = this.rule.words[i].word
+			keywordsDiv.appendChild(keywordSpan);
+		}
 	}
 	
 	

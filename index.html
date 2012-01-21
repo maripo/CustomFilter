@@ -87,7 +87,7 @@
 					{
 						var rule = list[i];
 						var li = document.createElement('LI');
-						li.innerHTML = CustomBlockerUtil.escapeHTML(rule.title);
+						li.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.shorten(rule.title, 24));
 						
 						var buttonContainer = document.createElement('SPAN');
 						buttonContainer.className = 'buttonContainer';

@@ -93,11 +93,11 @@ function startBlock()
 	{
 		if (rules[i].block_anyway && !rules[i].is_disabled)
 		{
-			var xpath = CustomBlockerUtil.xpathToCss(rules[i].hide_block_xpath);
-			if (xpath!=null)
+			var cssSelector = CustomBlockerUtil.xpathToCss(rules[i].hide_block_xpath);
+			if (cssSelector!=null)
 			{
-				addBlockCss(xpath);
-				rules[i].staticXpath = xpath;
+				addBlockCss(cssSelector);
+				rules[i].staticXpath = cssSelector;
 			}
 		}
 		for (var j=0; j< rules[i].words.length; j++) 
@@ -110,7 +110,7 @@ function startBlock()
 	var needBlocking = false;
 	for (var i=0, l=rules.length; i<l; i++) 
 	{
-		if (!rules[i].is_disabled && rules[i].staticXpath) needBlocking = true;
+		if (!rules[i].is_disabled) needBlocking = true;
 	}
 	if (needBlocking)
 	{
@@ -141,17 +141,23 @@ function execBlock()
 {
 	if (!rules) return;
 	for (var i = 0; i < rules.length; i++)
-		if (!rules[i].is_disabled && !rules[i].staticXpath) 
+	{
+		var rule = rules[i];
+		if (!rules[i].is_disabled) 
 		{
 			applyRule(rules[i], false, 
 				function (node) 
 				{
-					node.style.display = 'none';
+					if (!rule.staticXpath)
+					{
+						node.style.display = 'none';
+					}
 					addToHiddenNodes(node);	
 					blockedCount++;
 				}
 			);
 		}
+	}
 }
 function addToHiddenNodes(node)
 {
@@ -192,6 +198,8 @@ function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide, i
 			}
 			node.hideDone = true;
 			needRefreshBadge = true;
+			rule.hiddenCount = (rule.hiddenCount)?rule.hiddenCount+1:1;
+			// Exec callback
 			if (onHide)
 				onHide(node);
 		}
@@ -209,7 +217,7 @@ function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide, i
 	}
 	if (needRefreshBadge && blockedCount > 0 && badgeCallback) 
 	{
-		badgeCallback(blockedCount);
+		badgeCallback({count:blockedCount, rules:rules});
 		badgeCallback = null;
 	}	
 }

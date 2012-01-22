@@ -40,25 +40,51 @@ h2 {
 	position:relative;
 	clear:both;
 }
+/*
+	Applied Rules
+*/
 #activeRules {
 	margin:0px;
 	padding:0px;
 }
 #activeRules li {
-	height:28px;
-	list-style-type
+	height:24px;
+	list-style-type:none;
+	clear:both;
 }
- #activeRules li:nth-child(odd) {
+#activeRules li:nth-child(odd) {
  	background-color:#def;
- }
- #activeRules li:nth-child(even) {
- }
- .buttonContainer {
+}
+#activeRules li:nth-child(even) {
+}
+#activeRules li div.title {
+	margin-left:22px;
+	margin-right:100px;
+	color: #222;
+	line-height:22px;
+	vertical-align:middle;
+	height: inherit;
+}
+#activeRules li div.count {
+	height:14px;
+	margin-top:5px;
+	margin-left:2px;
+	width:18px;
+	text-align:center;
+	color:white;
+	font-size:10px;
+	background-color:red;
+	outline: solid 1px d00;
+	border-radius:8px!important;
+	float:left;
+}
+
+.buttonContainer {
  	float:right;
- 	width:100px;
+ 	width:80px;
+	height: inherit;
  	text-align:right;
  	height:inherit;
  	margin:0px;
  	padding:0px;
- 	clear:both;
- }
+}

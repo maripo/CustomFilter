@@ -63,7 +63,7 @@ function renderApplierRules(list)
 			divTitle.className = 'title';
 			divTitle.innerHTML = CustomBlockerUtil.shorten(CustomBlockerUtil.escapeHTML(rule.title), 24);
 			var divCount = document.createElement('DIV');
-			divCount.className = 'count';
+			divCount.className = 'count ' + ((rule.hiddenCount && rule.hiddenCount>0)?'hit':'noHit');
 			divCount.innerHTML = (rule.hiddenCount)?rule.hiddenCount:0;
 			
 			var buttonContainer = document.createElement('SPAN');

@@ -73,10 +73,16 @@ h2 {
 	text-align:center;
 	color:white;
 	font-size:10px;
-	background-color:red;
-	outline: solid 1px d00;
 	border-radius:8px!important;
 	float:left;
+}
+#activeRules li div.hit {
+	background-color:#f00;
+	border: solid 1px #d00;
+}
+#activeRules li div.noHit {
+	background-color:#888;
+	border: solid 1px #444;
 }
 
 .buttonContainer {

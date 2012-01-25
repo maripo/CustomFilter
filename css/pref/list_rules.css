@@ -40,16 +40,18 @@ h2 {
 	cursor:pointer;
 	overflow:hidden;
 }
- #ruleList li:nth-child(odd) {
+ #ruleList li.odd {
  	background-color:#d0e0ff;
 	border-top:solid #e0e0ff 1px;
 	border-bottom:solid #c0d0ff 1px;
  }
- #ruleList li:nth-child(even) {
+ #ruleList li.even {
  	background-color:#f0f0ff;
 	border-top:solid #ffffff 1px;
 	border-bottom:solid #d0d0d0 1px;
-
+ }
+ #ruleList li.filtered {
+ 	display:none;
  }
  #ruleList li:hover {
  	background-color:#ffffc0;
@@ -189,4 +191,11 @@ h2 {
 }
 #header ul li.selected a {
 
+}
+#search_box {
+	background-image:url(../../img/search_icon.png);
+	background-repeat:no-repeat;
+	background-position:1px 1px;
+	padding-left:15px;
+	width:180px;	
 }

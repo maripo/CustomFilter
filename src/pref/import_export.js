@@ -10,12 +10,6 @@ RuleWrapper = function (rule)
 	this.checkbox.className = 'check';
 	
 	var checkbox = this.checkbox;
-	this.liElement.addEventListener ('click', 
-		function (event)
-		{
-			checkbox.checked = !checkbox.checked;
-		}, 
-		false);
 	
 	this.liElement.appendChild(this.checkbox);
 	

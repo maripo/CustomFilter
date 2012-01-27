@@ -7,6 +7,7 @@ var ruleEditor;
 
 var peer = RulePeer.getInstance();
 var wordPeer = WordPeer.getInstance();
+
 function onStart () 
 {
 	document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
@@ -17,12 +18,10 @@ function onStart ()
 }
 function createWordTable () 
 {
-	console.log("createWordTable");
 	wordPeer.createTable(loadLists);
 }
 function loadLists () 
 {
-	console.log("loadLists");
 	peer.select('', onRuleListLoaded, null);
 }
 function showEmptyAlert ()
@@ -43,6 +42,7 @@ function onRuleListLoaded (list)
 	ruleList = list;
 	wordPeer.select('', onWordListLoaded, null);
 }
+
 function onWordListLoaded (wordList) 
 {
 	console.log("onWordListLoaded");
@@ -52,6 +52,7 @@ function onWordListLoaded (wordList)
 		ruleMap[ruleList[i].rule_id] = ruleList[i];
 		ruleContainerList.push(new RuleContainer(ruleList[i]));
 	}
+	// Relate words with rules
 	for (var i = 0, l = wordList.length; i < l; i++) 
 	{
 		var rule = ruleMap[wordList[i].rule_id];
@@ -60,20 +61,66 @@ function onWordListLoaded (wordList)
 			rule.words.push(wordList[i]);
 		}
 	}
+	renderRules();
+}
+var prevFilterString = null;
+function renderRules ()
+{
 	for (var i = 0, l = ruleContainerList.length; i < l; i++) 
 	{
 		var container = ruleContainerList[i];
 		var element = container.getLiElement();
+		container.applyClassName(i);
 		document.getElementById('ruleList').appendChild(element);
 	}
+}
+
+function search (sender)
+{
+	applyFilter(sender.value);
+}
+
+function applyFilter (filterString)
+{
+	if (prevFilterString == filterString) return;
+	console.log("applyFilter "+ filterString);
+	prevFilterString = filterString;
+	var visibleIndex = 0;
+	for (var i = 0, l = ruleContainerList.length; i < l; i++)
+	{
+		var container = ruleContainerList[i];
+		var matched = isMatched(container.rule, filterString);
+		container.filtered = !matched;
+		container.applyClassName(visibleIndex);
+		if (matched) visibleIndex++;
+	}	
+}
+
+function isMatched (rule, filterString)
+{
+	if (null==filterString || ''==filterString) return true;
+	return (
+			rule.title.indexOf(filterString)>=0 ||
+			rule.site_regexp.indexOf(filterString)>=0 ||
+			rule.example_url.indexOf(filterString)>=0
+			);
 }
 
 var RuleContainer = function (rule) 
 {
 	this.rule = rule;
 	this.liElement = null;
+	this.filtered = false;
 };
-
+RuleContainer.prototype.deselect = function ()
+{
+	this.selected = false;
+}
+RuleContainer.prototype.applyClassName = function (index)
+{
+	if (this.filtered) this.liElement.className = 'filtered';
+	else this.liElement.className = (this.selected)?'selected':((index%2==0)?'odd':'even');
+}
 RuleContainer.prototype.getLiElement = function () 
 {
 	if (this.liElement) return this.liElement;
@@ -153,9 +200,12 @@ RuleContainer.prototype.getLiElement = function ()
 
 function deselectAll () 
 {
+	var visibleIndex = 0;
 	for (var i=0, l=ruleContainerList.length; i<l; i++)
 	{
-		ruleContainerList[i].liElement.className = '';
+		ruleContainerList[i].deselect();
+		ruleContainerList[i].applyClassName(visibleIndex);
+		if (!ruleContainerList[i].filtered) visibleIndex++;
 	}	
 }
 
@@ -209,7 +259,8 @@ RuleContainer.prototype.getSelectAction = function ()
 		document.getElementById('rule_editor_alert').style.display = 'none';
 		ruleEditor.selectRule(self.rule);
 		deselectAll();
-		self.liElement.className = 'selected';
+		self.selected = true;
+		self.applyClassName();
 	};
 };
 
@@ -226,8 +277,23 @@ RuleContainer.prototype.getDeleteAction = function ()
 };
 
 
- var RuleEditor = function () 
- {
+
+
+
+var reloadBackground = function ()
+{	
+	try {
+		var bgWindow = chrome.extension.getBackgroundPage();
+		bgWindow.reloadLists();
+	}
+	catch (ex)
+	{
+		alert(ex)
+	}
+}
+
+var RuleEditor = function () 
+{
 	this.rule = null;
 	this.saveButton = document.getElementById('rule_editor_save_button');
 	this.saveButton.addEventListener('click', this.getSaveAction(), true);
@@ -245,18 +311,18 @@ RuleEditor.changeKeywordColor = function (sender)
 		(document.getElementById('rule_editor_keyword_regexp_checkbox').checked)?'#fdd':'#def';
 
 }
- RuleEditor.prototype.getSaveAction = function () 
+RuleEditor.prototype.getSaveAction = function () 
 {
- 	var self = this;
+	var self = this;
 	
- 	return function () 
+	return function () 
 	{
 		self.saveRule();
 	};
- }
- RuleEditor.prototype.selectRule = function (/* Rule */ rule) 
- {
- 	this.rule = rule;
+}
+RuleEditor.prototype.selectRule = function (/* Rule */ rule) 
+{
+	this.rule = rule;
 	document.getElementById('rule_editor_keywords').innerHTML = '';
 	if (rule.rule_id && rule.rule_id > 0) 
 	{
@@ -282,22 +348,12 @@ RuleEditor.prototype.showMessage = function (str)
 	this.alertDiv.style.display = 'block';
 	this.alertDiv.innerHTML = str;
 };
+
 RuleEditor.prototype.hideMessage = function ()
 {
 	this.alertDiv.style.display = 'none';
 }
 
-var reloadBackground = function ()
-{	
-	try {
-		var bgWindow = chrome.extension.getBackgroundPage();
-		bgWindow.reloadLists();
-	}
-	catch (ex)
-	{
-		alert(ex)
-	}
-}
 RuleEditor.prototype.saveRule = function () 
 {
 	//Validation	

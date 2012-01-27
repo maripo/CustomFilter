@@ -60,6 +60,7 @@ var Export =
 			var rule = Export.ruleList[i];
 			var wrapper = new RuleWrapper(rule);
 			Export.ruleWrapperList.push(wrapper);
+			wrapper.liElement.className = (i%2==0)?'odd':'even';
 			document.getElementById('ruleList').appendChild(wrapper.liElement);
 		}
 	}

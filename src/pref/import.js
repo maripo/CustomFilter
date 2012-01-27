@@ -35,6 +35,7 @@ var Import =
 			{
 				var listElement = new RuleWrapper(importedList[i]);
 				Import.list.push(listElement);
+				listElement.liElement.className = (i%2==0)?'odd':'even';
 				document.getElementById('ruleList').appendChild(listElement.liElement);
 			}
 			document.getElementById('imported').style.display = 'block';

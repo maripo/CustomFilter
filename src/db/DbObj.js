@@ -1,6 +1,12 @@
-
-var db = window.openDatabase("customblocker","","customblocker extension", 1048576);
-
+var db = null;
+try
+{
+	db = window.openDatabase("customblocker","1.0","customblocker extension", 1048576);
+}
+catch (ex)
+{
+	console.log("window.openDatabase error. " + ex);
+}
 /**
  * Peer
  */

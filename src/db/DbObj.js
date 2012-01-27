@@ -23,11 +23,12 @@ function updateDbIfNeeded (callback)
 				function (transaction)
 				{
 					console.log("Adding columns...");
+					transaction.executeSql("alter table rule add column search_block_by_css;");
+					transaction.executeSql("alter table rule add column search_block_css;");
+					transaction.executeSql("alter table rule add column hide_block_by_css;");
 					transaction.executeSql(
-							  "alter table rule add column search_block_by_css;"
-							+ "alter table rule add column search_block_css;"
-							+ "alter table rule add column hide_block_by_css;"
-							+ "alter table rule add column hide_block_css;",
+							"alter table rule add column hide_block_css;",
+							[],
 							function()
 							{
 								console.log("Columns added.");

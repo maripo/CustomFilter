@@ -7,10 +7,12 @@ function getBadgeAction (tabId)
 		try 
 		{
 			appliedRuleMap[tabId] = rules;
+			var badgeText = ''+count;
 			chrome.browserAction.setBadgeText({
-				text:''+count,
+				text: badgeText,
 				tabId: tabId
 			});
+			tabBadgeMap[tabId] = badgeText;
 			chrome.browserAction.setTitle({
 				title: getBadgeTooltipString(count),
 				tabId:tabId
@@ -27,6 +29,7 @@ var initDone = false;
 var peer = RulePeer.getInstance();
 var wordPeer = WordPeer.getInstance();
 var existingTabs = new Array();
+var tabBadgeMap = new Array(); /* tabId, badgeCount */
 function getBadgeTooltipString (count)
 {
 	if (count > 1)
@@ -319,15 +322,10 @@ if (!chrome.tabs.customBlockerOnUpdateSet)
 					var index = parseInt(_index);
 					if (existingTabs[index] && index!=tabId)
 					{
-						//TODO send "stop" message to "index" tab.
-						//try
-						//{
-							chrome.tabs.sendRequest(index, 
-								{
-									command: 'stop'
-								}, getBadgeAction(index));
-						//}
-						//catch (ex) {console.log(ex);console.log("errorIndex=" + index);}
+						chrome.tabs.sendRequest(index, 
+							{
+								command: 'stop'
+							}, getBadgeAction(index));
 					}
 						ids.push(index);
 				}
@@ -337,6 +335,14 @@ if (!chrome.tabs.customBlockerOnUpdateSet)
 						{
 							command: 'resume'
 						}, getBadgeAction(tabId));
+					if (tabBadgeMap[tabId])
+					{
+						chrome.browserAction.setBadgeText({
+							text: tabBadgeMap[tabId],
+							tabId: tabId
+						});
+						
+					}
 				}
 				catch (ex) {console.log(ex);}
 			});

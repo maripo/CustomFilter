@@ -2,16 +2,20 @@ var db = null;
 var needDbUpdate = false;
 try
 {
+	needDbUpdate = false;
 	db = window.openDatabase("customblocker","2.0","customblocker extension", 1048576);
 }
 catch (ex)
 {
 	console.log("Database Update Required." + ex);
-	db = window.openDatabase("customblocker","1.0","customblocker extension", 1048576);
-	if (db)
+	try
 	{
-		needDbUpdate = true;
-	}
+		db = window.openDatabase("customblocker","1.0","customblocker extension", 1048576);
+		if (db)
+		{
+			needDbUpdate = true;
+		}
+	} catch (ex){}
 }
 function updateDbIfNeeded (callback)
 {
@@ -20,32 +24,32 @@ function updateDbIfNeeded (callback)
 		console.log("Database Update 1.0->2.0");
 		
 		db.changeVersion("1.0", "2.0", 
-				function (transaction)
-				{
-					console.log("Adding columns...");
-					transaction.executeSql("alter table rule add column search_block_by_css;");
-					transaction.executeSql("alter table rule add column search_block_css;");
-					transaction.executeSql("alter table rule add column hide_block_by_css;");
-					transaction.executeSql(
-							"alter table rule add column hide_block_css;",
-							[],
-							function()
-							{
-								console.log("Columns added.");
-								callback();
-							},
-							function()
-							{
-								console.log("DB Version-up FAILED. change version 2.0->1.0");
-								db.changeVersion("2.0", "1.0", callback);
-							}
-						);
-				}
+			function (transaction)
+			{
+				console.log("Adding columns...");
+				transaction.executeSql("alter table rule add column search_block_by_css;");
+				transaction.executeSql("alter table rule add column search_block_css;");
+				transaction.executeSql("alter table rule add column hide_block_by_css;");
+				transaction.executeSql(
+					"alter table rule add column hide_block_css;",
+					[],
+					function()
+					{
+						console.log("Columns added.");
+						callback();
+					},
+					function()
+					{
+						console.log("DB Version-up FAILED. change version 2.0->1.0");
+						db.changeVersion("2.0", "1.0", callback);
+					}
+				);
+			}
 		);
 	}
 	else
 	{
-		console.log("updateDbIfNeeded NOTHING TO DO.");
+		console.log("updateDbIfNeeded() DB schema is up to date.");
 		callback();
 	}
 }

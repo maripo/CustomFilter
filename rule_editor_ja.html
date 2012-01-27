@@ -25,18 +25,32 @@
 					該当するサイトでルールが適用されます
 				</div>
 			</div>
-			<div class="section">
+			<div class="section" style="position:relative!important">
 				<h2>検索する要素</h2>
-				<div class="input_section"><div class="label"><span style="border:solid 1px blue" id="rule_editor_count_search_block_xpath">　</span>XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_xpath"/><input type="button" class="xpath_picker" value="XPathを取得" id="rule_editor_button_search_block_xpath"/><a href="search.html" class="help">?</a></div>
+				<div class="rule_editor_switch_section" style="position:absolute!important;right:2px!important;top:2px!important;text-align:right!important;">
+					<input type="radio" id="rule_editor_radio_search_xpath" name="rule_editor_radio_search"/>
+					<label for="rule_editor_radio_search_xpath">XPath</label>
+					<input type="radio" id="rule_editor_radio_search_css" name="rule_editor_radio_search"/>
+					<label for="rule_editor_radio_search_css">CSS</label>
+				</div>
+				<div class="input_section" id="rule_editor_section_search_xpath"><div class="label"><span style="border:solid 1px blue" id="rule_editor_count_search_block_xpath">　</span>XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_xpath"/><input type="button" class="xpath_picker" value="XPathを取得" id="rule_editor_button_search_block_xpath"/><a href="search.html" class="help">?</a></div>
+				<div class="input_section" id="rule_editor_section_search_css"><div class="label"><span style="border:solid 1px blue" id="rule_editor_count_search_block_css">　</span>CSSセレクタ</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_css"/><input type="button" class="xpath_picker" value="CSSセレクタを取得" id="rule_editor_button_search_block_css"/><a href="search.html" class="help">?</a></div>
 				<div class="section_alert" style="display:none" id="rule_editor_alert_search_block_xpath">XPathが不正です</div>
 				<div class="input_section"><div class="label">説明</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_description"/></div>
 				<div class="description">
 					該当する要素の中にNGワードが含まれていた場合に発動します
 				</div>
 			</div>
-			<div class="section">
+			<div class="section" style="position:relative!important">
 				<h2>隠す要素</h2>
-				<div class="input_section"><div class="label"><span style="border:solid 1px red" id="rule_editor_count_hide_block_xpath">　</span> XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_xpath"/><input type="button" class="xpath_picker" value="XPathを取得" id="rule_editor_button_hide_block_xpath"/><a href="hide.html" class="help">?</a></div>
+				<div class="rule_editor_switch_section" style="position:absolute!important;right:2px!important;top:2px!important;text-align:right!important;">
+					<input type="radio" id="rule_editor_radio_hide_xpath" name="rule_editor_radio_hide"/>
+					<label for="rule_editor_radio_hide_xpath">XPath</label>
+					<input type="radio" id="rule_editor_radio_hide_css" name="rule_editor_radio_hide"/>
+					<label for="rule_editor_radio_hide_css">CSS</label>
+				</div>
+				<div class="input_section" id="rule_editor_section_hide_xpath"><div class="label"><span style="border:solid 1px red" id="rule_editor_count_hide_block_xpath">　</span> XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_xpath"/><input type="button" class="xpath_picker" value="XPathを取得" id="rule_editor_button_hide_block_xpath"/><a href="hide.html" class="help">?</a></div>
+				<div class="input_section" id="rule_editor_section_hide_css"><div class="label"><span style="border:solid 1px red" id="rule_editor_count_hide_block_css">　</span> CSSセレクタ</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_css"/><input type="button" class="xpath_picker" value="CSSセレクタを取得" id="rule_editor_button_hide_block_css"/><a href="hide.html" class="help">?</a></div>
 				<div class="section_alert" style="display:none" id="rule_editor_alert_hide_block_xpath">XPathが不正です</div>
 				<div class="input_section"><div class="label">説明</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_description"/></div>
 				<div class="description">

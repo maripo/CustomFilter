@@ -133,7 +133,7 @@
 	width:180px;
 	
 }
-#rule_editor_search_block_xpath {
+#rule_editor_search_block_xpath, #rule_editor_search_block_css {
 	width:180px;
 	
 }
@@ -141,7 +141,7 @@
 	width:180px;
 	
 }
-#rule_editor_hide_block_xpath {
+#rule_editor_hide_block_xpath, #rule_editor_hide_block_css {
 	width:180px;
 	
 }
@@ -256,6 +256,6 @@
 	border-radius:8px!important;
 	border:solid 1px #888;
 }
- input.xpath_picker {
+input.xpath_picker {
+}
 
- }

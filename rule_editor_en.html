@@ -25,18 +25,32 @@
 					This rule is applied on matched sites.
 				</div>
 			</div>
-			<div class="section">
+			<div class="section" style="position:relative!important">
 				<h2>Elements to Search</h2>
-				<div class="input_section"><div class="label"><span style="border:solid 1px blue" id="rule_editor_count_search_block_xpath">　</span>XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_xpath"/><input class="xpath_picker" type="button" value="Suggest XPath" id="rule_editor_button_search_block_xpath"/><a href="search.html" class="help">?</a></div>
+				<div class="rule_editor_switch_section" style="position:absolute!important;right:2px!important;top:2px!important;text-align:right!important;">
+					<input type="radio" id="rule_editor_radio_search_xpath" name="rule_editor_radio_search"/>
+					<label for="rule_editor_radio_search_xpath">XPath</label>
+					<input type="radio" id="rule_editor_radio_search_css" name="rule_editor_radio_search"/>
+					<label for="rule_editor_radio_search_css">CSS</label>
+				</div>
+				<div class="input_section" id="rule_editor_section_search_xpath"><div class="label"><span style="border:solid 1px blue" id="rule_editor_count_search_block_xpath">　</span>XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_xpath"/><input class="xpath_picker" type="button" value="Suggest XPath" id="rule_editor_button_search_block_xpath"/><a href="search.html" class="help">?</a></div>
+				<div class="input_section" id="rule_editor_section_search_css"><div class="label"><span style="border:solid 1px blue" id="rule_editor_count_search_block_css">　</span>CSS Selector</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_css"/><input class="xpath_picker" type="button" value="Suggest CSS Selector" id="rule_editor_button_search_block_css"/><a href="search.html" class="help">?</a></div>
 				<div class="section_alert" style="display:none" id="rule_editor_alert_search_block_xpath">Invalid XPath</div>
 				<div class="input_section"><div class="label">Description</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_description"/></div>
 				<div class="description">
 					The filter works when these elements contain "Words".
 				</div>
 			</div>
-			<div class="section">
+			<div class="section" style="position:relative!important">
 				<h2>Elements to Hide</h2>
-				<div class="input_section"><div class="label"><span style="border:solid 1px red" id="rule_editor_count_hide_block_xpath">　</span> XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_xpath"/><input class="xpath_picker" type="button" value="Suggest XPath" id="rule_editor_button_hide_block_xpath"/><a href="hide.html" class="help">?</a></div>
+				<div class="rule_editor_switch_section" style="position:absolute!important;right:2px!important;top:2px!important;text-align:right!important;">
+					<input type="radio" id="rule_editor_radio_hide_xpath" name="rule_editor_radio_hide"/>
+					<label for="rule_editor_radio_hide_xpath">XPath</label>
+					<input type="radio" id="rule_editor_radio_hide_css" name="rule_editor_radio_hide"/>
+					<label for="rule_editor_radio_hide_css">CSS</label>
+				</div>
+				<div class="input_section" id="rule_editor_section_hide_xpath"><div class="label"><span style="border:solid 1px red" id="rule_editor_count_hide_block_xpath">　</span> XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_xpath"/><input class="xpath_picker" type="button" value="Suggest XPath" id="rule_editor_button_hide_block_xpath"/><a href="hide.html" class="help">?</a></div>
+				<div class="input_section" id="rule_editor_section_hide_css"><div class="label"><span style="border:solid 1px red" id="rule_editor_count_hide_block_css">　</span> CSS Selector</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_css"/><input class="xpath_picker" type="button" value="Suggest CSS Selector" id="rule_editor_button_hide_block_css"/><a href="hide.html" class="help">?</a></div>
 				<div class="section_alert" style="display:none" id="rule_editor_alert_hide_block_xpath">Invalid XPath</div>
 				<div class="input_section"><div class="label">Description</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_description"/></div>
 				<div class="description">

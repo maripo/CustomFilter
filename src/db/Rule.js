@@ -25,8 +25,12 @@ RulePeer.getInstance = function ()
 	
 	// Element Matcher
 	instance.addColumn('search_block_xpath', DbColumn.TYPE_TEXT);
+	instance.addColumn('search_block_by_css', DbColumn.TYPE_BOOLEAN);
+	instance.addColumn('search_block_css', DbColumn.TYPE_TEXT);
 	instance.addColumn('search_block_description', DbColumn.TYPE_TEXT);
 	instance.addColumn('hide_block_xpath', DbColumn.TYPE_TEXT);
+	instance.addColumn('hide_block_by_css', DbColumn.TYPE_BOOLEAN);
+	instance.addColumn('hide_block_css', DbColumn.TYPE_TEXT);
 	instance.addColumn('hide_block_description', DbColumn.TYPE_TEXT);
 	
 	instance.addColumn('block_anyway', DbColumn.TYPE_BOOLEAN);

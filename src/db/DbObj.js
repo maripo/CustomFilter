@@ -1,11 +1,52 @@
 var db = null;
+var needDbUpdate = false;
 try
 {
-	db = window.openDatabase("customblocker","1.0","customblocker extension", 1048576);
+	db = window.openDatabase("customblocker","2.0","customblocker extension", 1048576);
 }
 catch (ex)
 {
-	console.log("window.openDatabase error. " + ex);
+	console.log("Database Update Required." + ex);
+	db = window.openDatabase("customblocker","1.0","customblocker extension", 1048576);
+	if (db)
+	{
+		needDbUpdate = true;
+	}
+}
+function updateDbIfNeeded (callback)
+{
+	if (needDbUpdate)
+	{
+		console.log("Database Update 1.0->2.0");
+		
+		db.changeVersion("1.0", "2.0", 
+				function (transaction)
+				{
+					console.log("Adding columns...");
+					transaction.executeSql(
+							  "alter table rule add column search_block_by_css;"
+							+ "alter table rule add column search_block_css;"
+							+ "alter table rule add column hide_block_by_css;"
+							+ "alter table rule add column hide_block_css;",
+							function()
+							{
+								console.log("Columns added.");
+								callback();
+							},
+							function()
+							{
+								console.log("DB Version-up FAILED. change version 2.0->1.0");
+								db.changeVersion("2.0", "1.0", callback);
+							}
+						);
+				}
+		);
+	}
+	else
+	{
+		console.log("updateDbIfNeeded NOTHING TO DO.");
+		callback();
+	}
 }
 /**
  * Peer
@@ -26,7 +67,8 @@ DbPeer.prototype = {
 		{
 			db.transaction(function(tx) 
 			{
-				tx.executeSql(sql, [], function()
+				tx.executeSql(sql, [], 
+				function()
 				{
 				}, 
 				function()

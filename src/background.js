@@ -1,44 +1,19 @@
-function getBadgeAction (tabId) 
-{
-	return function (params) 
-	{
-		var count = params.count;
-		var rules = params.rules;
-		try 
-		{
-			appliedRuleMap[tabId] = rules;
-			var badgeText = ''+count;
-			chrome.browserAction.setBadgeText({
-				text: badgeText,
-				tabId: tabId
-			});
-			tabBadgeMap[tabId] = badgeText;
-			chrome.browserAction.setTitle({
-				title: getBadgeTooltipString(count),
-				tabId:tabId
-			});
-		} catch (ex) {
-			console.log(ex)
-		}
-		chrome.tabs.sendRequest(tabId, {
-			command: 'badge'
-		}, getBadgeAction(tabId));
-	}
-};
 var initDone = false;
 var peer = RulePeer.getInstance();
 var wordPeer = WordPeer.getInstance();
 var existingTabs = new Array();
 var tabBadgeMap = new Array(); /* tabId, badgeCount */
-function getBadgeTooltipString (count)
-{
-	if (count > 1)
-		return chrome.i18n.getMessage("tooltipCount").replace("__count__",count);
-	else
-		return chrome.i18n.getMessage("tooltipCountSingle");
-}
+
+/**
+ * Initialization
+ */
 function onStart () 
 {
+	updateDbIfNeeded(createRuleTable);
+}
+function createRuleTable ()
+{
+	console.log("createRuleTable");
 	peer.createTable(createWordTable);
 }
 function createWordTable () 
@@ -366,6 +341,41 @@ function _setIconDisabled (isDisabled, tabId)
 		tabId:tabId
 	});	
 	
+}
+function getBadgeAction (tabId) 
+{
+	return function (params) 
+	{
+		var count = params.count;
+		var rules = params.rules;
+		try 
+		{
+			appliedRuleMap[tabId] = rules;
+			var badgeText = ''+count;
+			chrome.browserAction.setBadgeText({
+				text: badgeText,
+				tabId: tabId
+			});
+			tabBadgeMap[tabId] = badgeText;
+			chrome.browserAction.setTitle({
+				title: getBadgeTooltipString(count),
+				tabId:tabId
+			});
+		} catch (ex) {
+			console.log(ex)
+		}
+		chrome.tabs.sendRequest(tabId, {
+			command: 'badge'
+		}, getBadgeAction(tabId));
+	}
+};
+
+function getBadgeTooltipString (count)
+{
+	if (count > 1)
+		return chrome.i18n.getMessage("tooltipCount").replace("__count__",count);
+	else
+		return chrome.i18n.getMessage("tooltipCountSingle");
 }
 chrome.tabs.customBlockerOnUpdateSet = true;
 onStart();

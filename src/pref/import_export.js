@@ -8,14 +8,14 @@ RuleWrapper = function (rule)
 	this.checkbox = document.createElement('INPUT');
 	this.checkbox.type = 'checkbox';
 	this.checkbox.className = 'check';
-	
+    this.liElement.addEventListener ('click',
+            function (event)
+            {
+                    if (checkbox==event.srcElement) return;
+                    checkbox.checked = !checkbox.checked;
+            },
+            true);
 	var checkbox = this.checkbox;
-	this.liElement.addEventListener ('click', 
-		function (event)
-		{
-			checkbox.checked = !checkbox.checked;
-		}, 
-		false);
 	
 	this.liElement.appendChild(this.checkbox);
 	

@@ -8,7 +8,7 @@ RuleWrapper = function (rule)
 	this.checkbox = document.createElement('INPUT');
 	this.checkbox.type = 'checkbox';
 	this.checkbox.className = 'check';
-    this.liElement.addEventListener ('click',
+	this.liElement.addEventListener ('click',
             function (event)
             {
                     if (checkbox==event.srcElement) return;

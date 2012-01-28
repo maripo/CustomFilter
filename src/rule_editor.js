@@ -172,9 +172,11 @@ RuleEditor.prototype.applyInput = function ()
 	this.rule.site_description = document.getElementById('rule_editor_site_description').value;
 	this.rule.search_block_xpath = document.getElementById('rule_editor_search_block_xpath').value;
 	this.rule.search_block_css = document.getElementById('rule_editor_search_block_css').value;
+	this.rule.search_block_by_css = document.getElementById('rule_editor_radio_search_css').checked;
 	this.rule.search_block_description = document.getElementById('rule_editor_search_block_description').value;
 	this.rule.hide_block_xpath = document.getElementById('rule_editor_hide_block_xpath').value;
 	this.rule.hide_block_css = document.getElementById('rule_editor_hide_block_css').value;
+	this.rule.hide_block_by_css = document.getElementById('rule_editor_radio_hide_css').checked;
 	this.rule.hide_block_description = document.getElementById('rule_editor_hide_block_description').value;
 	this.rule.block_anyway = document.getElementById('rule_editor_block_anyway').checked;
 	
@@ -296,12 +298,16 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 			= rule.search_block_xpath;
 		document.getElementById('rule_editor_search_block_css').value 
 			= rule.search_block_css;
+		(document.getElementById('rule_editor_radio_search_'+((rule.search_block_by_css)?'css':'xpath'))).checked 
+			= true;
 		document.getElementById('rule_editor_search_block_description').value 
 			= rule.search_block_description;
 		document.getElementById('rule_editor_hide_block_xpath').value 
 			= rule.hide_block_xpath;
 		document.getElementById('rule_editor_hide_block_css').value 
 			= rule.hide_block_css;
+		(document.getElementById('rule_editor_radio_hide_'+((rule.hide_block_by_css)?'css':'xpath'))).checked 
+			= true;
 		document.getElementById('rule_editor_hide_block_description').value 
 			= rule.hide_block_description;
 		document.getElementById('rule_editor_block_anyway').checked = rule.block_anyway;

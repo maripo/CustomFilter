@@ -331,8 +331,10 @@ RuleEditor.prototype.selectRule = function (/* Rule */ rule)
 		document.getElementById('rule_editor_example_url').value = rule.example_url;
 		document.getElementById('rule_editor_site_description').value = rule.site_description;
 		document.getElementById('rule_editor_search_block_xpath').value = rule.search_block_xpath;
+		document.getElementById('rule_editor_search_block_css').value = rule.search_block_css;
 		document.getElementById('rule_editor_search_block_description').value = rule.search_block_description;
 		document.getElementById('rule_editor_hide_block_xpath').value = rule.hide_block_xpath;
+		document.getElementById('rule_editor_hide_block_css').value = rule.hide_block_css;
 		document.getElementById('rule_editor_hide_block_description').value = rule.hide_block_description;
 		document.getElementById('rule_editor_block_anyway').checked = rule.block_anyway;
 	}
@@ -363,8 +365,10 @@ RuleEditor.prototype.saveRule = function ()
 		example_url : document.getElementById('rule_editor_example_url').value,
 		site_description : document.getElementById('rule_editor_site_description').value,
 		search_block_xpath : document.getElementById('rule_editor_search_block_xpath').value,
+		search_block_css : document.getElementById('rule_editor_search_block_css').value,
 		search_block_description : document.getElementById('rule_editor_search_block_description').value,
 		hide_block_xpath : document.getElementById('rule_editor_hide_block_xpath').value,
+		hide_block_css : document.getElementById('rule_editor_hide_block_css').value,
 		hide_block_description : document.getElementById('rule_editor_hide_block_description').value
 	});
 	if (validateErrors.length>0)
@@ -377,8 +381,10 @@ RuleEditor.prototype.saveRule = function ()
 	this.rule.example_url = document.getElementById('rule_editor_example_url').value;
 	this.rule.site_description = document.getElementById('rule_editor_site_description').value;
 	this.rule.search_block_xpath = document.getElementById('rule_editor_search_block_xpath').value;
+	this.rule.search_block_css = document.getElementById('rule_editor_search_block_css').value;
 	this.rule.search_block_description = document.getElementById('rule_editor_search_block_description').value;
 	this.rule.hide_block_xpath = document.getElementById('rule_editor_hide_block_xpath').value;
+	this.rule.hide_block_css = document.getElementById('rule_editor_hide_block_css').value;
 	this.rule.hide_block_description = document.getElementById('rule_editor_hide_block_description').value;
 	this.rule.block_anyway = document.getElementById('rule_editor_block_anyway').checked;
 	var self = this;

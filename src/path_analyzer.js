@@ -3,11 +3,13 @@
  */
 /*
  * Usage
-			var analyzer = new PathAnalyzer(node);
+			var analyzer = new PathAnalyzer(node, (Xpath|Css)Builder);
 			var list = analyzer.createPathList();
  */
-var PathAnalyzer = function (_node) 
+var PathAnalyzer = function (_node, _builder)
 {
+	console.log("new PathAnalyzer _node=" + _node + ", _builder=" + _builder);
+	this.builder = _builder;
 	this.targetNode = _node;
 	this.pathList = null;
 	this.ancestors = new Array/*<PathElement>*/();
@@ -20,7 +22,7 @@ PathAnalyzer.prototype.createPathList = function ()
 		while (node) 
 		{
 			if (document.body == node) break;
-			this.ancestors.push(new PathElement(node, index));
+			this.ancestors.push(new PathElement(node, index, this.builder));
 			node = node.parentNode;
 			index ++;
 		}
@@ -37,7 +39,7 @@ PathAnalyzer.prototype.createPathList = function ()
 	this.scan(0, new Array());
 	for (var i=0, l=this.uniqPathList.length; i<l; i++)
 	{
-		this.pathList.push(new PathFilter(this.uniqPathList[i]));
+		this.pathList.push(this.builder.createPathFilter(this.uniqPathList[i]));
 	}
 	this.pathList.sort(
 			function(a,b)
@@ -74,7 +76,7 @@ PathAnalyzer.prototype.scan = function (index, seq)
 		this.scan(index+1, PathAnalyzer.cloneArray(seq));
 	if (current.node.id) {
 		var cloneSeq = PathAnalyzer.cloneArray(seq);
-		cloneSeq.push({path:'id("'+current.node.id+'")',index:index, hasId:true});
+		cloneSeq.push({path:this.builder.getIdExpression(current.node.id),index:index, hasId:true});
 		this.addSeq(cloneSeq);
 	}
 };
@@ -91,9 +93,9 @@ PathAnalyzer.prototype.addSeq = function (seq)
 			
 		}
 		else if ((next && next.index==current.index+1) || 'BODY'==current.path)
-			str = '/' + str;
+			str = this.builder.getChildSeparator() + str;
 		else
-			str = '//' + str;
+			str = this.builder.getDescendantSeparator() + str;
 	}
 	if (!CustomBlockerUtil.arrayContains(this.uniqPathList, str)) this.uniqPathList.push(str);
 }
@@ -115,9 +117,10 @@ PathAnalyzer.cloneArray = function (orig)
  * PathElement
  */
 var splitSpacesRegExp = new RegExp(' +', 'g');
-var PathElement = function (node, index) 
+var PathElement = function (node, index, builder) 
 {
 	this.node = node;
+	this.builder = builder;
 	this.isTarget = false;
 	this.parentNode = null;
 	this.upperKeyNode = null;
@@ -130,17 +133,14 @@ var PathElement = function (node, index)
 	{
 		for (var i=0, l=this.classes.length; i<l; i++)
 		{
-			var xpath = tagName
-				+'[contains(concat(" ",normalize-space(@class)," "),"'
-				+this.classes[i]
-				+'")]';
+			var xpath = this.builder.getMultipleTagNameAndClassNameExpression(tagName, this.classes[i]);
 			this.options.push(xpath);
 		}
 	}
 	else if (this.classes.length==1 && 'BODY'!=tagName)
 	{
 		var className = this.classes[0];
-		this.options.push(this.node.tagName+'[@class="'+className+'"]');
+		this.options.push(this.builder.getSingleTagNameAndClassNameExpression(this.node.tagName, className));
 	}
 	if ('DIV'!=tagName && 'UL' != tagName)
 		this.options.push(this.node.tagName);	

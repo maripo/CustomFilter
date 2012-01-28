@@ -193,8 +193,6 @@ RuleContainer.prototype.getLiElement = function ()
 	
 	informationDiv.appendChild(exampleLink);
 	
-	//this.liElement.addEventListener('click', this.getSelectAction(), false);
-	
 	return this.liElement;
 };
 

@@ -83,7 +83,7 @@ RuleEditor.prototype.getOnClickAction = function (node)
 			return;
 		if (selectedNode ==node) 
 		{
-			var analyzer = new PathAnalyzer(node);
+			var analyzer = new PathAnalyzer(node, new XpathBuilder());
 			var list = analyzer.createPathList();
 			self.pathPickerDialog.show(event, list, self.ruleEditorDialog.xpathPickerTarget);
 		}
@@ -735,7 +735,7 @@ RuleElement.getFocusForHideFunc = function (element)
 {
 	return function()
 	{
-		//TODO Save
+		// Save
 		element.isFocusedForHide = true;
 		element.style.outline = RuleElement.STYLE_FOCUS_FOR_HIDE;
 	};
@@ -744,7 +744,7 @@ RuleElement.getFocusForSearchFunc = function (element)
 {
 	return function()
 	{
-		//TODO Save
+		// Save
 		element.isFocusedForHide = true;
 		element.style.outline = RuleElement.STYLE_FOCUS_FOR_SEARCH;
 	};
@@ -831,13 +831,3 @@ RuleElement.getUnselectForSearchFunc = function (element)
 		
 	};
 };
-
-/**
- * PathFilter
- * @param {Object} xpath
- */
-var PathFilter = function (xpath) 
-{
-	this.xpath = xpath;
-	this.elements = CustomBlockerUtil.getElementsByXPath(xpath);
-}

@@ -46,6 +46,9 @@ RulePeer.getInstance = function ()
 RulePeer.prototype.createObject = function () 
 {
 	var rule = new Rule();
+	// Default Values (CSS on)
+	rule.search_block_by_css = true;
+	rule.hide_block_by_css = true;
 	return rule;
 };
 /**
@@ -58,6 +61,9 @@ var Rule = function()
 Rule.createInstance = function () 
 {
 	var rule = new Rule();
+	// Default Values (CSS on)
+	rule.search_block_by_css = true;
+	rule.hide_block_by_css = true;
 	return rule;
 };
 Rule.prototype.addWord = function(word)

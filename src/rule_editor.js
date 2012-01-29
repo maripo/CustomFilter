@@ -3,6 +3,7 @@ var origStyle = null;
 var origHref = null;
 
 var KEY_CODE_RETURN = 13;
+
 /**
  * RuleEditor
  */

@@ -602,11 +602,6 @@ RuleEditorDialog.prototype.getSuggestedSiteRegexp = function ()
 	str = str.replace(metaChars, function (a,b){return '\\'+a});
 	return str;
 };
-RuleEditorDialog.PATH_PICKER_TARGET_NONE = 0;
-RuleEditorDialog.PATH_PICKER_TARGET_SEARCH_XPATH = 1;
-RuleEditorDialog.PATH_PICKER_TARGET_SEARCH_CSS = 2;
-RuleEditorDialog.PATH_PICKER_TARGET_HIDE_XPATH = 3;
-RuleEditorDialog.PATH_PICKER_TARGET_HIDE_CSS = 4;
 /**
  * PathPickerDialog
  */

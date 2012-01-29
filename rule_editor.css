@@ -29,6 +29,14 @@
 	margin:0px!important;
 	padding:0px!important;
 	margin:0px!important;
+	border-radius: 0px!important;
+	-webkit-border-radius: 0px!important;
+}
+#rule_editor_body label {
+	float:none!important;
+	color:black!important;
+	font-size:100%!important;
+	width:auto!important;
 }
 #rule_editor_body div,#rule_editor_body h2{
 	width:auto!important;

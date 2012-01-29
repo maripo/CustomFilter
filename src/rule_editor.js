@@ -608,7 +608,6 @@ RuleEditorDialog.prototype.getSuggestedSiteRegexp = function ()
 var PathPickerDialog = function (_zIndex, ruleEditor) 
 {
 	this.ruleEditor = ruleEditor;
-	console.log("PathPickerDialog.ruleEditor=" + ruleEditor);
 	this.div = document.createElement('DIV');
 	this.div.id = 'xpath_picker_body';
 	this.div.avoidStyle = true;

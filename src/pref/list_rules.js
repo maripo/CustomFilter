@@ -275,8 +275,15 @@ RuleContainer.prototype.getDeleteAction = function ()
 };
 
 
-
-
+function refreshPathSections ()
+{
+	var hideByXPath = document.getElementById('rule_editor_radio_hide_xpath').checked;
+	var searchByXPath = document.getElementById('rule_editor_radio_search_xpath').checked;
+	document.getElementById('rule_editor_section_hide_xpath').style.display = (hideByXPath)?'block':'none';
+	document.getElementById('rule_editor_section_hide_css').style.display = (hideByXPath)?'none':'block';
+	document.getElementById('rule_editor_section_search_xpath').style.display = (searchByXPath)?'block':'none';
+	document.getElementById('rule_editor_section_search_css').style.display = (searchByXPath)?'none':'block';
+};
 
 var reloadBackground = function ()
 {	
@@ -309,6 +316,7 @@ RuleEditor.changeKeywordColor = function (sender)
 		(document.getElementById('rule_editor_keyword_regexp_checkbox').checked)?'#fdd':'#def';
 
 }
+
 RuleEditor.prototype.getSaveAction = function () 
 {
 	var self = this;
@@ -337,8 +345,10 @@ RuleEditor.prototype.selectRule = function (/* Rule */ rule)
 		document.getElementById('rule_editor_hide_block_css').value = rule.hide_block_css;
 		(document.getElementById('rule_editor_radio_hide_'+((rule.hide_block_by_css)?'css':'xpath'))).checked 
 			= true;
+		
 		document.getElementById('rule_editor_hide_block_description').value = rule.hide_block_description;
 		document.getElementById('rule_editor_block_anyway').checked = rule.block_anyway;
+		refreshPathSections();
 	}
 	for (var i=0, l=rule.words.length; i<l; i++) 
 	{

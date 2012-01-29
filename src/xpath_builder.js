@@ -28,8 +28,8 @@ XpathBuilder.prototype.createPathFilter = function (path)
 {
 	return new XpathPathFilter(path);
 };
-var XpathPathFilter = function (xpath) 
+var XpathPathFilter = function (path) 
 {
-	this.xpath = xpath; //TODO rename
-	this.elements = CustomBlockerUtil.getElementsByXPath(xpath);
+	this.path = path;
+	this.elements = CustomBlockerUtil.getElementsByXPath(path);
 };

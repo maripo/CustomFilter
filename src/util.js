@@ -21,6 +21,17 @@ CustomBlockerUtil.getElementsByXPath = function (xpath)
 	}
 	return list;
 };
+CustomBlockerUtil.getElementsByCssSelector = function (selector)
+{
+	try
+	{
+		return document.querySelectorAll(selector);
+	}
+	catch (ex)
+	{
+		return new Array();
+	}
+};
 var REGEX_DOUBLE_SLASH = new RegExp('//','g');
 var REGEX_SLASH = new RegExp('/','g');
 var REGEX_SINGLE_CLASS_NAME = new RegExp('\\[@class=[\'\"](.*?)[\'\"]\\]', 'g');
@@ -108,4 +119,8 @@ CustomBlockerUtil.showHelp = function (fileName)
 	console.log("CustomBlockerUtil.showHelp fileName=" + fileName);
 	window.open(chrome.extension.getURL('/help/'+ chrome.i18n.getMessage('extLocale') + '/' +fileName),
 			"help","top=10,left=10,width=480 height=500 resizable=yes menubar=no, toolbar=no");
+};
+CustomBlockerUtil.trim = function (str)
+{
+	return str.replace(/^[\s　]+|[\s　]+$/g, '');
 };

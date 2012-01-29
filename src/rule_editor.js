@@ -36,26 +36,23 @@ RuleEditor.prototype.getOnMouseoverAction = function (node)
 	var self = this;
 	return function (event)
 	{
-		if (selectedNode ==null && self.ruleEditorDialog && self.ruleEditorDialog.xpathPickerTarget) 
+		if (selectedNode ==null && self.ruleEditorDialog && self.ruleEditorDialog.pathPickerTarget) 
 		{
 			selectedNode = node;
 			origStyle = selectedNode.style.outline;
 			origHref = selectedNode.href;
 			selectedNode.href = 'javascript:void(0)'
-			if (self.ruleEditorDialog.xpathPickerTarget == RuleEditorDialog.XPATH_PICKER_TARGET_NONE
-					&& selectedNode.unfocus) 
+			if (self.ruleEditorDialog.pathPickerTarget.none && selectedNode.unfocus) 
 			{
 				selectedNode.unfocus();
 			}
-			else if (self.ruleEditorDialog.xpathPickerTarget == RuleEditorDialog.XPATH_PICKER_TARGET_SEARCH
-					&& selectedNode.focusForSearch) 
+			else if (self.ruleEditorDialog.pathPickerTarget.isToHide && selectedNode.focusForSearch) 
+			{
+				selectedNode.focusForHide();
+			}
+			else if (self.ruleEditorDialog.pathPickerTarget.isToSearch && selectedNode.focusForHide) 
 			{
 				selectedNode.focusForSearch();
-			}
-			else if (self.ruleEditorDialog.xpathPickerTarget == RuleEditorDialog.XPATH_PICKER_TARGET_HIDE 
-					&& selectedNode.focusForHide) 
-			{
-					selectedNode.focusForHide();
 			}
 			return;
 		}
@@ -79,13 +76,13 @@ RuleEditor.prototype.getOnClickAction = function (node)
 	var self = this;
 	return function (event) 
 	{
-		if (self.ruleEditorDialog.xpathPickerTarget == RuleEditorDialog.XPATH_PICKER_TARGET_NONE)
+		if (!self.ruleEditorDialog.pathPickerTarget || self.ruleEditorDialog.pathPickerTarget.none)
 			return;
 		if (selectedNode ==node) 
 		{
-			var analyzer = new PathAnalyzer(node, new XpathBuilder());
+			var analyzer = new PathAnalyzer(node, self.ruleEditorDialog.pathPickerTarget.getPathBuilder());
 			var list = analyzer.createPathList();
-			self.pathPickerDialog.show(event, list, self.ruleEditorDialog.xpathPickerTarget);
+			self.pathPickerDialog.show(event, list, self.ruleEditorDialog.pathPickerTarget);
 		}
         event.stopPropagation();
 		event.preventDefault();
@@ -326,17 +323,27 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	document.body.addEventListener('mouseup', this.getOnMouseupAction(), false);
 	document.getElementById('rule_editor_closer').addEventListener('click', this.getCloseAction(), false);
 	
-	this.xpathPickerTarget = RuleEditorDialog.XPATH_PICKER_TARGET_NONE;
+	this.pathPickerTarget = PathPickerDialog.targetNone;
 	var self = this;
+	// Add event listeners to path picker buttons
 	document.getElementById('rule_editor_button_search_block_xpath').addEventListener('click', 
-		function()
-		{
-			self.xpathPickerTarget = RuleEditorDialog.XPATH_PICKER_TARGET_SEARCH
-			}, false);
+			function()
+			{
+				self.pathPickerTarget = PathPickerDialog.targetSearchXpath;
+				}, false);
+	document.getElementById('rule_editor_button_search_block_css').addEventListener('click', 
+			function()
+			{
+				self.pathPickerTarget = PathPickerDialog.targetSearchCss;
+				}, false);
 	document.getElementById('rule_editor_button_hide_block_xpath').addEventListener('click', 
-		function(){
-			self.xpathPickerTarget = RuleEditorDialog.XPATH_PICKER_TARGET_HIDE
-		}, false);
+			function(){
+				self.pathPickerTarget = PathPickerDialog.targetHideXpath;
+			}, false);
+	document.getElementById('rule_editor_button_hide_block_css').addEventListener('click', 
+			function(){
+				self.pathPickerTarget = PathPickerDialog.targetHideCss;
+			}, false);
 	
 	document.getElementById('rule_editor_save_button').addEventListener('click',
 			function()
@@ -430,8 +437,8 @@ RuleEditorDialog.prototype.refreshXPathSelectedStyles = function ()
 	var hideCountElement = document.getElementById('rule_editor_count_hide_block_xpath');
 	try {
 		var input = document.getElementById('rule_editor_hide_block_xpath');
-		var xpathNodes = (input.value!='')?CustomBlockerUtil.getElementsByXPath(input.value):[];
-		hideCountElement.innerHTML = xpathNodes.length;
+		var pathNodes = (input.value!='')?CustomBlockerUtil.getElementsByXPath(input.value):[];
+		hideCountElement.innerHTML = pathNodes.length;
 		hideAlertElement.style.display = 'none';
 		if (this.prevHideXPathNodes)
 		{
@@ -440,12 +447,12 @@ RuleEditorDialog.prototype.refreshXPathSelectedStyles = function ()
 					this.prevHideXPathNodes[i].unselectForHide();
 			}
 		}
-		for (var i=0, l=xpathNodes.length; i<l; i++)
+		for (var i=0, l=pathNodes.length; i<l; i++)
 		{
-			if (xpathNodes[i].selectForHide)
-				xpathNodes[i].selectForHide();
+			if (pathNodes[i].selectForHide)
+				pathNodes[i].selectForHide();
 		}
-		this.prevHideXPathNodes = xpathNodes;
+		this.prevHideXPathNodes = pathNodes;
 	}
 	catch (e)
 	{
@@ -455,8 +462,8 @@ RuleEditorDialog.prototype.refreshXPathSelectedStyles = function ()
 	}
 	try {
 		var input = document.getElementById('rule_editor_search_block_xpath');
-		var xpathNodes = (input.value!='')?CustomBlockerUtil.getElementsByXPath(input.value):[];
-		searchCountElement.innerHTML = xpathNodes.length;
+		var pathNodes = (input.value!='')?CustomBlockerUtil.getElementsByXPath(input.value):[];
+		searchCountElement.innerHTML = pathNodes.length;
 		searchAlertElement.style.display = 'none';
 		if (this.prevSearchXPathNodes)
 		{
@@ -465,12 +472,12 @@ RuleEditorDialog.prototype.refreshXPathSelectedStyles = function ()
 					this.prevSearchXPathNodes[i].unselectForSearch();
 			}
 		}
-		for (var i=0, l=xpathNodes.length; i<l; i++)
+		for (var i=0, l=pathNodes.length; i<l; i++)
 		{
-			if (xpathNodes[i].selectForSearch)
-				xpathNodes[i].selectForSearch();
+			if (pathNodes[i].selectForSearch)
+				pathNodes[i].selectForSearch();
 		}
-		this.prevSearchXPathNodes = xpathNodes;
+		this.prevSearchXPathNodes = pathNodes;
 	}
 	catch (e)
 	{
@@ -491,7 +498,6 @@ RuleEditorDialog.prototype.getCloseAction = function ()
 	var self = this;
 	return function (event)
 	{
-		//TODO
 		location.reload();
 		self.div.parentNode.removeChild(self.div);	
 	}
@@ -537,9 +543,11 @@ RuleEditorDialog.prototype.getSuggestedSiteRegexp = function ()
 	str = str.replace(metaChars, function (a,b){return '\\'+a});
 	return str;
 };
-RuleEditorDialog.XPATH_PICKER_TARGET_NONE = 0;
-RuleEditorDialog.XPATH_PICKER_TARGET_SEARCH = 1;
-RuleEditorDialog.XPATH_PICKER_TARGET_HIDE = 2;
+RuleEditorDialog.PATH_PICKER_TARGET_NONE = 0;
+RuleEditorDialog.PATH_PICKER_TARGET_SEARCH_XPATH = 1;
+RuleEditorDialog.PATH_PICKER_TARGET_SEARCH_CSS = 2;
+RuleEditorDialog.PATH_PICKER_TARGET_HIDE_XPATH = 3;
+RuleEditorDialog.PATH_PICKER_TARGET_HIDE_CSS = 4;
 /**
  * PathPickerDialog
  */
@@ -571,7 +579,7 @@ var PathPickerDialog = function (_zIndex, ruleEditor)
 	this.currentFilter = null;
 };
 
-PathPickerDialog.prototype.show = function (event, list, target) 
+PathPickerDialog.prototype.show = function (event, list, /* PathPickerDialog.target... */target) 
 {
 	this.ul.innerHTML = '';
 	
@@ -584,7 +592,7 @@ PathPickerDialog.prototype.show = function (event, list, target)
 		a.href = 'javascript:void(0)';
 		var span = document.createElement('SPAN');
 		span.className = 'xpath';
-		span.innerHTML = CustomBlockerUtil.escapeHTML(list[i].xpath); 
+		span.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.trim(list[i].path)); 
 		var badge = document.createElement('SPAN');
 		badge.className = 'badge';
 
@@ -594,7 +602,7 @@ PathPickerDialog.prototype.show = function (event, list, target)
 		a.appendChild(span);
 		
 		a.addEventListener('click', this.getOnclickAction(list[i], target), false);
-		a.addEventListener('mouseover', this.getOnmouseroverAction(list[i], target), false);
+		a.addEventListener('mouseover', this.getOnmouseoverAction(list[i], target), false);
 		li.appendChild(a);
 		this.ul.appendChild(li);
 	}
@@ -616,9 +624,8 @@ PathPickerDialog.prototype.show = function (event, list, target)
 	
 	this.div.style.left = _left + 'px';
 	this.div.style.top = _top + 'px';
-	
-	var isTargetHide = (target == RuleEditorDialog.XPATH_PICKER_TARGET_HIDE);
-	var currentFilter = (isTargetHide)?self.currentHideFilter:self.currentSearchFilter;
+
+	var currentFilter = (target.isToHide)?self.currentHideFilter:self.currentSearchFilter;
 	if (this.currentFilter!=currentFilter) 
 	{
 		var elements = this.currentFilter.elements;
@@ -629,13 +636,12 @@ PathPickerDialog.prototype.show = function (event, list, target)
 		}
 	}
 };
-PathPickerDialog.prototype.getOnmouseroverAction = function (filter, target) 
+PathPickerDialog.prototype.getOnmouseoverAction = function (filter, /*PathPickerDialog.target...*/target) 
 {
 	var self = this;
 	return function()
 	{
-		var isTargetHide = (target == RuleEditorDialog.XPATH_PICKER_TARGET_HIDE);
-		var currentFilter = (isTargetHide)?self.currentHideFilter:self.currentSearchFilter;
+		var currentFilter = (target.isToHide)?self.currentHideFilter:self.currentSearchFilter;
 		
 		if (currentFilter) 
 		{
@@ -648,44 +654,36 @@ PathPickerDialog.prototype.getOnmouseroverAction = function (filter, target)
 		}
 		try 
 		{
-			var xpathNodes = CustomBlockerUtil.getElementsByXPath(filter.xpath);
-			for (var i = 0; i < xpathNodes.length; i++) 
+			var pathNodes = target.getPathNodes(filter.path);
+			for (var i = 0; i < pathNodes.length; i++) 
 			{
-				if (xpathNodes[i] != selectedNode && !xpathNodes[i].avoidStyle && xpathNodes[i].tmpSelectForHide) 
+				if (pathNodes[i] != selectedNode && !pathNodes[i].avoidStyle && pathNodes[i].tmpSelectForHide) 
 				{
-					if (isTargetHide) xpathNodes[i].tmpSelectForHide();
-					else  xpathNodes[i].tmpSelectForSearch();
+					if (target.isToHide) pathNodes[i].tmpSelectForHide();
+					else  pathNodes[i].tmpSelectForSearch();
 				}
 			}
 		} 
 		catch (e) 
 		{
-			alert(e)
+			console.log(e)
 		}
-		if (isTargetHide) self.currentHideFilter = filter;
+		if (target.isToHide) self.currentHideFilter = filter;
 		else self.currentSearchFilter = filter;
 		self.currentFilter = filter;
 	}
 }
-PathPickerDialog.prototype.getOnclickAction = function (filter, target) 
+PathPickerDialog.prototype.getOnclickAction = function (filter, /*PathPickerDialog.target...*/target) 
 {
 	var self = this;
 	return function()
 	{
-		var isTargetHide = (target == RuleEditorDialog.XPATH_PICKER_TARGET_HIDE);
-		var currentFilter = (isTargetHide)?self.currentHideFilter:self.currentHideFilter;
+		var currentFilter = (target.isToHide)?self.currentHideFilter:self.currentHideFilter;
 		
-		if (isTargetHide) 
-		{
-			document.getElementById('rule_editor_hide_block_xpath').value = filter.xpath;
-		}
-		else 
-		{
-			document.getElementById('rule_editor_search_block_xpath').value = filter.xpath;
-		}
+		document.getElementById(target.textboxId).value = CustomBlockerUtil.trim(filter.path);
 		self.ruleEditor.ruleEditorDialog.refreshXPathSelectedStyles();
 		
-		if (isTargetHide) self.currentHideFilter = filter;
+		if (target.isToHide) self.currentHideFilter = filter;
 		else self.currentSearchFilter = filter;
 		
 		self.currentFilter = filter;
@@ -830,4 +828,44 @@ RuleElement.getUnselectForSearchFunc = function (element)
 		element.style.outline = element.originalStyle;
 		
 	};
+};
+
+
+PathPickerDialog.targetNone = {
+		none: true,
+		isToHide: false,
+		isToSearch: false,
+		textboxId: 'rule_editor_hide_block_xpath'
+};
+PathPickerDialog.targetHideXpath = {
+		none: false,
+		isToHide: true,
+		isToSearch: false,
+		textboxId: 'rule_editor_hide_block_xpath',
+		getPathBuilder: function () { return new XpathBuilder(); },
+		getPathNodes: function (path) { return CustomBlockerUtil.getElementsByXPath(path); }
+};
+PathPickerDialog.targetHideCss = {
+		none: false,
+		isToHide: true,
+		isToSearch: false,
+		textboxId: 'rule_editor_hide_block_css',
+		getPathBuilder: function () { return new CssBuilder(); },
+		getPathNodes: function (path) { return CustomBlockerUtil.getElementsByCssSelector(path); }
+};
+PathPickerDialog.targetSearchXpath = {
+		none: false,
+		isToHide: false,
+		isToSearch: true,
+		textboxId: 'rule_editor_search_block_xpath',
+		getPathBuilder: function () { return new XpathBuilder(); },
+		getPathNodes: function (path) { return CustomBlockerUtil.getElementsByXPath(path); }
+};
+PathPickerDialog.targetSearchCss = {
+		none: false,
+		isToHide: false,
+		isToSearch: true,
+		textboxId: 'rule_editor_search_block_css',
+		getPathBuilder: function () { return new CssBuilder(); },
+		getPathNodes: function (path) { return CustomBlockerUtil.getElementsByCssSelector(path); }
 };

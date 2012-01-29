@@ -25,8 +25,8 @@ CssBuilder.prototype.createPathFilter = function (path)
 {
 	return new CssPathFilter(path);
 };
-var CssPathFilter = function (xpath) 
+var CssPathFilter = function (path) 
 {
-	this.xpath = xpath; //TODO rename
-	this.elements = CustomBlockerUtil.getElementsByXPath(xpath); //TODO
+	this.path = path;
+	this.elements = CustomBlockerUtil.getElementsByCssSelector(path);
 };

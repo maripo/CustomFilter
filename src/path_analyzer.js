@@ -45,7 +45,7 @@ PathAnalyzer.prototype.createPathList = function ()
 			function(a,b)
 			{
 					return (a.elements.length==b.elements.length)?
-							(a.xpath.length-b.xpath.length):(a.elements.length - b.elements.length);
+							(a.path.length-b.path.length):(a.elements.length - b.elements.length);
 			});
 	var list = new Array();
 	var prevPath = null;
@@ -133,6 +133,7 @@ var PathElement = function (node, index, builder)
 	{
 		for (var i=0, l=this.classes.length; i<l; i++)
 		{
+			if (this.classes[i]=='') continue;
 			var xpath = this.builder.getMultipleTagNameAndClassNameExpression(tagName, this.classes[i]);
 			this.options.push(xpath);
 		}

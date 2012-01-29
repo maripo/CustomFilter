@@ -91,18 +91,20 @@ function startBlock()
 {
 	for (var i=0, l=rules.length; i<l; i++) 
 	{
-		if (rules[i].block_anyway && !rules[i].is_disabled)
+		var rule = rules[i];
+		if (rule.block_anyway && !rule.is_disabled)
 		{
-			var cssSelector = CustomBlockerUtil.xpathToCss(rules[i].hide_block_xpath);
+			var cssSelector = (rule.hide_block_by_css)?
+				rule.hide_block_css:CustomBlockerUtil.xpathToCss(rule.hide_block_xpath);
 			if (cssSelector!=null)
 			{
 				addBlockCss(cssSelector);
-				rules[i].staticXpath = cssSelector;
+				rule.staticXpath = cssSelector;
 			}
 		}
-		for (var j=0; j< rules[i].words.length; j++) 
+		for (var j=0; j< rule.words.length; j++) 
 		{
-			var word = rules[i].words[j];
+			var word = rule.words[j];
 			if (word.is_regexp)
 				word.regExp = new RegExp(word.word, 'i')
 		}
@@ -171,9 +173,18 @@ var blockedCount = 0;
 var hiddenNodes = new Array();
 function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide, isTesting)
 {
+	console.log();
 	var needRefreshBadge = false;
-	var searchNodes = (rule.block_anyway)?[]:CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath);
-	var hideNodes = CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
+	var searchNodes = (rule.block_anyway)?[]:(
+			(rule.search_block_by_css)?
+				CustomBlockerUtil.getElementsByCssSelector(rule.search_block_css)
+				:
+				CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath)
+			);
+	var hideNodes = (rule.hide_block_by_css)?
+			CustomBlockerUtil.getElementsByCssSelector(rule.hide_block_css)
+			:
+			CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
 	for (var i = 0, l = searchNodes.length; i < l; i++) 
 	{
 		var node = searchNodes[i];

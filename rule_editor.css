@@ -1,5 +1,5 @@
 /*
- * Rule Maker
+ * Rule Editor
  */
 
 #rule_editor_container {
@@ -21,7 +21,7 @@
 	width:400px;
 }
 #rule_editor_body * {
-	text-align:left;;
+	text-align:left;
 	background:none;
 	text-indent:0px!important;
 	position:static!important;
@@ -101,9 +101,10 @@
 	border:solid 1px #888!important;
 }
 #rule_editor_body div.section div.description {
-	clear:both;
-	font-size:0.7em;
-	color: #444;
+	clear:both!important;
+	float:none!important;
+	font-size:0.7em!important;
+	color: #444!important;
 }
 #rule_editor_keywords {
 	padding: 4px 2px!important;	
@@ -221,16 +222,17 @@
 	background: -webkit-gradient(linear, center top, center bottom, from(#99aaff), to(#6688dd))!important;
 	cursor:move;
 	line-height:24px;
-	vertical-align:middle;
-	color:white;
+	vertical-align:middle!important;
+	color:white!important;
 	text-indent:4px!important;
 	-webkit-box-shadow: 0px 0px 1px #aaa;
 	text-shadow: 1px 1px 1px #666;
+	font-size:100%!important;
 }
 
 #rule_editor_body_drag a.close{
 	text-decoration:none;
-	height:inherit;;
+	height:inherit;
 	color:white;
 	float:right;
 	width:30px;

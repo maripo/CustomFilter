@@ -93,12 +93,17 @@
 	color:black!important;
 	font-size:1em!important;
 	line-height:normal!important;
+	font-weight:normal!important;
+	float:none!important;
 	box-shadow:none!important;
-	outline:none!important;
+	outline:none!important
 	border:auto!important;
+	background-color:initial!important;
 }
 #rule_editor_body input[type="text"] {
 	border:solid 1px #888!important;
+	float:none!important;
+	box-shadow:none!important;
 }
 #rule_editor_body div.section div.description {
 	clear:both!important;

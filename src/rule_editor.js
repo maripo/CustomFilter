@@ -568,7 +568,6 @@ RuleEditorDialog.prototype.getOnMousedownAction = function ()
 	var self = this;
 	return function (event) 
 	{
-		console.log("onmousedown.dragger")
 		self.moving = true;
 		self.origEventX = event.pageX;
 		self.origEventY = event.pageY;

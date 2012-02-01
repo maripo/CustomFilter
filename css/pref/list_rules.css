@@ -76,7 +76,31 @@ h2 {
  	margin-right:100px;
 	height:inherit;
  }
-
+.buttonContainer input {
+	border-radius:4px;
+	display: inline-block;
+	border:1px solid #888;
+	border-image:initial;
+	width:40px;
+	margin-right:2px;
+	text^align:center;
+	height:20px;
+}
+.buttonContainer input.buttonOn{
+	background: -webkit-gradient(linear, center top, center bottom, from(#99bbff), to(#2266dd))!important;
+	color:white;
+}
+.buttonContainer input.buttonOff{
+	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#444444))!important;
+	color:white;
+}
+.buttonContainer input.buttonEdit{
+	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#bbbbbb))!important;
+}
+.buttonContainer input.buttonDelete{
+	background: -webkit-gradient(linear, center top, center bottom, from(#ff99bb), to(#dd2266))!important;
+	color:white;
+}
 #ruleList li div.information img.favicon {
  	position:absolute;
 	left:2px;

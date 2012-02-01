@@ -213,7 +213,7 @@ RuleContainer.prototype.createDisableBox = function ()
 	var input = document.createElement('INPUT');
 	input.type = 'BUTTON';
 	input.value = (this.rule.is_disabled)?'OFF':'ON';
-	input.style.backgroundColor = (this.rule.is_disabled)?'#f8a':'#4f8';
+	input.className = (this.rule.is_disabled)?'buttonOff':'buttonOn';
 	span.appendChild(input);
 	input.addEventListener('click', this.getDisableAction(input), true);
 	return span;
@@ -222,6 +222,7 @@ RuleContainer.prototype.createSelectButton = function ()
 {
 	var button = document.createElement('INPUT');
 	button.type = 'BUTTON';
+	button.className = 'buttonEdit';
 	button.value = chrome.i18n.getMessage('buttonLabelEdit');
 	button.addEventListener('click', this.getSelectAction(), true);
 	return button;
@@ -231,6 +232,7 @@ RuleContainer.prototype.createDeleteButton = function ()
 {
 	var button = document.createElement('INPUT');
 	button.type = 'BUTTON';
+	button.className = 'buttonDelete';
 	button.value = chrome.i18n.getMessage('buttonLabelDelete');
 	button.addEventListener('click', this.getDeleteAction(), true);
 	return button;
@@ -243,7 +245,7 @@ RuleContainer.prototype.getDisableAction = function (inputButton)
 	{
 		rule.is_disabled = !rule.is_disabled;
 		inputButton.value = (rule.is_disabled)?'OFF':'ON';
-		inputButton.style.backgroundColor = (rule.is_disabled)?'#f8a':'#4f8';
+		inputButton.className = (rule.is_disabled)?'buttonOff':'buttonOff';
 		peer.saveObject(rule, function () {}, function () {});
 		reloadBackground();
 	}

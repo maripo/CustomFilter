@@ -7,6 +7,7 @@ body {
 	height:30px;
 	background-color:#ddd;
 	line-height:30px;
+	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#bbbbbb))!important;
 }
 #header .menu {
 	width:280px;
@@ -23,6 +24,8 @@ body {
 	margin-bottom:0px;
 	padding:0px;
 	height:inherit;
+	color: #444;
+	margin-left:4px;
 }
 h2 {
 	font-size:1em;
@@ -46,16 +49,19 @@ h2 {
 #activeRules {
 	margin:0px;
 	padding:0px;
+	border:1px solid #bbb;
 }
 #activeRules li {
 	height:24px;
 	list-style-type:none;
 	clear:both;
+	border-top:1px solid white;
 }
 #activeRules li:nth-child(odd) {
- 	background-color:#def;
+ 	background-color:#dfefff;
 }
 #activeRules li:nth-child(even) {
+ 	background-color:#f0f4ff;
 }
 #activeRules li div.title {
 	margin-left:22px;
@@ -64,11 +70,13 @@ h2 {
 	line-height:22px;
 	vertical-align:middle;
 	height: inherit;
+	color:#222;
 }
 #activeRules li div.count {
 	height:14px;
 	margin-top:5px;
 	margin-left:2px;
+	margin-right:2px;
 	width:18px;
 	text-align:center;
 	color:white;
@@ -93,4 +101,25 @@ h2 {
  	height:inherit;
  	margin:0px;
  	padding:0px;
+}
+.buttonContainer input {
+	border-radius:4px;
+	display: inline-block;
+	border:1px solid #888;
+	border-image:initial;
+	width:40px;
+	margin-right:2px;
+	text^align:center;
+	height:20px;
+}
+.buttonContainer input.buttonOn{
+	background: -webkit-gradient(linear, center top, center bottom, from(#99bbff), to(#2266dd))!important;
+	color:white;
+}
+.buttonContainer input.buttonOff{
+	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#444444))!important;
+	color:white;
+}
+.buttonContainer input.buttonEdit{
+	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#bbbbbb))!important;
 }

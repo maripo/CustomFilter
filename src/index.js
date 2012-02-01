@@ -71,6 +71,7 @@ function renderApplierRules(list)
 			
 			var editButton = document.createElement('INPUT');
 			editButton.type = 'BUTTON';
+			editButton.className = 'buttonEdit';
 			editButton.addEventListener('click', getEditRuleAction(rule), true);
 			editButton.value = chrome.i18n.getMessage('buttonLabelEdit');
 			
@@ -78,7 +79,7 @@ function renderApplierRules(list)
 			var disableButton = document.createElement('input');
 			disableButton.type = 'BUTTON';
 			disableButton.value = (rule.is_disabled)?'OFF':'ON';
-			disableButton.style.backgroundColor = (rule.is_disabled)?'#f48':'#4f8';
+			disableButton.className = (rule.is_disabled)?'buttonOff':'buttonOn';
 			disableButton.addEventListener ('click', getDisableAction(rule,disableButton), false);
 			
 			buttonContainer.appendChild(disableButton);
@@ -116,7 +117,7 @@ function getDisableAction (rule, disableButton)
 	{
 		rule.is_disabled = !rule.is_disabled;
 		disableButton.value = (rule.is_disabled)?'OFF':'ON';
-		disableButton.style.backgroundColor = (rule.is_disabled)?'#f8a':'#4f8';
+		disableButton.className = (rule.is_disabled)?'buttonOff':'buttonOn';
 		try 
 		{
 			peer.saveObject(rule, function () 

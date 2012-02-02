@@ -49,11 +49,30 @@ CustomBlockerUtil.xpathToCss = function (str)
 	if (REGEX_FAIL.test(xpath)) return null;
 	return xpath;
 }
-
+CustomBlockerUtil.WIDTH_PER_LETTER = 10;
 CustomBlockerUtil.shorten = function (text, limit)
  {
- 	if (text.length<limit) return text;
-	return text.substring(0, limit) + '...';
+	var span = document.createElement('SPAN');
+	span.style.fontSize = (CustomBlockerUtil.WIDTH_PER_LETTER*2) + 'px';
+	var resultText = text;
+	document.body.appendChild(span);
+	span.innerHTML = CustomBlockerUtil.escapeHTML(resultText);
+	if (span.offsetWidth > limit * CustomBlockerUtil.WIDTH_PER_LETTER)
+	{
+		//Shorten
+		for (var length = text.length; length>0; length--)
+		{
+			var str = text.substring(0, length) + '...';
+			span.innerHTML = span.innerHTML = CustomBlockerUtil.escapeHTML(str);
+			if (span.offsetWidth <= limit*CustomBlockerUtil.WIDTH_PER_LETTER)
+			{
+				resultText = str;
+				break;
+			}
+		}
+	}
+ 	document.body.removeChild(span);
+ 	return resultText;
  };
 CustomBlockerUtil.getRelativeElementsByXPath = function(targetNode, xpath)
 {

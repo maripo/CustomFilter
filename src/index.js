@@ -61,7 +61,7 @@ function renderApplierRules(list)
 			
 			var divTitle = document.createElement('DIV');
 			divTitle.className = 'title';
-			divTitle.innerHTML = CustomBlockerUtil.shorten(CustomBlockerUtil.escapeHTML(rule.title), 24);
+			divTitle.innerHTML = CustomBlockerUtil.shorten(rule.title, 42);
 			var divCount = document.createElement('DIV');
 			divCount.className = 'count ' + ((rule.hiddenCount && rule.hiddenCount>0)?'hit':'noHit');
 			divCount.innerHTML = (rule.hiddenCount)?rule.hiddenCount:0;

@@ -144,12 +144,12 @@ RuleContainer.prototype.getLiElement = function ()
 	var titleDiv = document.createElement('DIV');
 	titleDiv.className = 'title';
 	
-	titleDiv.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.shorten(this.rule.title, 30));
+	titleDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.title, 42);
 	
 	
 	var urlDiv = document.createElement('DIV');
 	urlDiv.className = 'url';
-	urlDiv.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.shorten(this.rule.site_regexp,30));
+	urlDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.site_regexp,36);
 	
 	var keywordsDiv = document.createElement('DIV');
 	keywordsDiv.className = 'keywords';

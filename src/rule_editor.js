@@ -467,39 +467,35 @@ RuleEditorDialog.prototype.refreshXPathSelectedStyles = function ()
 	// Hide
 	if (document.getElementById('rule_editor_radio_hide_xpath').checked)
 	{
-		this.prevHideXPathNodes = this.validatePath (document.getElementById('rule_editor_hide_block_xpath'), 
+		this.validatePath (document.getElementById('rule_editor_hide_block_xpath'), 
 			false, false,
 			hideXpathCountElement,
-			hideAlertElement,
-			this.prevHideXPathNodes);
+			hideAlertElement);
 	}
 	else
 	{
-		this.prevHideXPathNodes = this.validatePath (document.getElementById('rule_editor_hide_block_css'), 
+		this.validatePath (document.getElementById('rule_editor_hide_block_css'), 
 			true, false,
 			hideCssCountElement,
-			hideAlertElement,
-			this.prevHideXPathNodes);
+			hideAlertElement);
 	}
 	// Search
 	if (document.getElementById('rule_editor_radio_search_xpath').checked)
 	{
-		this.prevSearchXPathNodes = this.validatePath (document.getElementById('rule_editor_search_block_xpath'), 
+		this.validatePath (document.getElementById('rule_editor_search_block_xpath'), 
 			false, true,
 			searchXpathCountElement,
-			searchAlertElement,
-			this.prevSearchXPathNodes);
+			searchAlertElement);
 	}
 	else
 	{
-		this.prevSearchXPathNodes = this.validatePath (document.getElementById('rule_editor_search_block_css'), 
+		this.validatePath (document.getElementById('rule_editor_search_block_css'), 
 			true, true,
 			searchCssCountElement,
-			searchAlertElement,
-			this.prevSearchXPathNodes);
+			searchAlertElement);
 	}
 };
-RuleEditorDialog.prototype.validatePath = function (input, useCss, search, countElement, alertElement, prevElements)
+RuleEditorDialog.prototype.validatePath = function (input, useCss, search, countElement, alertElement)
 {
 	var pathNodes;
 	try {
@@ -508,34 +504,10 @@ RuleEditorDialog.prototype.validatePath = function (input, useCss, search, count
 		else pathNodes = (input.value!='')?CustomBlockerUtil.getElementsByXPath(input.value):[];
 		countElement.innerHTML = pathNodes.length;
 		alertElement.style.display = 'none';
-		if (prevElements)
-		{
-			for (var i=0, l=prevElements.length; i<l; i++) {
-				if (search)
-				{
-					if (prevElements[i].unselectForSearch)
-						prevElements[i].unselectForSearch();
-				}
-				else
-				{
-					if (prevElements[i].unselectForHide)
-						prevElements[i].unselectForHide();
-				}
-			}
-		}
-		for (var i=0, l=pathNodes.length; i<l; i++)
-		{
-			if (search)
-			{
-				if (pathNodes[i].selectForSearch)
-					pathNodes[i].selectForSearch();
-			}
-			else
-			{
-				if (pathNodes[i].selectForHide)
-					pathNodes[i].selectForHide();
-			}
-		}
+		if (search)
+			window.elementHighlighter.highlightSearchElements (pathNodes);
+		else
+			window.elementHighlighter.highlightHideElements (pathNodes);
 	}
 	catch (e)
 	{
@@ -545,7 +517,6 @@ RuleEditorDialog.prototype.validatePath = function (input, useCss, search, count
 		alertElement.innerHTML = 'Invalid ' + ((useCss)?'CSS Selector':'XPath');
 		countElement.innerHTML = '-';
 	}
-	return pathNodes;
 };
 RuleEditorDialog.prototype.showMessage = function (message)
 {

@@ -63,6 +63,9 @@ h2 {
 #activeRules li:nth-child(even) {
  	background-color:#f0f4ff;
 }
+#activeRules li:hover {
+ 	background-color:#ffffdd;
+}
 #activeRules li div.title {
 	margin-left:22px;
 	margin-right:122px;

@@ -27,6 +27,11 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	{
 		badgeCallback = sendResponse;
 	}
+	else if ('highlight'==request.command)
+	{
+		window.elementHighlighter.highlightRule(request.rule);
+		badgeCallback = sendResponse;
+	}
 	else if ('ruleEditor'==request.command) 
 	{
 		if (!window.elementHighlighter)

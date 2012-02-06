@@ -2,6 +2,26 @@ var ElementHighlighter = function () {
 	this.hideElements = null;
 	this.searchElements = null;
 };
+ElementHighlighter.prototype.highlightRule = function (rule)
+{
+	var searchNodes = [];
+	var hideNodes = [];
+	if (rule)
+	{
+		var searchNodes = (rule.block_anyway)?[]:(
+				(rule.search_block_by_css)?
+					CustomBlockerUtil.getElementsByCssSelector(rule.search_block_css)
+					:
+					CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath)
+				);
+		var hideNodes = (rule.hide_block_by_css)?
+				CustomBlockerUtil.getElementsByCssSelector(rule.hide_block_css)
+				:
+				CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
+	}
+	this.highlightSearchElements(searchNodes);
+	this.highlightHideElements(hideNodes);
+};
 ElementHighlighter.prototype.highlightHideElements = function (elements)
 {
 	if (this.hideElements)
@@ -18,14 +38,12 @@ ElementHighlighter.prototype.highlightHideElements = function (elements)
 			ElementHighlighter.selectForHide(elements[i]);
 		}
 	}
-	//Apply styles
 	this.hideElements = elements;
 };
 ElementHighlighter.prototype.highlightSearchElements = function (elements)
 {
 	if (this.searchElements)
 	{
-		//restore styles
 		for (var i=0, l=this.searchElements.length; i<l; i++) {
 			ElementHighlighter.unselectForSearch(this.searchElements[i]);
 		}
@@ -38,12 +56,13 @@ ElementHighlighter.prototype.highlightSearchElements = function (elements)
 			ElementHighlighter.selectForSearch(elements[i]);
 		}
 	}
-	//apply styles
 	this.searchElements = elements;
 };
 
 ElementHighlighter.selectForHide = function (element)
 {
+	if (!element.originalStyle)
+		element.originalStyle = (element.style.outline)?element.style.outline:"";
 	element.isSelectedForHide = true;
 	element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
 };
@@ -57,6 +76,8 @@ ElementHighlighter.unselectForHide = function (element)
 };
 ElementHighlighter.selectForSearch = function (element)
 {
+	if (!element.originalStyle)
+		element.originalStyle = (element.style.outline)?element.style.outline:"";
 	element.isSelectedForSearch = true;
 	element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
 };

@@ -723,8 +723,6 @@ var RuleElement =
 
 RuleElement.appendFunctions = function (element)
 {
-	element.originalStyle = element.style.outline;
-	
 	element.isFocusedForHide = false;
 	element.isFocusedForSearch = false;
 	element.isTmpSelectedForHide = false;
@@ -784,6 +782,8 @@ RuleElement.getTmpSelectForHideFunc = function (element)
 {
 	return function()
 	{
+		if (!element.originalStyle)
+			element.originalStyle = (element.style.outline)?element.style.outline:"";
 		element.isTmpSelectedForHide = true;
 		element.style.outline = RuleElement.STYLE_TMP_SELECT_FOR_HIDE;
 	};
@@ -793,6 +793,8 @@ RuleElement.getTmpSelectForSearchFunc = function (element)
 {
 	return function()
 	{
+		if (!element.originalStyle)
+			element.originalStyle = (element.style.outline)?element.style.outline:"";
 		element.isTmpSelectedForSearch = true;
 		element.style.outline = RuleElement.STYLE_TMP_SELECT_FOR_SEARCH;
 	};

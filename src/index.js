@@ -8,11 +8,16 @@ try {
 var peer = RulePeer.getInstance();
 function openRuleEditor()
 {
+	removeHighlight();
 	var bgWindow = chrome.extension.getBackgroundPage();
 	bgWindow.openRulePicker();
 	window.close();
 }
-
+function highlightRuleElements (rule)
+{
+	var bgWindow = chrome.extension.getBackgroundPage();
+	bgWindow.highlightRuleElements(rule);
+}
 function getAppliedRules()
 {
 	try {
@@ -49,15 +54,40 @@ function refreshButton ()
 		document.getElementById('buttonOn').checked = !isDisabled;
 		document.getElementById('buttonOff').checked = isDisabled;
 }
+var prevHoverRule = null;
+function getLiMouseoverAction (rule)
+{
+	return function()
+	{
+		if (prevHoverRule==rule) return;
+		prevHoverRule = rule;
+		highlightRuleElements(rule)
+	};
+}
+function removeHighlight ()
+{
+	if (prevHoverRule!=null)
+	{
+		prevHoverRule = null;
+		var bgWindow = chrome.extension.getBackgroundPage();
+		bgWindow.highlightRuleElements(null);
+	}
+}
 function renderApplierRules(list)
 {
 	var ul = document.getElementById('activeRules');
+	ul.addEventListener ('mouseout',
+			removeHighlight,
+			false);
 	if (list && list.length > 0) 
 	{
 		for (var i = 0, l = list.length; i < l; i++) 
 		{
 			var rule = list[i];
 			var li = document.createElement('LI');
+			li.addEventListener ('mouseover',
+					getLiMouseoverAction(rule),
+					true);
 			
 			var divTitle = document.createElement('DIV');
 			divTitle.className = 'title';
@@ -101,6 +131,7 @@ function getEditRuleAction(rule)
 {
 	return function()
 	{
+		removeHighlight();
 		var bgWindow = chrome.extension.getBackgroundPage();
 		bgWindow.openRulePicker(rule);
 		window.close();

@@ -136,10 +136,10 @@ var tabOnUpdate = function(tabId, changeInfo, tab)
 		{
 			try {
 				chrome.browserAction.setIcon(
-				{
-					path:((list.length>0)?'icon.png':'icon_disabled.png'),
-					tabId:tabId
-				});
+					{
+						path:((list.length>0)?'icon.png':'icon_disabled.png'),
+						tabId:tabId
+					});
 			} catch (ex) 
 			{
 				console.log(ex)
@@ -369,7 +369,17 @@ function getBadgeAction (tabId)
 		}, getBadgeAction(tabId));
 	}
 };
-
+function highlightRuleElements (rule)
+{
+	chrome.tabs.getSelected(null,function(tab)
+		{
+			chrome.tabs.sendRequest(tab.id, 
+				{
+					command: 'highlight',
+					rule: rule
+				}, getBadgeAction(tab.id));
+		});
+}
 function getBadgeTooltipString (count)
 {
 	if (count > 1)

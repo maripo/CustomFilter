@@ -112,21 +112,23 @@ CustomBlockerUtil.notEmpty = function (str)
 CustomBlockerUtil.LOCALIZE_CLASS_REGEXP = new RegExp('custom_filter_localize_([^ ]+)');
 CustomBlockerUtil.localize = function ()
 {
-	var elements = document.getElementsByTagName('SPAN');
-	for (var i=0, l=elements.length; i<l; i++)
+	var spans = document.getElementsByTagName('SPAN');
+	var buttons = document.getElementsByTagName('INPUT');
+	for (var i=0, l=spans.length; i<l; i++)
 	{
-		var element = elements[i];
-		if (!element) continue;
+		var element = spans[i];
 		if (null!=element.className && element.className.match(CustomBlockerUtil.LOCALIZE_CLASS_REGEXP))
 		{
-			if ('input'==element.tagName.toLowerCase() && 'button'==element.type.toLowerCase())
-			{
-				element.value = chrome.i18n.getMessage(RegExp.$1);
-			}
-			else
-			{
-				element.innerHTML = chrome.i18n.getMessage(RegExp.$1);
-			}
+			element.innerHTML = chrome.i18n.getMessage(RegExp.$1);
+		}
+	}
+	for (var i=0, l=buttons.length; i<l; i++)
+	{
+		var element = buttons[i];
+		if ('button'!=element.type) continue;
+		if (null!=element.className && element.className.match(CustomBlockerUtil.LOCALIZE_CLASS_REGEXP))
+		{
+			element.value = chrome.i18n.getMessage(RegExp.$1);
 		}
 	}
 };

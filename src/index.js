@@ -1,10 +1,3 @@
-
-try {
-	CustomBlockerUtil.localize();
-} catch (ex) {
-	document.write(ex);
-	return;
-}
 var peer = RulePeer.getInstance();
 function openRuleEditor()
 {
@@ -21,7 +14,7 @@ function highlightRuleElements (rule)
 function getAppliedRules()
 {
 	try {
-	CustomBlockerUtil.localize();
+		CustomBlockerUtil.localize();
 	} catch (ex) {
 		document.write(ex);
 		return;

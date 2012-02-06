@@ -63,6 +63,9 @@ h2 {
 #activeRules li:nth-child(even) {
  	background-color:#f0f4ff;
 }
+#activeRules li:hover {
+ 	background-color:#ffffdd;
+}
 #activeRules li div.title {
 	margin-left:22px;
 	margin-right:122px;
@@ -102,24 +105,31 @@ h2 {
  	margin:0px;
  	padding:0px;
 }
-.buttonContainer input {
+.buttonContainer input,#buttonCreateRule {
 	border-radius:4px;
 	display: inline-block;
 	border:1px solid #888;
 	border-image:initial;
-	width:40px;
 	margin-right:2px;
-	text^align:center;
+	text-align:center;
 	height:20px;
 }
 .buttonContainer input.buttonOn{
+	width:40px;
 	background: -webkit-gradient(linear, center top, center bottom, from(#99bbff), to(#2266dd))!important;
 	color:white;
 }
 .buttonContainer input.buttonOff{
+	width:40px;
 	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#444444))!important;
 	color:white;
 }
 .buttonContainer input.buttonEdit{
+	width:40px;
 	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#bbbbbb))!important;
+}
+
+#buttonCreateRule {
+	background: -webkit-gradient(linear, center top, center bottom, from(#f8f8f8), to(#bbbbbb))!important;
+	width:240px;
 }

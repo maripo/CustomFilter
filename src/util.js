@@ -119,7 +119,14 @@ CustomBlockerUtil.localize = function ()
 		if (!element) continue;
 		if (null!=element.className && element.className.match(CustomBlockerUtil.LOCALIZE_CLASS_REGEXP))
 		{
-			element.innerHTML = chrome.i18n.getMessage(RegExp.$1);
+			if ('input'==element.tagName.toLowerCase() && 'button'==element.type.toLowerCase())
+			{
+				element.value = chrome.i18n.getMessage(RegExp.$1);
+			}
+			else
+			{
+				element.innerHTML = chrome.i18n.getMessage(RegExp.$1);
+			}
 		}
 	}
 };

@@ -467,39 +467,35 @@ RuleEditorDialog.prototype.refreshXPathSelectedStyles = function ()
 	// Hide
 	if (document.getElementById('rule_editor_radio_hide_xpath').checked)
 	{
-		this.prevHideXPathNodes = this.validatePath (document.getElementById('rule_editor_hide_block_xpath'), 
+		this.validatePath (document.getElementById('rule_editor_hide_block_xpath'), 
 			false, false,
 			hideXpathCountElement,
-			hideAlertElement,
-			this.prevHideXPathNodes);
+			hideAlertElement);
 	}
 	else
 	{
-		this.prevHideXPathNodes = this.validatePath (document.getElementById('rule_editor_hide_block_css'), 
+		this.validatePath (document.getElementById('rule_editor_hide_block_css'), 
 			true, false,
 			hideCssCountElement,
-			hideAlertElement,
-			this.prevHideXPathNodes);
+			hideAlertElement);
 	}
 	// Search
 	if (document.getElementById('rule_editor_radio_search_xpath').checked)
 	{
-		this.prevSearchXPathNodes = this.validatePath (document.getElementById('rule_editor_search_block_xpath'), 
+		this.validatePath (document.getElementById('rule_editor_search_block_xpath'), 
 			false, true,
 			searchXpathCountElement,
-			searchAlertElement,
-			this.prevSearchXPathNodes);
+			searchAlertElement);
 	}
 	else
 	{
-		this.prevSearchXPathNodes = this.validatePath (document.getElementById('rule_editor_search_block_css'), 
+		this.validatePath (document.getElementById('rule_editor_search_block_css'), 
 			true, true,
 			searchCssCountElement,
-			searchAlertElement,
-			this.prevSearchXPathNodes);
+			searchAlertElement);
 	}
 };
-RuleEditorDialog.prototype.validatePath = function (input, useCss, search, countElement, alertElement, prevElements)
+RuleEditorDialog.prototype.validatePath = function (input, useCss, search, countElement, alertElement)
 {
 	var pathNodes;
 	try {
@@ -508,34 +504,10 @@ RuleEditorDialog.prototype.validatePath = function (input, useCss, search, count
 		else pathNodes = (input.value!='')?CustomBlockerUtil.getElementsByXPath(input.value):[];
 		countElement.innerHTML = pathNodes.length;
 		alertElement.style.display = 'none';
-		if (prevElements)
-		{
-			for (var i=0, l=prevElements.length; i<l; i++) {
-				if (search)
-				{
-					if (prevElements[i].unselectForSearch)
-						prevElements[i].unselectForSearch();
-				}
-				else
-				{
-					if (prevElements[i].unselectForHide)
-						prevElements[i].unselectForHide();
-				}
-			}
-		}
-		for (var i=0, l=pathNodes.length; i<l; i++)
-		{
-			if (search)
-			{
-				if (pathNodes[i].selectForSearch)
-					pathNodes[i].selectForSearch();
-			}
-			else
-			{
-				if (pathNodes[i].selectForHide)
-					pathNodes[i].selectForHide();
-			}
-		}
+		if (search)
+			window.elementHighlighter.highlightSearchElements (pathNodes);
+		else
+			window.elementHighlighter.highlightHideElements (pathNodes);
 	}
 	catch (e)
 	{
@@ -545,8 +517,7 @@ RuleEditorDialog.prototype.validatePath = function (input, useCss, search, count
 		alertElement.innerHTML = 'Invalid ' + ((useCss)?'CSS Selector':'XPath');
 		countElement.innerHTML = '-';
 	}
-	return pathNodes;
-}
+};
 RuleEditorDialog.prototype.showMessage = function (message)
 {
 	var div = document.getElementById('rule_editor_alert');
@@ -752,8 +723,6 @@ var RuleElement =
 
 RuleElement.appendFunctions = function (element)
 {
-	element.originalStyle = element.style.outline;
-	
 	element.isFocusedForHide = false;
 	element.isFocusedForSearch = false;
 	element.isTmpSelectedForHide = false;
@@ -770,11 +739,6 @@ RuleElement.appendFunctions = function (element)
 	element.tmpSelectForHide = RuleElement.getTmpSelectForHideFunc(element);
 	element.tmpSelectForSearch = RuleElement.getTmpSelectForSearchFunc(element);
 	element.tmpUnselect = RuleElement.getTmpUnselectFunc(element);
-	// select by XPath Textbox
-	element.selectForHide = RuleElement.getSelectForHideFunc(element);
-	element.unselectForHide = RuleElement.getUnselectForHideFunc(element);
-	element.selectForSearch = RuleElement.getSelectForSearchFunc(element);
-	element.unselectForSearch = RuleElement.getUnselectForSearchFunc(element);
 };
 RuleElement.STYLE_FOCUS_FOR_HIDE = 'solid 2px red';
 RuleElement.STYLE_FOCUS_FOR_SEARCH = 'solid 2px blue';
@@ -782,6 +746,7 @@ RuleElement.STYLE_TMP_SELECT_FOR_HIDE = 'dotted 2px red';
 RuleElement.STYLE_TMP_SELECT_FOR_SEARCH = 'dotted 2px blue';
 RuleElement.STYLE_SELECT_FOR_HIDE = 'solid 1px red';
 RuleElement.STYLE_SELECT_FOR_SEARCH = 'solid 1px blue';
+
 RuleElement.getFocusForHideFunc = function (element) 
 {
 	return function()
@@ -817,6 +782,8 @@ RuleElement.getTmpSelectForHideFunc = function (element)
 {
 	return function()
 	{
+		if (!element.originalStyle)
+			element.originalStyle = (element.style.outline)?element.style.outline:"";
 		element.isTmpSelectedForHide = true;
 		element.style.outline = RuleElement.STYLE_TMP_SELECT_FOR_HIDE;
 	};
@@ -826,6 +793,8 @@ RuleElement.getTmpSelectForSearchFunc = function (element)
 {
 	return function()
 	{
+		if (!element.originalStyle)
+			element.originalStyle = (element.style.outline)?element.style.outline:"";
 		element.isTmpSelectedForSearch = true;
 		element.style.outline = RuleElement.STYLE_TMP_SELECT_FOR_SEARCH;
 	};
@@ -843,46 +812,6 @@ RuleElement.getTmpUnselectFunc = function (element)
 		element.style.outline = element.originalStyle;
 	};
 };
-
-RuleElement.getSelectForHideFunc = function (element) 
-{
-	return function()
-	{
-		element.isSelectedForHide = true;
-		element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
-	};
-};
-RuleElement.getSelectForSearchFunc = function (element) 
-{
-	return function()
-	{
-		element.isSelectedForSearch = true;
-		element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
-	};
-};
-RuleElement.getUnselectForHideFunc = function (element) 
-{
-	return function()
-	{
-		element.isSelectedForHide = false;
-		if (element.isSelectedForSearch) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
-		else
-			element.style.outline = element.originalStyle;
-	};
-};
-RuleElement.getUnselectForSearchFunc = function (element) 
-{
-	return function()
-	{
-		element.isSelectedForSearch = false;
-		if (element.isSelectedForHide) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
-		element.style.outline = element.originalStyle;
-		
-	};
-};
-
 
 PathPickerDialog.targetNone = {
 		none: true,

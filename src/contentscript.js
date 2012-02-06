@@ -17,6 +17,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	if ('init'==request.command &&request.rules) 
 	{
 		if (window.customBlockerInitDone) return;
+		window.elementHighlighter = new ElementHighlighter();
 		window.customBlockerInitDone = true;
 		rules = new Array();
 		bgCallback = sendResponse;
@@ -28,6 +29,10 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	}
 	else if ('ruleEditor'==request.command) 
 	{
+		if (!window.elementHighlighter)
+		{
+			window.elementHighlighter = new ElementHighlighter();
+		}
 		if (!window.ruleEditor) 
 		{
 			window.ruleEditor = new RuleEditor(request.rule, request.src);

@@ -546,7 +546,7 @@ RuleEditorDialog.prototype.validatePath = function (input, useCss, search, count
 		countElement.innerHTML = '-';
 	}
 	return pathNodes;
-}
+};
 RuleEditorDialog.prototype.showMessage = function (message)
 {
 	var div = document.getElementById('rule_editor_alert');
@@ -782,6 +782,7 @@ RuleElement.STYLE_TMP_SELECT_FOR_HIDE = 'dotted 2px red';
 RuleElement.STYLE_TMP_SELECT_FOR_SEARCH = 'dotted 2px blue';
 RuleElement.STYLE_SELECT_FOR_HIDE = 'solid 1px red';
 RuleElement.STYLE_SELECT_FOR_SEARCH = 'solid 1px blue';
+
 RuleElement.getFocusForHideFunc = function (element) 
 {
 	return function()

@@ -73,6 +73,16 @@ var Import =
 		{
 			alert(chrome.i18n.getMessage('importDone'));
 			document.getElementById('button_import').disabled = false;
+
+			try {
+				var bgWindow = chrome.extension.getBackgroundPage();
+				bgWindow.reloadLists();
+			}
+			catch (ex)
+			{
+				alert(ex)
+			}
+			
 			return;
 		}
 		rule.rule.rule_id = 0;

@@ -741,11 +741,6 @@ RuleElement.appendFunctions = function (element)
 	element.tmpSelectForHide = RuleElement.getTmpSelectForHideFunc(element);
 	element.tmpSelectForSearch = RuleElement.getTmpSelectForSearchFunc(element);
 	element.tmpUnselect = RuleElement.getTmpUnselectFunc(element);
-	// select by XPath Textbox
-	element.selectForHide = RuleElement.getSelectForHideFunc(element);
-	element.unselectForHide = RuleElement.getUnselectForHideFunc(element);
-	element.selectForSearch = RuleElement.getSelectForSearchFunc(element);
-	element.unselectForSearch = RuleElement.getUnselectForSearchFunc(element);
 };
 RuleElement.STYLE_FOCUS_FOR_HIDE = 'solid 2px red';
 RuleElement.STYLE_FOCUS_FOR_SEARCH = 'solid 2px blue';
@@ -815,46 +810,6 @@ RuleElement.getTmpUnselectFunc = function (element)
 		element.style.outline = element.originalStyle;
 	};
 };
-
-RuleElement.getSelectForHideFunc = function (element) 
-{
-	return function()
-	{
-		element.isSelectedForHide = true;
-		element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
-	};
-};
-RuleElement.getSelectForSearchFunc = function (element) 
-{
-	return function()
-	{
-		element.isSelectedForSearch = true;
-		element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
-	};
-};
-RuleElement.getUnselectForHideFunc = function (element) 
-{
-	return function()
-	{
-		element.isSelectedForHide = false;
-		if (element.isSelectedForSearch) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
-		else
-			element.style.outline = element.originalStyle;
-	};
-};
-RuleElement.getUnselectForSearchFunc = function (element) 
-{
-	return function()
-	{
-		element.isSelectedForSearch = false;
-		if (element.isSelectedForHide) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
-		element.style.outline = element.originalStyle;
-		
-	};
-};
-
 
 PathPickerDialog.targetNone = {
 		none: true,

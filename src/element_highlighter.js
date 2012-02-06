@@ -61,8 +61,8 @@ ElementHighlighter.prototype.highlightSearchElements = function (elements)
 
 ElementHighlighter.selectForHide = function (element)
 {
-	if (!element.originalStyle)
-		element.originalStyle = (element.style.outline)?element.style.outline:"";
+	if (null==element.originalStyle)
+		element.originalStyle = (null!=element.style.outline)?element.style.outline:" ";
 	element.isSelectedForHide = true;
 	element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
 };
@@ -76,8 +76,8 @@ ElementHighlighter.unselectForHide = function (element)
 };
 ElementHighlighter.selectForSearch = function (element)
 {
-	if (!element.originalStyle)
-		element.originalStyle = (element.style.outline)?element.style.outline:"";
+	if (null==element.originalStyle)
+		element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 	element.isSelectedForSearch = true;
 	element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
 };

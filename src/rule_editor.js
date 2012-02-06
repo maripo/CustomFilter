@@ -761,6 +761,8 @@ RuleElement.getFocusForSearchFunc = function (element)
 	return function()
 	{
 		// Save
+		if (null==element.originalStyle)
+			element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 		element.isFocusedForHide = true;
 		element.style.outline = RuleElement.STYLE_FOCUS_FOR_SEARCH;
 	};
@@ -782,8 +784,8 @@ RuleElement.getTmpSelectForHideFunc = function (element)
 {
 	return function()
 	{
-		if (!element.originalStyle)
-			element.originalStyle = (element.style.outline)?element.style.outline:"";
+		if (null==element.originalStyle)
+			element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 		element.isTmpSelectedForHide = true;
 		element.style.outline = RuleElement.STYLE_TMP_SELECT_FOR_HIDE;
 	};
@@ -793,8 +795,8 @@ RuleElement.getTmpSelectForSearchFunc = function (element)
 {
 	return function()
 	{
-		if (!element.originalStyle)
-			element.originalStyle = (element.style.outline)?element.style.outline:"";
+		if (null==element.originalStyle)
+			element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 		element.isTmpSelectedForSearch = true;
 		element.style.outline = RuleElement.STYLE_TMP_SELECT_FOR_SEARCH;
 	};

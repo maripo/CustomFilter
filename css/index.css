@@ -119,17 +119,28 @@ h2 {
 	background: -webkit-gradient(linear, center top, center bottom, from(#99bbff), to(#2266dd))!important;
 	color:white;
 }
+.buttonContainer input.buttonOn:active{
+	background: -webkit-gradient(linear, center top, center bottom, from(#2266dd), to(#99bbff))!important;
+}
 .buttonContainer input.buttonOff{
 	width:40px;
 	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#444444))!important;
 	color:white;
 }
+.buttonContainer input.buttonOff:active{
+	background: -webkit-gradient(linear, center top, center bottom, from(#444444), to(#bbbbbb))!important;
+}
 .buttonContainer input.buttonEdit{
 	width:40px;
 	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#bbbbbb))!important;
 }
-
+.buttonContainer input.buttonEdit:active{
+	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#eeeeee))!important;	
+}
 #buttonCreateRule {
 	background: -webkit-gradient(linear, center top, center bottom, from(#f8f8f8), to(#bbbbbb))!important;
 	width:240px;
+}
+#buttonCreateRule:active {
+	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#f8f8f8))!important;
 }

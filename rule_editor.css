@@ -101,6 +101,17 @@
 	border:auto!important;
 	background-color:initial!important;
 }
+#rule_editor_body input[type="button"] {
+	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
+	border-radius:4px!important;
+	border:1px solid #888!important;
+	padding-right:2px!important;
+	padding-left:2px"important;
+	margin-left:2px!important;
+}
+#rule_editor_body input[type="button"]:active {
+	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
+}
 #rule_editor_body input[type="text"] {
 	border:solid 1px #888!important;
 	float:none!important;
@@ -232,7 +243,7 @@
 	color:white!important;
 	text-indent:4px!important;
 	-webkit-box-shadow: 0px 0px 1px #aaa;
-	text-shadow: 1px 1px 1px #666;
+	text-shadow: 1px 1px 1px #448;
 	font-size:100%!important;
 }
 
@@ -245,7 +256,7 @@
 	text-align:right;
 }
 
-#rule_editor_alert{
+#rule_editor_alert {
 	background-color:#fea!important;
 	border: solid 1px #fc0!important;
 	border-radius:8px!important;
@@ -271,6 +282,9 @@
 	padding-right:4px!important;
 	border-radius:8px!important;
 	border:solid 1px #888;
+}
+#rule_editor_body div.bottom_button_container {
+	padding:2px!important;	
 }
 input.xpath_picker {
 }

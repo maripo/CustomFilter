@@ -97,7 +97,7 @@
 	font-weight:normal!important;
 	float:none!important;
 	box-shadow:none!important;
-	outline:none!important
+	outline:none!important;
 	border:auto!important;
 	background-color:initial!important;
 }
@@ -106,7 +106,7 @@
 	border-radius:4px!important;
 	border:1px solid #888!important;
 	padding-right:2px!important;
-	padding-left:2px"important;
+	padding-left:2px!important;
 	margin-left:2px!important;
 }
 #rule_editor_body input[type="button"]:active {
@@ -275,7 +275,7 @@
 #rule_editor_body a.help {
 	background-color:#aaa!important;
 	color:white!important;
-	text-decoration:none;!important;
+	text-decoration:none!important;
 	vertical-align:middle!important;
 	margin:0px 2px 0px 2px!important;
 	padding-left:4px!important;

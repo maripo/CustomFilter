@@ -175,10 +175,7 @@ function loadRulePickerSrc()
 		{
 			if (xhr.status==0 || xhr.status==200) 
 			{
-				rulePickerBody = xhr.responseXML.getElementById('rule_editor_body');
-				var div = document.createElement('DIV');
-				div.appendChild(rulePickerBody);
-				rulePickerSrc = div.innerHTML;
+				rulePickerSrc = xhr.responseText;
 			}
 		}
 		

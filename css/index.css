@@ -132,15 +132,15 @@ h2 {
 }
 .buttonContainer input.buttonEdit{
 	width:40px;
-	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#bbbbbb))!important;
+	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
 }
 .buttonContainer input.buttonEdit:active{
-	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#eeeeee))!important;	
+	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;	
 }
 #buttonCreateRule {
-	background: -webkit-gradient(linear, center top, center bottom, from(#f8f8f8), to(#bbbbbb))!important;
+	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
 	width:240px;
 }
 #buttonCreateRule:active {
-	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#f8f8f8))!important;
+	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
 }

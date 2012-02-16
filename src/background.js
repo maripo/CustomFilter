@@ -109,7 +109,7 @@ function getRulePickerOnCommandFunc (tabId)
 			chrome.tabs.sendRequest(tab.id, 
 			{
 				command: 'ruleEditorRegister'
-			}, rulePickerOnCommand);
+			}, getRulePickerOnCommandFunc(tab.id));
 		});
 		
 	}

@@ -13,12 +13,17 @@ catch (ex)
 		db = window.openDatabase("customblocker","1.0","customblocker extension", 1048576);
 		if (db)
 		{
+			console.log("Trying to open DB 1.0");
 			needDbUpdate = true;
 		}
-	} catch (ex){}
+	} catch (ex){
+		console.log("Trying to open DB ...Failed" + ex);
+		
+	}
 }
 function updateDbIfNeeded (callback)
 {
+	console.log("updateDbIfNeeded needDbUpdate=" + needDbUpdate);
 	if (needDbUpdate)
 	{
 		console.log("Database Update 1.0->2.0");
@@ -82,7 +87,7 @@ DbPeer.prototype = {
 			});
 		} catch (ex) 
 		{
-			alert(ex)
+			console.log(ex)
 		}
 		
 	},
@@ -90,29 +95,33 @@ DbPeer.prototype = {
 	{
 		var sql = 'CREATE TABLE IF NOT EXISTS ' + this.tableName + '(';
 		var exps = new Array();
+		
 		for (var i=0, l=this.cols.length; i<l; i++) 
 		{
 			exps.push(this.cols[i].name + ' ' + this.cols[i].getTypeString());
 		}
 		sql += exps.join(',');
 		sql += ')';
+		console.log(sql);
 		try
 		{
 			db.transaction(function(tx) 
 			{
 				tx.executeSql(sql, [], function()
 				{
+
+					console.log("Create Table Success.");
 					if (callback) callback();
 				}, 
 				function()
 				{
-					alert("Create Table FAILED.");
+					console.log("Create Table FAILED.");
 				});
 			});
 		}
 		catch (ex) 
 		{
-			alert(ex)
+			console.log(ex)
 		}
 	},
 	select: function (condition, onFinishCallback, onFailCallback) 
@@ -195,6 +204,7 @@ DbPeer.prototype = {
 			{
 				tx.executeSql(sql, [], function(tx, res)
 				{
+					console.log("Insert Success");
 					obj.dirty = false;
 					obj[self.getPkeyColName()] = res.insertId;
 					if (onSuccessCallback) 
@@ -204,13 +214,15 @@ DbPeer.prototype = {
 				}, 
 				function(tx, res)
 				{
+					console.log("Insert Failed code=" + res.code);
+					console.log("Insert Failed message=" + res.message);
 					if (onFailureCallback) onFailureCallback();
 				});
 			});
 		}
 		catch (ex) 
 		{
-			alert(ex)
+			console.log(ex)
 		}
 	},
 	
@@ -249,6 +261,7 @@ DbPeer.prototype = {
 			{
 				tx.executeSql(sql, [], function()
 				{
+					console.log("Select Success");
 					obj.dirty = false;
 					if (onSuccessCallback) 
 					{
@@ -257,14 +270,14 @@ DbPeer.prototype = {
 				}, 
 				function()
 				{
-					alert("FAIL")
+					console.log("Select Failed")
 					if (onFailureCallback) onFailureCallback();
 				});
 			});
 		} 
 		catch (ex) 
 		{
-			alert(ex)
+			console.log(ex)
 		}
 	},
 	
@@ -281,6 +294,7 @@ DbPeer.prototype = {
 			{
 				tx.executeSql(sql, [], function()
 				{
+					console.log("Delete Success");
 					obj.dirty = false;
 					if (onSuccessCallback) 
 					{
@@ -288,13 +302,14 @@ DbPeer.prototype = {
 					}
 				}, function()
 				{
+					console.log("Delete Failed");
 					if (onFailureCallback) onFailureCallback();
 				});
 			});
 		}
 		catch (ex) 
 		{
-			alert(ex)
+			console.log(ex)
 		}
 	}
 };

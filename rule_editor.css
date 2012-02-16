@@ -37,6 +37,7 @@
 	color:black!important;
 	font-size:100%!important;
 	width:auto!important;
+	display:inline!important;
 }
 #rule_editor_body div,#rule_editor_body h2{
 	width:auto!important;

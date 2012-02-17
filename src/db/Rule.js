@@ -13,34 +13,34 @@ RulePeer.getInstance = function ()
 	var instance = new RulePeer();
 	
 	instance.tableName = 'rule';
-	instance.addColumn('rule_id', DbColumn.TYPE_PKEY);
+	instance.addColumn('rule_id', DbColumn.TYPE_PKEY, 1.0);
 	
-	instance.addColumn('title', DbColumn.TYPE_TEXT);
-	instance.addColumn('is_disabled', DbColumn.TYPE_BOOLEAN);
+	instance.addColumn('title', DbColumn.TYPE_TEXT, 1.0);
+	instance.addColumn('is_disabled', DbColumn.TYPE_BOOLEAN, 1.0);
 	
 	// Site Matcher
-	instance.addColumn('site_regexp', DbColumn.TYPE_TEXT);
-	instance.addColumn('example_url', DbColumn.TYPE_TEXT);
-	instance.addColumn('site_description', DbColumn.TYPE_TEXT);
+	instance.addColumn('site_regexp', DbColumn.TYPE_TEXT, 1.0);
+	instance.addColumn('example_url', DbColumn.TYPE_TEXT, 1.0);
+	instance.addColumn('site_description', DbColumn.TYPE_TEXT, 1.0);
 	
 	// Element Matcher
-	instance.addColumn('search_block_xpath', DbColumn.TYPE_TEXT);
-	instance.addColumn('search_block_css', DbColumn.TYPE_TEXT);
-	instance.addColumn('search_block_by_css', DbColumn.TYPE_BOOLEAN);
-	instance.addColumn('search_block_description', DbColumn.TYPE_TEXT);
-	instance.addColumn('hide_block_xpath', DbColumn.TYPE_TEXT);
-	instance.addColumn('hide_block_css', DbColumn.TYPE_TEXT);
-	instance.addColumn('hide_block_by_css', DbColumn.TYPE_BOOLEAN);
-	instance.addColumn('hide_block_description', DbColumn.TYPE_TEXT);
+	instance.addColumn('search_block_xpath', DbColumn.TYPE_TEXT, 1.0);
+	instance.addColumn('search_block_css', DbColumn.TYPE_TEXT, 2.0);
+	instance.addColumn('search_block_by_css', DbColumn.TYPE_BOOLEAN, 2.0);
+	instance.addColumn('search_block_description', DbColumn.TYPE_TEXT, 1.0);
+	instance.addColumn('hide_block_xpath', DbColumn.TYPE_TEXT, 1.0);
+	instance.addColumn('hide_block_css', DbColumn.TYPE_TEXT, 2.0);
+	instance.addColumn('hide_block_by_css', DbColumn.TYPE_BOOLEAN, 2.0);
+	instance.addColumn('hide_block_description', DbColumn.TYPE_TEXT, 1.0);
 
-	instance.addColumn('user_identifier', DbColumn.TYPE_TEXT);
-	instance.addColumn('global_identifier', DbColumn.TYPE_TEXT);
+	instance.addColumn('user_identifier', DbColumn.TYPE_TEXT, 3.0);
+	instance.addColumn('global_identifier', DbColumn.TYPE_TEXT, 3.0);
 	
-	instance.addColumn('block_anyway', DbColumn.TYPE_BOOLEAN);
+	instance.addColumn('block_anyway', DbColumn.TYPE_BOOLEAN, 1.0);
 	
-	instance.addColumn('insert_date', DbColumn.TYPE_TIMESTAMP);
-	instance.addColumn('update_date', DbColumn.TYPE_TIMESTAMP);
-	instance.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP);
+	instance.addColumn('insert_date', DbColumn.TYPE_TIMESTAMP, 1.0);
+	instance.addColumn('update_date', DbColumn.TYPE_TIMESTAMP, 1.0);
+	instance.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP, 1.0);
 	
 	RulePeer.instance =  instance;
 	return RulePeer.instance;

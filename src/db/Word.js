@@ -14,15 +14,15 @@ WordPeer.getInstance = function ()
 	
 	instance.tableName = 'word';
 	
-	instance.addColumn('word_id', DbColumn.TYPE_PKEY);
-	instance.addColumn('rule_id', DbColumn.TYPE_INTEGER);
+	instance.addColumn('word_id', DbColumn.TYPE_PKEY, 1.0);
+	instance.addColumn('rule_id', DbColumn.TYPE_INTEGER, 1.0);
 	
-	instance.addColumn('word', DbColumn.TYPE_TEXT);
-	instance.addColumn('is_regexp', DbColumn.TYPE_BOOLEAN);
+	instance.addColumn('word', DbColumn.TYPE_TEXT, 1.0);
+	instance.addColumn('is_regexp', DbColumn.TYPE_BOOLEAN, 1.0);
 	
-	instance.addColumn('insert_date', DbColumn.TYPE_TIMESTAMP);
-	instance.addColumn('update_date', DbColumn.TYPE_TIMESTAMP);
-	instance.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP);
+	instance.addColumn('insert_date', DbColumn.TYPE_TIMESTAMP, 1.0);
+	instance.addColumn('update_date', DbColumn.TYPE_TIMESTAMP, 1.0);
+	instance.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP, 1.0);
 	WordPeer.instance = instance;
 	return WordPeer.instance;
 }

@@ -115,9 +115,9 @@ var DbPeer = function ()
 	this.cols = new Array();
 };
 DbPeer.prototype = {
-	addColumn: function (name, type) 
+	addColumn: function (name, type, version) 
 	{
-		this.cols.push(new DbColumn(name,type));
+		this.cols.push(new DbColumn(name, type, version));
 	},
 	dropTable: function () 
 	{
@@ -387,10 +387,11 @@ DbPeer.prototype.getPkeyColName = function()
 /**
  * 
  */
-var DbColumn = function (name, type) 
+var DbColumn = function (name, type, version) 
 {
 	this.name = name;
 	this.type = type;
+	this.version = version;
 }
 DbColumn.TYPE_PKEY		 = 1;
 DbColumn.TYPE_INTEGER	 = 2;

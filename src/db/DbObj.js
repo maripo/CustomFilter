@@ -1,34 +1,39 @@
 var db = null;
 var needDbUpdate = false;
+var LATEST_DB_VERSION = "2.0";
+var DB_SIZE = 1024 * 1024 * 5;
 try
 {
 	needDbUpdate = false;
-	db = window.openDatabase("customblocker","2.0","customblocker extension", 1048576);
+	db = window.openDatabase("customblocker",LATEST_DB_VERSION,"customblocker extension", DB_SIZE);
 }
 catch (ex)
 {
 	console.log("Database Update Required." + ex);
 	try
 	{
-		db = window.openDatabase("customblocker","1.0","customblocker extension", 1048576);
+		console.log("Trying to open DB 1.0");
+		db = window.openDatabase("customblocker","1.0","customblocker extension", DB_SIZE);
 		if (db)
 		{
-			console.log("Trying to open DB 1.0");
 			needDbUpdate = true;
 		}
 	} catch (ex){
-		console.log("Trying to open DB ...Failed" + ex);
+		console.log("Trying to open DB 1.0 ...Failed" + ex);
 		
 	}
 }
 function updateDbIfNeeded (callback)
 {
-	console.log("updateDbIfNeeded needDbUpdate=" + needDbUpdate);
-	if (needDbUpdate)
+	console.log("updateDbIfNeeded needDbUpdate");
+	if (!db)
+		db = window.openDatabase("customblocker","","customblocker extension", DB_SIZE);
+	var currentDbVersion = db.version;
+	if (LATEST_DB_VERSION!=currentDbVersion)
 	{
-		console.log("Database Update 1.0->2.0");
+		console.log("Database Update "+currentDbVersion+"->"+LATEST_DB_VERSION);
 		
-		db.changeVersion("1.0", "2.0", 
+		db.changeVersion(currentDbVersion, LATEST_DB_VERSION, 
 			function (transaction)
 			{
 				console.log("Adding columns...");

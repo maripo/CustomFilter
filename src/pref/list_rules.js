@@ -273,6 +273,7 @@ RuleContainer.prototype.getDeleteAction = function ()
 			peer.deleteObject(self.rule);
 			self.liElement.parentNode.removeChild(self.liElement);
 		}
+		reloadBackground();
 	};
 };
 

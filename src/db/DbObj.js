@@ -1,6 +1,6 @@
 var db = null;
 var needDbUpdate = false;
-var LATEST_DB_VERSION = "2.0";
+var LATEST_DB_VERSION = "3.0";
 var DB_SIZE = 1024 * 1024 * 5;
 try
 {
@@ -12,15 +12,27 @@ catch (ex)
 	console.log("Database Update Required." + ex);
 	try
 	{
-		console.log("Trying to open DB 1.0");
-		db = window.openDatabase("customblocker","1.0","customblocker extension", DB_SIZE);
+		console.log("Trying to open DB 2.0");
+		db = window.openDatabase("customblocker","2.0","customblocker extension", DB_SIZE);
 		if (db)
 		{
 			needDbUpdate = true;
 		}
 	} catch (ex){
 		console.log("Trying to open DB 1.0 ...Failed" + ex);
-		
+
+		try
+		{
+			console.log("Trying to open DB 1.0");
+			db = window.openDatabase("customblocker","1.0","customblocker extension", DB_SIZE);
+			if (db)
+			{
+				needDbUpdate = true;
+			}
+		} catch (ex){
+			console.log("Trying to open DB 1.0 ...Failed" + ex);
+			
+		}
 	}
 }
 function updateDbIfNeeded (callback)
@@ -32,30 +44,62 @@ function updateDbIfNeeded (callback)
 	if (LATEST_DB_VERSION!=currentDbVersion)
 	{
 		console.log("Database Update "+currentDbVersion+"->"+LATEST_DB_VERSION);
-		
-		db.changeVersion(currentDbVersion, LATEST_DB_VERSION, 
-			function (transaction)
-			{
-				console.log("Adding columns...");
-				transaction.executeSql("alter table rule add column search_block_by_css;");
-				transaction.executeSql("alter table rule add column search_block_css;");
-				transaction.executeSql("alter table rule add column hide_block_by_css;");
-				transaction.executeSql(
-					"alter table rule add column hide_block_css;",
-					[],
-					function()
+		if ("2.0"==currentDbVersion)
+		{
+			console.log("Update from Default (1.0 or no-version)");
+			db.changeVersion(currentDbVersion, LATEST_DB_VERSION, 
+					function (transaction)
 					{
-						console.log("Columns added.");
-						callback();
-					},
-					function()
-					{
-						console.log("DB Version-up FAILED. change version 2.0->1.0");
-						db.changeVersion("2.0", "1.0", callback);
+						console.log("Adding columns...");
+						transaction.executeSql("alter table rule add column user_identifier;");
+						transaction.executeSql("alter table rule add column global_identifier;");
+						transaction.executeSql(
+							"alter table rule add column hide_block_css;",
+							[],
+							function()
+							{
+								console.log("Columns added.");
+								callback();
+							},
+							function()
+							{
+								console.log("DB Version-up FAILED. change version 2.0->1.0");
+								db.changeVersion("2.0", "1.0", callback);
+							}
+						);
 					}
 				);
-			}
-		);
+			console.log("Update from ver 2.0");
+		}
+		else if ("1.0"==currentDbVersion || ""==currentDbVersion)
+		{
+			console.log("Update from Default (1.0 or no-version)");
+			db.changeVersion(currentDbVersion, LATEST_DB_VERSION, 
+					function (transaction)
+					{
+						console.log("Adding columns...");
+						transaction.executeSql("alter table rule add column user_identifier;");
+						transaction.executeSql("alter table rule add column global_identifier;");
+						transaction.executeSql("alter table rule add column search_block_by_css;");
+						transaction.executeSql("alter table rule add column search_block_css;");
+						transaction.executeSql("alter table rule add column hide_block_by_css;");
+						transaction.executeSql(
+							"alter table rule add column hide_block_css;",
+							[],
+							function()
+							{
+								console.log("Columns added.");
+								callback();
+							},
+							function()
+							{
+								console.log("DB Version-up FAILED. change version 2.0->1.0");
+								db.changeVersion("2.0", "1.0", callback);
+							}
+						);
+					}
+				);
+		}
 	}
 	else
 	{
@@ -71,9 +115,9 @@ var DbPeer = function ()
 	this.cols = new Array();
 };
 DbPeer.prototype = {
-	addColumn: function (name, type) 
+	addColumn: function (name, type, version) 
 	{
-		this.cols.push(new DbColumn(name,type));
+		this.cols.push(new DbColumn(name, type, version));
 	},
 	dropTable: function () 
 	{
@@ -343,10 +387,11 @@ DbPeer.prototype.getPkeyColName = function()
 /**
  * 
  */
-var DbColumn = function (name, type) 
+var DbColumn = function (name, type, version) 
 {
 	this.name = name;
 	this.type = type;
+	this.version = version;
 }
 DbColumn.TYPE_PKEY		 = 1;
 DbColumn.TYPE_INTEGER	 = 2;

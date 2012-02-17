@@ -86,19 +86,37 @@ h2 {
 	text^align:center;
 	height:20px;
 }
+/*
+	List Buttons
+*/
 .buttonContainer input.buttonOn{
 	background: -webkit-gradient(linear, center top, center bottom, from(#99bbff), to(#2266dd))!important;
 	color:white;
 }
+.buttonContainer input.buttonOn:active{
+	background: -webkit-gradient(linear, center top, center bottom, from(#2266dd), to(#99bbff))!important;
+	color:white;
+}
 .buttonContainer input.buttonOff{
-	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#444444))!important;
+	background: -webkit-gradient(linear, center top, center bottom, from(#aaaaaa), to(#666666))!important;
+	color:white;
+}
+.buttonContainer input.buttonOff:active{
+	background: -webkit-gradient(linear, center top, center bottom, from(#666666), to(#aaaaaa))!important;
 	color:white;
 }
 .buttonContainer input.buttonEdit{
-	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#bbbbbb))!important;
+	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
+}
+.buttonContainer input.buttonEdit:active{
+	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
 }
 .buttonContainer input.buttonDelete{
 	background: -webkit-gradient(linear, center top, center bottom, from(#ff99bb), to(#dd2266))!important;
+	color:white;
+}
+.buttonContainer input.buttonDelete:active{
+	background: -webkit-gradient(linear, center top, center bottom, from(#dd2266), to(#ff99bb))!important;
 	color:white;
 }
 #ruleList li div.information img.favicon {
@@ -187,9 +205,8 @@ h2 {
 }
 #header ul {
 	height:24px;
-	border-top:solid 1px #ccc;
-	border-bottom:solid 1px #aaa;
-	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#dddddd))!important;
+	border:solid 1px #aaa;
+	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#dddddd));
 	padding:0px;
 	margin:0px;
 }
@@ -210,10 +227,22 @@ h2 {
 	text-decoration:none;
 	color: #444;
 }
+#header ul li a:active{
+	height:inherit;
+	width:inherit;
+	display:block;
+	text-decoration:none;
+	color: #444;
+	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#eeeeee));
+}
 #header ul li.selected {
-	background: -webkit-gradient(linear, center top, center bottom, from(#ffeedd), to(#ffddcc))!important;
+	background: -webkit-gradient(linear, center top, center bottom, from(#ffeedd), to(#ffddcc));
 }
 #header ul li.selected a {
+
+}
+#header ul li.selected a:active {
+	background: -webkit-gradient(linear, center top, center bottom, from(#ffddcc), to(#ffeedd))!important;
 
 }
 #search_box {

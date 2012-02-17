@@ -245,7 +245,7 @@ RuleContainer.prototype.getDisableAction = function (inputButton)
 	{
 		rule.is_disabled = !rule.is_disabled;
 		inputButton.value = (rule.is_disabled)?'OFF':'ON';
-		inputButton.className = (rule.is_disabled)?'buttonOff':'buttonOff';
+		inputButton.className = (rule.is_disabled)?'buttonOff':'buttonOn';
 		peer.saveObject(rule, function () {}, function () {});
 		reloadBackground();
 	}

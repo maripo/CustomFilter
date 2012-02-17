@@ -32,6 +32,9 @@ RulePeer.getInstance = function ()
 	instance.addColumn('hide_block_css', DbColumn.TYPE_TEXT);
 	instance.addColumn('hide_block_by_css', DbColumn.TYPE_BOOLEAN);
 	instance.addColumn('hide_block_description', DbColumn.TYPE_TEXT);
+
+	instance.addColumn('user_identifier', DbColumn.TYPE_TEXT);
+	instance.addColumn('global_identifier', DbColumn.TYPE_TEXT);
 	
 	instance.addColumn('block_anyway', DbColumn.TYPE_BOOLEAN);
 	

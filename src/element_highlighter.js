@@ -27,7 +27,8 @@ ElementHighlighter.prototype.highlightHideElements = function (elements)
 	if (this.hideElements)
 	{
 		for (var i=0, l=this.hideElements.length; i<l; i++) {
-			ElementHighlighter.unselectForHide(this.hideElements[i]);
+			if (!CustomBlockerUtil.isContained(this.hideElements[i], document.getElementById('rule_editor_container')))
+				ElementHighlighter.unselectForHide(this.hideElements[i]);
 		}
 	}
 	//Apply Styles
@@ -35,7 +36,8 @@ ElementHighlighter.prototype.highlightHideElements = function (elements)
 	{
 		for (var i=0; i<elements.length; i++)
 		{
-			ElementHighlighter.selectForHide(elements[i]);
+			if (!CustomBlockerUtil.isContained(elements[i], document.getElementById('rule_editor_container')))
+				ElementHighlighter.selectForHide(elements[i]);
 		}
 	}
 	this.hideElements = elements;
@@ -45,7 +47,8 @@ ElementHighlighter.prototype.highlightSearchElements = function (elements)
 	if (this.searchElements)
 	{
 		for (var i=0, l=this.searchElements.length; i<l; i++) {
-			ElementHighlighter.unselectForSearch(this.searchElements[i]);
+			if (!CustomBlockerUtil.isContained(this.searchElements[i], document.getElementById('rule_editor_container')))
+				ElementHighlighter.unselectForSearch(this.searchElements[i]);
 		}
 	}
 	//Apply Styles
@@ -53,7 +56,8 @@ ElementHighlighter.prototype.highlightSearchElements = function (elements)
 	{
 		for (var i=0; i<elements.length; i++)
 		{
-			ElementHighlighter.selectForSearch(elements[i]);
+			if (!CustomBlockerUtil.isContained(elements[i], document.getElementById('rule_editor_container')))
+				ElementHighlighter.selectForSearch(elements[i]);
 		}
 	}
 	this.searchElements = elements;

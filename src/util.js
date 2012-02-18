@@ -152,3 +152,13 @@ CustomBlockerUtil.trim = function (str)
 {
 	return str.replace(/^[\s　]+|[\s　]+$/g, '');
 };
+CustomBlockerUtil.isContained = function (targetNode, ancestorNode)
+{
+	if (!ancestorNode || !targetNode) return false;
+	var node = targetNode;
+	while (node && document.body!=node) {
+		if (node == ancestorNode) return true;
+		node = node.parentNode;
+	}
+	return false;
+};

@@ -498,7 +498,7 @@ RuleEditorDialog.prototype.refreshXPathSelectedStyles = function ()
 RuleEditorDialog.prototype.validatePath = function (input, useCss, search, countElement, alertElement)
 {
 	var pathNodes;
-	try {
+	//try {
 		var pathNodes;
 		if (useCss) pathNodes = (input.value!='')?CustomBlockerUtil.getElementsByCssSelector(input.value):[];
 		else pathNodes = (input.value!='')?CustomBlockerUtil.getElementsByXPath(input.value):[];
@@ -508,7 +508,7 @@ RuleEditorDialog.prototype.validatePath = function (input, useCss, search, count
 			window.elementHighlighter.highlightSearchElements (pathNodes);
 		else
 			window.elementHighlighter.highlightHideElements (pathNodes);
-	}
+	/*}
 	catch (e)
 	{
 		console.log(e)
@@ -517,6 +517,7 @@ RuleEditorDialog.prototype.validatePath = function (input, useCss, search, count
 		alertElement.innerHTML = 'Invalid ' + ((useCss)?'CSS Selector':'XPath');
 		countElement.innerHTML = '-';
 	}
+	*/
 };
 RuleEditorDialog.prototype.showMessage = function (message)
 {

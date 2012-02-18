@@ -564,8 +564,20 @@ RuleEditorDialog.prototype.getOnMouseupAction = function ()
 	var self = this;
 	return function (event) 
 	{
-		self.moving = false;
+		if (self.moving)
+			self.moving = false;
+		else
+		{
+			self.processSelection();
+		}
 	}
+};
+RuleEditorDialog.prototype.processSelection = function ()
+{
+	if (null==document.getSelection()) return;
+	document.getElementById('rule_editor_keyword').value = document.getSelection().toString();
+	var focus = document.getSelection().focusNode;
+	console.log(focus);
 };
 RuleEditorDialog.prototype.getSuggestedSiteRegexp = function () 
 {

@@ -238,14 +238,6 @@ RuleEditor.prototype.getWordDeleteAction = function (word, span)
 	};
 };
 
-function applyCss (path) 
-{
-	var cssNode = document.createElement('LINK');
-	cssNode.rel = "stylesheet";
-	cssNode.href = chrome.extension.getURL(path);
-	document.getElementsByTagName('HEAD')[0].appendChild(cssNode);
-}
-
 /**
  * RuleEditorDialog
  */
@@ -265,8 +257,8 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	document.body.appendChild(this.div);
 	this.div.innerHTML = src;
 	
-	applyCss('/rule_editor.css');
-	applyCss('/rule_editor_cursor.css');
+	CustomBlockerUtil.applyCss('/rule_editor.css');
+	CustomBlockerUtil.applyCss('/rule_editor_cursor.css');
 	
 	
 	this.div.avoidStyle = true;
@@ -572,12 +564,24 @@ RuleEditorDialog.prototype.getOnMouseupAction = function ()
 		}
 	}
 };
+/**
+ * Process selected text and suggest some rules INTELLIGENTLY
+ */
 RuleEditorDialog.prototype.processSelection = function ()
 {
 	if (null==document.getSelection()) return;
 	document.getElementById('rule_editor_keyword').value = document.getSelection().toString();
-	var focus = document.getSelection().focusNode;
-	console.log(focus);
+	var startNode = document.getSelection().getRangeAt(0).startContainer.parentNode;
+	var endNode = document.getSelection().getRangeAt(0).endContainer.parentNode;
+	var targetElement = CustomBlockerUtil.getCommonAncestor([startNode, endNode]);
+	if (targetElement)
+		this.suggestRuleByTargetElement(targetElement);
+};
+RuleEditorDialog.prototype.suggestRuleByTargetElement = function (targetElement)
+{
+	// TODO stub
+	// send rules from index.js to rule_editor.js -> compare
+	targetElement.style.backgroundColor = 'yellow';
 };
 RuleEditorDialog.prototype.getSuggestedSiteRegexp = function () 
 {

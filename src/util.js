@@ -152,13 +152,45 @@ CustomBlockerUtil.trim = function (str)
 {
 	return str.replace(/^[\s　]+|[\s　]+$/g, '');
 };
+
+
+CustomBlockerUtil.applyCss = function (path) 
+{
+	var cssNode = document.createElement('LINK');
+	cssNode.rel = "stylesheet";
+	cssNode.href = chrome.extension.getURL(path);
+	document.getElementsByTagName('HEAD')[0].appendChild(cssNode);
+};
+/**
+ * Return true if targetNode is contained in or equal to ancestorNode
+ */
 CustomBlockerUtil.isContained = function (targetNode, ancestorNode)
 {
 	if (!ancestorNode || !targetNode) return false;
 	var node = targetNode;
-	while (node && document.body!=node) {
+	while (node && document.body!=node) 
+	{
 		if (node == ancestorNode) return true;
 		node = node.parentNode;
 	}
 	return false;
+};
+/**
+ * Return an element which contains all elements
+ */
+CustomBlockerUtil.getCommonAncestor = function (elements) 
+{
+	var element = elements[0];
+	while (element && document.body!=element)
+	{
+		var containsAll = true;
+		for (var i=1; i<elements.length; i++)
+		{
+			if (!CustomBlockerUtil.isContained(elements[i], element))
+				containsAll = false;
+		}
+		if (containsAll) return element;
+		element = element.parentNode; 
+	}
+	return document.body;
 };

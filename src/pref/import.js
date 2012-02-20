@@ -7,9 +7,34 @@ var Import =
 	{
 		var fileSelector = document.getElementById('fileSelector');
 		fileSelector.addEventListener('change', Import.readFile);
+		Import.rulePeer = RulePeer.getInstance();
+		Import.wordPeer = WordPeer.getInstance();
+		Import.rulePeer.select('', Import.onRuleLoaded, null);
 		document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
 		document.getElementById('help_link_empty').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html'; 
 		CustomBlockerUtil.localize();
+	},
+	onRuleListLoaded: function(list) 
+	{
+		Import.ruleList = list;
+		Import.wordPeer.select('', Import.onWordListLoaded, null);
+	}, 
+	onWordListLoaded: function (wordList)
+	{
+		var ruleMap = new Array();
+		for (var i=0, l=Import.ruleList.length; i<l; i++) 
+		{
+			ruleMap[Import.ruleList[i].rule_id] = Import.ruleList[i];
+		}
+		// Relate words with rules
+		for (var i = 0, l = wordList.length; i < l; i++) 
+		{
+			var rule = ruleMap[wordList[i].rule_id];
+			if (rule) 
+			{
+				rule.words.push(wordList[i]);
+			}
+		}
 	},
 	readFile: function (event)
 	{
@@ -55,8 +80,6 @@ var Import =
 		}
 		Import.savingRuleIndex = 0;
 		Import.savingWordIndex = 0;
-		Import.rulePeer = RulePeer.getInstance();
-		Import.wordPeer = WordPeer.getInstance();
 		Import.saveRule();
 	},
 	saveRule: function ()

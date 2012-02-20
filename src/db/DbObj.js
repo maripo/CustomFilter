@@ -310,7 +310,7 @@ DbPeer.prototype = {
 			{
 				tx.executeSql(sql, [], function()
 				{
-					console.log("Select Success");
+					console.log("Update Success");
 					obj.dirty = false;
 					if (onSuccessCallback) 
 					{
@@ -319,7 +319,7 @@ DbPeer.prototype = {
 				}, 
 				function()
 				{
-					console.log("Select Failed")
+					console.log("Update Failed")
 					if (onFailureCallback) onFailureCallback();
 				});
 			});

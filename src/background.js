@@ -57,6 +57,34 @@ function onWordListLoaded (wordList)
 		}
 	}
 	loadRulePickerSrc();
+	saveUuidIfNotSet();
+}
+
+function saveUuidIfNotSet ()
+{
+	for (var i=0; i<ruleList.length; i++)
+	{
+		var rule = ruleList[i];
+		var needSave = false;
+		if (CustomBlockerUtil.isEmpty(rule.user_identifier))
+		{
+			needSave = true;
+			rule.user_identifier = UUID.generate();
+		}
+		if (CustomBlockerUtil.isEmpty(rule.global_identifier))
+		{
+			needSave = true;
+			rule.global_identifier = UUID.generate();
+		}
+		if (needSave)
+		{
+		peer.saveObject(rule, function () 
+			{
+				var bgWindow = chrome.extension.getBackgroundPage();
+				bgWindow.reloadLists();
+			});
+		}
+	}
 }
 
 function reloadLists () 

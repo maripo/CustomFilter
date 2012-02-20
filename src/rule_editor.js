@@ -159,6 +159,15 @@ RuleEditor.prototype.save = function ()
 		this.ruleEditorDialog.showMessage(validateErrors.join('<br/>'));
 		return;
 	}
+	// set UUIDs
+	if (CustomBlockerUtil.isEmpty(this.rule.user_identifier))
+	{
+		this.rule.user_identifier = UUID.generate();
+	}
+	if (CustomBlockerUtil.isEmpty(this.rule.global_identifier))
+	{
+		this.rule.global_identifier = UUID.generate();
+	}
 	this.applyInput();
 	this.bgCallback({command:'save', type:'rule', obj: this.rule});
 	

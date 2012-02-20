@@ -246,6 +246,15 @@ RuleContainer.prototype.getDisableAction = function (inputButton)
 		rule.is_disabled = !rule.is_disabled;
 		inputButton.value = (rule.is_disabled)?'OFF':'ON';
 		inputButton.className = (rule.is_disabled)?'buttonOff':'buttonOn';
+		// set UUIDs
+		if (CustomBlockerUtil.isEmpty(rule.user_identifier))
+		{
+			rule.user_identifier = UUID.generate();
+		}
+		if (CustomBlockerUtil.isEmpty(rule.global_identifier))
+		{
+			rule.global_identifier = UUID.generate();
+		}
 		peer.saveObject(rule, function () {}, function () {});
 		reloadBackground();
 	}
@@ -405,6 +414,15 @@ RuleEditor.prototype.saveRule = function ()
 	this.rule.hide_block_description = document.getElementById('rule_editor_hide_block_description').value;
 	this.rule.block_anyway = document.getElementById('rule_editor_block_anyway').checked;
 	var self = this;
+	// set UUIDs
+	if (CustomBlockerUtil.isEmpty(this.rule.user_identifier))
+	{
+		this.rule.user_identifier = UUID.generate();
+	}
+	if (CustomBlockerUtil.isEmpty(this.rule.global_identifier))
+	{
+		this.rule.global_identifier = UUID.generate();
+	}
 	peer.saveObject(this.rule, function (){
 		hideEmptyAlert();
 		self.showMessage(chrome.i18n.getMessage('saveDone'));

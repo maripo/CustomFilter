@@ -83,6 +83,7 @@ var Import =
 			}
 			if (!found)
 			{
+				existingWord.word_id = 0;
 				rule.words.add(existingWord);
 			}
 		}
@@ -177,7 +178,6 @@ var Import =
 			Import.saveRule();
 			return;
 		}
-		word.word_id = 0;
 		word.rule_id = rule.rule_id;
 		Import.wordPeer.saveObject (word, 
 			function (insertedWord) 

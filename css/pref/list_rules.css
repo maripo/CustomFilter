@@ -41,12 +41,12 @@ h2 {
 	overflow:hidden;
 }
  #ruleList li.odd {
- 	background-color:#d0e0ff;
+ 	background-color:#dfefff;
 	border-top:solid #e0e0ff 1px;
 	border-bottom:solid #c0d0ff 1px;
  }
  #ruleList li.even {
- 	background-color:#f0f0ff;
+ 	background-color:#f0f4ff;
 	border-top:solid #ffffff 1px;
 	border-bottom:solid #d0d0d0 1px;
  }

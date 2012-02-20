@@ -54,6 +54,8 @@ var Import =
 	},
 	relateWithExistingRule: function (rule)
 	{
+		rule.existing = false;
+		rule.rule_id = 0;
 		for (var i=0; i<Import.ruleList.length; i++)
 		{
 			var existingRule = Import.ruleList[i];
@@ -61,6 +63,7 @@ var Import =
 			{
 				Import.relateWithExistingWord(rule, existingRule);
 				rule = existingRule;
+				rule.existing = true;
 			}
 		}
 		return rule;
@@ -75,7 +78,7 @@ var Import =
 			for (var j = 0; j < rule.words.length; j++)
 			{
 				var word = rule.words[j];
-				if (word.is_regexp == existingWord.is_regexp && word.word && existingWord.word)
+				if (word.is_regexp == existingWord.is_regexp && word.word == existingWord.word)
 					found = true;
 			}
 			if (!found)
@@ -90,22 +93,23 @@ var Import =
 		try
 		{
 			var importedList = JSON.parse(event.target.result);
-			Import.list = new Array();
-			for (var i=0; i<importedList.length; i++) 
-			{
-				// relate with existing rules
-				var listElement = new RuleWrapper(Import.relateWithExistingRule(importedList[i]));
-				Import.list.push(listElement);
-				listElement.liElement.className = (i%2==0)?'odd':'even';
-				document.getElementById('ruleList').appendChild(listElement.liElement);
-			}
-			document.getElementById('imported').style.display = 'block';
 		}
 		catch (ex) 
 		{
 			console.log(ex);
 			alert(chrome.i18n.getMessage('importErrorInvalidFormat'));
 		}
+		Import.list = new Array();
+		for (var i=0; i<importedList.length; i++) 
+		{
+			// relate with existing rules
+			var listElement = new RuleWrapper(Import.relateWithExistingRule(importedList[i]));
+			Import.list.push(listElement);
+			listElement.liElement.className = (i%2==0)?'odd':'even';
+			document.getElementById('ruleList').appendChild(listElement.liElement);
+		}
+		document.getElementById('imported').style.display = 'block';
+		
 	},
 	saveSelected: function (event)
 	{
@@ -144,7 +148,6 @@ var Import =
 			
 			return;
 		}
-		rule.rule.rule_id = 0;
 		Import.rulePeer.saveObject (rule.rule, 
 			function (insertedRule) 
 			{

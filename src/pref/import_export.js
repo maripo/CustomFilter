@@ -27,7 +27,10 @@ RuleWrapper = function (rule)
 	var titleDiv = document.createElement('DIV');
 	titleDiv.className = 'title';
 	
-	titleDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.title, 42);
+	var title = this.rule.title;
+	if (this.rule.existing)
+		title = "[existing]" + title;
+	titleDiv.innerHTML = CustomBlockerUtil.shorten(title, 42);
 	
 	
 	var urlDiv = document.createElement('DIV');

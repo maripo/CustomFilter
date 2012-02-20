@@ -215,12 +215,11 @@ RuleEditor.prototype.getWordElement = function (word)
 	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
 	span.avoidStyle = true;
 	
-	var deleteButton = document.createElement('A');
-	
+	var deleteButton = document.createElement('INPUT');
+	deleteButton.type = 'BUTTON';
 	deleteButton.avoidStyle = true;
 	deleteButton.className = 'deleteButton';
 	deleteButton.href = 'javascript:void(0)'
-	deleteButton.innerHTML = ' [x] '
 	deleteButton.addEventListener('click', this.getWordDeleteAction(word, span), true);
 	
 	span.appendChild(deleteButton);

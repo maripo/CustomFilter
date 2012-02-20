@@ -76,14 +76,14 @@ h2 {
  	margin-right:100px;
 	height:inherit;
  }
-.buttonContainer input {
+.buttonContainer input.uiButton  {
 	border-radius:4px;
 	display: inline-block;
 	border:1px solid #888;
 	border-image:initial;
 	width:40px;
 	margin-right:2px;
-	text^align:center;
+	text-align:center;
 	height:20px;
 }
 /*
@@ -251,4 +251,13 @@ h2 {
 	background-position:1px 1px;
 	padding-left:15px;
 	width:180px;	
+}
+span.word input.deleteButton {
+	width:16px!important;
+	height:16px!important;
+	background-image:url(../../img/word_delete.png)!important;
+	background-repeat:no-repeat;
+	background-position:0px 3px;
+	display:inline-block;
+	margin-top:3px;
 }

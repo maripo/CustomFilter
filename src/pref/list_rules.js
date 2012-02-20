@@ -213,7 +213,7 @@ RuleContainer.prototype.createDisableBox = function ()
 	var input = document.createElement('INPUT');
 	input.type = 'BUTTON';
 	input.value = (this.rule.is_disabled)?'OFF':'ON';
-	input.className = (this.rule.is_disabled)?'buttonOff':'buttonOn';
+	input.className = (this.rule.is_disabled)?'uiButton buttonOff':'uiButton buttonOn';
 	span.appendChild(input);
 	input.addEventListener('click', this.getDisableAction(input), true);
 	return span;
@@ -222,7 +222,7 @@ RuleContainer.prototype.createSelectButton = function ()
 {
 	var button = document.createElement('INPUT');
 	button.type = 'BUTTON';
-	button.className = 'buttonEdit';
+	button.className = 'uiButton buttonEdit';
 	button.value = chrome.i18n.getMessage('buttonLabelEdit');
 	button.addEventListener('click', this.getSelectAction(), true);
 	return button;
@@ -232,7 +232,7 @@ RuleContainer.prototype.createDeleteButton = function ()
 {
 	var button = document.createElement('INPUT');
 	button.type = 'BUTTON';
-	button.className = 'buttonDelete';
+	button.className = 'uiButton buttonDelete';
 	button.value = chrome.i18n.getMessage('buttonLabelDelete');
 	button.addEventListener('click', this.getDeleteAction(), true);
 	return button;
@@ -245,7 +245,7 @@ RuleContainer.prototype.getDisableAction = function (inputButton)
 	{
 		rule.is_disabled = !rule.is_disabled;
 		inputButton.value = (rule.is_disabled)?'OFF':'ON';
-		inputButton.className = (rule.is_disabled)?'buttonOff':'buttonOn';
+		inputButton.className = (rule.is_disabled)?'uiButton buttonOff':'uiButton buttonOn';
 		peer.saveObject(rule, function () {}, function () {});
 		reloadBackground();
 	}
@@ -419,10 +419,10 @@ RuleEditor.prototype.getWordElement = function (word)
 	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
 	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
 	
-	var deleteButton = document.createElement('A');
+	var deleteButton = document.createElement('INPUT');
 	deleteButton.className = 'deleteButton';
-	deleteButton.href = 'javascript:void(0)'
-	deleteButton.innerHTML = ' [x] '
+	deleteButton.type = 'BUTTON';
+	deleteButton.innerHTML = ''
 	deleteButton.addEventListener('click', this.getDeleteWordAction(word, span), true);
 	span.appendChild(deleteButton);
 	

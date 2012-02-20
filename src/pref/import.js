@@ -9,18 +9,20 @@ var Import =
 		fileSelector.addEventListener('change', Import.readFile);
 		Import.rulePeer = RulePeer.getInstance();
 		Import.wordPeer = WordPeer.getInstance();
-		Import.rulePeer.select('', Import.onRuleLoaded, null);
+		Import.rulePeer.select('', Import.onRuleListLoaded, null);
 		document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
 		document.getElementById('help_link_empty').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html'; 
 		CustomBlockerUtil.localize();
 	},
 	onRuleListLoaded: function(list) 
 	{
+		console.log("omRuleListLoaded");
 		Import.ruleList = list;
 		Import.wordPeer.select('', Import.onWordListLoaded, null);
 	}, 
 	onWordListLoaded: function (wordList)
 	{
+		console.log("onWordListLoaded");
 		var ruleMap = new Array();
 		for (var i=0, l=Import.ruleList.length; i<l; i++) 
 		{
@@ -35,6 +37,7 @@ var Import =
 				rule.words.push(wordList[i]);
 			}
 		}
+		console.log("onWordListLoaded done.");
 	},
 	readFile: function (event)
 	{
@@ -49,6 +52,38 @@ var Import =
 	toggleAllCheckboxes: function (sender) {
 		RuleWrapper.toggleAllCheckboxes (sender, Import.list);
 	},
+	relateWithExistingRule: function (rule)
+	{
+		for (var i=0; i<Import.ruleList.length; i++)
+		{
+			var existingRule = Import.ruleList[i];
+			if (existingRule.user_identifier == rule.user_identifier)
+			{
+				Import.relateWithExistingWord(rule, existingRule);
+				rule = existingRule;
+			}
+		}
+		return rule;
+	},
+	relateWithExistingWord: function (rule, existingRule)
+	{
+		if (existingRule.words || rule.words) return null;
+		for (var i = 0; i < existingRule.words.length; i++)
+		{
+			var found = false;
+			var existingWord = existingRule.words[i];
+			for (var j = 0; j < rule.words.length; j++)
+			{
+				var word = rule.words[j];
+				if (word.is_regexp == existingWord.is_regexp && word.word && existingWord.word)
+					found = true;
+			}
+			if (!found)
+			{
+				rule.words.add(existingWord);
+			}
+		}
+	},
 	readContent: function (event)
 	{
 		console.log(event.target.result);
@@ -58,7 +93,8 @@ var Import =
 			Import.list = new Array();
 			for (var i=0; i<importedList.length; i++) 
 			{
-				var listElement = new RuleWrapper(importedList[i]);
+				// relate with existing rules
+				var listElement = new RuleWrapper(Import.relateWithExistingRule(importedList[i]));
 				Import.list.push(listElement);
 				listElement.liElement.className = (i%2==0)?'odd':'even';
 				document.getElementById('ruleList').appendChild(listElement.liElement);

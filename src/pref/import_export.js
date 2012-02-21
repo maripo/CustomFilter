@@ -3,7 +3,7 @@ RuleWrapper = function (rule)
 	this.rule = rule;
 	this.liElement = document.createElement('LI');
 	this.subLiElement = document.createElement('DIV');
-	this.subLiElement.className = 'sub';
+	this.subLiElement.className = RuleWrapper.getSubDivClassName();
 
 	this.checkbox = document.createElement('INPUT');
 	this.checkbox.type = 'checkbox';
@@ -28,8 +28,6 @@ RuleWrapper = function (rule)
 	titleDiv.className = 'title';
 	
 	var title = this.rule.title;
-	if (this.rule.existing)
-		title = "[existing]" + title;
 	titleDiv.innerHTML = CustomBlockerUtil.shorten(title, 42);
 	
 	

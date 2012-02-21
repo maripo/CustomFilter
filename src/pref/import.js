@@ -104,7 +104,14 @@ var Import =
 		for (var i=0; i<importedList.length; i++) 
 		{
 			// relate with existing rules
-			var listElement = new RuleWrapper(Import.relateWithExistingRule(importedList[i]));
+			var rule = Import.relateWithExistingRule(importedList[i]);
+			var listElement = new RuleWrapper(rule);
+			
+			var importIcon = document.createElement('IMG');
+			importIcon.src =  (rule.existing)?'../img/import_update.png':'../img/import_add.png';
+			importIcon.className = 'importIcon';
+			importIcon.title = (rule.existing)?'UPDATE':'NEW';
+			listElement.liElement.appendChild(importIcon);
 			Import.list.push(listElement);
 			listElement.liElement.className = (i%2==0)?'odd':'even';
 			document.getElementById('ruleList').appendChild(listElement.liElement);
@@ -189,4 +196,7 @@ var Import =
 				alert("Error.");
 			});
 	},
+};
+RuleWrapper.getSubDivClassName = function () {
+	return "sub_import";
 };

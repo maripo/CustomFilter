@@ -65,3 +65,6 @@ var Export =
 		}
 	}
 };
+RuleWrapper.getSubDivClassName = function () {
+	return "sub_export";
+};

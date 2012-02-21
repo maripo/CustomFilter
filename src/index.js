@@ -144,6 +144,16 @@ function getDisableAction (rule, disableButton)
 		disableButton.className = (rule.is_disabled)?'buttonOff':'buttonOn';
 		try 
 		{
+
+			// set UUIDs
+			if (CustomBlockerUtil.isEmpty(rule.user_identifier))
+			{
+				rule.user_identifier = UUID.generate();
+			}
+			if (CustomBlockerUtil.isEmpty(rule.global_identifier))
+			{
+				rule.global_identifier = UUID.generate();
+			}
 			peer.saveObject(rule, function () 
 			{
 				var bgWindow = chrome.extension.getBackgroundPage();

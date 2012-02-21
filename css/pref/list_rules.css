@@ -171,11 +171,22 @@ h2 {
 	left:210px;
 	top:20px;
 }
-#ruleList li div.sub {
+#ruleList li div.sub_import {
 	position:absolute;
-	left:40px;
+	left:50px;
 	top:0px;
 	width:400px;	
+}
+#ruleList li div.sub_export {
+	position:absolute;
+	left:36px;
+	top:0px;
+	width:400px;	
+}
+#ruleList li img.importIcon {
+	position:absolute;
+	left:34px;
+	top:2px;	
 }
 #ruleList li input.check {
 	position:absolute;

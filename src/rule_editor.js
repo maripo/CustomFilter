@@ -7,10 +7,15 @@ var KEY_CODE_RETURN = 13;
 /**
  * RuleEditor
  */
-var RuleEditor = function (rule, src) 
+var RuleEditor = function (rule, src, appliedRuleList) 
 {
 	this.rule = (rule)?rule:Rule.createInstance();
 	this.src = src;
+	this.appliedRuleList = appliedRuleList;
+	for (var i=0; i<appliedRuleList.length; i++)
+	{
+		console.log(appliedRuleList[i].title);
+	}
 };
 RuleEditor.prototype.initialize = function () 
 {

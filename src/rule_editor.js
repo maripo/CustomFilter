@@ -582,6 +582,8 @@ RuleEditorDialog.prototype.suggestRuleByTargetElement = function (targetElement)
 	// TODO stub
 	// send rules from index.js to rule_editor.js -> compare
 	targetElement.style.backgroundColor = 'yellow';
+	var creator = new SmartRuleCreator(targetElement);
+	creator.showDialog();
 };
 RuleEditorDialog.prototype.getSuggestedSiteRegexp = function () 
 {
@@ -589,6 +591,21 @@ RuleEditorDialog.prototype.getSuggestedSiteRegexp = function ()
 	var metaChars = new RegExp('[\\\\^\\.\\$\\*\\?\\|\\(\\)\\[\\]\\{\\}]','g');
 	str = str.replace(metaChars, function (a,b){return '\\'+a});
 	return str;
+};
+/**
+ * SmartRuleCreator
+ */
+var SmartRuleCreator = function (targetElement)
+{
+	//TODO search existing rules
+	//TODO search path
+	console.log("SmartRuleCreator");
+};
+SmartRuleCreator.prototype.showDialog = function ()
+{
+	console.log("SmartRuleCreator.prototyoe.showDialog");
+	//TODO show existing rule list
+	//TODO show new rule list
 };
 /**
  * PathPickerDialog

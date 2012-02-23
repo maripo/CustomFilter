@@ -327,7 +327,7 @@ if (!chrome.tabs.customBlockerOnUpdateSet)
 								command: 'stop'
 							}, getBadgeAction(index));
 					}
-						ids.push(index);
+					ids.push(index);
 				}
 				try
 				{

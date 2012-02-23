@@ -183,7 +183,20 @@
  */
 #smart_rule_creator_dialog {
 	 position: absolute;
-	 background-color:yellow;
+	font-family:sans-serif!important;
+	margin:0px!important;
+	margin-top:0px!important;
+	margin-right:0px!important;
+	margin-bottom:0px!important;
+	margin-left:0px!important;
+	padding:0px!important;
+	color:black!important;
+	background-color:white!important;
+	font-size:1em!important;
+	font-weight:normal!important;
+	text-align:left!important;
+	text-indent:0px!important;
+	-webkit-box-shadow: 1px 1px 2px #000; 
 }
 /**
  * XPath Picker

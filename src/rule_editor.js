@@ -585,7 +585,7 @@ RuleEditorDialog.prototype.processSelection = function ()
 };
 RuleEditorDialog.prototype.suggestRuleByTargetElement = function (targetElement)
 {
-	var creator = new SmartRuleCreator(targetElement);
+	var creator = new SmartRuleCreator(targetElement, this.ruleEditor.appliedRuleList);
 	this.smartRuleCreatorDialog.show(creator, targetElement);
 };
 RuleEditorDialog.prototype.getSuggestedSiteRegexp = function () 
@@ -598,12 +598,33 @@ RuleEditorDialog.prototype.getSuggestedSiteRegexp = function ()
 /**
  * SmartRuleCreator
  */
-var SmartRuleCreator = function (targetElement)
+var SmartRuleCreator = function (targetElement, appliedRuleList)
 {
-	//TODO search existing rules
 	//TODO search path
 	//TODO analyze!
-	console.log("SmartRuleCreator");
+	this.targetElement = targetElement;
+	console.log("SmartRuleCreator appliedRuleList="+appliedRuleList);
+	this.matchedRules = new Array();
+	for (var i=0; i<appliedRuleList.length; i++)
+	{
+		var rule = appliedRuleList[i];
+		if (this.isMatched(rule))
+			this.matchedRules.push(rule);
+	}
+	console.log("matchedRules.length="+this.matchedRules.length);
+};
+SmartRuleCreator.prototype.isMatched = function (rule)
+{
+	var searchNodes = (rule.search_block_by_css)?
+				CustomBlockerUtil.getElementsByCssSelector(rule.search_block_css)
+				:
+				CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath);
+	for (var i=0; i<searchNodes.length; i++)
+	{
+		if (CustomBlockerUtil.isContained(this.targetElement, searchNodes[i]))
+			return true;
+	}
+	return false;
 };
 var SmartRuleCreatorDialog = function (_zIndex, ruleEditor)
 {
@@ -617,16 +638,29 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor)
 		
 	}
 	this.div.innerHTML = 'TODO SmartRuleCreatorDialog';
+	this.ul = document.createElement('UL');
+	this.div.appendChild(this.ul);
 	document.body.appendChild(this.div);
 };
-SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/smartRuleCreator, target)
+SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, target)
 {
 	console.log('SmartRuleCreatorDialog.show');
+	this.ul.innerHTML = '';
 	this.div.style.display = 'block';
+	
+	for (var i=0; i<creator.matchedRules.length; i++)
+	{
+		var rule = creator.matchedRules[i];
+		var li = document.createElement('LI');
+		li.innerHTML = rule.title;
+		this.ul.appendChild(li);
+	}
+	
 	var _left = event.clientX + document.body.scrollLeft;
 	var _top = event.clientY + document.body.scrollTop;
 	this.div.style.left = _left + 'px';
 	this.div.style.top = _top + 'px';
+	
 };
 /**
  * PathPickerDialog

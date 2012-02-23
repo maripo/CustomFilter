@@ -387,6 +387,11 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	document.getElementById('rule_editor_search_block_xpath').addEventListener ('keyup',this.getRefreshSearchBlockXPathAction(), false);
 	document.getElementById('rule_editor_hide_block_xpath').addEventListener ('change',this.getRefreshHideBlockXPathAction(), false);
 	document.getElementById('rule_editor_search_block_xpath').addEventListener ('change',this.getRefreshSearchBlockXPathAction(), false);
+	document.getElementById('rule_editor_hide_block_css').addEventListener ('keyup',this.getRefreshHideBlockXPathAction(), false);
+	document.getElementById('rule_editor_search_block_css').addEventListener ('keyup',this.getRefreshSearchBlockXPathAction(), false);
+	document.getElementById('rule_editor_hide_block_css').addEventListener ('change',this.getRefreshHideBlockXPathAction(), false);
+	document.getElementById('rule_editor_search_block_css').addEventListener ('change',this.getRefreshSearchBlockXPathAction(), false);
+	
 	document.getElementById('rule_editor_test_button').addEventListener('click', function () 
 	{
 		window.ruleEditor.applyInput();
@@ -506,7 +511,7 @@ RuleEditorDialog.prototype.refreshXPathSelectedStyles = function ()
 RuleEditorDialog.prototype.validatePath = function (input, useCss, search, countElement, alertElement)
 {
 	var pathNodes;
-	//try {
+	try {
 		var pathNodes;
 		if (useCss) pathNodes = (input.value!='')?CustomBlockerUtil.getElementsByCssSelector(input.value):[];
 		else pathNodes = (input.value!='')?CustomBlockerUtil.getElementsByXPath(input.value):[];
@@ -516,16 +521,15 @@ RuleEditorDialog.prototype.validatePath = function (input, useCss, search, count
 			window.elementHighlighter.highlightSearchElements (pathNodes);
 		else
 			window.elementHighlighter.highlightHideElements (pathNodes);
-	/*}
+	}
 	catch (e)
 	{
 		console.log(e)
-		//Invalid XPath
+		//Invalid XPath or CSS Selector
 		alertElement.style.display = 'block';
 		alertElement.innerHTML = 'Invalid ' + ((useCss)?'CSS Selector':'XPath');
 		countElement.innerHTML = '-';
 	}
-	*/
 };
 RuleEditorDialog.prototype.showMessage = function (message)
 {

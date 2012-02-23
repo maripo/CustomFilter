@@ -34,6 +34,7 @@ RuleEditor.prototype.initialize = function ()
 	
 	this.pathPickerDialog = new PathPickerDialog(this.maxZIndex + 2, this);
 	this.ruleEditorDialog = new RuleEditorDialog(this.rule, this.src, this.maxZIndex + 1, this);
+	this.ruleEditorDialog.smartRuleCreatorDialog = new SmartRuleCreatorDialog(this.maxZIndex + 2, this);
 	this.ruleEditorDialog.refreshXPathSelectedStyles();
 	this.ruleEditorDialog.refreshPathSections();
 };
@@ -584,11 +585,8 @@ RuleEditorDialog.prototype.processSelection = function ()
 };
 RuleEditorDialog.prototype.suggestRuleByTargetElement = function (targetElement)
 {
-	// TODO stub
-	// send rules from index.js to rule_editor.js -> compare
-	targetElement.style.backgroundColor = 'yellow';
 	var creator = new SmartRuleCreator(targetElement);
-	creator.showDialog();
+	this.smartRuleCreatorDialog.show(creator, targetElement);
 };
 RuleEditorDialog.prototype.getSuggestedSiteRegexp = function () 
 {
@@ -604,13 +602,31 @@ var SmartRuleCreator = function (targetElement)
 {
 	//TODO search existing rules
 	//TODO search path
+	//TODO analyze!
 	console.log("SmartRuleCreator");
 };
-SmartRuleCreator.prototype.showDialog = function ()
+var SmartRuleCreatorDialog = function (_zIndex, ruleEditor)
 {
-	console.log("SmartRuleCreator.prototyoe.showDialog");
-	//TODO show existing rule list
-	//TODO show new rule list
+	this.ruleEditor = ruleEditor;
+	this.div = document.createElement('DIV');
+	this.div.id = 'smart_rule_creator_dialog';
+	this.div.avoidStyle = true;
+	with (this.div.style) 
+	{
+		//display = 'none';
+		
+	}
+	this.div.innerHTML = 'TODO SmartRuleCreatorDialog';
+	document.body.appendChild(this.div);
+};
+SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/smartRuleCreator, target)
+{
+	console.log('SmartRuleCreatorDialog.show');
+	this.div.style.display = 'block';
+	var _left = event.clientX + document.body.scrollLeft;
+	var _top = event.clientY + document.body.scrollTop;
+	this.div.style.left = _left + 'px';
+	this.div.style.top = _top + 'px';
 };
 /**
  * PathPickerDialog

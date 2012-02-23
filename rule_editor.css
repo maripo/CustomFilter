@@ -178,7 +178,13 @@
 #rule_editor_keyword {
 	width:120px;
 }
-
+/**
+ * Smart Rule Creator Dialog
+ */
+#smart_rule_creator_dialog {
+	 position: absolute;
+	 background-color:yellow;
+}
 /**
  * XPath Picker
  */

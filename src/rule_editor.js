@@ -600,14 +600,20 @@ RuleEditorDialog.prototype.getSuggestedSiteRegexp = function ()
  */
 var SmartRuleCreator = function (targetElement, appliedRuleList)
 {
-	//TODO search path
-	//TODO analyze!
+	this.appliedRuleList = appliedRuleList;
 	this.targetElement = targetElement;
-	console.log("SmartRuleCreator appliedRuleList="+appliedRuleList);
+	this.scanExistingRules();
+	//TODO scan ancestor nodes
+	//TODO scan sibling nodes of ancestor nodes
+	//TODO suggest CSS or XPath
+	//TODO suggest "nodes to hide" selectors
+};
+SmartRuleCreator.prototype.scanExistingRules = function ()
+{
 	this.matchedRules = new Array();
-	for (var i=0; i<appliedRuleList.length; i++)
+	for (var i=0; i<this.appliedRuleList.length; i++)
 	{
-		var rule = appliedRuleList[i];
+		var rule = this.appliedRuleList[i];
 		if (this.isMatched(rule))
 			this.matchedRules.push(rule);
 	}
@@ -634,18 +640,17 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor)
 	this.div.avoidStyle = true;
 	with (this.div.style) 
 	{
-		//display = 'none';
-		
+		display = 'none';
 	}
-	this.div.innerHTML = 'TODO SmartRuleCreatorDialog';
 	this.ul = document.createElement('UL');
 	this.div.appendChild(this.ul);
 	document.body.appendChild(this.div);
 };
 SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, target)
 {
+	//TODO mouseover action
 	console.log('SmartRuleCreatorDialog.show');
-	this.ul.innerHTML = '';
+	CustomBlockerUtil.clearChildren(this.ul);
 	this.div.style.display = 'block';
 	
 	for (var i=0; i<creator.matchedRules.length; i++)

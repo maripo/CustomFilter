@@ -49,6 +49,7 @@ CustomBlockerUtil.xpathToCss = function (str)
 	if (REGEX_FAIL.test(xpath)) return null;
 	return xpath;
 }
+
 CustomBlockerUtil.WIDTH_PER_LETTER = 10;
 CustomBlockerUtil.shorten = function (text, limit)
  {
@@ -74,6 +75,7 @@ CustomBlockerUtil.shorten = function (text, limit)
  	document.body.removeChild(span);
  	return resultText;
  };
+ 
 CustomBlockerUtil.getRelativeElementsByXPath = function(targetNode, xpath)
 {
 	var list = new Array();
@@ -98,7 +100,6 @@ CustomBlockerUtil.arrayContains = function (array, str)
 	for (var i=0, l=array.length; i<l; i++) if (str==array[i]) return true;
 	return false;
 };
-
 
 CustomBlockerUtil.isEmpty = function (str) 
 {
@@ -193,4 +194,11 @@ CustomBlockerUtil.getCommonAncestor = function (elements)
 		element = element.parentNode; 
 	}
 	return document.body;
+};
+
+CustomBlockerUtil.clearChildren = function (element)
+{
+	var children = element.childNodes;
+	for (var i=0; i<children.length; i++)
+		element.removeChild(children[i]);
 };

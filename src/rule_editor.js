@@ -652,7 +652,12 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	console.log('SmartRuleCreatorDialog.show');
 	CustomBlockerUtil.clearChildren(this.ul);
 	this.div.style.display = 'block';
-	
+	{
+		var li = document.createElement('LI');
+		li.innerHTML = chrome.i18n.getMessage('ruleEditorExistingRules');
+		li.className = 'smartEditorSectionTitle';
+		this.ul.appendChild(li);
+	}
 	for (var i=0; i<creator.matchedRules.length; i++)
 	{
 		var rule = creator.matchedRules[i];
@@ -660,7 +665,12 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		li.innerHTML = rule.title;
 		this.ul.appendChild(li);
 	}
-	
+	{
+		var li = document.createElement('LI');
+		li.innerHTML = chrome.i18n.getMessage('ruleEditorNewRules');
+		li.className = 'smartEditorSectionTitle';
+		this.ul.appendChild(li);
+	}
 	var _left = event.clientX + document.body.scrollLeft;
 	var _top = event.clientY + document.body.scrollTop;
 	this.div.style.left = _left + 'px';

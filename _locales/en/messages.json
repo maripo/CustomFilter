@@ -39,5 +39,7 @@
 	"selectRulesToExport":{"message":"Select "},
 	"selectFileToImport":{"message":"Select a file to import."},
 	"selectRulesToImport":{"message":"Select rules to import."},
-	"importErrorInvalidFormat":{"message":"Error: Invalid format"}
+	"importErrorInvalidFormat":{"message":"Error: Invalid format"},
+	"ruleEditorExistingRules":{"message":"Existing Rules"},
+	"ruleEditorNewRules":{"message":"New Rules"}
 }

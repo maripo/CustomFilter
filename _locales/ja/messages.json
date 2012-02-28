@@ -39,5 +39,7 @@
 	"selectRulesToExportt":{"message":"エクスポートするファイルを選んでください"},
 	"selectFileToImport":{"message":"インポートするファイルを選んでください"},
 	"selectRulesToImport":{"message":"インポートするルールを選んでください"},
-	"importErrorInvalidFormat":{"message":"インポートファイルのフォーマットが正しくありません"}
+	"importErrorInvalidFormat":{"message":"インポートファイルのフォーマットが正しくありません"},
+	"ruleEditorExistingRules":{"message":"既存のルールに追加"},
+	"ruleEditorNewRules":{"message":"新しいルールを作成"}
 }

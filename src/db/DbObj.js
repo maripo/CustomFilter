@@ -102,6 +102,9 @@ DbPeer.prototype = {
 	},
 	saveObject: function (obj, onSuccessCallback, onFailureCallback) 
 	{
+		if (!obj.insert_date)
+			obj.insert_date = new Date().getTime();
+		obj.update_date = new Date().getTime();
 		if (obj[this.getPkeyColName()] > 0) this.updateObject(obj, onSuccessCallback, onFailureCallback);
 		else this.insertObject(obj, onSuccessCallback, onFailureCallback);
 	},
@@ -197,6 +200,7 @@ DbPeer.prototype = {
 			sql += this.getPkeyColName();
 			sql += '=';
 			sql += obj[this.getPkeyColName()];
+			console.log(sql);
 			db.transaction(function(tx) 
 			{
 				tx.executeSql(sql, [], function()

@@ -99,10 +99,11 @@ function applyFilter (filterString)
 function isMatched (rule, filterString)
 {
 	if (null==filterString || ''==filterString) return true;
+	filterString = filterString.toLowerCase();
 	return (
-			rule.title.indexOf(filterString)>=0 ||
-			rule.site_regexp.indexOf(filterString)>=0 ||
-			rule.example_url.indexOf(filterString)>=0
+			rule.title.toLowerCase().indexOf(filterString)>=0 ||
+			rule.site_regexp.toLowerCase().indexOf(filterString)>=0 ||
+			rule.example_url.toLowerCase().indexOf(filterString)>=0
 			);
 }
 

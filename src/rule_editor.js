@@ -602,12 +602,24 @@ var SmartRuleCreator = function (targetElement, appliedRuleList)
 {
 	this.appliedRuleList = appliedRuleList;
 	this.targetElement = targetElement;
-	this.scanExistingRules();
+	try
+	{
+		this.scanExistingRules();
+	}
+	catch (ex)
+	{
+		console.log(ex);
+	}
+	this.createNewRules();
 	//TODO scan ancestor nodes
 	//TODO scan sibling nodes of ancestor nodes
 	//TODO suggest CSS or XPath
 	//TODO suggest "nodes to hide" selectors
 };
+SmartRuleCreator.prototype.createNewRules = function ()
+{
+	var analyzer = new SmartPathAnalyzer(this.targetElement, new CssBuilder());
+}
 SmartRuleCreator.prototype.scanExistingRules = function ()
 {
 	this.matchedRules = new Array();

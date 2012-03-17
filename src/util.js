@@ -202,3 +202,19 @@ CustomBlockerUtil.clearChildren = function (element)
 	for (var i=0; i<children.length; i++)
 		element.removeChild(children[i]);
 };
+/**
+ * Return list of siblings with same tag name
+ */
+CustomBlockerUtil.getSimilarSiblings = function (element)
+{
+	var parent = element.parentNode;
+	if (!parent) return new Array();
+	var similarSiblings = new Array();
+	var siblings = parent.childNodes;
+	for (var i=0, l=siblings.length; i<l; i++)
+	{
+		if (siblings[i].tagName == element.tagName && siblings[i] != element)
+			similarSiblings.push(siblings[i]);
+	}
+	return similarSiblings;
+};

@@ -3,16 +3,17 @@
  */
 /*
  * Usage
-			var analyzer = new PathAnalyzer(node, (Xpath|Css)Builder);
+			var analyzer = new PathAnalyzer(node, (Xpath|Css)Builder, (true|false));
 			var list = analyzer.createPathList();
  */
-var PathAnalyzer = function (_node, _builder)
+var PathAnalyzer = function (_node, _builder, selectSiblings)
 {
 	console.log("new PathAnalyzer _node=" + _node + ", _builder=" + _builder);
 	this.builder = _builder;
 	this.targetNode = _node;
 	this.pathList = null;
 	this.ancestors = new Array/*<PathElement>*/();
+	this.selectSiblings = selectSiblings;
 };
 PathAnalyzer.prototype.createPathList = function () 
 {

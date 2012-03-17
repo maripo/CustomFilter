@@ -218,3 +218,22 @@ CustomBlockerUtil.getSimilarSiblings = function (element)
 	}
 	return similarSiblings;
 };
+
+CustomBlockerUtil.getContainedElements = function (ancestorElements, elements)
+{
+	var containedElements = new Array();
+	for (var index=0; index<elements.length; index++)
+	{
+		var element = elements[index];
+		for (var ancestorIndex=0; ancestorIndex<ancestorElements.length; ancestorIndex++)
+		{
+			if (CustomBlockerUtil.isContained (element, ancestorElements[ancestorIndex]))
+			{
+				containedElements.push(element);
+				break;
+			}
+		}
+	}	 
+	return containedElements;
+};
+

@@ -611,14 +611,12 @@ var SmartRuleCreator = function (targetElement, appliedRuleList)
 		console.log(ex);
 	}
 	this.createNewRules();
-	//TODO scan ancestor nodes
-	//TODO scan sibling nodes of ancestor nodes
-	//TODO suggest CSS or XPath
-	//TODO suggest "nodes to hide" selectors
 };
 SmartRuleCreator.prototype.createNewRules = function ()
 {
 	var analyzer = new SmartPathAnalyzer(this.targetElement, new CssBuilder());
+	this.suggestedPathList = analyzer.createPathList();
+	
 }
 SmartRuleCreator.prototype.scanExistingRules = function ()
 {
@@ -677,6 +675,15 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		li.innerHTML = rule.title;
 		this.ul.appendChild(li);
 	}
+	for (var i=0; i<creator.suggestedPathList.length; i++)
+	{
+		var path = creator.suggestedPathList[i];
+		var li = document.createElement('LI');
+		li.innerHTML = i;
+		li.addEventListener('mouseover', this.getSuggestedPathSelectAction(path), true);
+		this.ul.appendChild(li);
+		
+	}
 	{
 		var li = document.createElement('LI');
 		li.innerHTML = chrome.i18n.getMessage('ruleEditorNewRules');
@@ -688,6 +695,16 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	this.div.style.left = _left + 'px';
 	this.div.style.top = _top + 'px';
 	
+};
+SmartRuleCreatorDialog.prototype.getSuggestedPathSelectAction = function (path)
+{
+	console.log(path);
+	return function ()
+	{
+		console.log(path.hidePath.path + " ::::: " + path.searchPath.path);
+		window.elementHighlighter.highlightHideElements(CustomBlockerUtil.getElementsByXPath(path.hidePath.path));
+		window.elementHighlighter.highlightSearchElements(CustomBlockerUtil.getElementsByXPath(path.searchPath.path));
+	}	
 };
 /**
  * PathPickerDialog

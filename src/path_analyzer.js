@@ -42,7 +42,19 @@ PathAnalyzer.prototype.createPathList = function ()
 	for (var i=0, l=this.uniqPathList.length; i<l; i++)
 	{
 		var path = this.builder.createPathFilter(this.basePath + this.uniqPathList[i]);		
-		this.pathList.push(path);
+		//Exclude nested elements
+		var nested = false
+		for (var elementIndex=0; elementIndex<path.elements.length; elementIndex++)
+		{
+			var element = path.elements[elementIndex];
+			if (element != this.targetNode && 
+				(CustomBlockerUtil.isContained(this.targetNode, element) || CustomBlockerUtil.isContained(element, this.targetNode)) ) 
+			{
+				nested = true;
+			}
+		}
+		if (!nested)
+			this.pathList.push(path);
 	}
 	this.pathList.sort(
 			function(a,b)

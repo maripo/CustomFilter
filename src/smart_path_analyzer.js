@@ -42,23 +42,26 @@ SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, origi
 	{
 		var hidePathSelector = hidePathSelectors[i];
 		var hideElements = CustomBlockerUtil.getElementsByXPath(hidePathSelector.path);
-		if (hideElements.length<=1) continue;
-		var searchOriginalNode = originalNode;
-		while (CustomBlockerUtil.isContained(searchOriginalNode, hideOriginalNode))
+		if (hideElements.length>1) 
 		{
-            var searchPathSelectors = new PathAnalyzer(searchOriginalNode, new XpathBuilder()).createPathList();
-            for (var searchIndex =0; searchIndex<searchPathSelectors.length; searchIndex++)
-            {
-            	var searchPathSelector = searchPathSelectors[searchIndex];
-            	var searchElements = CustomBlockerUtil.getElementsByXPath(searchPathSelector.path);
-            	var containedNode = CustomBlockerUtil.getContainedElements(hideElements, searchElements);
-            	if (containedNode.length<=1) continue
-	            	pathCount ++;
-            	//console.log(pathCount +  ":::" + containedNode.length + "NODES " + hidePathSelector.path + " >>> " + searchPathSelector.path);
-            	pathList.push(new SmartPath(hidePathSelector, searchPathSelector));
-            }
-			searchOriginalNode = searchOriginalNode.parentNode;
-		}
+			var searchOriginalNode = originalNode;
+			while (CustomBlockerUtil.isContained(searchOriginalNode, hideOriginalNode))
+			{
+	            var searchPathSelectors = new PathAnalyzer(searchOriginalNode, new XpathBuilder(), hideOriginalNode, hidePathSelector.path).createPathList();
+	            for (var searchIndex =0; searchIndex<searchPathSelectors.length; searchIndex++)
+	            {
+	            	var searchPathSelector = searchPathSelectors[searchIndex];
+	            	var searchElements = CustomBlockerUtil.getElementsByXPath(searchPathSelector.path);
+	            	var containedNode = CustomBlockerUtil.getContainedElements(hideElements, searchElements);
+	            	if (containedNode.length>1)
+	            	{
+		            	pathCount ++;
+	            		pathList.push(new SmartPath(hidePathSelector, searchPathSelector));
+					}	            	
+	            }
+				searchOriginalNode = searchOriginalNode.parentNode;
+			}
+		}		
 	}
 };
 var SmartPath = function (hidePath, searchPath)

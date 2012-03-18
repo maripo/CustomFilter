@@ -183,7 +183,6 @@ var blockedCount = 0;
 var hiddenNodes = new Array();
 function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide, isTesting)
 {
-	console.log();
 	var needRefreshBadge = false;
 	var searchNodes = (rule.block_anyway)?[]:(
 			(rule.search_block_by_css)?

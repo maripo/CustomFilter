@@ -386,3 +386,18 @@ function getBadgeTooltipString (count)
 }
 chrome.tabs.customBlockerOnUpdateSet = true;
 onStart();
+
+function onRightClick(clicked, tab) {
+	console.log("item " + clicked.menuItemId + " was clicked");
+	console.log("clicked: " + JSON.stringify(clicked));
+	console.log("tab: " + JSON.stringify(tab));
+	//quickRuleCreation
+			chrome.tabs.sendRequest(tab.id, {command: 'quickRuleCreation'});
+}
+
+var contexts = ["all"];
+for (var i = 0; i < contexts.length; i++) {
+	var context = contexts[i];
+	var menuId = chrome.contextMenus.create({"title": "Create Rule", "contexts":[context],
+	                                    "onclick": onRightClick});
+}

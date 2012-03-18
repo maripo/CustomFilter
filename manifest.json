@@ -23,7 +23,7 @@
       "all_frames" : false
     }
   ],
-  "permissions" : ["background","tabs","chrome://favicon/","unlimitedStorage"]
+  "permissions" : ["background","tabs","contextMenus","chrome://favicon/","unlimitedStorage"]
   ,
   "icons" : {
     "128" : "icon128.png",

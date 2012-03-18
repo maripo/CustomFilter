@@ -71,7 +71,13 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	}
 	else if ('quickRuleCreation'==request.command)
 	{
-		alert("quickRuleCreation"+lastRightClickedElement);
+		if (!window.ruleEditor) 
+		{
+			window.ruleEditor = new RuleEditor(null, request.src, []);
+			window.ruleEditor.initialize();
+		}		
+		window.ruleEditor.bgCallback = sendResponse;
+		window.ruleEditor.ruleEditorDialog.suggestRuleByTargetElement(lastRightClickedElement,lastRightClickEvent);
 	}
 });
 
@@ -281,5 +287,6 @@ function nodeContains(node, words)
 	return false;
 }
 //Memorize right-clicked event source
-var lastRightClickedElement = null; 
-document.body.oncontextmenu = function(event){lastRightClickedElement=event.srcElement};
+var lastRightClickedElement = null;
+var lastRightClickEvent = null; 
+document.body.oncontextmenu = function(event){lastRightClickedElement=event.srcElement; lastRightClickEvent=event};

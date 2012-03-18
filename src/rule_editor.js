@@ -566,14 +566,14 @@ RuleEditorDialog.prototype.getOnMouseupAction = function ()
 			self.moving = false;
 		else
 		{
-			self.processSelection();
+			self.processSelection(event);
 		}
 	}
 };
 /**
  * Process selected text and suggest some rules INTELLIGENTLY
  */
-RuleEditorDialog.prototype.processSelection = function ()
+RuleEditorDialog.prototype.processSelection = function (event)
 {
 	if (null==document.getSelection()) return;
 	document.getElementById('rule_editor_keyword').value = document.getSelection().toString();
@@ -581,12 +581,12 @@ RuleEditorDialog.prototype.processSelection = function ()
 	var endNode = document.getSelection().getRangeAt(0).endContainer.parentNode;
 	var targetElement = CustomBlockerUtil.getCommonAncestor([startNode, endNode]);
 	if (targetElement)
-		this.suggestRuleByTargetElement(targetElement);
+		this.suggestRuleByTargetElement(targetElement, event);
 };
-RuleEditorDialog.prototype.suggestRuleByTargetElement = function (targetElement)
+RuleEditorDialog.prototype.suggestRuleByTargetElement = function (targetElement, event)
 {
 	var creator = new SmartRuleCreator(targetElement, this.ruleEditor.appliedRuleList);
-	this.smartRuleCreatorDialog.show(creator, targetElement);
+	this.smartRuleCreatorDialog.show(creator, targetElement, event);
 };
 RuleEditorDialog.prototype.getSuggestedSiteRegexp = function () 
 {
@@ -656,7 +656,7 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor)
 	this.div.appendChild(this.ul);
 	document.body.appendChild(this.div);
 };
-SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, target)
+SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, target, event)
 {
 	//TODO mouseover action
 	console.log('SmartRuleCreatorDialog.show');

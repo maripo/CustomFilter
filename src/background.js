@@ -392,7 +392,7 @@ function onRightClick(clicked, tab) {
 	console.log("clicked: " + JSON.stringify(clicked));
 	console.log("tab: " + JSON.stringify(tab));
 	//quickRuleCreation
-			chrome.tabs.sendRequest(tab.id, {command: 'quickRuleCreation'});
+			chrome.tabs.sendRequest(tab.id, {command: 'quickRuleCreation',src: rulePickerSrc});
 }
 
 var contexts = ["all"];

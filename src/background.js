@@ -153,13 +153,13 @@ var tabOnUpdate = function(tabId, changeInfo, tab)
 	}
 }
 
-function getAppliedRules (cb) 
+function getAppliedRules (callback) 
 {
 	chrome.tabs.getSelected(null,function(tab)
 	{
 		try 
 		{
-			cb(appliedRuleMap[tab.id]);
+			callback(appliedRuleMap[tab.id]);
 		} 
 		catch (ex) {console.log(ex)}
 	});
@@ -388,11 +388,15 @@ chrome.tabs.customBlockerOnUpdateSet = true;
 onStart();
 
 function onRightClick(clicked, tab) {
-	console.log("item " + clicked.menuItemId + " was clicked");
-	console.log("clicked: " + JSON.stringify(clicked));
-	console.log("tab: " + JSON.stringify(tab));
-	//quickRuleCreation
-			chrome.tabs.sendRequest(tab.id, {command: 'quickRuleCreation',src: rulePickerSrc});
+		chrome.tabs.sendRequest(
+			tab.id, 
+			{
+				command: 'quickRuleCreation',
+				src: rulePickerSrc,
+				appliedRuleList: appliedRuleMap[tab.id]
+			}
+				
+		);
 }
 
 var contexts = ["all"];

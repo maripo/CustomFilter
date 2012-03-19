@@ -73,7 +73,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	{
 		if (!window.ruleEditor) 
 		{
-			window.ruleEditor = new RuleEditor(null, request.src, []);
+			window.ruleEditor = new RuleEditor(null, request.src, request.appliedRuleList);
 			window.ruleEditor.initialize();
 		}		
 		window.ruleEditor.bgCallback = sendResponse;

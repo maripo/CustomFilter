@@ -236,4 +236,3 @@ CustomBlockerUtil.getContainedElements = function (ancestorElements, elements)
 	}	 
 	return containedElements;
 };
-

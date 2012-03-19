@@ -38,11 +38,20 @@ var pathCount  = 0;
 SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, originalNode, pathList)
 {
 	var hidePathSelectors = new PathAnalyzer(hideOriginalNode, new XpathBuilder()).createPathList();
-	for (var i=0; i<hidePathSelectors.length; i++)
+	for (var i=hidePathSelectors.length-1; i>=0; i--)
 	{
 		var hidePathSelector = hidePathSelectors[i];
 		var hideElements = CustomBlockerUtil.getElementsByXPath(hidePathSelector.path);
-		if (hideElements.length>1) 
+		var siblingFound = false;
+		for (var hideIndex=0; hideIndex<hideElements.length; hideIndex++)
+		{
+			if (hideElements[hideIndex]!=hideOriginalNode && hideElements[hideIndex].parentNode==hideOriginalNode.parentNode)
+			{
+				siblingFound = true;
+			}		
+		}
+		
+		if (hideElements.length>1 && siblingFound) 
 		{
 			var searchOriginalNode = originalNode;
 			while (CustomBlockerUtil.isContained(searchOriginalNode, hideOriginalNode))
@@ -51,11 +60,12 @@ SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, origi
 	            for (var searchIndex =0; searchIndex<searchPathSelectors.length; searchIndex++)
 	            {
 	            	var searchPathSelector = searchPathSelectors[searchIndex];
+	            	var searchSelectedNodes = searchPathSelector.elements;
 	            	var searchElements = CustomBlockerUtil.getElementsByXPath(searchPathSelector.path);
 	            	var containedNode = CustomBlockerUtil.getContainedElements(hideElements, searchElements);
 	            	if (containedNode.length>1)
 	            	{
-		            	pathCount ++;
+	            	
 	            		pathList.push(new SmartPath(hidePathSelector, searchPathSelector));
 					}	            	
 	            }

@@ -12,10 +12,6 @@ var RuleEditor = function (rule, src, appliedRuleList)
 	this.rule = (rule)?rule:Rule.createInstance();
 	this.src = src;
 	this.appliedRuleList = appliedRuleList;
-	for (var i=0; i<appliedRuleList.length; i++)
-	{
-		console.log(appliedRuleList[i].title);
-	}
 };
 RuleEditor.prototype.initialize = function () 
 {
@@ -655,11 +651,17 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor)
 	this.ul = document.createElement('UL');
 	this.div.appendChild(this.ul);
 	document.body.appendChild(this.div);
+	{
+		var editDiv = document.createElement('DIV');
+		this.editDiv = editDiv;
+		editDiv.id = 'smart_rule_creator_dialog_edit';
+		editDiv.style.zIndex = _zIndex;
+		this.div.appendChild(editDiv);
+	}
 };
 SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, target, event)
 {
 	//TODO mouseover action
-	console.log('SmartRuleCreatorDialog.show');
 	CustomBlockerUtil.clearChildren(this.ul);
 	this.div.style.display = 'block';
 	{
@@ -680,7 +682,9 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		var path = creator.suggestedPathList[i];
 		var li = document.createElement('LI');
 		li.innerHTML = i;
-		li.addEventListener('mouseover', this.getSuggestedPathSelectAction(path), true);
+		li.addEventListener('mouseover', this.getSuggestedPathHoverAction(path, li), true);
+		li.addEventListener('click', this.getSuggestedPathClickAction(path), true);
+		li.className = 'option';
 		this.ul.appendChild(li);
 		
 	}
@@ -696,14 +700,22 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	this.div.style.top = _top + 'px';
 	
 };
-SmartRuleCreatorDialog.prototype.getSuggestedPathSelectAction = function (path)
+SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, liElement)
 {
-	console.log(path);
+	var self = this;
 	return function ()
 	{
-		console.log(path.hidePath.path + " ::::: " + path.searchPath.path);
 		window.elementHighlighter.highlightHideElements(CustomBlockerUtil.getElementsByXPath(path.hidePath.path));
 		window.elementHighlighter.highlightSearchElements(CustomBlockerUtil.getElementsByXPath(path.searchPath.path));
+		self.editDiv.style.top = (liElement.offsetTop - 40) + 'px';
+	}	
+};
+SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path)
+{
+	return function ()
+	{
+		//TODO
+		alert(path.hidePath.path + "\n" + path.searchPath.path);
 	}	
 };
 /**

@@ -74,6 +74,7 @@ function openRulePicker (selectedRule)
 			{
 				command: 'ruleEditor',
 				src: rulePickerSrc,
+				smartRuleEditorSrc: smartRuleEditorSrc,
 				rule: selectedRule,
 				appliedRuleList: appliedRuleMap[tab.id]
 			}, getRulePickerOnCommandFunc(tab.id));
@@ -166,6 +167,7 @@ function getAppliedRules (callback)
 	
 }
 var rulePickerSrc = '';
+var smartRuleEditorSrc = '';
 function loadRulePickerSrc()
 {
 	var xhr = new XMLHttpRequest();
@@ -176,11 +178,27 @@ function loadRulePickerSrc()
 			if (xhr.status==0 || xhr.status==200) 
 			{
 				rulePickerSrc = xhr.responseText;
+				loadSmartRuleEditorSrc();
 			}
 		}
-		
 	}
 	xhr.open("GET", chrome.extension.getURL('/rule_editor_'+chrome.i18n.getMessage("extLocale")+'.html'), true);
+	xhr.send();
+}
+function loadSmartRuleEditorSrc()
+{
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function()
+	{
+		if (xhr.readyState==4) 
+		{
+			if (xhr.status==0 || xhr.status==200) 
+			{
+				smartRuleEditorSrc = xhr.responseText;
+			}
+		}
+	}
+	xhr.open("GET", chrome.extension.getURL('/smart_rule_editor_'+chrome.i18n.getMessage("extLocale")+'.html'), true);
 	xhr.send();
 }
 
@@ -393,6 +411,7 @@ function onRightClick(clicked, tab) {
 			{
 				command: 'quickRuleCreation',
 				src: rulePickerSrc,
+				smartRuleEditorSrc: smartRuleEditorSrc,
 				appliedRuleList: appliedRuleMap[tab.id]
 			}
 				

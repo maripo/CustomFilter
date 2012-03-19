@@ -7,10 +7,11 @@ var KEY_CODE_RETURN = 13;
 /**
  * RuleEditor
  */
-var RuleEditor = function (rule, src, appliedRuleList) 
+var RuleEditor = function (rule, src, appliedRuleList, smartRuleEditorSrc) 
 {
 	this.rule = (rule)?rule:Rule.createInstance();
 	this.src = src;
+	this.smartRuleEditorSrc = smartRuleEditorSrc;
 	this.appliedRuleList = appliedRuleList;
 };
 RuleEditor.prototype.initialize = function () 
@@ -30,7 +31,7 @@ RuleEditor.prototype.initialize = function ()
 	
 	this.pathPickerDialog = new PathPickerDialog(this.maxZIndex + 2, this);
 	this.ruleEditorDialog = new RuleEditorDialog(this.rule, this.src, this.maxZIndex + 1, this);
-	this.ruleEditorDialog.smartRuleCreatorDialog = new SmartRuleCreatorDialog(this.maxZIndex + 2, this);
+	this.ruleEditorDialog.smartRuleCreatorDialog = new SmartRuleCreatorDialog(this.maxZIndex + 2, this, this.smartRuleEditorSrc);
 	this.ruleEditorDialog.refreshXPathSelectedStyles();
 	this.ruleEditorDialog.refreshPathSections();
 };
@@ -573,11 +574,6 @@ RuleEditorDialog.prototype.processSelection = function (event)
 {
 	if (null==document.getSelection()) return;
 	document.getElementById('rule_editor_keyword').value = document.getSelection().toString();
-	var startNode = document.getSelection().getRangeAt(0).startContainer.parentNode;
-	var endNode = document.getSelection().getRangeAt(0).endContainer.parentNode;
-	var targetElement = CustomBlockerUtil.getCommonAncestor([startNode, endNode]);
-	if (targetElement)
-		this.suggestRuleByTargetElement(targetElement, event);
 };
 RuleEditorDialog.prototype.suggestRuleByTargetElement = function (targetElement, event)
 {
@@ -638,8 +634,9 @@ SmartRuleCreator.prototype.isMatched = function (rule)
 	}
 	return false;
 };
-var SmartRuleCreatorDialog = function (_zIndex, ruleEditor)
+var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 {
+	this.smartRuleEditorSrc = smartRuleEditorSrc;
 	this.ruleEditor = ruleEditor;
 	this.div = document.createElement('DIV');
 	this.div.id = 'smart_rule_creator_dialog';
@@ -656,6 +653,7 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor)
 		this.editDiv = editDiv;
 		editDiv.id = 'smart_rule_creator_dialog_edit';
 		editDiv.style.zIndex = _zIndex;
+		editDiv.innerHTML = this.smartRuleEditorSrc;
 		this.div.appendChild(editDiv);
 	}
 };
@@ -674,7 +672,14 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	{
 		var rule = creator.matchedRules[i];
 		var li = document.createElement('LI');
+		li.className = 'option';
 		li.innerHTML = rule.title;
+		this.ul.appendChild(li);
+	}
+	{
+		var li = document.createElement('LI');
+		li.innerHTML = chrome.i18n.getMessage('ruleEditorNewRules');
+		li.className = 'smartEditorSectionTitle';
 		this.ul.appendChild(li);
 	}
 	for (var i=0; i<creator.suggestedPathList.length; i++)
@@ -687,12 +692,6 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		li.className = 'option';
 		this.ul.appendChild(li);
 		
-	}
-	{
-		var li = document.createElement('LI');
-		li.innerHTML = chrome.i18n.getMessage('ruleEditorNewRules');
-		li.className = 'smartEditorSectionTitle';
-		this.ul.appendChild(li);
 	}
 	var _left = event.clientX + document.body.scrollLeft;
 	var _top = event.clientY + document.body.scrollTop;

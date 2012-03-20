@@ -40,7 +40,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 		}
 		if (!window.ruleEditor) 
 		{
-			window.ruleEditor = new RuleEditor(request.rule, request.src, request.appliedRuleList, request.smartRuleEditorSrc);
+			window.ruleEditor = new RuleEditor(request.rule, request.src, request.appliedRuleList);
 			window.ruleEditor.initialize();
 			window.ruleEditor.bgCallback = sendResponse;
 		}
@@ -71,13 +71,12 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	}
 	else if ('quickRuleCreation'==request.command)
 	{
-		if (!window.ruleEditor) 
+		if (!window.smartRuleCreatorDialog)
 		{
-			window.ruleEditor = new RuleEditor(null, request.src, request.appliedRuleList, request.smartRuleEditorSrc);
-			window.ruleEditor.initialize();
-		}		
-		window.ruleEditor.bgCallback = sendResponse;
-		window.ruleEditor.ruleEditorDialog.suggestRuleByTargetElement(lastRightClickedElement,lastRightClickEvent);
+			window.smartRuleCreatorDialog = new SmartRuleCreatorDialog(RuleEditor.getMaxZIndex() + 1, this, request.smartRuleEditorSrc);
+		}			
+		var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList);
+		window.smartRuleCreatorDialog.show(creator, lastRightClickedElement, lastRightClickEvent);
 	}
 });
 

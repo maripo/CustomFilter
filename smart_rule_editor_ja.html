@@ -1,3 +1,43 @@
-<div>
-	Title:<input type="text"/>
+<!--
+<html>
+<head>
+		<link rel="stylesheet" href="smart_rule_editor.css"/>
+</head>
+<body>
+-->
+<div id="smart_rule_editor_body">
+	<div class="section">
+		<div class="label">Title</div>
+		<div class="input"><input type="text" id="smart_rule_editor_title"/></div>
+	</div>
+	<div class="section">
+		<div class="label">URL RegExp</div>
+		<div class="input"><input type="text" id="smart_rule_editor_url"/></div>
+	</div>
+	<div class="advanced">
+		<div class="section">
+			<div class="label">Elements to Search</div>
+			<div class="input"><input type="text" id="smart_rule_editor_search"/></div>
+		</div>
+		<div class="section">
+			<div class="label">Elements to Hide</div>
+			<div class="input"><input type="text" id="smart_rule_editor_hide"/></div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="label">Keywords</div>
+		<div class="input">
+			<input type="text" id="smart_rule_editor_keywords"/>
+			<input type="button" value="Add" id="smart_rule_editor_keyword_add"/>
+			<input type="checkbox" id="smart_rule_editor_keyword_regexp"/>RegExp
+		</div>
+	</div>
+	<div class="section">
+		<input type="button" value="Save" id="smart_rule_editor_save"/>
+		<input type="button" value="Cancel" id="smart_rule_editor_cancel"/>
+	</div>
 </div>
+<!--
+</body>
+</html>
+-->

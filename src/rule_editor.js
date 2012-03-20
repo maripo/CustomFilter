@@ -307,7 +307,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	else 
 	{
 		
-		document.getElementById('rule_editor_site_regexp').value = this.getSuggestedSiteRegexp();
+		document.getElementById('rule_editor_site_regexp').value = CustomBlockerUtil.getSuggestedSiteRegexp();
 		document.getElementById('rule_editor_site_description').value = document.title;
 		document.getElementById('rule_editor_title').value = document.title;
 		document.getElementById('rule_editor_example_url').value = location.href;
@@ -572,13 +572,6 @@ RuleEditorDialog.prototype.processSelection = function (event)
 {
 	if (null==document.getSelection()) return;
 	document.getElementById('rule_editor_keyword').value = document.getSelection().toString();
-};
-RuleEditorDialog.prototype.getSuggestedSiteRegexp = function () 
-{
-	var str = location.href.replace(new RegExp('http(s|)://'),'');
-	var metaChars = new RegExp('[\\\\^\\.\\$\\*\\?\\|\\(\\)\\[\\]\\{\\}]','g');
-	str = str.replace(metaChars, function (a,b){return '\\'+a});
-	return str;
 };
 /**
  * PathPickerDialog

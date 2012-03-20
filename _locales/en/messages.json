@@ -41,5 +41,6 @@
 	"selectRulesToImport":{"message":"Select rules to import."},
 	"importErrorInvalidFormat":{"message":"Error: Invalid format"},
 	"ruleEditorExistingRules":{"message":"Existing Rules"},
-	"ruleEditorNewRules":{"message":"New Rules"}
+	"ruleEditorNewRules":{"message":"New Rules"},
+    "smartRuleEditorSuggestedTitlePrefix":{"message":"Pattern "}
 }

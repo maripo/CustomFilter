@@ -70,6 +70,31 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 		editDiv.innerHTML = this.smartRuleEditorSrc;
 		this.div.appendChild(editDiv);
 	}
+	document.getElementById('smart_rule_editor_save').addEventListener('click', this.getSaveAction(), true);
+	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);
+	document.getElementById('smart_rule_editor_keywords').addEventListener('click', this.getAddKeywordAction(), true);
+};
+SmartRuleCreatorDialog.prototype.getAddKeywordAction  = function ()
+{
+	return function (event)
+	{
+		alert("TODO add keyword");
+	}
+};
+SmartRuleCreatorDialog.prototype.getSaveAction  = function ()
+{
+	return function (event)
+	{
+		alert("TODO save");
+	}
+};
+SmartRuleCreatorDialog.prototype.getCancelAction  = function ()
+{
+	return function (event)
+	{
+		alert("TODO cancel");
+	}
+
 };
 SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, target, event)
 {
@@ -99,9 +124,11 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	}
 	for (var i=0; i<creator.suggestedPathList.length; i++)
 	{
+		console.log("i18n " + chrome.i18n.getMessage('smartRuleEditorSuggestedTitlePrefix'))
 		var path = creator.suggestedPathList[i];
+		path.title = chrome.i18n.getMessage('smartRuleEditorSuggestedTitlePrefix') + (i + 1);
 		var li = document.createElement('LI');
-		li.innerHTML = i;
+		li.innerHTML = path.title;
 		li.addEventListener('mouseover', this.getSuggestedPathHoverAction(path, li), true);
 		li.addEventListener('click', this.getSuggestedPathClickAction(path), true);
 		li.className = 'option';
@@ -123,7 +150,7 @@ SmartRuleCreatorDialog.prototype.getExistingRuleHoverAction = function (rule, li
 	return function ()
 	{
 		//TODO
-		self.editDiv.style.top = (liElement.offsetTop - 40) + 'px';
+		self.editDiv.style.top = (liElement.offsetTop - 20) + 'px';
 		self.editDiv.style.display = 'block';
 		console.log("Tested rule: " + rule.title);
 	}
@@ -147,15 +174,20 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, l
 	{
 		window.elementHighlighter.highlightHideElements(CustomBlockerUtil.getElementsByXPath(path.hidePath.path));
 		window.elementHighlighter.highlightSearchElements(CustomBlockerUtil.getElementsByXPath(path.searchPath.path));
-		self.editDiv.style.top = (liElement.offsetTop - 40) + 'px';
+		self.editDiv.style.top = (liElement.offsetTop - 20) + 'px';
 		self.editDiv.style.display = 'block';
+		
+		//alert(path.hidePath.path + "\n" + path.searchPath.path);
+		//Fill Rule Details
+		document.getElementById('smart_rule_editor_title').value = path.title;
+		document.getElementById('smart_rule_editor_url').value = CustomBlockerUtil.getSuggestedSiteRegexp();
+		document.getElementById('smart_rule_editor_search').value = path.searchPath.path;
+		document.getElementById('smart_rule_editor_hide').value = path.hidePath.path;
 	}	
 };
 SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path)
 {
 	return function ()
 	{
-		//TODO
-		alert(path.hidePath.path + "\n" + path.searchPath.path);
 	}	
 };

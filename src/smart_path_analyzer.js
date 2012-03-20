@@ -20,13 +20,6 @@ SmartPathAnalyzer.prototype.createPathList = function ()
 		var siblings = CustomBlockerUtil.getSimilarSiblings(hideOriginalNode);
 		if (siblings.length>0)
 		{
-			//Test
-			/*
-			for (var i=0; i<siblings.length; i++)
-			{
-				siblings[i].style.outline = 'solid 2px orange';
-			}
-			*/
 			this.analyzerHideNode(hideOriginalNode, this._node, pathList);
 		}
 		hideOriginalNode = hideOriginalNode.parentNode;

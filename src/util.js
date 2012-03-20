@@ -236,3 +236,11 @@ CustomBlockerUtil.getContainedElements = function (ancestorElements, elements)
 	}	 
 	return containedElements;
 };
+CustomBlockerUtil.getSuggestedSiteRegexp = function ()
+{
+	var str = location.href.replace(new RegExp('http(s|)://'),'');
+	var metaChars = new RegExp('[\\\\^\\.\\$\\*\\?\\|\\(\\)\\[\\]\\{\\}]','g');
+	str = str.replace(metaChars, function (a,b){return '\\'+a});
+	return str;
+
+};

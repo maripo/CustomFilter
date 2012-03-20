@@ -73,7 +73,6 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 };
 SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, target, event)
 {
-	//TODO mouseover action
 	CustomBlockerUtil.clearChildren(this.ul);
 	this.div.style.display = 'block';
 	{
@@ -88,6 +87,8 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		var li = document.createElement('LI');
 		li.className = 'option';
 		li.innerHTML = rule.title;
+		li.addEventListener('mouseover', this.getExistingRuleHoverAction(rule, li), true);
+		li.addEventListener('click', this.getExistingRuleClickAction(rule), true);
 		this.ul.appendChild(li);
 	}
 	{
@@ -113,6 +114,32 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	this.div.style.top = _top + 'px';
 	
 };
+/**
+ * Test & Select Existing Rules
+ */
+SmartRuleCreatorDialog.prototype.getExistingRuleHoverAction = function (rule, liElement)
+{
+	var self = this;
+	return function ()
+	{
+		//TODO
+		self.editDiv.style.top = (liElement.offsetTop - 40) + 'px';
+		self.editDiv.style.display = 'block';
+		console.log("Tested rule: " + rule.title);
+	}
+};
+SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule)
+{
+	var self = this;
+	return function ()
+	{
+		//TODO
+		console.log("Selected rule: " + tule.title);
+	}	
+};
+/**
+ * Test & Select Suggested Rules
+ */
 SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, liElement)
 {
 	var self = this;

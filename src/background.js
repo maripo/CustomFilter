@@ -74,7 +74,6 @@ function openRulePicker (selectedRule)
 			{
 				command: 'ruleEditor',
 				src: rulePickerSrc,
-				smartRuleEditorSrc: smartRuleEditorSrc,
 				rule: selectedRule,
 				appliedRuleList: appliedRuleMap[tab.id]
 			}, getRulePickerOnCommandFunc(tab.id));
@@ -410,8 +409,7 @@ function onRightClick(clicked, tab) {
 			tab.id, 
 			{
 				command: 'quickRuleCreation',
-				src: rulePickerSrc,
-				smartRuleEditorSrc: smartRuleEditorSrc,
+				src: smartRuleEditorSrc,
 				appliedRuleList: appliedRuleMap[tab.id]
 			}
 				

@@ -1,0 +1,45 @@
+/**
+ * Smart Rule Editor Dialog
+ */
+#smart_rule_creator_dialog {
+	 position: absolute;
+	font-family:sans-serif!important;
+	margin:0px!important;
+	margin-top:0px!important;
+	margin-right:0px!important;
+	margin-bottom:0px!important;
+	margin-left:0px!important;
+	padding:0px!important;
+	color:black!important;
+	background-color:white!important;
+	font-size:1em!important;
+	font-weight:normal!important;
+	text-align:left!important;
+	text-indent:0px!important;
+	-webkit-box-shadow: 1px 1px 2px #000; 
+	width:180px;
+	border:solid 1px #888;
+}
+#smart_rule_creator_dialog li.option:nth-child(odd) {
+	background-color:#fff;
+}
+#smart_rule_creator_dialog li.option:nth-child(even) {
+	background-color:#f0f8ff;
+}
+#smart_rule_creator_dialog li {
+	height:24px;
+	background-color:#ddd;
+}
+#smart_rule_creator_dialog li.smartEditorSectionTitle {
+	
+}
+#smart_rule_creator_dialog_edit {
+	background-color:white;
+	position:absolute!important;
+	width:320px;
+	height:200px;
+	left:180px;
+	border-radius:12px!important;
+	border:solid 1px #888;
+	-webkit-box-shadow: 1px 1px 2px #000;
+}

@@ -4,8 +4,7 @@
  */
 var SmartRuleCreator = function (targetElement, appliedRuleList)
 {
-	CustomBlockerUtil.applyCss('/rule_editor.css');
-	CustomBlockerUtil.applyCss('/rule_editor_cursor.css');
+	CustomBlockerUtil.applyCss('/smart_rule_editor.css');
 	this.appliedRuleList = appliedRuleList;
 	this.targetElement = targetElement;
 	try

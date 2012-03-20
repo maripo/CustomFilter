@@ -66,6 +66,7 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 		this.editDiv = editDiv;
 		editDiv.id = 'smart_rule_creator_dialog_edit';
 		editDiv.style.zIndex = _zIndex;
+		editDiv.style.display = 'none';
 		editDiv.innerHTML = this.smartRuleEditorSrc;
 		this.div.appendChild(editDiv);
 	}
@@ -120,6 +121,7 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, l
 		window.elementHighlighter.highlightHideElements(CustomBlockerUtil.getElementsByXPath(path.hidePath.path));
 		window.elementHighlighter.highlightSearchElements(CustomBlockerUtil.getElementsByXPath(path.searchPath.path));
 		self.editDiv.style.top = (liElement.offsetTop - 40) + 'px';
+		self.editDiv.style.display = 'block';
 	}	
 };
 SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path)

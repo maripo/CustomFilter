@@ -32,7 +32,6 @@ SmartRuleCreator.prototype.scanExistingRules = function ()
 		if (this.isMatched(rule))
 			this.matchedRules.push(rule);
 	}
-	console.log("matchedRules.length="+this.matchedRules.length);
 };
 SmartRuleCreator.prototype.isMatched = function (rule)
 {
@@ -124,7 +123,6 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	}
 	for (var i=0; i<creator.suggestedPathList.length; i++)
 	{
-		console.log("i18n " + chrome.i18n.getMessage('smartRuleEditorSuggestedTitlePrefix'))
 		var path = creator.suggestedPathList[i];
 		path.title = chrome.i18n.getMessage('smartRuleEditorSuggestedTitlePrefix') + (i + 1);
 		var li = document.createElement('LI');
@@ -160,8 +158,8 @@ SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule)
 	var self = this;
 	return function ()
 	{
-		//TODO
-		console.log("Selected rule: " + tule.title);
+		self.rule = rule;
+		self.showRule(rule);
 	}	
 };
 /**
@@ -179,15 +177,31 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, l
 		
 		//alert(path.hidePath.path + "\n" + path.searchPath.path);
 		//Fill Rule Details
-		document.getElementById('smart_rule_editor_title').value = path.title;
-		document.getElementById('smart_rule_editor_url').value = CustomBlockerUtil.getSuggestedSiteRegexp();
-		document.getElementById('smart_rule_editor_search').value = path.searchPath.path;
-		document.getElementById('smart_rule_editor_hide').value = path.hidePath.path;
 	}	
 };
 SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path)
 {
+	var self = this;
 	return function ()
 	{
+		self.rule = self.createRuleByPath(path);
+		self.showRule(self.rule);
 	}	
+};
+SmartRuleCreatorDialog.prototype.createRuleByPath = function (path)
+{
+	var rule = Rule.createInstance();
+	rule.title = path.title;
+	rule.site_regexp = CustomBlockerUtil.getSuggestedSiteRegexp();
+	rule.search_block_xpath = path.searchPath.path;
+	rule.hide_block_xpath = path.hidePath.path;
+	return rule;
+};
+SmartRuleCreatorDialog.prototype.showRule = function (rule)
+{
+	document.getElementById('smart_rule_editor_title').value = rule.title;
+	document.getElementById('smart_rule_editor_url').value = rule.site_regexp;
+	document.getElementById('smart_rule_editor_search').value = rule.search_block_xpath;
+	document.getElementById('smart_rule_editor_search').value = rule.hide_block_xpath;
+	alert("Rule.title=" + rule.title);
 };

@@ -77,21 +77,22 @@ SmartRuleCreatorDialog.prototype.getAddKeywordAction  = function ()
 {
 	return function (event)
 	{
-		alert("TODO add keyword");
+		console.log("TODO add keyword");
 	}
 };
 SmartRuleCreatorDialog.prototype.getSaveAction  = function ()
 {
+	var self = this;
 	return function (event)
 	{
-		alert("TODO save");
+		self.bgCallback({command:'save', type:'rule', obj: self.rule});
 	}
 };
 SmartRuleCreatorDialog.prototype.getCancelAction  = function ()
 {
 	return function (event)
 	{
-		alert("TODO cancel");
+		console.log("TODO cancel");
 	}
 
 };
@@ -175,7 +176,6 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, l
 		self.editDiv.style.top = (liElement.offsetTop - 20) + 'px';
 		self.editDiv.style.display = 'block';
 		
-		//alert(path.hidePath.path + "\n" + path.searchPath.path);
 		//Fill Rule Details
 	}	
 };

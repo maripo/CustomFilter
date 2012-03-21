@@ -411,8 +411,8 @@ function onRightClick(clicked, tab) {
 				command: 'quickRuleCreation',
 				src: smartRuleEditorSrc,
 				appliedRuleList: appliedRuleMap[tab.id]
-			}
-				
+			}, 
+			getRulePickerOnCommandFunc(tab.id)
 		);
 }
 

@@ -83,7 +83,9 @@ SmartRuleCreatorDialog.prototype.getAddKeywordAction  = function ()
 	var self = this;
 	return function (event)
 	{
-		self.addWord(document.getElementById('smart_rule_editor_keyword').value);
+		var keywordInput = document.getElementById('smart_rule_editor_keyword');
+		self.addWord(keywordInput.value);
+		keywordInput.value = '';
 	}
 };
 SmartRuleCreatorDialog.prototype.getSaveAction  = function ()

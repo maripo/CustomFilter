@@ -15,13 +15,31 @@
 		<div class="input"><input type="text" id="smart_rule_editor_url"/></div>
 	</div>
 	<div class="section advanced">
+		<!-- Example URL & Memo -->
+		<div class="section">
+			<div class="label">Example URL</div>
+			<div class="input"><input type="text" id="smart_rule_editor_example_url"/></div>
+		</div>
+		<div class="section">
+			<div class="label">Description</div>
+			<div class="input"><input type="text" id="smart_rule_editor_example_url_description"/></div>
+		</div>
+		<!-- Path Expression -->
 		<div class="section">
 			<div class="label">Elements to Search</div>
 			<div class="input"><input type="text" id="smart_rule_editor_search"/></div>
 		</div>
 		<div class="section">
+			<div class="label">Description</div>
+			<div class="input"><input type="text" id="smart_rule_editor_search_description"/></div>
+		</div>
+		<div class="section">
 			<div class="label">Elements to Hide</div>
 			<div class="input"><input type="text" id="smart_rule_editor_hide"/></div>
+		</div>
+		<div class="section">
+			<div class="label">Description</div>
+			<div class="input"><input type="text" id="smart_rule_editor_hide_description"/></div>
 		</div>
 	</div>
 	<div class="section">
@@ -31,6 +49,7 @@
 			<input type="button" value="Add" id="smart_rule_editor_keyword_add"/>
 			<input type="checkbox" id="smart_rule_editor_keyword_regexp"/>RegExp
 		</div>
+		<div id="rule_editor_keywords"><span class="word not_regexp">MOGEMOGE<a class="deleteButton" href="javascript:void(0)"> [x] </a></span><span class="word not_regexp">PUNIPUNI<a class="deleteButton" href="javascript:void(0)"> [x] </a></span><span class="word not_regexp">FUGAFUGA<a class="deleteButton" href="javascript:void(0)"> [x] </a></span><span class="word not_regexp">PIYOPIYO<a class="deleteButton" href="javascript:void(0)"> [x] </a></span><span class="word not_regexp">HOGEHOGE<a class="deleteButton" href="javascript:void(0)"> [x] </a></span></div>
 	</div>
 	<div class="section">
 		<input type="button" value="Save" id="smart_rule_editor_save"/>

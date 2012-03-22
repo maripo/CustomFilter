@@ -5,6 +5,7 @@
 var SmartRuleCreator = function (targetElement, appliedRuleList)
 {
 	CustomBlockerUtil.applyCss('/smart_rule_editor.css');
+	CustomBlockerUtil.applyCss('/keywords.css');
 	this.appliedRuleList = appliedRuleList;
 	this.targetElement = targetElement;
 	try

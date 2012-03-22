@@ -142,7 +142,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		this.ul.appendChild(li);
 		
 	}
-	this.shouldShowDialogRight = event.clientX < (document.documentElement.clientWidth/2 - this.div.clientWidth/2);
+	this.shouldShowDialogRight = event.clientX < (document.body.clientWidth/2 - this.div.clientWidth/2);
 	var _left = event.clientX + document.body.scrollLeft;
 	var _top = event.clientY + document.body.scrollTop;
 	this.div.style.left = _left + 'px';

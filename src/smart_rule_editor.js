@@ -104,21 +104,25 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 {
 	CustomBlockerUtil.clearChildren(this.ul);
 	this.div.style.display = 'block';
+	
+	if (null!=creator.matchedRules && creator.matchedRules.length>0)
 	{
-		var li = document.createElement('LI');
-		li.innerHTML = chrome.i18n.getMessage('ruleEditorExistingRules');
-		li.className = 'smartEditorSectionTitle';
-		this.ul.appendChild(li);
-	}
-	for (var i=0; i<creator.matchedRules.length; i++)
-	{
-		var rule = creator.matchedRules[i];
-		var li = document.createElement('LI');
-		li.className = 'option';
-		li.innerHTML = rule.title;
-		li.addEventListener('mouseover', this.getExistingRuleHoverAction(rule, li), true);
-		li.addEventListener('click', this.getExistingRuleClickAction(rule), true);
-		this.ul.appendChild(li);
+		{
+			var li = document.createElement('LI');
+			li.innerHTML = chrome.i18n.getMessage('ruleEditorExistingRules');
+			li.className = 'smartEditorSectionTitle';
+			this.ul.appendChild(li);
+		}
+		for (var i=0; i<creator.matchedRules.length; i++)
+		{
+			var rule = creator.matchedRules[i];
+			var li = document.createElement('LI');
+			li.className = 'option';
+			li.innerHTML = rule.title;
+			li.addEventListener('mouseover', this.getExistingRuleHoverAction(rule, li), true);
+			li.addEventListener('click', this.getExistingRuleClickAction(rule), true);
+			this.ul.appendChild(li);
+		}
 	}
 	{
 		var li = document.createElement('LI');
@@ -147,7 +151,6 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 };
 SmartRuleCreatorDialog.prototype.showEdit = function (liElement)
 {
-
 	this.editDiv.style.top = (liElement.offsetTop - 20) + 'px';
 	this.editDiv.style.display = 'block';
 	

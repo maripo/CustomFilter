@@ -72,6 +72,7 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 		editDiv.innerHTML = this.smartRuleEditorSrc;
 		this.div.appendChild(editDiv);
 	}
+
 	document.getElementById('smart_rule_editor_save').addEventListener('click', this.getSaveAction(), true);
 	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);
 	document.getElementById('smart_rule_editor_keywords').addEventListener('click', this.getAddKeywordAction(), true);
@@ -203,6 +204,8 @@ SmartRuleCreatorDialog.prototype.createRuleByPath = function (path)
 {
 	var rule = Rule.createInstance();
 	rule.title = path.title;
+	rule.example_url = location.href;
+	rule.site_description = document.title;
 	rule.site_regexp = CustomBlockerUtil.getSuggestedSiteRegexp();
 	rule.search_block_css = path.searchPath.path;
 	rule.hide_block_css = path.hidePath.path;
@@ -210,6 +213,8 @@ SmartRuleCreatorDialog.prototype.createRuleByPath = function (path)
 };
 SmartRuleCreatorDialog.prototype.showRule = function (rule)
 {
+	document.getElementById('smart_rule_editor_example_url').value = rule.example_url;
+	document.getElementById('smart_rule_editor_site_description').value = rule.site_description;
 	document.getElementById('smart_rule_editor_title').value = rule.title;
 	document.getElementById('smart_rule_editor_url').value = rule.site_regexp;
 	document.getElementById('smart_rule_editor_search').value = rule.search_block_css;

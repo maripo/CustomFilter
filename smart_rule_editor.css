@@ -83,7 +83,7 @@
 	margin-left:120px;
 }
 #smart_rule_editor_body div.advanced {
-	display:none;
+	background-color:#eef;
 }
 #smart_rule_editor_body input[type="text"] {
 	height:initial!important;

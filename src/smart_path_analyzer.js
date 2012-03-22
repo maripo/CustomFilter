@@ -6,10 +6,10 @@
 			var analyzer = new SmartPathAnalyzer(node, (Xpath|Css)Builder);
 			var list = analyzer.createPathList();
  */
-var SmartPathAnalyzer = function (_node, _builder)
+var SmartPathAnalyzer = function (_node, builder)
 {
 	this._node = _node;
-	this._builder = _builder;
+	this.builder = builder;
 };
 SmartPathAnalyzer.prototype.createPathList = function ()
 {
@@ -30,11 +30,11 @@ SmartPathAnalyzer.prototype.createPathList = function ()
 var pathCount  = 0;
 SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, originalNode, pathList)
 {
-	var hidePathSelectors = new PathAnalyzer(hideOriginalNode, new XpathBuilder()).createPathList();
+	var hidePathSelectors = new PathAnalyzer(hideOriginalNode, this.builder).createPathList();
 	for (var i=hidePathSelectors.length-1; i>=0; i--)
 	{
 		var hidePathSelector = hidePathSelectors[i];
-		var hideElements = CustomBlockerUtil.getElementsByXPath(hidePathSelector.path);
+		var hideElements = hidePathSelector.elements;
 		var siblingFound = false;
 		for (var hideIndex=0; hideIndex<hideElements.length; hideIndex++)
 		{
@@ -49,12 +49,12 @@ SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, origi
 			var searchOriginalNode = originalNode;
 			while (CustomBlockerUtil.isContained(searchOriginalNode, hideOriginalNode))
 			{
-	            var searchPathSelectors = new PathAnalyzer(searchOriginalNode, new XpathBuilder(), hideOriginalNode, hidePathSelector.path).createPathList();
+	            var searchPathSelectors = new PathAnalyzer(searchOriginalNode, this.builder, hideOriginalNode, hidePathSelector.path).createPathList();
 	            for (var searchIndex =0; searchIndex<searchPathSelectors.length; searchIndex++)
 	            {
 	            	var searchPathSelector = searchPathSelectors[searchIndex];
 	            	var searchSelectedNodes = searchPathSelector.elements;
-	            	var searchElements = CustomBlockerUtil.getElementsByXPath(searchPathSelector.path);
+	            	var searchElements = searchPathSelector.elements;
 	            	var containedNode = CustomBlockerUtil.getContainedElements(hideElements, searchElements);
 	            	if (containedNode.length>1)
 	            	{

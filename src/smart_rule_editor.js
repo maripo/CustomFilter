@@ -33,6 +33,8 @@ SmartRuleCreator.prototype.scanExistingRules = function ()
 			this.matchedRules.push(rule);
 	}
 };
+
+// Compare with existing rules
 SmartRuleCreator.prototype.isMatched = function (rule)
 {
 	var searchNodes = (rule.search_block_by_css)?
@@ -171,12 +173,10 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, l
 	var self = this;
 	return function ()
 	{
-		window.elementHighlighter.highlightHideElements(CustomBlockerUtil.getElementsByXPath(path.hidePath.path));
-		window.elementHighlighter.highlightSearchElements(CustomBlockerUtil.getElementsByXPath(path.searchPath.path));
+		window.elementHighlighter.highlightHideElements(path.hidePath.elements);
+		window.elementHighlighter.highlightSearchElements(path.searchPath.elements);
 		self.editDiv.style.top = (liElement.offsetTop - 20) + 'px';
 		self.editDiv.style.display = 'block';
-		
-		//Fill Rule Details
 	}	
 };
 SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path)
@@ -193,15 +193,15 @@ SmartRuleCreatorDialog.prototype.createRuleByPath = function (path)
 	var rule = Rule.createInstance();
 	rule.title = path.title;
 	rule.site_regexp = CustomBlockerUtil.getSuggestedSiteRegexp();
-	rule.search_block_xpath = path.searchPath.path;
-	rule.hide_block_xpath = path.hidePath.path;
+	rule.search_block_css = path.searchPath.path;
+	rule.hide_block_css = path.hidePath.path;
 	return rule;
 };
 SmartRuleCreatorDialog.prototype.showRule = function (rule)
 {
 	document.getElementById('smart_rule_editor_title').value = rule.title;
 	document.getElementById('smart_rule_editor_url').value = rule.site_regexp;
-	document.getElementById('smart_rule_editor_search').value = rule.search_block_xpath;
-	document.getElementById('smart_rule_editor_search').value = rule.hide_block_xpath;
+	document.getElementById('smart_rule_editor_search').value = rule.search_block_css;
+	document.getElementById('smart_rule_editor_hide').value = rule.hide_block_css;
 	alert("Rule.title=" + rule.title);
 };

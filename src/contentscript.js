@@ -76,7 +76,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 			window.smartRuleCreatorDialog = new SmartRuleCreatorDialog(RuleEditor.getMaxZIndex() + 1, this, request.src);
 			window.smartRuleCreatorDialog.bgCallback = sendResponse;
 		}			
-		var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList);
+		var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText);
 		window.smartRuleCreatorDialog.show(creator, lastRightClickedElement, lastRightClickEvent);
 	}
 });

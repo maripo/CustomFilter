@@ -405,15 +405,16 @@ chrome.tabs.customBlockerOnUpdateSet = true;
 onStart();
 
 function onRightClick(clicked, tab) {
-		chrome.tabs.sendRequest(
-			tab.id, 
-			{
-				command: 'quickRuleCreation',
-				src: smartRuleEditorSrc,
-				appliedRuleList: appliedRuleMap[tab.id]
-			}, 
-			getRulePickerOnCommandFunc(tab.id)
-		);
+	chrome.tabs.sendRequest(
+		tab.id, 
+		{
+			command: 'quickRuleCreation',
+			src: smartRuleEditorSrc,
+			appliedRuleList: appliedRuleMap[tab.id],
+			selectionText: clicked.selectionText
+		}, 
+		getRulePickerOnCommandFunc(tab.id)
+	);
 }
 
 var contexts = ["all"];

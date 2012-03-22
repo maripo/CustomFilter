@@ -2,12 +2,13 @@
 /**
  * SmartRuleCreator
  */
-var SmartRuleCreator = function (targetElement, appliedRuleList)
+var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText)
 {
 	CustomBlockerUtil.applyCss('/smart_rule_editor.css');
 	CustomBlockerUtil.applyCss('/keywords.css');
 	this.appliedRuleList = appliedRuleList;
 	this.targetElement = targetElement;
+	this.selectionText = selectionText;
 	try
 	{
 		this.scanExistingRules();
@@ -75,7 +76,7 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 
 	document.getElementById('smart_rule_editor_save').addEventListener('click', this.getSaveAction(), true);
 	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);
-	document.getElementById('smart_rule_editor_keywords').addEventListener('click', this.getAddKeywordAction(), true);
+	document.getElementById('smart_rule_editor_keyword_add').addEventListener('click', this.getAddKeywordAction(), true);
 };
 SmartRuleCreatorDialog.prototype.getAddKeywordAction  = function ()
 {
@@ -142,6 +143,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		this.ul.appendChild(li);
 		
 	}
+	document.getElementById('smart_rule_editor_keyword').value = creator.selectionText || '';
 	this.shouldShowDialogRight = event.clientX < (document.body.clientWidth/2 - this.div.clientWidth/2);
 	var _left = event.clientX + document.body.scrollLeft;
 	var _top = event.clientY + document.body.scrollTop;

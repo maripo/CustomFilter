@@ -1,0 +1,20 @@
+#rule_editor_keywords span.word {
+	
+	margin:0px 2px 2px 0px!important;
+	padding-left:4px!important;
+	padding-right:4px!important;
+	border-radius:8px!important;
+}
+#rule_editor_keywords span.regexp {
+	background-color:#fdd!important;
+	border: solid 1px #f77!important;
+}
+#rule_editor_keywords span.not_regexp {
+	background-color:#def!important;
+	border: solid 1px #78f!important;
+}
+#rule_editor_keywords span.word .deleteButton {
+	color:#444;
+	font-size:0.8em;
+	text-decoration:none;
+}

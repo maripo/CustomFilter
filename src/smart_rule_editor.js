@@ -136,11 +136,23 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		this.ul.appendChild(li);
 		
 	}
+	this.shouldShowDialogRight = event.clientX < (document.documentElement.clientWidth/2 - this.div.clientWidth/2);
 	var _left = event.clientX + document.body.scrollLeft;
 	var _top = event.clientY + document.body.scrollTop;
 	this.div.style.left = _left + 'px';
 	this.div.style.top = _top + 'px';
 	
+};
+SmartRuleCreatorDialog.prototype.showEdit = function (liElement)
+{
+
+	this.editDiv.style.top = (liElement.offsetTop - 20) + 'px';
+	this.editDiv.style.display = 'block';
+	
+	this.editDiv.style.left = 
+		((this.shouldShowDialogRight)?
+			this.div.clientWidth : -this.editDiv.clientWidth-4) 
+		+ 'px';
 };
 /**
  * Test & Select Existing Rules
@@ -148,18 +160,17 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 SmartRuleCreatorDialog.prototype.getExistingRuleHoverAction = function (rule, liElement)
 {
 	var self = this;
-	return function ()
+	return function (event)
 	{
 		//TODO
-		self.editDiv.style.top = (liElement.offsetTop - 20) + 'px';
-		self.editDiv.style.display = 'block';
+		self.showEdit(liElement);
 		console.log("Tested rule: " + rule.title);
 	}
 };
 SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule)
 {
 	var self = this;
-	return function ()
+	return function (event)
 	{
 		self.rule = rule;
 		self.showRule(rule);
@@ -171,18 +182,17 @@ SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule)
 SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, liElement)
 {
 	var self = this;
-	return function ()
+	return function (event)
 	{
 		window.elementHighlighter.highlightHideElements(path.hidePath.elements);
 		window.elementHighlighter.highlightSearchElements(path.searchPath.elements);
-		self.editDiv.style.top = (liElement.offsetTop - 20) + 'px';
-		self.editDiv.style.display = 'block';
+		self.showEdit(liElement);
 	}	
 };
 SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path)
 {
 	var self = this;
-	return function ()
+	return function (event)
 	{
 		self.rule = self.createRuleByPath(path);
 		self.showRule(self.rule);

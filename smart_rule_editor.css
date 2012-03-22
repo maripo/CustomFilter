@@ -2,7 +2,7 @@
  * Smart Rule Editor Dialog
  */
 #smart_rule_creator_dialog {
-	 position: absolute;
+	position: absolute;
 	font-family:sans-serif!important;
 	margin:0px!important;
 	margin-top:0px!important;
@@ -53,7 +53,6 @@
 	background-color:white;
 	position:absolute!important;
 	width:360px;
-	left:180px;
 	border-radius:12px!important;
 	border:solid 1px #888;
 	-webkit-box-shadow: 1px 1px 3px #000;

@@ -80,9 +80,10 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 };
 SmartRuleCreatorDialog.prototype.getAddKeywordAction  = function ()
 {
+	var self = this;
 	return function (event)
 	{
-		console.log("TODO add keyword");
+		self.addWord(document.getElementById('smart_rule_editor_keyword').value);
 	}
 };
 SmartRuleCreatorDialog.prototype.getSaveAction  = function ()
@@ -224,5 +225,52 @@ SmartRuleCreatorDialog.prototype.showRule = function (rule)
 	document.getElementById('smart_rule_editor_url').value = rule.site_regexp;
 	document.getElementById('smart_rule_editor_search').value = rule.search_block_css;
 	document.getElementById('smart_rule_editor_hide').value = rule.hide_block_css;
+	CustomBlockerUtil.clearChildren(document.getElementById('rule_editor_keywords'));
+	for (var i=0; i<rule.words.length; i++)
+	{
+		document.getElementById('rule_editor_keywords').appendChild(this.getWordElement(rule.words[i]));
+	}
 	alert("Rule.title=" + rule.title);
+};
+
+SmartRuleCreatorDialog.prototype.getWordElement = function (word) 
+{
+	return CustomBlockerUtil.createWordElement(word, this.getWordDeleteAction(word));
+};
+SmartRuleCreatorDialog.prototype.getWordDeleteAction = function (word) 
+{
+	var self = this;
+	return function (span) 
+	{
+		span.parentNode.removeChild(span);
+		word.deleted = true;
+		word.dirty = true;
+	};
+};
+
+SmartRuleCreatorDialog.prototype.addWord = function(wordStr)
+{
+	if (!wordStr || ''==wordStr) return; //Empty
+	var word = new Word();
+	
+	word.word = wordStr;
+	word.isNew = 'true';
+	var checked = document.getElementById('smart_rule_editor_keyword_regexp_checkbox').checked;
+	word.is_regexp = checked;
+	
+	word.dirty = true;
+	
+	var span = this.getWordElement(word)
+	document.getElementById('rule_editor_keywords').appendChild(span);
+	
+	this.rule.words.push(word);
+	
+	if (this.rule.rule_id>0) 
+	{
+		word.rule_id = this.rule.rule_id;
+	}
+	else 
+	{
+		word.rule_id=0;
+	}
 };

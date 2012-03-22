@@ -209,29 +209,13 @@ RuleEditor.prototype.addWord = function(wordStr)
 };
 
 RuleEditor.prototype.getWordElement = function (word) 
-{	
-	var span = document.createElement('SPAN');
-	
-	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
-	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
-	span.avoidStyle = true;
-	
-	var deleteButton = document.createElement('A');
-	
-	deleteButton.avoidStyle = true;
-	deleteButton.className = 'deleteButton';
-	deleteButton.href = 'javascript:void(0)'
-	deleteButton.innerHTML = ' [x] '
-	deleteButton.addEventListener('click', this.getWordDeleteAction(word, span), true);
-	
-	span.appendChild(deleteButton);
-	
-	return span;
+{
+	return CustomBlockerUtil.createWordElement(word, this.getWordDeleteAction(word));
 };
-RuleEditor.prototype.getWordDeleteAction = function (word, span) 
+RuleEditor.prototype.getWordDeleteAction = function (word) 
 {
 	var self = this;
-	return function () 
+	return function (span) 
 	{
 		span.parentNode.removeChild(span);
 		word.deleted = true;

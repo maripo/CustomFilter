@@ -198,9 +198,10 @@ CustomBlockerUtil.getCommonAncestor = function (elements)
 
 CustomBlockerUtil.clearChildren = function (element)
 {
-	var children = element.childNodes;
-	for (var i=0; i<children.length; i++)
-		element.removeChild(children[i]);
+	while (element.childNodes.length > 0)
+	{
+		element.removeChild(element.childNodes[element.childNodes.length-1]);
+	}
 };
 /**
  * Return list of siblings with same tag name
@@ -242,5 +243,25 @@ CustomBlockerUtil.getSuggestedSiteRegexp = function ()
 	var metaChars = new RegExp('[\\\\^\\.\\$\\*\\?\\|\\(\\)\\[\\]\\{\\}]','g');
 	str = str.replace(metaChars, function (a,b){return '\\'+a});
 	return str;
+};
 
+CustomBlockerUtil.createWordElement = function (word, deleteCallback /* function(span) */)
+{
+	var span = document.createElement('SPAN');
+	
+	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
+	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
+	span.avoidStyle = true;
+	
+	var deleteButton = document.createElement('A');
+	
+	deleteButton.avoidStyle = true;
+	deleteButton.className = 'deleteButton';
+	deleteButton.href = 'javascript:void(0)'
+	deleteButton.innerHTML = ' [x] '
+	deleteButton.addEventListener('click', function(){deleteCallback(span)}, true);
+	
+	span.appendChild(deleteButton);
+	
+	return span;
 };

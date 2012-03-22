@@ -93,8 +93,21 @@ SmartRuleCreatorDialog.prototype.getSaveAction  = function ()
 	var self = this;
 	return function (event)
 	{
-		self.bgCallback({command:'save', type:'rule', obj: self.rule});
+		self.saveRule();
 	}
+};
+SmartRuleCreatorDialog.prototype.saveRule  = function ()
+{
+	// Set form values to rule
+	this.rule.site_regexp = document.getElementById('smart_rule_editor_example_url').value;
+	this.rule.site_description = document.getElementById('smart_rule_editor_site_description').value;
+	this.rule.example_url = document.getElementById('smart_rule_editor_example_url').value;
+	this.rule.title = document.getElementById('smart_rule_editor_title').value;
+	this.rule.search_block_css = document.getElementById('smart_rule_editor_search').value;
+	this.rule.hide_block_css = document.getElementById('smart_rule_editor_hide').value;
+
+	// Save
+	this.bgCallback({command:'save', type:'rule', obj: this.rule});
 };
 SmartRuleCreatorDialog.prototype.getCancelAction  = function ()
 {
@@ -211,6 +224,8 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path)
 SmartRuleCreatorDialog.prototype.createRuleByPath = function (path)
 {
 	var rule = Rule.createInstance();
+	rule.search_block_by_css = true;
+	rule.hide_block_by_css = true;
 	rule.title = path.title;
 	rule.example_url = location.href;
 	rule.site_description = document.title;

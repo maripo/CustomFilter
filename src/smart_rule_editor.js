@@ -73,11 +73,26 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 		editDiv.innerHTML = this.smartRuleEditorSrc;
 		this.div.appendChild(editDiv);
 	}
-
+	this.advancedSectionVisible = false;
 	document.getElementById('smart_rule_editor_save').addEventListener('click', this.getSaveAction(), true);
 	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);
 	document.getElementById('smart_rule_editor_keyword_add').addEventListener('click', this.getAddKeywordAction(), true);
+	document.getElementById('smart_rule_editor_advanced_link').addEventListener('click', this.getToggleAdvancedAction(), true);
 };
+
+SmartRuleCreatorDialog.prototype.getToggleAdvancedAction  = function ()
+{
+	var self = this;
+	return function (event)
+	{
+		self.advancedSectionVisible = !self.advancedSectionVisible;
+		document.getElementById('smart_rule_editor_advanced').style.display = (self.advancedSectionVisible)?'block':'none';
+		document.getElementById('smart_rule_editor_advanced_link').innerHTML = 
+			chrome.i18n.getMessage(
+				(self.advancedSectionVisible)?'smartRuleEditorHideAdvancedMode':'smartRuleEditorShowAdvancedMode'
+				);
+	}
+}
 SmartRuleCreatorDialog.prototype.getAddKeywordAction  = function ()
 {
 	var self = this;
@@ -185,9 +200,7 @@ SmartRuleCreatorDialog.prototype.getExistingRuleHoverAction = function (rule, li
 	var self = this;
 	return function (event)
 	{
-		//TODO
 		self.showEdit(liElement);
-		console.log("Tested rule: " + rule.title);
 	}
 };
 SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule)

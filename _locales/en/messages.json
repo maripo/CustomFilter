@@ -42,5 +42,7 @@
 	"importErrorInvalidFormat":{"message":"Error: Invalid format"},
 	"ruleEditorExistingRules":{"message":"Existing Rules"},
 	"ruleEditorNewRules":{"message":"New Rules"},
-    "smartRuleEditorSuggestedTitlePrefix":{"message":"Pattern "}
+	"smartRuleEditorShowAdvancedMode":{"message":"Show details"},
+	"smartRuleEditorHideAdvancedMode":{"message":"Hide details"},
+	"smartRuleEditorSuggestedTitlePrefix":{"message":"Pattern "}
 }

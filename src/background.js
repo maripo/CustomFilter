@@ -76,12 +76,12 @@ function openRulePicker (selectedRule)
 				src: rulePickerSrc,
 				rule: selectedRule,
 				appliedRuleList: appliedRuleMap[tab.id]
-			}, getRulePickerOnCommandFunc(tab.id));
+			}, getRulePickerOnCommandFunc(tab.id, false));
 		});
 	} 
 	catch (ex) {console.log(ex)}
 }
-function getRulePickerOnCommandFunc (tabId)
+function getRulePickerOnCommandFunc (tabId, bySmartRuleCreator)
 {
 	return function (command)
 	{
@@ -91,7 +91,7 @@ function getRulePickerOnCommandFunc (tabId)
 			if ('save' == command.command) 
 			{
 				var rule =command.obj;
-				var saveRuleTask = new SaveRuleTask(rule, reloadLists, tabId);
+				var saveRuleTask = new SaveRuleTask(rule, reloadLists, tabId, bySmartRuleCreator);
 				saveRuleTask.exec();
 			}
 				
@@ -108,8 +108,9 @@ function getRulePickerOnCommandFunc (tabId)
 		{
 			chrome.tabs.sendRequest(tab.id, 
 			{
-				command: 'ruleEditorRegister'
-			}, getRulePickerOnCommandFunc(tab.id));
+				command: 'ruleEditorRegister',
+				bySmartRuleCreator: bySmartRuleCreator
+			}, getRulePickerOnCommandFunc(tab.id, bySmartRuleCreator));
 		});
 		
 	}
@@ -201,8 +202,9 @@ function loadSmartRuleEditorSrc()
 	xhr.send();
 }
 
-var SaveRuleTask = function (rule, reloadLists, tabId) 
+var SaveRuleTask = function (rule, reloadLists, tabId, bySmartRuleCreator) 
 {
+	this.bySmartRuleCreator = bySmartRuleCreator;
 	var saveWords = new Array();
 	var deleteWords = new Array();
 	
@@ -255,7 +257,8 @@ SaveRuleTask.prototype.getNextTask = function ()
 			command:'ruleSaveDone',
 			rules: ruleList,
 			tabId: self.tabId,
-			rule: self.rule
+			rule: self.rule,
+			bySmartRuleCreator: self.bySmartRuleCreator
 		}
 		, getRulePickerOnCommandFunc(self.tabId)
 		);
@@ -413,7 +416,7 @@ function onRightClick(clicked, tab) {
 			appliedRuleList: appliedRuleMap[tab.id],
 			selectionText: clicked.selectionText
 		}, 
-		getRulePickerOnCommandFunc(tab.id)
+		getRulePickerOnCommandFunc(tab.id, true)
 	);
 }
 
@@ -421,5 +424,5 @@ var contexts = ["all"];
 for (var i = 0; i < contexts.length; i++) {
 	var context = contexts[i];
 	var menuId = chrome.contextMenus.create({"title": "Create Rule", "contexts":[context],
-	                                    "onclick": onRightClick});
+		"onclick": onRightClick});
 }

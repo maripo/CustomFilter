@@ -47,7 +47,12 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	}
 	else if ('ruleSaveDone'==request.command)
 	{
-		if (window.ruleEditor)
+		if (request.bySmartRuleCreator)
+		{
+			window.smartRuleCreatorDialog.onSaveDone(request.rule);
+			window.smartRuleCreatorDialog.bgCallback = sendResponse;
+		}
+		else if (window.ruleEditor)
 		{
 			window.ruleEditor.onSaveDone(request.rule);
 			window.ruleEditor.bgCallback = sendResponse;
@@ -55,7 +60,15 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	}
 	else if ('ruleEditorRegister'==request.command) 
 	{
-		window.ruleEditor.bgCallback = sendResponse;
+		if (request.bySmartRuleCreator)
+		{
+			window.smartRuleCreatorDialog.bgCallback = sendResponse;
+		
+		}
+		else 
+		{
+			window.ruleEditor.bgCallback = sendResponse;
+		}
 	}
 	else if ('stop'==request.command) 
 	{

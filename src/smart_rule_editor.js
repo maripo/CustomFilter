@@ -114,18 +114,38 @@ SmartRuleCreatorDialog.prototype.getSaveAction  = function ()
 };
 SmartRuleCreatorDialog.prototype.saveRule  = function ()
 {
+	var validateErrors = this.validate();
+	if (validateErrors.length>0)
+	{
+		this.showMessage(validateErrors.join('<br/>'));
+		return;
+	}
+
+	this.applyInput();	
+	// Save
+	this.bgCallback({command:'save', type:'rule', obj: this.rule});
+};
+SmartRuleCreatorDialog.prototype.validate = function ()
+{
+	return Rule.Validator.validate({
+		title : document.getElementById('smart_rule_editor_title').value,
+		site_regexp : document.getElementById('smart_rule_editor_example_url').value,
+		example_url : document.getElementById('smart_rule_editor_example_url').value,
+		site_description : document.getElementById('smart_rule_editor_site_description').value,
+		
+		search_block_xpath : document.getElementById('smart_rule_editor_search').value,
+		hide_block_xpath : document.getElementById('smart_rule_editor_hide').value
+	});
+};
+SmartRuleCreatorDialog.prototype.applyInput = function ()
+{
 	// Set form values to rule
+	this.rule.title = document.getElementById('smart_rule_editor_title').value;
 	this.rule.site_regexp = document.getElementById('smart_rule_editor_example_url').value;
 	this.rule.site_description = document.getElementById('smart_rule_editor_site_description').value;
 	this.rule.example_url = document.getElementById('smart_rule_editor_example_url').value;
-	this.rule.title = document.getElementById('smart_rule_editor_title').value;
 	this.rule.search_block_css = document.getElementById('smart_rule_editor_search').value;
 	this.rule.hide_block_css = document.getElementById('smart_rule_editor_hide').value;
-
-	//TODO validation
-	
-	// Save
-	this.bgCallback({command:'save', type:'rule', obj: this.rule});
 };
 SmartRuleCreatorDialog.prototype.getCancelAction  = function ()
 {
@@ -134,6 +154,15 @@ SmartRuleCreatorDialog.prototype.getCancelAction  = function ()
 		console.log("TODO cancel");
 	}
 
+};
+SmartRuleCreatorDialog.prototype.onSaveDone = function (rule)
+{
+	this.rule.rule_id = rule.rule_id;
+	for (var i=0, l=this.rule.words.length; i<l; i++)
+	{
+		this.rule.words[i].word_id = rule.words[i].word_id;
+	}
+	this.showMessage(chrome.i18n.getMessage('saveDone'));
 };
 SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, target, event)
 {
@@ -155,7 +184,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			li.className = 'option';
 			li.innerHTML = rule.title;
 			li.addEventListener('mouseover', this.getExistingRuleHoverAction(rule, li), true);
-			li.addEventListener('click', this.getExistingRuleClickAction(rule), true);
+			li.addEventListener('click', this.getExistingRuleClickAction(rule, li), true);
 			this.ul.appendChild(li);
 		}
 	}
@@ -172,7 +201,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		var li = document.createElement('LI');
 		li.innerHTML = path.title;
 		li.addEventListener('mouseover', this.getSuggestedPathHoverAction(path, li), true);
-		li.addEventListener('click', this.getSuggestedPathClickAction(path), true);
+		li.addEventListener('click', this.getSuggestedPathClickAction(path, li), true);
 		li.className = 'option';
 		this.ul.appendChild(li);
 		
@@ -206,11 +235,12 @@ SmartRuleCreatorDialog.prototype.getExistingRuleHoverAction = function (rule, li
 		self.showEdit(liElement);
 	}
 };
-SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule)
+SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule, li)
 {
 	var self = this;
 	return function (event)
 	{
+		li.className = 'option selected';
 		self.rule = rule;
 		self.showRule(rule);
 	}	
@@ -228,11 +258,12 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, l
 		self.showEdit(liElement);
 	}	
 };
-SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path)
+SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path, li)
 {
 	var self = this;
 	return function (event)
 	{
+		li.className = 'option selected';
 		self.rule = self.createRuleByPath(path);
 		self.showRule(self.rule);
 	}	
@@ -306,4 +337,11 @@ SmartRuleCreatorDialog.prototype.addWord = function(wordStr)
 	{
 		word.rule_id=0;
 	}
+};
+
+SmartRuleCreatorDialog.prototype.showMessage = function (message)
+{
+	var div = document.getElementById('smart_rule_editor_alert');
+	div.style.display = 'block';
+	div.innerHTML = message;
 };

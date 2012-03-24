@@ -101,6 +101,7 @@ SmartRuleCreatorDialog.prototype.getAddKeywordAction  = function ()
 		var keywordInput = document.getElementById('smart_rule_editor_keyword');
 		self.addWord(keywordInput.value);
 		keywordInput.value = '';
+		keywordInput.focus();
 	}
 };
 SmartRuleCreatorDialog.prototype.getSaveAction  = function ()
@@ -121,6 +122,8 @@ SmartRuleCreatorDialog.prototype.saveRule  = function ()
 	this.rule.search_block_css = document.getElementById('smart_rule_editor_search').value;
 	this.rule.hide_block_css = document.getElementById('smart_rule_editor_hide').value;
 
+	//TODO validation
+	
 	// Save
 	this.bgCallback({command:'save', type:'rule', obj: this.rule});
 };
@@ -260,7 +263,7 @@ SmartRuleCreatorDialog.prototype.showRule = function (rule)
 	{
 		document.getElementById('rule_editor_keywords').appendChild(this.getWordElement(rule.words[i]));
 	}
-	alert("Rule.title=" + rule.title);
+	document.getElementById('smart_rule_editor_title').focus();
 };
 
 SmartRuleCreatorDialog.prototype.getWordElement = function (word) 
@@ -285,7 +288,7 @@ SmartRuleCreatorDialog.prototype.addWord = function(wordStr)
 	
 	word.word = wordStr;
 	word.isNew = 'true';
-	var checked = document.getElementById('smart_rule_editor_keyword_regexp_checkbox').checked;
+	var checked = document.getElementById('smart_rule_editor_keyword_regexp').checked;
 	word.is_regexp = checked;
 	
 	word.dirty = true;

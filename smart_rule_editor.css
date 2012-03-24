@@ -32,6 +32,13 @@
 	border-radius: 0px!important;
 	-webkit-border-radius: 0px!important;
 }
+#smart_rule_creator_dialog label {
+	font-size:85%!important;
+	display:inline;
+}
+/**
+ * Rule List
+*/
 #smart_rule_creator_dialog li.option:nth-child(odd) {
 	background-color:#fff;
 }
@@ -99,6 +106,9 @@
 #smart_rule_editor_body input[type="button"]:active {
 	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
 }
-#smart_rule_editor_keywords {
-	width:80px!important;
+#smart_rule_editor_keyword {
+	width:120px!important;
+}
+#smart_rule_editor_body span.word {
+	font-size:85%!important;
 }

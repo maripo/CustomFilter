@@ -44,5 +44,6 @@
 	"ruleEditorNewRules":{"message":"新しいルールを作成"},
 	"smartRuleEditorShowAdvancedMode":{"message":"詳細を表示"},
 	"smartRuleEditorHideAdvancedMode":{"message":"詳細を非表示"},
-    "smartRuleEditorSuggestedTitlePrefix":{"message":"パターン "}
+    "smartRuleEditorSuggestedTitlePrefix":{"message":"パターン "},
+	"menuCreateRule":{"message":"この要素を使ってルールを作成"}
 }

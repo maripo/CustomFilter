@@ -44,5 +44,6 @@
 	"ruleEditorNewRules":{"message":"New Rules"},
 	"smartRuleEditorShowAdvancedMode":{"message":"Show details"},
 	"smartRuleEditorHideAdvancedMode":{"message":"Hide details"},
-	"smartRuleEditorSuggestedTitlePrefix":{"message":"Pattern "}
+	"smartRuleEditorSuggestedTitlePrefix":{"message":"Pattern "},
+	"menuCreateRule":{"message":"Create a Rule"}
 }

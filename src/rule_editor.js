@@ -724,11 +724,11 @@ RuleElement.appendFunctions = function (element)
 	element.tmpSelectForSearch = RuleElement.getTmpSelectForSearchFunc(element);
 	element.tmpUnselect = RuleElement.getTmpUnselectFunc(element);
 };
-RuleElement.STYLE_FOCUS_FOR_HIDE = 'solid 2px red';
+RuleElement.STYLE_FOCUS_FOR_HIDE = 'solid 2px black';
 RuleElement.STYLE_FOCUS_FOR_SEARCH = 'solid 2px blue';
-RuleElement.STYLE_TMP_SELECT_FOR_HIDE = 'dotted 2px red';
+RuleElement.STYLE_TMP_SELECT_FOR_HIDE = 'dotted 2px black';
 RuleElement.STYLE_TMP_SELECT_FOR_SEARCH = 'dotted 2px blue';
-RuleElement.STYLE_SELECT_FOR_HIDE = 'solid 1px red';
+RuleElement.STYLE_SELECT_FOR_HIDE = 'solid 1px black';
 RuleElement.STYLE_SELECT_FOR_SEARCH = 'solid 1px blue';
 
 RuleElement.getFocusForHideFunc = function (element) 

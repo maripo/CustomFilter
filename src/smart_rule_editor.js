@@ -242,6 +242,7 @@ SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule, li
 	{
 		li.className = 'option selected';
 		self.rule = rule;
+		self.showEdit(li);
 		self.showRule(rule);
 	}	
 };
@@ -265,6 +266,7 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path, l
 	{
 		li.className = 'option selected';
 		self.rule = self.createRuleByPath(path);
+		self.showEdit(li);
 		self.showRule(self.rule);
 	}	
 };

@@ -423,6 +423,6 @@ function onRightClick(clicked, tab) {
 var contexts = ["all"];
 for (var i = 0; i < contexts.length; i++) {
 	var context = contexts[i];
-	var menuId = chrome.contextMenus.create({"title": "Create Rule", "contexts":[context],
+	var menuId = chrome.contextMenus.create({"title": chrome.i18n.getMessage('menuCreateRule'), "contexts":[context],
 		"onclick": onRightClick});
 }

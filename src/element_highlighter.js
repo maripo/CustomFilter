@@ -69,9 +69,26 @@ ElementHighlighter.selectForHide = function (element)
 		element.originalStyle = (null!=element.style.outline)?element.style.outline:" ";
 	element.isSelectedForHide = true;
 	element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
+	element.style.position = 'relative';
+	var div = document.createElement('DIV');
+	with (div.style)
+	{
+		backgroundColor = 'black';
+		position = 'absolute';
+		left = '0px';
+		top = '0px';
+		opacity = 0.3;
+		width = element.clientWidth + 'px';
+		height = element.clientHeight + 'px';
+	}
+	element.appendChild(div);
+	element.coverDiv = div;
 };
 ElementHighlighter.unselectForHide = function (element)
 {
+	if (element.coverDiv)
+		element.removeChild (element.coverDiv);
+	element.coverDiv = null;
 	element.isSelectedForHide = false;
 	if (element.isSelectedForSearch) 
 		element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;

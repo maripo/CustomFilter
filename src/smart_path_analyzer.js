@@ -49,19 +49,19 @@ SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, origi
 			var searchOriginalNode = originalNode;
 			while (CustomBlockerUtil.isContained(searchOriginalNode, hideOriginalNode))
 			{
-	            var searchPathSelectors = new PathAnalyzer(searchOriginalNode, this.builder, hideOriginalNode, hidePathSelector.path).createPathList();
-	            for (var searchIndex =0; searchIndex<searchPathSelectors.length; searchIndex++)
-	            {
-	            	var searchPathSelector = searchPathSelectors[searchIndex];
-	            	var searchSelectedNodes = searchPathSelector.elements;
-	            	var searchElements = searchPathSelector.elements;
-	            	var containedNode = CustomBlockerUtil.getContainedElements(hideElements, searchElements);
-	            	if (containedNode.length>1)
-	            	{
-	            	
-	            		pathList.push(new SmartPath(hidePathSelector, searchPathSelector));
-					}	            	
-	            }
+				var searchPathSelectors = new PathAnalyzer(searchOriginalNode, this.builder, hideOriginalNode, hidePathSelector.path).createPathList();
+				for (var searchIndex =0; searchIndex<searchPathSelectors.length; searchIndex++)
+				{
+					var searchPathSelector = searchPathSelectors[searchIndex];
+					var searchSelectedNodes = searchPathSelector.elements;
+					var searchElements = searchPathSelector.elements;
+					var containedNode = CustomBlockerUtil.getContainedElements(hideElements, searchElements);
+					if (containedNode.length>1)
+					{
+					
+						pathList.push(new SmartPath(hidePathSelector, searchPathSelector));
+					}
+				}
 				searchOriginalNode = searchOriginalNode.parentNode;
 			}
 		}		

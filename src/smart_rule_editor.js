@@ -233,7 +233,23 @@ SmartRuleCreatorDialog.prototype.getExistingRuleHoverAction = function (rule, li
 	return function (event)
 	{
 		self.showEdit(liElement);
+		self.previewExistingRule(rule);
 	}
+};
+SmartRuleCreatorDialog.prototype.previewExistingRule = function (rule)
+{
+	console.log("Test... " + rule.title);
+	document.getElementById('smart_rule_editor_preview_title').innerHTML = rule.title;
+	document.getElementById('smart_rule_editor_preview_hide_count').innerHTML = 'TODO';
+	document.getElementById('smart_rule_editor_preview_hide_path').innerHTML = 
+		(rule.hide_block_by_css)?
+			rule.hide_block_css:rule.hide_block_xpath;
+	document.getElementById('smart_rule_editor_preview_search_count').innerHTML = 'TODO';
+	document.getElementById('smart_rule_editor_preview_search_path').innerHTML =  
+		(rule.search_block_by_css)?
+			rule.search_block_css:rule.search_block_xpath;
+	//TODO
+	document.getElementById('smart_rule_editor_preview_keywords').innerHTML = 'TODO';
 };
 SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule, li)
 {
@@ -257,7 +273,20 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, l
 		window.elementHighlighter.highlightHideElements(path.hidePath.elements);
 		window.elementHighlighter.highlightSearchElements(path.searchPath.elements);
 		self.showEdit(liElement);
+		self.previewSuggestedPath(path);
 	}	
+};
+SmartRuleCreatorDialog.prototype.previewSuggestedPath = function (path)
+{
+	console.log("Test... " + path.hidePath.path);
+	
+	document.getElementById('smart_rule_editor_preview_title').innerHTML = path.title;
+	document.getElementById('smart_rule_editor_preview_hide_count').innerHTML = path.hidePath.elements.length;
+	document.getElementById('smart_rule_editor_preview_hide_path').innerHTML = path.hidePath.path;
+	document.getElementById('smart_rule_editor_preview_search_count').innerHTML = path.searchPath.elements.length;
+	document.getElementById('smart_rule_editor_preview_search_path').innerHTML = path.searchPath.path;
+	document.getElementById('smart_rule_editor_preview_keywords').innerHTML = '';
+
 };
 SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path, li)
 {

@@ -24,9 +24,9 @@
 	text-align:left;
 	background:none;
 	text-indent:0px!important;
-	position:static!important;
+	position:static;
 	font-family:sans-serif!important;
-	margin:0px!important;
+	margin:0px;
 	padding:0px!important;
 	margin:0px!important;
 	border-radius: 0px!important;
@@ -115,7 +115,7 @@
 #smart_rule_editor_keyword {
 	width:120px!important;
 }
-#smart_rule_editor_body span.word {
+#smart_rule_editor_body span.word, #smart_rule_editor_preview span.word {
 	font-size:85%!important;
 }
 
@@ -133,11 +133,20 @@
 /**
  Preview
  */
+ /* Body */
 #smart_rule_editor_preview {
 	position:relative;
 }
+/* Rule Title */
+#smart_rule_editor_preview h3 {
+	color:black;
+	background:none;
+	margin:0px;
+	padding:0px;
+	font-size:14px;
+	font-weight:bold;
+}
 #smart_rule_editor_preview div.detail {
-	background-color:pink;
 	position:relative;
 }
 #smart_rule_editor_preview div.path_body {
@@ -147,32 +156,38 @@
 	position:absolute;
 	left:0px;
 	top:0px;
-	width:80px;
-	height:80px;
+	width:90px;
+	height:72px;
 	background-color:#888;
 }
 #smart_rule_editor_preview div.path_section {
-	height:60px;
-	margin-left:100px;
+	height:40px;
+	margin-left:100px!important;
 }
 #smart_rule_editor_preview div.path_section div.title {
-	color:red;
+	color:black;
+	font-size:10px;
 }
+/* Hit count */
 #smart_rule_editor_preview div.detail div.count {
 	position:absolute;
 	left:10px;
-	top:10px;
-	width:24px;
-	height:18px;
-	background-color:red;
+	top:0px;
+	height:14px;
+	width:18px;
+	text-align:center;
 	color:white;
+	font-size:10px;
+	border-radius:8px!important;
+	background-color:#f00;
+	border: solid 1px #d00;
 }
+/* Path expression */
 #smart_rule_editor_preview div.detail div.path {
-
 	position:absolute;
 	left:32px;
-	top:10px;
+	top:0px;
 	width:180px;
 	height:18px;
-	background-color:#ddf;
+	font-size:12px;
 }

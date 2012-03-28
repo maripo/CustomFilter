@@ -724,12 +724,6 @@ RuleElement.appendFunctions = function (element)
 	element.tmpSelectForSearch = RuleElement.getTmpSelectForSearchFunc(element);
 	element.tmpUnselect = RuleElement.getTmpUnselectFunc(element);
 };
-RuleElement.STYLE_FOCUS_FOR_HIDE = 'solid 2px black';
-RuleElement.STYLE_FOCUS_FOR_SEARCH = 'solid 2px blue';
-RuleElement.STYLE_TMP_SELECT_FOR_HIDE = 'dotted 2px black';
-RuleElement.STYLE_TMP_SELECT_FOR_SEARCH = 'dotted 2px blue';
-RuleElement.STYLE_SELECT_FOR_HIDE = 'solid 1px black';
-RuleElement.STYLE_SELECT_FOR_SEARCH = 'solid 1px blue';
 
 RuleElement.getFocusForHideFunc = function (element) 
 {
@@ -737,7 +731,7 @@ RuleElement.getFocusForHideFunc = function (element)
 	{
 		// Save
 		element.isFocusedForHide = true;
-		element.style.outline = RuleElement.STYLE_FOCUS_FOR_HIDE;
+		element.style.outline = ElementHighlighter.STYLE_FOCUS_FOR_HIDE;
 	};
 };
 RuleElement.getFocusForSearchFunc = function (element) 
@@ -748,7 +742,7 @@ RuleElement.getFocusForSearchFunc = function (element)
 		if (null==element.originalStyle)
 			element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 		element.isFocusedForHide = true;
-		element.style.outline = RuleElement.STYLE_FOCUS_FOR_SEARCH;
+		element.style.outline = ElementHighlighter.STYLE_FOCUS_FOR_SEARCH;
 	};
 };
 RuleElement.getUnfocusFunc = function (element) 
@@ -757,9 +751,9 @@ RuleElement.getUnfocusFunc = function (element)
 	{
 		element.isFocusedForHide = false;
 		if (element.isSelectedForHide) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
+			element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_HIDE;
 		else if (element.isSelectedForSearch) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
+			element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_SEARCH;
 		selectedNode.style.outline = element.originalStyle;
 	};
 };
@@ -771,7 +765,7 @@ RuleElement.getTmpSelectForHideFunc = function (element)
 		if (null==element.originalStyle)
 			element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 		element.isTmpSelectedForHide = true;
-		element.style.outline = RuleElement.STYLE_TMP_SELECT_FOR_HIDE;
+		element.style.outline = ElementHighlighter.STYLE_TMP_SELECT_FOR_HIDE;
 	};
 };
 
@@ -782,7 +776,7 @@ RuleElement.getTmpSelectForSearchFunc = function (element)
 		if (null==element.originalStyle)
 			element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 		element.isTmpSelectedForSearch = true;
-		element.style.outline = RuleElement.STYLE_TMP_SELECT_FOR_SEARCH;
+		element.style.outline = ElementHighlighter.STYLE_TMP_SELECT_FOR_SEARCH;
 	};
 }
 RuleElement.getTmpUnselectFunc = function (element) 
@@ -792,9 +786,9 @@ RuleElement.getTmpUnselectFunc = function (element)
 		element.isTmpSelectedForHide = false;
 		element.isTmpSelectedForSearch = false;
 		if (element.isSelectedForHide) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
+			element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_HIDE;
 		else if (element.isSelectedForSearch) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
+			element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_SEARCH;
 		element.style.outline = element.originalStyle;
 	};
 };

@@ -68,7 +68,7 @@ ElementHighlighter.selectForHide = function (element)
 	if (null==element.originalStyle)
 		element.originalStyle = (null!=element.style.outline)?element.style.outline:" ";
 	element.isSelectedForHide = true;
-	element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
+	element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_HIDE;
 	element.style.position = 'relative';
 	var div = document.createElement('DIV');
 	with (div.style)
@@ -91,7 +91,7 @@ ElementHighlighter.unselectForHide = function (element)
 	element.coverDiv = null;
 	element.isSelectedForHide = false;
 	if (element.isSelectedForSearch) 
-		element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
+		element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_SEARCH;
 	else
 		element.style.outline = element.originalStyle;
 };
@@ -100,12 +100,19 @@ ElementHighlighter.selectForSearch = function (element)
 	if (null==element.originalStyle)
 		element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 	element.isSelectedForSearch = true;
-	element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
+	element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_SEARCH;
 };
 ElementHighlighter.unselectForSearch = function (element)
 {
 	element.isSelectedForSearch = false;
 	if (element.isSelectedForHide) 
-		element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
+		element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_HIDE;
 	element.style.outline = element.originalStyle;
 };
+
+ElementHighlighter.STYLE_FOCUS_FOR_HIDE = 'solid 2px black';
+ElementHighlighter.STYLE_FOCUS_FOR_SEARCH = 'solid 2px blue';
+ElementHighlighter.STYLE_TMP_SELECT_FOR_HIDE = 'dotted 2px black';
+ElementHighlighter.STYLE_TMP_SELECT_FOR_SEARCH = 'dotted 2px blue';
+ElementHighlighter.STYLE_SELECT_FOR_HIDE = 'solid 1px black';
+ElementHighlighter.STYLE_SELECT_FOR_SEARCH = 'solid 1px blue';

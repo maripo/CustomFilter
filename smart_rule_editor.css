@@ -129,3 +129,50 @@
 	font-size:12px;
 	display:none;
 }
+
+/**
+ Preview
+ */
+#smart_rule_editor_preview {
+	position:relative;
+}
+#smart_rule_editor_preview div.detail {
+	background-color:pink;
+	position:relative;
+}
+#smart_rule_editor_preview div.path_body {
+	position:relative;
+}
+#smart_rule_editor_path_img {
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:80px;
+	height:80px;
+	background-color:#888;
+}
+#smart_rule_editor_preview div.path_section {
+	height:60px;
+	margin-left:100px;
+}
+#smart_rule_editor_preview div.path_section div.title {
+	color:red;
+}
+#smart_rule_editor_preview div.detail div.count {
+	position:absolute;
+	left:10px;
+	top:10px;
+	width:24px;
+	height:18px;
+	background-color:red;
+	color:white;
+}
+#smart_rule_editor_preview div.detail div.path {
+
+	position:absolute;
+	left:32px;
+	top:10px;
+	width:180px;
+	height:18px;
+	background-color:#ddf;
+}

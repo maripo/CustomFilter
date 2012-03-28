@@ -14,10 +14,12 @@ ElementHighlighter.prototype.highlightRule = function (rule)
 					:
 					CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath)
 				);
+		rule.searchNodes = searchNodes;
 		var hideNodes = (rule.hide_block_by_css)?
 				CustomBlockerUtil.getElementsByCssSelector(rule.hide_block_css)
 				:
 				CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
+		rule.hideNodes = hideNodes;
 	}
 	this.highlightSearchElements(searchNodes);
 	this.highlightHideElements(hideNodes);

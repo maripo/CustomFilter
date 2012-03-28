@@ -225,6 +225,7 @@ SmartRuleCreatorDialog.prototype.showEdit = function (liElement)
 			this.div.clientWidth : -this.editDiv.clientWidth-4) 
 		+ 'px';
 };
+SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH = 26;
 /**
  * Test & Select Existing Rules
  */
@@ -239,15 +240,16 @@ SmartRuleCreatorDialog.prototype.getExistingRuleHoverAction = function (rule, li
 };
 SmartRuleCreatorDialog.prototype.previewExistingRule = function (rule)
 {
+	window.elementHighlighter.highlightRule(rule);
 	document.getElementById('smart_rule_editor_preview_title').innerHTML = rule.title;
-	document.getElementById('smart_rule_editor_preview_hide_count').innerHTML = 'TODO';
+	document.getElementById('smart_rule_editor_preview_hide_count').innerHTML = rule.hideNodes.length;
 	document.getElementById('smart_rule_editor_preview_hide_path').innerHTML = 
-		(rule.hide_block_by_css)?
-			rule.hide_block_css:rule.hide_block_xpath;
-	document.getElementById('smart_rule_editor_preview_search_count').innerHTML = 'TODO';
-	document.getElementById('smart_rule_editor_preview_search_path').innerHTML =  
-		(rule.search_block_by_css)?
-			rule.search_block_css:rule.search_block_xpath;
+		CustomBlockerUtil.shorten(((rule.hide_block_by_css)?
+			rule.hide_block_css:rule.hide_block_xpath), SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH);
+	document.getElementById('smart_rule_editor_preview_search_count').innerHTML = rule.searchNodes.length;
+	document.getElementById('smart_rule_editor_preview_search_path').innerHTML = 
+		CustomBlockerUtil.shorten(((rule.search_block_by_css)?
+			rule.search_block_css:rule.search_block_xpath), SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH);
 	CustomBlockerUtil.clearChildren(document.getElementById('smart_rule_editor_preview_keywords'));
 	for (var i=0; i<rule.words.length; i++)
 	{
@@ -285,9 +287,11 @@ SmartRuleCreatorDialog.prototype.previewSuggestedPath = function (path)
 {
 	document.getElementById('smart_rule_editor_preview_title').innerHTML = path.title;
 	document.getElementById('smart_rule_editor_preview_hide_count').innerHTML = path.hidePath.elements.length;
-	document.getElementById('smart_rule_editor_preview_hide_path').innerHTML = path.hidePath.path;
+	document.getElementById('smart_rule_editor_preview_hide_path').innerHTML = 
+		CustomBlockerUtil.shorten(path.hidePath.path, SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH);
 	document.getElementById('smart_rule_editor_preview_search_count').innerHTML = path.searchPath.elements.length;
-	document.getElementById('smart_rule_editor_preview_search_path').innerHTML = path.searchPath.path;
+	document.getElementById('smart_rule_editor_preview_search_path').innerHTML = 
+		CustomBlockerUtil.shorten(path.searchPath.path, SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH);
 	CustomBlockerUtil.clearChildren(document.getElementById('smart_rule_editor_preview_keywords'));
 
 };

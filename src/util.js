@@ -247,12 +247,7 @@ CustomBlockerUtil.getSuggestedSiteRegexp = function ()
 
 CustomBlockerUtil.createWordElement = function (word, deleteCallback /* function(span) */)
 {
-	var span = document.createElement('SPAN');
-	
-	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
-	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
-	span.avoidStyle = true;
-	
+	var span = CustomBlockerUtil.createSimpleWordElement(word);
 	var deleteButton = document.createElement('A');
 	
 	deleteButton.avoidStyle = true;
@@ -264,4 +259,15 @@ CustomBlockerUtil.createWordElement = function (word, deleteCallback /* function
 	span.appendChild(deleteButton);
 	
 	return span;
+};
+CustomBlockerUtil.createSimpleWordElement = function (word)
+{
+	var span = document.createElement('SPAN');
+	
+	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
+	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
+	span.avoidStyle = true;
+	
+	return span;
+
 };

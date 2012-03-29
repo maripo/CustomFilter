@@ -71,30 +71,48 @@ ElementHighlighter.selectForHide = function (element)
 		element.originalStyle = (null!=element.style.outline)?element.style.outline:" ";
 	element.isSelectedForHide = true;
 	element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_HIDE;
-	element.style.position = 'relative';
 	
-	// Add transparent cover
+	// Change background color
 	if ('inline' == window.getComputedStyle(element).display)
 	{
 		element.originalBackgroundColor = window.getComputedStyle(element).backgroundColor;
 		element.style.backgroundColor = '#bbb';
 		element.backgroundColorChanged = true;
 	}
+	// Add transparent cover
 	else
 	{
-		var div = document.createElement('DIV');
-		with (div.style)
+		var elementToCover = element;
+		if ('TR'==element.tagName)
 		{
-			backgroundColor = 'black';
-			position = 'absolute';
-			left = '0px';
-			top = '0px';
-			opacity = 0.3;
-			width = element.clientWidth + 'px';
-			height = element.clientHeight + 'px';
+			var children = element.childNodes;
+			for (var i=0; i<children.length; i++)
+			{
+				if (children[i].tagName)
+				{
+					elementToCover = children[i];
+					break;
+				}
+			}
 		}
-		element.appendChild(div);
-		element.coverDiv = div;
+		console.log(elementToCover)
+		if (elementToCover)
+		{
+			elementToCover.style.position = 'relative';
+			var div = document.createElement('DIV');
+			with (div.style)
+			{
+				backgroundColor = 'black';
+				position = 'absolute';
+				left = '0px';
+				top = '0px';
+				opacity = 0.3;
+				width = element.clientWidth + 'px';
+				height = element.clientHeight + 'px';
+			}
+			elementToCover.appendChild(div);
+			element.coverDiv = div;
+		}
 	}
 };
 
@@ -102,7 +120,7 @@ ElementHighlighter.unselectForHide = function (element)
 {
 	if (element.coverDiv)
 	{
-		element.removeChild (element.coverDiv);
+		element.coverDiv.parentNode.removeChild (element.coverDiv);
 		element.coverDiv = null;
 	}
 	if (element.backgroundColorChanged)

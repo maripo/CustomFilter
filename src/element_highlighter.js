@@ -74,7 +74,6 @@ ElementHighlighter.selectForHide = function (element)
 	element.style.position = 'relative';
 	
 	// Add transparent cover
-	console.log(window.getComputedStyle(element).display);
 	if ('inline' == window.getComputedStyle(element).display)
 	{
 		element.originalBackgroundColor = window.getComputedStyle(element).backgroundColor;

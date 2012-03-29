@@ -182,9 +182,16 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		for (var i=0; i<creator.matchedRules.length; i++)
 		{
 			var rule = creator.matchedRules[i];
-			var li = document.createElement('LI');
-			li.className = 'option';
-			li.innerHTML = rule.title;
+			var hideNodes = (rule.hide_block_by_css)?
+					CustomBlockerUtil.getElementsByCssSelector(rule.hide_block_css)
+					:
+					CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
+			var searchNodes = 
+				(rule.search_block_by_css)?
+					CustomBlockerUtil.getElementsByCssSelector(rule.search_block_css)
+					:
+					CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath);
+			var li = this.createLiElement(rule.title, hideNodes.length, searchNodes.length);
 			li.addEventListener('mouseover', this.getExistingRuleHoverAction(rule, li), true);
 			li.addEventListener('click', this.getExistingRuleClickAction(rule, li), true);
 			this.ul.appendChild(li);
@@ -200,8 +207,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	{
 		var path = creator.suggestedPathList[i];
 		path.title = chrome.i18n.getMessage('smartRuleEditorSuggestedTitlePrefix') + (i + 1);
-		var li = document.createElement('LI');
-		li.innerHTML = path.title;
+		var li = this.createLiElement(path.title, path.hidePath.elements.length, path.searchPath.elements.length);
 		li.addEventListener('mouseover', this.getSuggestedPathHoverAction(path, li), true);
 		li.addEventListener('click', this.getSuggestedPathClickAction(path, li), true);
 		li.className = 'option';
@@ -215,6 +221,25 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	this.div.style.left = _left + 'px';
 	this.div.style.top = _top + 'px';
 	
+};
+SmartRuleCreatorDialog.prototype.createLiElement = function (title, hideCount, searchCount)
+{
+	var li = document.createElement('LI');
+	var spanHideCount = document.createElement('SPAN');
+	spanHideCount.className = 'hideCount';
+	spanHideCount.innerHTML = hideCount;
+	var spanSearchCount = document.createElement('SPAN');
+	spanSearchCount.className = 'searchCount';
+	spanSearchCount.innerHTML = searchCount;
+	var spanTitle = document.createElement('SPAN');
+	spanTitle.innerHTML = title;
+	
+	li.appendChild(spanHideCount);
+	li.appendChild(spanSearchCount);
+	li.appendChild(spanTitle);
+	
+	li.className = 'option';
+	return li;
 };
 SmartRuleCreatorDialog.prototype.showEdit = function (liElement)
 {

@@ -59,6 +59,21 @@
 	font-size:12px;
 	list-style-type:none!important;
 }
+/* Count badge */
+#smart_rule_creator_dialog li.option  span.searchCount {
+	background-color:#f00;
+	border:solid 1px #a00;
+	color:white;
+	border-radius:6px!important;
+	margin-right:2px!important;
+}
+#smart_rule_creator_dialog li.option  span.hideCount {
+	background-color:#888;
+	border:solid 1px #444;
+	color:white;
+	border-radius:6px!important;
+	margin-right:2px!important;
+}
 #smart_rule_creator_dialog li.smartEditorSectionTitle {
 	outline-top: solid 1px #ffffff;
 	outline-bottom:solid 1px #cccccc;

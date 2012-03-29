@@ -208,7 +208,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		
 	}
 	document.getElementById('smart_rule_editor_keyword').value = creator.selectionText || '';
-	this.shouldShowDialogRight = event.clientX < (document.body.clientWidth/2 - this.div.clientWidth/2);
+	this.shouldShowDialogRight = event.clientX < document.body.clientWidth/2;
 	var _left = event.clientX + document.body.scrollLeft;
 	var _top = event.clientY + document.body.scrollTop;
 	this.div.style.left = _left + 'px';

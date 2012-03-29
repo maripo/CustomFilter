@@ -6,10 +6,11 @@
 			var analyzer = new SmartPathAnalyzer(node, (Xpath|Css)Builder);
 			var list = analyzer.createPathList();
  */
-var SmartPathAnalyzer = function (_node, builder)
+var SmartPathAnalyzer = function (_node, builder, appliedRuleList)
 {
 	this._node = _node;
 	this.builder = builder;
+	this.appliedRuleList = appliedRuleList;
 };
 SmartPathAnalyzer.prototype.createPathList = function ()
 {
@@ -67,6 +68,10 @@ SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, origi
 					{
 						continue;
 					}
+					if (this.isIncludedInAppliedRules(hidePathSelector, searchPathSelector))
+					{
+						continue;
+					}
 					this.addedSearchPaths.push(searchPathSelector.path);
 					var searchSelectedNodes = searchPathSelector.elements;
 					var searchElements = searchPathSelector.elements;
@@ -81,6 +86,25 @@ SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, origi
 			}
 		}		
 	}
+};
+SmartPathAnalyzer.prototype.isIncludedInAppliedRules = function (hidePathSelector, searchPathSelector)
+{
+	if (!this.appliedRuleList) 
+	{
+		return false;
+	}
+	for (var i=0; i<this.appliedRuleList.length; i++)
+	{
+		var rule = this.appliedRuleList[i];
+		if (
+			CustomBlockerUtil.arrayEquals(hidePathSelector.elements, rule.hideNodes) && 
+			CustomBlockerUtil.arrayEquals(searchPathSelector.elements, rule.searchNodes)
+		)
+		{
+			return true;
+		}
+	}
+	return false;
 };
 var SmartPath = function (hidePath, searchPath)
 {

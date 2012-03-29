@@ -228,7 +228,6 @@ var SaveRuleTask = function (rule, reloadLists, tabId, bySmartRuleCreator)
 	this.deleteWords = deleteWords;
 	
 	this.reloadLists /* function */ = reloadLists;
-	//すべてがおわったらreloadListsを実行する				
 };
 SaveRuleTask.prototype.exec = function () 
 {

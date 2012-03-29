@@ -95,9 +95,25 @@ CustomBlockerUtil.getRelativeElementsByXPath = function(targetNode, xpath)
 	}
 	return list;
 };
+CustomBlockerUtil.arrayEquals = function (array0, array1)
+{
+	if (!array0 || !array1 || array0.length!=array1.length) 
+	{
+		return false;
+	}
+	for (var i=0, l=array0.length; i<l; i++)
+	{
+		if (array0[i] != array1[i])
+			return false;
+	}
+	return true;
+};
 CustomBlockerUtil.arrayContains = function (array, str) 
 {
-	for (var i=0, l=array.length; i<l; i++) if (str==array[i]) return true;
+	for (var i=0, l=array.length; i<l; i++) 
+	{
+		if (str==array[i]) return true;
+	}
 	return false;
 };
 

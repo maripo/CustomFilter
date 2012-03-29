@@ -21,7 +21,22 @@ var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText)
 };
 SmartRuleCreator.prototype.createNewRules = function ()
 {
-	var analyzer = new SmartPathAnalyzer(this.targetElement, new CssBuilder());
+	for (var i=0; i<this.appliedRuleList.length; i++)
+	{
+		var rule = this.appliedRuleList[i];
+		var hideNodes = (rule.hide_block_by_css)?
+				CustomBlockerUtil.getElementsByCssSelector(rule.hide_block_css)
+				:
+				CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
+		var searchNodes = 
+			(rule.search_block_by_css)?
+				CustomBlockerUtil.getElementsByCssSelector(rule.search_block_css)
+				:
+				CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath);
+		rule.hideNodes = hideNodes;
+		rule.searchNodes = searchNodes;
+	}
+	var analyzer = new SmartPathAnalyzer(this.targetElement, new CssBuilder(), this.appliedRuleList);
 	this.suggestedPathList = analyzer.createPathList();
 	
 }
@@ -191,16 +206,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		for (var i=0; i<creator.matchedRules.length; i++)
 		{
 			var rule = creator.matchedRules[i];
-			var hideNodes = (rule.hide_block_by_css)?
-					CustomBlockerUtil.getElementsByCssSelector(rule.hide_block_css)
-					:
-					CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
-			var searchNodes = 
-				(rule.search_block_by_css)?
-					CustomBlockerUtil.getElementsByCssSelector(rule.search_block_css)
-					:
-					CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath);
-			var li = this.createLiElement(rule.title, hideNodes.length, searchNodes.length);
+			var li = this.createLiElement(rule.title, rule.hideNodes.length, rule.searchNodes.length);
 			li.addEventListener('mouseover', this.getExistingRuleHoverAction(rule, li), true);
 			li.addEventListener('click', this.getExistingRuleClickAction(rule, li), true);
 			this.ul.appendChild(li);

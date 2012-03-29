@@ -62,6 +62,7 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 		display = 'none';
 	}
 	this.ul = document.createElement('UL');
+	this.ul.className = 'active';
 	this.div.appendChild(this.ul);
 	document.body.appendChild(this.div);
 	{
@@ -234,6 +235,8 @@ SmartRuleCreatorDialog.prototype.getExistingRuleHoverAction = function (rule, li
 	var self = this;
 	return function (event)
 	{
+		if (self.ruleSelected)
+			return;
 		self.showEdit(liElement);
 		self.previewExistingRule(rule);
 	}
@@ -277,6 +280,8 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, l
 	var self = this;
 	return function (event)
 	{
+		if (self.ruleSelected)
+			return;
 		window.elementHighlighter.highlightHideElements(path.hidePath.elements);
 		window.elementHighlighter.highlightSearchElements(path.searchPath.elements);
 		self.showEdit(liElement);
@@ -321,6 +326,8 @@ SmartRuleCreatorDialog.prototype.createRuleByPath = function (path)
 };
 SmartRuleCreatorDialog.prototype.showRule = function (rule)
 {
+	this.ul.className = '';
+	this.ruleSelected = true;
 	document.getElementById('smart_rule_editor_preview').style.display = 'none';
 	document.getElementById('smart_rule_editor_body').style.display = 'block';
 	

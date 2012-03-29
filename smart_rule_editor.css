@@ -48,7 +48,7 @@
 #smart_rule_creator_dialog li.option:nth-child(even) {
 	background-color:#f0f8ff;
 }
-#smart_rule_creator_dialog li.option:hover {
+#smart_rule_creator_dialog ul.active li.option:hover {
 	background-color:#ffc!important;
 }
 #smart_rule_creator_dialog li.selected {

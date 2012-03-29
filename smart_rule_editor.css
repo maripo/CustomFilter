@@ -170,15 +170,15 @@
 }
 #smart_rule_editor_path_img {
 	position:absolute;
-	left:0px;
-	top:0px;
-	width:90px;
-	height:72px;
+	left:5px;
+	top:6px;
+	width:80px;
+	height:49px;
 	background-color:#888;
 }
 #smart_rule_editor_preview div.path_section {
-	height:40px;
-	margin-left:100px!important;
+	height:38px;
+	margin-left:88px!important;
 }
 #smart_rule_editor_preview div.path_section div.title {
 	color:black;

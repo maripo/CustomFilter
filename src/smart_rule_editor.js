@@ -75,6 +75,7 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 		this.div.appendChild(editDiv);
 	}
 	document.getElementById('smart_rule_editor_body').style.display = 'none';
+	document.getElementById('smart_rule_editor_path_img').src = chrome.extension.getURL('/img/smart_path_preview_img.png');
 	this.advancedSectionVisible = false;
 	document.getElementById('smart_rule_editor_save').addEventListener('click', this.getSaveAction(), true);
 	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);

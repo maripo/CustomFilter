@@ -39,6 +39,11 @@ PathAnalyzer.prototype.createPathList = function ()
 	this.uniqPathList = new Array();
 	if (this.ancestors.length>0)
 		this.scan(0, new Array());
+	if (this.basePath.length>0)
+	{
+		var path = this.builder.createPathFilter(this.basePath);
+		this.pathList.push(path);
+	}
 	for (var i=0, l=this.uniqPathList.length; i<l; i++)
 	{
 		try 

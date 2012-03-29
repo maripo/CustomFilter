@@ -108,7 +108,7 @@ ElementHighlighter.unselectForHide = function (element)
 	}
 	if (element.backgroundColorChanged)
 	{
-		element.style.backgroundColor = 'originalBackgroundColor';
+		element.style.backgroundColor = element.originalBackgroundColor;
 		element.originalBackgroundColor = null;
 		element.backgroundColorChanged = false;
 	}

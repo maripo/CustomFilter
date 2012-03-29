@@ -59,7 +59,7 @@ RuleEditor.prototype.getOnMouseoverAction = function (node)
 			}
 			return;
 		}
-        event.stopPropagation();
+		event.stopPropagation();
 		event.preventDefault();
 	}
 };
@@ -87,7 +87,7 @@ RuleEditor.prototype.getOnClickAction = function (node)
 			var list = analyzer.createPathList();
 			self.pathPickerDialog.show(event, list, self.ruleEditorDialog.pathPickerTarget);
 		}
-        event.stopPropagation();
+		event.stopPropagation();
 		event.preventDefault();
 	}
 };
@@ -183,8 +183,10 @@ RuleEditor.prototype.applyInput = function ()
 };
 RuleEditor.prototype.addWord = function(wordStr)
 {
+	console.log("addWord 1 word=" + wordStr);
 	if (!wordStr || ''==wordStr) return; //Empty
 	var word = new Word();
+	console.log("addWord 2");
 	
 	word.word = wordStr;
 	word.isNew = 'true';
@@ -348,6 +350,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	document.getElementById('rule_editor_add_keyword_button').addEventListener ('click',
 		function()
 		{
+			document.getElementById('rule_editor_keyword').style.backgroundColor = 'yellow'
 			window.ruleEditor.addWord(document.getElementById('rule_editor_keyword').value);
 			document.getElementById('rule_editor_keyword').value = '';
 		}, 
@@ -554,7 +557,10 @@ RuleEditorDialog.prototype.getOnMouseupAction = function ()
  */
 RuleEditorDialog.prototype.processSelection = function (event)
 {
-	if (null==document.getSelection()) return;
+	if (null==document.getSelection()) 
+		return;
+	if (document.getElementById('rule_editor_keyword') == event.srcElement)
+		return;
 	document.getElementById('rule_editor_keyword').value = document.getSelection().toString();
 };
 /**

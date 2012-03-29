@@ -24,8 +24,9 @@ XpathBuilder.prototype.getSingleTagNameAndClassNameExpression = function (tagNam
 {
 	return tagName + '[@class="' + className + '"]'
 };
-XpathBuilder.prototype.createPathFilter = function (path)
+XpathBuilder.prototype.createPathFilter = function (_path)
 {
+	var path = CustomBlockerUtil.trim(_path);
 	return new XpathPathFilter(path);
 };
 var XpathPathFilter = function (path) 

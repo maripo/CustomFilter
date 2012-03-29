@@ -13,6 +13,10 @@ var SmartPathAnalyzer = function (_node, builder)
 };
 SmartPathAnalyzer.prototype.createPathList = function ()
 {
+	// Added paths (avoid adding duplicated paths)
+	this.addedHidePaths = new Array();
+	this.addedSearchPaths = new Array();
+	
 	var hideOriginalNode = this._node;
 	var pathList = new Array();
 	while (hideOriginalNode)
@@ -34,6 +38,12 @@ SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, origi
 	for (var i=hidePathSelectors.length-1; i>=0; i--)
 	{
 		var hidePathSelector = hidePathSelectors[i];
+		if (CustomBlockerUtil.arrayContains(this.addedHidePaths, hidePathSelector.path))
+		{
+			continue;
+		}
+		this.addedHidePaths.push(hidePathSelector.path);
+		
 		var hideElements = hidePathSelector.elements;
 		var siblingFound = false;
 		for (var hideIndex=0; hideIndex<hideElements.length; hideIndex++)
@@ -53,6 +63,11 @@ SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, origi
 				for (var searchIndex =0; searchIndex<searchPathSelectors.length; searchIndex++)
 				{
 					var searchPathSelector = searchPathSelectors[searchIndex];
+					if (CustomBlockerUtil.arrayContains(this.addedSearchPaths, searchPathSelector.path))
+					{
+						continue;
+					}
+					this.addedSearchPaths.push(searchPathSelector.path);
 					var searchSelectedNodes = searchPathSelector.elements;
 					var searchElements = searchPathSelector.elements;
 					var containedNode = CustomBlockerUtil.getContainedElements(hideElements, searchElements);

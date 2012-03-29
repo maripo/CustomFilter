@@ -50,7 +50,7 @@ PathAnalyzer.prototype.createPathList = function ()
 		{
 			var path = this.builder.createPathFilter(this.basePath + this.uniqPathList[i]);		
 			//Exclude nested elements
-			var nested = false
+			var nested = false;
 			for (var elementIndex=0; elementIndex<path.elements.length; elementIndex++)
 			{
 				var element = path.elements[elementIndex];
@@ -80,7 +80,9 @@ PathAnalyzer.prototype.createPathList = function ()
 	{
 		var path = this.pathList[i];
 		if (!prevPath || prevPath.elements.length!=path.elements.length)
+		{
 			list.push(path);
+		}
 		prevPath = path;
 	}
 	return list; 

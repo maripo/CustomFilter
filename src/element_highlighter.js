@@ -95,7 +95,6 @@ ElementHighlighter.selectForHide = function (element)
 				}
 			}
 		}
-		console.log(elementToCover)
 		if (elementToCover)
 		{
 			elementToCover.style.position = 'relative';

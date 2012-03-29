@@ -21,8 +21,9 @@ CssBuilder.prototype.getSingleTagNameAndClassNameExpression = function (tagName,
 {
 	return tagName + '.' + className;
 };
-CssBuilder.prototype.createPathFilter = function (path)
+CssBuilder.prototype.createPathFilter = function (_path)
 {
+	var path = CustomBlockerUtil.trim(_path);
 	return new CssPathFilter(path);
 };
 var CssPathFilter = function (path) 

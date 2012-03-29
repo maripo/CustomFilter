@@ -114,6 +114,9 @@
 }
 #smart_rule_editor_body input[type="text"] {
 	height:initial!important;
+	border:solid 1px #888!important;
+	float:none!important;
+	box-shadow:none!important;
 }
 #smart_rule_editor_body input[type="button"] {
 	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;

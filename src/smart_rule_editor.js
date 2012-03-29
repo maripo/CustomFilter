@@ -136,8 +136,12 @@ SmartRuleCreatorDialog.prototype.validate = function ()
 		example_url : document.getElementById('smart_rule_editor_example_url').value,
 		site_description : document.getElementById('smart_rule_editor_site_description').value,
 		
-		search_block_xpath : document.getElementById('smart_rule_editor_search').value,
-		hide_block_xpath : document.getElementById('smart_rule_editor_hide').value
+		search_block_xpath : document.getElementById('smart_rule_editor_search_block_xpath').value,
+		search_block_css : document.getElementById('smart_rule_editor_search_block_css').value,
+		search_block_description : document.getElementById('smart_rule_editor_search_block_description').value,
+		hide_block_xpath : document.getElementById('smart_rule_editor_hide_block_xpath').value,
+		hide_block_css : document.getElementById('smart_rule_editor_hide_block_css').value,
+		hide_block_description : document.getElementById('smart_rule_editor_hide_block_description').value
 	});
 };
 SmartRuleCreatorDialog.prototype.applyInput = function ()
@@ -147,8 +151,12 @@ SmartRuleCreatorDialog.prototype.applyInput = function ()
 	this.rule.site_regexp = document.getElementById('smart_rule_editor_example_url').value;
 	this.rule.site_description = document.getElementById('smart_rule_editor_site_description').value;
 	this.rule.example_url = document.getElementById('smart_rule_editor_example_url').value;
-	this.rule.search_block_css = document.getElementById('smart_rule_editor_search').value;
-	this.rule.hide_block_css = document.getElementById('smart_rule_editor_hide').value;
+	this.rule.search_block_xpath = document.getElementById('smart_rule_editor_search_block_xpath').value;
+	this.rule.search_block_css = document.getElementById('smart_rule_editor_search_block_css').value;
+	this.rule.search_block_description = document.getElementById('smart_rule_editor_search_block_description').value;
+	this.rule.hide_block_xpath = document.getElementById('smart_rule_editor_hide_block_xpath').value;
+	this.rule.hide_block_css = document.getElementById('smart_rule_editor_hide_block_css').value;
+	this.rule.hide_block_description = document.getElementById('smart_rule_editor_hide_block_description').value;
 };
 SmartRuleCreatorDialog.prototype.getCancelAction  = function ()
 {
@@ -318,10 +326,10 @@ SmartRuleCreatorDialog.prototype.previewSuggestedPath = function (path)
 {
 	document.getElementById('smart_rule_editor_preview_title').innerHTML = path.title;
 	document.getElementById('smart_rule_editor_preview_hide_count').innerHTML = path.hidePath.elements.length;
-	document.getElementById('smart_rule_editor_preview_hide_path').innerHTML = 
+	document.getElementById('smart_rule_editor_hide_block_css').innerHTML = 
 		CustomBlockerUtil.shorten(path.hidePath.path, SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH);
 	document.getElementById('smart_rule_editor_preview_search_count').innerHTML = path.searchPath.elements.length;
-	document.getElementById('smart_rule_editor_preview_search_path').innerHTML = 
+	document.getElementById('smart_rule_editor_search_block_css').innerHTML = 
 		CustomBlockerUtil.shorten(path.searchPath.path, SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH);
 	CustomBlockerUtil.clearChildren(document.getElementById('smart_rule_editor_preview_keywords'));
 
@@ -347,7 +355,11 @@ SmartRuleCreatorDialog.prototype.createRuleByPath = function (path)
 	rule.site_description = document.title;
 	rule.site_regexp = CustomBlockerUtil.getSuggestedSiteRegexp();
 	rule.search_block_css = path.searchPath.path;
+	rule.search_block_xpath = null;
+	rule.search_block_description = null;
 	rule.hide_block_css = path.hidePath.path;
+	rule.hide_block_xpath = null;
+	rule.hide_block_description = null;
 	return rule;
 };
 SmartRuleCreatorDialog.prototype.showRule = function (rule)
@@ -361,8 +373,12 @@ SmartRuleCreatorDialog.prototype.showRule = function (rule)
 	document.getElementById('smart_rule_editor_site_description').value = rule.site_description;
 	document.getElementById('smart_rule_editor_title').value = rule.title;
 	document.getElementById('smart_rule_editor_url').value = rule.site_regexp;
-	document.getElementById('smart_rule_editor_search').value = rule.search_block_css;
-	document.getElementById('smart_rule_editor_hide').value = rule.hide_block_css;
+	document.getElementById('smart_rule_editor_search_block_xpath').value = rule.search_block_xpath;
+	document.getElementById('smart_rule_editor_search_block_css').value = rule.search_block_css;
+	document.getElementById('smart_rule_editor_search_block_description').value = rule.search_block_description;
+	document.getElementById('smart_rule_editor_hide_block_xpath').value = rule.hide_block_xpath;
+	document.getElementById('smart_rule_editor_hide_block_css').value = rule.hide_block_css;
+	document.getElementById('smart_rule_editor_hide_block_description').value = rule.hide_block_description;
 	CustomBlockerUtil.clearChildren(document.getElementById('rule_editor_keywords'));
 	for (var i=0; i<rule.words.length; i++)
 	{

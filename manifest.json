@@ -1,6 +1,6 @@
  {
   "name" : "CustomBlocker",
-  "version" : "1.5.1.5",
+  "version" : "2.0",
   "default_locale": "en",
   "description" : "__MSG_extDescription__",
   "browser_action": {
@@ -16,13 +16,23 @@
         "http://*/*",
         "https://*/*"
       ],
-      "js" : ["src/util.js","src/uuid.js","src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js", "src/contentscript.js",
-      	"src/rule_editor.js","src/path_analyzer.js","src/element_highlighter.js","src/xpath_builder.js", "src/css_builder.js"],
+      "js" : 
+      [
+        "src/util.js",
+        "src/element_highlighter.js",
+        "src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js", 
+        "src/contentscript.js",
+      	"src/smart_path_analyzer.js",
+      	"src/rule_editor.js",
+        "src/smart_rule_editor.js",
+        "src/path_analyzer.js",
+        "src/xpath_builder.js", "src/css_builder.js"
+        ],
       "run_at" : "document_idle",
       "all_frames" : false
     }
   ],
-  "permissions" : ["background","tabs","chrome://favicon/","unlimitedStorage"]
+  "permissions" : ["background","tabs","contextMenus","chrome://favicon/","unlimitedStorage"]
   ,
   "icons" : {
     "128" : "icon128.png",

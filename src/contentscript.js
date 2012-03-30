@@ -5,6 +5,11 @@
 var bgCallback = null;
 var badgeCallback = null;
 
+if (!window.elementHighlighter)
+{
+	window.elementHighlighter = new ElementHighlighter();
+}
+		
 var RuleExecutor = 
 {
 	
@@ -18,7 +23,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	{
 		console.log("INIT rules=" + request.rules);
 		if (window.customBlockerInitDone) return;
-		window.elementHighlighter = new ElementHighlighter();
 		window.customBlockerInitDone = true;
 		rules = new Array();
 		bgCallback = sendResponse;
@@ -35,20 +39,21 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	}
 	else if ('ruleEditor'==request.command) 
 	{
-		if (!window.elementHighlighter)
-		{
-			window.elementHighlighter = new ElementHighlighter();
-		}
 		if (!window.ruleEditor) 
 		{
-			window.ruleEditor = new RuleEditor(request.rule, request.src);
+			window.ruleEditor = new RuleEditor(request.rule, request.src, request.appliedRuleList);
 			window.ruleEditor.initialize();
 			window.ruleEditor.bgCallback = sendResponse;
 		}
 	}
 	else if ('ruleSaveDone'==request.command)
 	{
-		if (window.ruleEditor)
+		if (request.bySmartRuleCreator)
+		{
+			window.smartRuleCreatorDialog.onSaveDone(request.rule);
+			window.smartRuleCreatorDialog.bgCallback = sendResponse;
+		}
+		else if (window.ruleEditor)
 		{
 			window.ruleEditor.onSaveDone(request.rule);
 			window.ruleEditor.bgCallback = sendResponse;
@@ -56,7 +61,15 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	}
 	else if ('ruleEditorRegister'==request.command) 
 	{
-		window.ruleEditor.bgCallback = sendResponse;
+		if (request.bySmartRuleCreator)
+		{
+			window.smartRuleCreatorDialog.bgCallback = sendResponse;
+		
+		}
+		else 
+		{
+			window.ruleEditor.bgCallback = sendResponse;
+		}
 	}
 	else if ('stop'==request.command) 
 	{
@@ -69,6 +82,16 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 		bgCallback = sendResponse;
 		if (!blockInterval)
 			blockInterval = window.setInterval(execBlock, 2000);
+	}
+	else if ('quickRuleCreation'==request.command)
+	{
+		if (!window.smartRuleCreatorDialog)
+		{
+			window.smartRuleCreatorDialog = new SmartRuleCreatorDialog(RuleEditor.getMaxZIndex() + 1, this, request.src);
+			window.smartRuleCreatorDialog.bgCallback = sendResponse;
+		}			
+		var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText);
+		window.smartRuleCreatorDialog.show(creator, lastRightClickedElement, lastRightClickEvent);
 	}
 });
 
@@ -184,7 +207,6 @@ var blockedCount = 0;
 var hiddenNodes = new Array();
 function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide, isTesting)
 {
-	console.log();
 	var needRefreshBadge = false;
 	var searchNodes = (rule.block_anyway)?[]:(
 			(rule.search_block_by_css)?
@@ -278,3 +300,7 @@ function nodeContains(node, words)
 	}
 	return false;
 }
+//Memorize right-clicked event source
+var lastRightClickedElement = null;
+var lastRightClickEvent = null; 
+document.body.oncontextmenu = function(event){lastRightClickedElement=event.srcElement; lastRightClickEvent=event};

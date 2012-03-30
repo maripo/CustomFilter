@@ -3,14 +3,15 @@
  */
 /*
  * Usage
-			var analyzer = new PathAnalyzer(node, (Xpath|Css)Builder);
+			var analyzer = new PathAnalyzer(node, (Xpath|Css)Builder, (true|false));
 			var list = analyzer.createPathList();
  */
-var PathAnalyzer = function (_node, _builder)
+var PathAnalyzer = function (targetNode, builder, rootNode, basePath) //TODO set properties
 {
-	console.log("new PathAnalyzer _node=" + _node + ", _builder=" + _builder);
-	this.builder = _builder;
-	this.targetNode = _node;
+	this.builder = builder;
+	this.targetNode = targetNode;
+	this.rootNode = rootNode || document.body; //User Relatve Path
+	this.basePath = basePath || '';
 	this.pathList = null;
 	this.ancestors = new Array/*<PathElement>*/();
 };
@@ -19,9 +20,9 @@ PathAnalyzer.prototype.createPathList = function ()
 	{
 		var node = this.targetNode;
 		var index = 0;
-		while (node) 
+		while (node)
 		{
-			if (document.body == node) break;
+			if (this.rootNode == node) break;
 			this.ancestors.push(new PathElement(node, index, this.builder));
 			node = node.parentNode;
 			index ++;
@@ -36,10 +37,36 @@ PathAnalyzer.prototype.createPathList = function ()
 	this.seqList = new Array();
 	this.pathList = new Array();
 	this.uniqPathList = new Array();
-	this.scan(0, new Array());
+	if (this.ancestors.length>0)
+		this.scan(0, new Array());
+	if (this.basePath.length>0)
+	{
+		var path = this.builder.createPathFilter(this.basePath);
+		this.pathList.push(path);
+	}
 	for (var i=0, l=this.uniqPathList.length; i<l; i++)
 	{
-		this.pathList.push(this.builder.createPathFilter(this.uniqPathList[i]));
+		try 
+		{
+			var path = this.builder.createPathFilter(this.basePath + this.uniqPathList[i]);		
+			//Exclude nested elements
+			var nested = false;
+			for (var elementIndex=0; elementIndex<path.elements.length; elementIndex++)
+			{
+				var element = path.elements[elementIndex];
+				if (element != this.targetNode && 
+					(CustomBlockerUtil.isContained(this.targetNode, element) || CustomBlockerUtil.isContained(element, this.targetNode)) ) 
+				{
+					nested = true;
+				}
+			}
+			if (!nested)
+				this.pathList.push(path);
+		}
+		catch (ex)
+		{
+			console.log(ex);
+		}
 	}
 	this.pathList.sort(
 			function(a,b)
@@ -53,7 +80,9 @@ PathAnalyzer.prototype.createPathList = function ()
 	{
 		var path = this.pathList[i];
 		if (!prevPath || prevPath.elements.length!=path.elements.length)
+		{
 			list.push(path);
+		}
 		prevPath = path;
 	}
 	return list; 
@@ -74,7 +103,7 @@ PathAnalyzer.prototype.scan = function (index, seq)
 	//Add Nothing
 	if (index>0 && seq.length<PathAnalyzer.SEQ_LIMIT && this.ancestors.length>index+1)
 		this.scan(index+1, PathAnalyzer.cloneArray(seq));
-	if (current.node.id) {
+	if (this.rootNode==document.body && current.node.id) {
 		var cloneSeq = PathAnalyzer.cloneArray(seq);
 		cloneSeq.push({path:this.builder.getIdExpression(current.node.id),index:index, hasId:true});
 		this.addSeq(cloneSeq);

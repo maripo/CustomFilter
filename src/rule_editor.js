@@ -2,15 +2,15 @@ var selectedNode = null;
 var origStyle = null;
 var origHref = null;
 
-var KEY_CODE_RETURN = 13;
 
 /**
  * RuleEditor
  */
-var RuleEditor = function (rule, src) 
+var RuleEditor = function (rule, src, appliedRuleList) 
 {
 	this.rule = (rule)?rule:Rule.createInstance();
 	this.src = src;
+	this.appliedRuleList = appliedRuleList;
 };
 RuleEditor.prototype.initialize = function () 
 {
@@ -58,7 +58,7 @@ RuleEditor.prototype.getOnMouseoverAction = function (node)
 			}
 			return;
 		}
-        event.stopPropagation();
+		event.stopPropagation();
 		event.preventDefault();
 	}
 };
@@ -86,7 +86,7 @@ RuleEditor.prototype.getOnClickAction = function (node)
 			var list = analyzer.createPathList();
 			self.pathPickerDialog.show(event, list, self.ruleEditorDialog.pathPickerTarget);
 		}
-        event.stopPropagation();
+		event.stopPropagation();
 		event.preventDefault();
 	}
 };
@@ -191,8 +191,10 @@ RuleEditor.prototype.applyInput = function ()
 };
 RuleEditor.prototype.addWord = function(wordStr)
 {
+	console.log("addWord 1 word=" + wordStr);
 	if (!wordStr || ''==wordStr) return; //Empty
 	var word = new Word();
+	console.log("addWord 2");
 	
 	word.word = wordStr;
 	word.isNew = 'true';
@@ -217,6 +219,7 @@ RuleEditor.prototype.addWord = function(wordStr)
 };
 
 RuleEditor.prototype.getWordElement = function (word) 
+<<<<<<< HEAD
 {	
 	var span = document.createElement('SPAN');
 	
@@ -234,25 +237,21 @@ RuleEditor.prototype.getWordElement = function (word)
 	span.appendChild(deleteButton);
 	
 	return span;
+=======
+{
+	return CustomBlockerUtil.createWordElement(word, this.getWordDeleteAction(word));
+>>>>>>> quick_rule_creation
 };
-RuleEditor.prototype.getWordDeleteAction = function (word, span) 
+RuleEditor.prototype.getWordDeleteAction = function (word) 
 {
 	var self = this;
-	return function () 
+	return function (span) 
 	{
 		span.parentNode.removeChild(span);
 		word.deleted = true;
 		word.dirty = true;
 	};
 };
-
-function applyCss (path) 
-{
-	var cssNode = document.createElement('LINK');
-	cssNode.rel = "stylesheet";
-	cssNode.href = chrome.extension.getURL(path);
-	document.getElementsByTagName('HEAD')[0].appendChild(cssNode);
-}
 
 /**
  * RuleEditorDialog
@@ -273,9 +272,9 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	document.body.appendChild(this.div);
 	this.div.innerHTML = src;
 	
-	applyCss('/rule_editor.css');
-	applyCss('/rule_editor_cursor.css');
-	
+	CustomBlockerUtil.applyCss('/rule_editor.css');
+	CustomBlockerUtil.applyCss('/keywords.css');
+	CustomBlockerUtil.applyCss('/rule_editor_cursor.css');	
 	
 	this.div.avoidStyle = true;
 	
@@ -322,7 +321,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	else 
 	{
 		
-		document.getElementById('rule_editor_site_regexp').value = this.getSuggestedSiteRegexp();
+		document.getElementById('rule_editor_site_regexp').value = CustomBlockerUtil.getSuggestedSiteRegexp();
 		document.getElementById('rule_editor_site_description').value = document.title;
 		document.getElementById('rule_editor_title').value = document.title;
 		document.getElementById('rule_editor_example_url').value = location.href;
@@ -379,6 +378,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	document.getElementById('rule_editor_add_keyword_button').addEventListener ('click',
 		function()
 		{
+			document.getElementById('rule_editor_keyword').style.backgroundColor = 'yellow'
 			window.ruleEditor.addWord(document.getElementById('rule_editor_keyword').value);
 			document.getElementById('rule_editor_keyword').value = '';
 		}, 
@@ -576,15 +576,24 @@ RuleEditorDialog.prototype.getOnMouseupAction = function ()
 	var self = this;
 	return function (event) 
 	{
-		self.moving = false;
+		if (self.moving)
+			self.moving = false;
+		else
+		{
+			self.processSelection(event);
+		}
 	}
 };
-RuleEditorDialog.prototype.getSuggestedSiteRegexp = function () 
+/**
+ * Add selected text to 'keyword' textbox
+ */
+RuleEditorDialog.prototype.processSelection = function (event)
 {
-	var str = location.href.replace(new RegExp('http(s|)://'),'');
-	var metaChars = new RegExp('[\\\\^\\.\\$\\*\\?\\|\\(\\)\\[\\]\\{\\}]','g');
-	str = str.replace(metaChars, function (a,b){return '\\'+a});
-	return str;
+	if (null==document.getSelection()) 
+		return;
+	if (document.getElementById('rule_editor_keyword') == event.srcElement)
+		return;
+	document.getElementById('rule_editor_keyword').value = document.getSelection().toString();
 };
 /**
  * PathPickerDialog
@@ -753,12 +762,6 @@ RuleElement.appendFunctions = function (element)
 	element.tmpSelectForSearch = RuleElement.getTmpSelectForSearchFunc(element);
 	element.tmpUnselect = RuleElement.getTmpUnselectFunc(element);
 };
-RuleElement.STYLE_FOCUS_FOR_HIDE = 'solid 2px red';
-RuleElement.STYLE_FOCUS_FOR_SEARCH = 'solid 2px blue';
-RuleElement.STYLE_TMP_SELECT_FOR_HIDE = 'dotted 2px red';
-RuleElement.STYLE_TMP_SELECT_FOR_SEARCH = 'dotted 2px blue';
-RuleElement.STYLE_SELECT_FOR_HIDE = 'solid 1px red';
-RuleElement.STYLE_SELECT_FOR_SEARCH = 'solid 1px blue';
 
 RuleElement.getFocusForHideFunc = function (element) 
 {
@@ -766,7 +769,7 @@ RuleElement.getFocusForHideFunc = function (element)
 	{
 		// Save
 		element.isFocusedForHide = true;
-		element.style.outline = RuleElement.STYLE_FOCUS_FOR_HIDE;
+		element.style.outline = ElementHighlighter.STYLE_FOCUS_FOR_HIDE;
 	};
 };
 RuleElement.getFocusForSearchFunc = function (element) 
@@ -777,7 +780,7 @@ RuleElement.getFocusForSearchFunc = function (element)
 		if (null==element.originalStyle)
 			element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 		element.isFocusedForHide = true;
-		element.style.outline = RuleElement.STYLE_FOCUS_FOR_SEARCH;
+		element.style.outline = ElementHighlighter.STYLE_FOCUS_FOR_SEARCH;
 	};
 };
 RuleElement.getUnfocusFunc = function (element) 
@@ -786,9 +789,9 @@ RuleElement.getUnfocusFunc = function (element)
 	{
 		element.isFocusedForHide = false;
 		if (element.isSelectedForHide) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
+			element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_HIDE;
 		else if (element.isSelectedForSearch) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
+			element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_SEARCH;
 		selectedNode.style.outline = element.originalStyle;
 	};
 };
@@ -800,7 +803,7 @@ RuleElement.getTmpSelectForHideFunc = function (element)
 		if (null==element.originalStyle)
 			element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 		element.isTmpSelectedForHide = true;
-		element.style.outline = RuleElement.STYLE_TMP_SELECT_FOR_HIDE;
+		element.style.outline = ElementHighlighter.STYLE_TMP_SELECT_FOR_HIDE;
 	};
 };
 
@@ -811,7 +814,7 @@ RuleElement.getTmpSelectForSearchFunc = function (element)
 		if (null==element.originalStyle)
 			element.originalStyle = (null!=element.style.outline)?element.style.outline:"";
 		element.isTmpSelectedForSearch = true;
-		element.style.outline = RuleElement.STYLE_TMP_SELECT_FOR_SEARCH;
+		element.style.outline = ElementHighlighter.STYLE_TMP_SELECT_FOR_SEARCH;
 	};
 }
 RuleElement.getTmpUnselectFunc = function (element) 
@@ -821,9 +824,9 @@ RuleElement.getTmpUnselectFunc = function (element)
 		element.isTmpSelectedForHide = false;
 		element.isTmpSelectedForSearch = false;
 		if (element.isSelectedForHide) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_HIDE;
+			element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_HIDE;
 		else if (element.isSelectedForSearch) 
-			element.style.outline = RuleElement.STYLE_SELECT_FOR_SEARCH;
+			element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_SEARCH;
 		element.style.outline = element.originalStyle;
 	};
 };

@@ -1,4 +1,5 @@
 var CustomBlockerUtil = {};
+var KEY_CODE_RETURN = 13;
 CustomBlockerUtil.regExpAmp = new RegExp('&','g'); // &amp;
 CustomBlockerUtil.regExpLt = new RegExp('<','g'); // &lt;
 CustomBlockerUtil.regExpGt = new RegExp('>','g'); // &gt;
@@ -13,11 +14,19 @@ CustomBlockerUtil.escapeHTML = function (str)
 CustomBlockerUtil.getElementsByXPath = function (xpath)
 {
 	var list = new Array();
-	var result = document.evaluate(xpath, document, null, XPathResult.ANY_TYPE, null);
-	var node;
-	while (node = result.iterateNext()) 
+	
+	try
 	{
-		list.push(node);
+		var result = document.evaluate(xpath, document, null, XPathResult.ANY_TYPE, null);
+		var node;
+		while (node = result.iterateNext()) 
+		{
+			list.push(node);
+		}
+	}
+	catch (ex)
+	{
+		console.log(ex);
 	}
 	return list;
 };
@@ -25,7 +34,8 @@ CustomBlockerUtil.getElementsByCssSelector = function (selector)
 {
 	try
 	{
-		return document.querySelectorAll(selector);
+		var list = document.querySelectorAll(selector);
+		return (list)?list:new Array();
 	}
 	catch (ex)
 	{
@@ -49,6 +59,7 @@ CustomBlockerUtil.xpathToCss = function (str)
 	if (REGEX_FAIL.test(xpath)) return null;
 	return xpath;
 }
+
 CustomBlockerUtil.WIDTH_PER_LETTER = 10;
 CustomBlockerUtil.shorten = function (text, limit)
  {
@@ -74,6 +85,7 @@ CustomBlockerUtil.shorten = function (text, limit)
  	document.body.removeChild(span);
  	return resultText;
  };
+ 
 CustomBlockerUtil.getRelativeElementsByXPath = function(targetNode, xpath)
 {
 	var list = new Array();
@@ -93,12 +105,27 @@ CustomBlockerUtil.getRelativeElementsByXPath = function(targetNode, xpath)
 	}
 	return list;
 };
+CustomBlockerUtil.arrayEquals = function (array0, array1)
+{
+	if (!array0 || !array1 || array0.length!=array1.length) 
+	{
+		return false;
+	}
+	for (var i=0, l=array0.length; i<l; i++)
+	{
+		if (array0[i] != array1[i])
+			return false;
+	}
+	return true;
+};
 CustomBlockerUtil.arrayContains = function (array, str) 
 {
-	for (var i=0, l=array.length; i<l; i++) if (str==array[i]) return true;
+	for (var i=0, l=array.length; i<l; i++) 
+	{
+		if (str==array[i]) return true;
+	}
 	return false;
 };
-
 
 CustomBlockerUtil.isEmpty = function (str) 
 {
@@ -152,13 +179,121 @@ CustomBlockerUtil.trim = function (str)
 {
 	return str.replace(/^[\s　]+|[\s　]+$/g, '');
 };
+
+
+CustomBlockerUtil.applyCss = function (path) 
+{
+	var cssNode = document.createElement('LINK');
+	cssNode.rel = "stylesheet";
+	cssNode.href = chrome.extension.getURL(path);
+	document.getElementsByTagName('HEAD')[0].appendChild(cssNode);
+};
+/**
+ * Return true if targetNode is contained in or equal to ancestorNode
+ */
 CustomBlockerUtil.isContained = function (targetNode, ancestorNode)
 {
 	if (!ancestorNode || !targetNode) return false;
 	var node = targetNode;
-	while (node && document.body!=node) {
+	while (node && document.body!=node) 
+	{
 		if (node == ancestorNode) return true;
 		node = node.parentNode;
 	}
 	return false;
+};
+/**
+ * Return an element which contains all elements
+ */
+CustomBlockerUtil.getCommonAncestor = function (elements) 
+{
+	var element = elements[0];
+	while (element && document.body!=element)
+	{
+		var containsAll = true;
+		for (var i=1; i<elements.length; i++)
+		{
+			if (!CustomBlockerUtil.isContained(elements[i], element))
+				containsAll = false;
+		}
+		if (containsAll) return element;
+		element = element.parentNode; 
+	}
+	return document.body;
+};
+
+CustomBlockerUtil.clearChildren = function (element)
+{
+	while (element.childNodes.length > 0)
+	{
+		element.removeChild(element.childNodes[element.childNodes.length-1]);
+	}
+};
+/**
+ * Return list of siblings with same tag name
+ */
+CustomBlockerUtil.getSimilarSiblings = function (element)
+{
+	var parent = element.parentNode;
+	if (!parent) return new Array();
+	var similarSiblings = new Array();
+	var siblings = parent.childNodes;
+	for (var i=0, l=siblings.length; i<l; i++)
+	{
+		if (siblings[i].tagName == element.tagName && siblings[i] != element)
+			similarSiblings.push(siblings[i]);
+	}
+	return similarSiblings;
+};
+
+CustomBlockerUtil.getContainedElements = function (ancestorElements, elements)
+{
+	var containedElements = new Array();
+	for (var index=0; index<elements.length; index++)
+	{
+		var element = elements[index];
+		for (var ancestorIndex=0; ancestorIndex<ancestorElements.length; ancestorIndex++)
+		{
+			if (CustomBlockerUtil.isContained (element, ancestorElements[ancestorIndex]))
+			{
+				containedElements.push(element);
+				break;
+			}
+		}
+	}	 
+	return containedElements;
+};
+CustomBlockerUtil.getSuggestedSiteRegexp = function ()
+{
+	var str = location.href.replace(new RegExp('http(s|)://'),'');
+	var metaChars = new RegExp('[\\\\^\\.\\$\\*\\?\\|\\(\\)\\[\\]\\{\\}]','g');
+	str = str.replace(metaChars, function (a,b){return '\\'+a});
+	return str;
+};
+
+CustomBlockerUtil.createWordElement = function (word, deleteCallback /* function(span) */)
+{
+	var span = CustomBlockerUtil.createSimpleWordElement(word);
+	var deleteButton = document.createElement('A');
+	
+	deleteButton.avoidStyle = true;
+	deleteButton.className = 'deleteButton';
+	deleteButton.href = 'javascript:void(0)'
+	deleteButton.innerHTML = ' [x] '
+	deleteButton.addEventListener('click', function(){deleteCallback(span)}, true);
+	
+	span.appendChild(deleteButton);
+	
+	return span;
+};
+CustomBlockerUtil.createSimpleWordElement = function (word)
+{
+	var span = document.createElement('SPAN');
+	
+	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
+	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
+	span.avoidStyle = true;
+	
+	return span;
+
 };

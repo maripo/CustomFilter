@@ -104,12 +104,12 @@ function openRulePicker (selectedRule)
 				src: rulePickerSrc,
 				rule: selectedRule,
 				appliedRuleList: appliedRuleMap[tab.id]
-			}, getRulePickerOnCommandFunc(tab.id));
+			}, getRulePickerOnCommandFunc(tab.id, false));
 		});
 	} 
 	catch (ex) {console.log(ex)}
 }
-function getRulePickerOnCommandFunc (tabId)
+function getRulePickerOnCommandFunc (tabId, bySmartRuleCreator)
 {
 	return function (command)
 	{
@@ -119,7 +119,7 @@ function getRulePickerOnCommandFunc (tabId)
 			if ('save' == command.command) 
 			{
 				var rule =command.obj;
-				var saveRuleTask = new SaveRuleTask(rule, reloadLists, tabId);
+				var saveRuleTask = new SaveRuleTask(rule, reloadLists, tabId, bySmartRuleCreator);
 				saveRuleTask.exec();
 			}
 				
@@ -136,8 +136,9 @@ function getRulePickerOnCommandFunc (tabId)
 		{
 			chrome.tabs.sendRequest(tab.id, 
 			{
-				command: 'ruleEditorRegister'
-			}, getRulePickerOnCommandFunc(tab.id));
+				command: 'ruleEditorRegister',
+				bySmartRuleCreator: bySmartRuleCreator
+			}, getRulePickerOnCommandFunc(tab.id, bySmartRuleCreator));
 		});
 		
 	}
@@ -181,19 +182,20 @@ var tabOnUpdate = function(tabId, changeInfo, tab)
 	}
 }
 
-function getAppliedRules (cb) 
+function getAppliedRules (callback) 
 {
 	chrome.tabs.getSelected(null,function(tab)
 	{
 		try 
 		{
-			cb(appliedRuleMap[tab.id]);
+			callback(appliedRuleMap[tab.id]);
 		} 
 		catch (ex) {console.log(ex)}
 	});
 	
 }
 var rulePickerSrc = '';
+var smartRuleEditorSrc = '';
 function loadRulePickerSrc()
 {
 	var xhr = new XMLHttpRequest();
@@ -204,16 +206,33 @@ function loadRulePickerSrc()
 			if (xhr.status==0 || xhr.status==200) 
 			{
 				rulePickerSrc = xhr.responseText;
+				loadSmartRuleEditorSrc();
 			}
 		}
-		
 	}
 	xhr.open("GET", chrome.extension.getURL('/rule_editor_'+chrome.i18n.getMessage("extLocale")+'.html'), true);
 	xhr.send();
 }
-
-var SaveRuleTask = function (rule, reloadLists, tabId) 
+function loadSmartRuleEditorSrc()
 {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function()
+	{
+		if (xhr.readyState==4) 
+		{
+			if (xhr.status==0 || xhr.status==200) 
+			{
+				smartRuleEditorSrc = xhr.responseText;
+			}
+		}
+	}
+	xhr.open("GET", chrome.extension.getURL('/smart_rule_editor_'+chrome.i18n.getMessage("extLocale")+'.html'), true);
+	xhr.send();
+}
+
+var SaveRuleTask = function (rule, reloadLists, tabId, bySmartRuleCreator) 
+{
+	this.bySmartRuleCreator = bySmartRuleCreator;
 	var saveWords = new Array();
 	var deleteWords = new Array();
 	
@@ -237,7 +256,6 @@ var SaveRuleTask = function (rule, reloadLists, tabId)
 	this.deleteWords = deleteWords;
 	
 	this.reloadLists /* function */ = reloadLists;
-	//すべてがおわったらreloadListsを実行する				
 };
 SaveRuleTask.prototype.exec = function () 
 {
@@ -266,7 +284,8 @@ SaveRuleTask.prototype.getNextTask = function ()
 			command:'ruleSaveDone',
 			rules: ruleList,
 			tabId: self.tabId,
-			rule: self.rule
+			rule: self.rule,
+			bySmartRuleCreator: self.bySmartRuleCreator
 		}
 		, getRulePickerOnCommandFunc(self.tabId)
 		);
@@ -414,3 +433,23 @@ function getBadgeTooltipString (count)
 }
 chrome.tabs.customBlockerOnUpdateSet = true;
 onStart();
+
+function onRightClick(clicked, tab) {
+	chrome.tabs.sendRequest(
+		tab.id, 
+		{
+			command: 'quickRuleCreation',
+			src: smartRuleEditorSrc,
+			appliedRuleList: appliedRuleMap[tab.id],
+			selectionText: clicked.selectionText
+		}, 
+		getRulePickerOnCommandFunc(tab.id, true)
+	);
+}
+
+var contexts = ["all"];
+for (var i = 0; i < contexts.length; i++) {
+	var context = contexts[i];
+	var menuId = chrome.contextMenus.create({"title": chrome.i18n.getMessage('menuCreateRule'), "contexts":[context],
+		"onclick": onRightClick});
+}

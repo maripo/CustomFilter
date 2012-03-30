@@ -6,18 +6,18 @@
 <body>
 -->
 <div id="smart_rule_editor_preview">
-	<h3 id="smart_rule_editor_preview_title">Rule Title</h3>
+	<h3 id="smart_rule_editor_preview_title">タイトル</h3>
 	<div class="path_body">
 		<img id="smart_rule_editor_path_img"/>
 		<div class="path_section">
-			<div class="title">Elements to Hide</div>
+			<div class="title">隠す要素</div>
 			<div class="detail">
 				<div class="count" id="smart_rule_editor_preview_hide_count">18</div>
 				<div class="path" id="smart_rule_editor_preview_hide_path">DIV.hoge DIV.fuga</div>
 			</div>
 		</div>
 		<div class="path_section">
-			<div class="title">Elements to Search</div>
+			<div class="title">検索する要素</div>
 			<div class="detail">
 				<div class="count" id="smart_rule_editor_preview_search_count">26</div>
 				<div class="path" id="smart_rule_editor_preview_search_path">DIV.hoge DIV.fuga</div>
@@ -34,29 +34,29 @@
 </div>
 <div id="smart_rule_editor_body">
 	<div class="section">
-		<div class="label">Title</div>
+		<div class="label">タイトル</div>
 		<div class="input"><input type="text" id="smart_rule_editor_title"/></div>
 	</div>
 	<div class="section">
-		<div class="label">URL RegExp</div>
+		<div class="label">URL(正規表現)</div>
 		<div class="input"><input type="text" id="smart_rule_editor_url"/></div>
 	</div>
 	<div class="section_detail_link">
-		<a href="javascript:void(0)" id="smart_rule_editor_advanced_link">[Show detail]</a>
+		<a href="javascript:void(0)" id="smart_rule_editor_advanced_link">詳細を表示</a>
 	</div>
 	<div class="section advanced" id="smart_rule_editor_advanced" style="display:none">
 		<!-- Example URL & Memo -->
 		<div class="section">
-			<div class="label">Example URL</div>
+			<div class="label">URL例</div>
 			<div class="input"><input type="text" id="smart_rule_editor_example_url"/></div>
 		</div>
 		<div class="section">
-			<div class="label">Description</div>
+			<div class="label">説明</div>
 			<div class="input"><input type="text" id="smart_rule_editor_site_description"/></div>
 		</div>
 		<!-- Path Expression -->
 		<div class="section">
-			<div class="label">Elements to Search</div>
+			<div class="label">検索する要素</div>
 			<div>
 				<input type="radio" id="smart_rule_editor_radio_search_xpath" name="smart_rule_editor_radio_search"/>
 				<label for="smart_rule_editor_radio_search_xpath">XPath</label>
@@ -72,11 +72,11 @@
 			</div>
 		</div>
 		<div class="section">
-			<div class="label">Description</div>
+			<div class="label">説明</div>
 			<div class="input"><input type="text" id="smart_rule_editor_search_block_description"/></div>
 		</div>
 		<div class="section">
-			<div class="label">Elements to Hide</div>
+			<div class="label">隠す要素</div>
 			<div>
 				<input type="radio" id="smart_rule_editor_radio_hide_xpath" name="smart_rule_editor_radio_hide"/>
 				<label for="smart_rule_editor_radio_hide_xpath">XPath</label>
@@ -92,16 +92,16 @@
 			</div>
 		</div>
 		<div class="section">
-			<div class="label">Description</div>
+			<div class="label">説明</div>
 			<div class="input"><input type="text" id="smart_rule_editor_hide_block_description"/></div>
 		</div>
 	</div>
 	<div class="section">
-		<div class="label">Keywords</div>
+		<div class="label">NGワード</div>
 		<div class="input">
 			<input type="text" id="smart_rule_editor_keyword"/>
 			<input type="button" value="Add" id="smart_rule_editor_keyword_add"/>
-			<input type="checkbox" id="smart_rule_editor_keyword_regexp"/><label for="smart_rule_editor_keyword_regexp">RegExp</label>
+			<input type="checkbox" id="smart_rule_editor_keyword_regexp"/><label for="smart_rule_editor_keyword_regexp">正規表現</label>
 		</div>
 		<div id="rule_editor_keywords"></div>
 	</div>
@@ -109,8 +109,8 @@
 		<!-- Alert Message -->
 	</div>
 	<div class="section">
-		<input type="button" value="Save" id="smart_rule_editor_save"/>
-		<input type="button" value="Cancel" id="smart_rule_editor_cancel"/>
+		<input type="button" value="保存" id="smart_rule_editor_save"/>
+		<input type="button" value="キャンセル" id="smart_rule_editor_cancel"/>
 	</div>
 </div>
 <!--

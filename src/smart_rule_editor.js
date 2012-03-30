@@ -103,7 +103,6 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 	this.advancedSectionVisible = false;
 	
 	document.getElementById('smart_rule_editor_save').addEventListener('click', this.getSaveAction(), true);
-	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);
 	document.getElementById('smart_rule_editor_keyword_add').addEventListener('click', this.getAddKeywordAction(), true);
 	document.getElementById('smart_rule_editor_advanced_link').addEventListener('click', this.getToggleAdvancedAction(), true);
 	
@@ -112,8 +111,23 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 	document.getElementById('smart_rule_editor_radio_hide_css').addEventListener('change', this.setPathInputVisibility, true);
 	document.getElementById('smart_rule_editor_radio_hide_xpath').addEventListener('change', this.setPathInputVisibility, true);
 
-	
+	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);
 	document.getElementById('smart_rule_editor_keyword').addEventListener ('keydown', this.getAddWordAction(), true);
+};
+SmartRuleCreatorDialog.prototype.getCancelAction = function ()
+{
+	var self = this;
+	return function (e)
+	{
+		self.isEditing = false;
+		self.ruleSelected = false;
+		self.isEditing = false;
+		self.activeLiElement.className = 'option';
+		self.ul.className = 'active';
+		self.activeLiElement = null;
+		document.getElementById('smart_rule_editor_preview').style.display = 'block';
+		document.getElementById('smart_rule_editor_body').style.display = 'none';
+	};
 };
 SmartRuleCreatorDialog.prototype.getAddWordAction = function ()
 {
@@ -125,7 +139,7 @@ SmartRuleCreatorDialog.prototype.getAddWordAction = function ()
 			self.addWord(document.getElementById('smart_rule_editor_keyword').value);
 			document.getElementById('smart_rule_editor_keyword').value = '';
 		}
-	}
+	};
 };
 SmartRuleCreatorDialog.prototype.getToggleAdvancedAction  = function ()
 {
@@ -201,14 +215,6 @@ SmartRuleCreatorDialog.prototype.applyInput = function ()
 	this.rule.hide_block_xpath = document.getElementById('smart_rule_editor_hide_block_xpath').value;
 	this.rule.hide_block_css = document.getElementById('smart_rule_editor_hide_block_css').value;
 	this.rule.hide_block_description = document.getElementById('smart_rule_editor_hide_block_description').value;
-};
-SmartRuleCreatorDialog.prototype.getCancelAction  = function ()
-{
-	return function (event)
-	{
-		console.log("TODO cancel");
-	}
-
 };
 SmartRuleCreatorDialog.prototype.onSaveDone = function (rule)
 {
@@ -345,6 +351,10 @@ SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule, li
 	var self = this;
 	return function (event)
 	{
+		if (self.isEditing)
+			return;
+		self.isEditing = true;
+		self.activeLiElement = li;
 		li.className = 'option selected';
 		self.rule = rule;
 		self.showEdit(li);
@@ -384,6 +394,10 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path, l
 	var self = this;
 	return function (event)
 	{
+		if (self.isEditing)
+			return;
+		self.isEditing = true;
+		self.activeLiElement = li;
 		li.className = 'option selected';
 		self.rule = self.createRuleByPath(path);
 		self.showEdit(li);

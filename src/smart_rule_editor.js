@@ -190,6 +190,9 @@ SmartRuleCreatorDialog.prototype.onSaveDone = function (rule)
 	}
 	this.showMessage(chrome.i18n.getMessage('saveDone'));
 };
+/**
+ * Create and show list of applied rules and suggested paths
+ */
 SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, target, event)
 {
 	CustomBlockerUtil.clearChildren(this.ul);
@@ -212,7 +215,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			this.ul.appendChild(li);
 		}
 	}
-	{
+	if (creator.suggestedPathList && creator.suggestedPathList.length>0){
 		var li = document.createElement('LI');
 		li.innerHTML = chrome.i18n.getMessage('ruleEditorNewRules');
 		li.className = 'smartEditorSectionTitle';
@@ -235,7 +238,11 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	var _top = event.clientY + document.body.scrollTop;
 	this.div.style.left = _left + 'px';
 	this.div.style.top = _top + 'px';
-	
+	// Set "avoidStyle" flags not to be highlighted.
+	var divElements = this.div.getElementsByTagName('*');
+	divElements.push(this.div);
+	for (var i=0; i<divElements.length; i++)
+		divElements[i].avoidStyle = true;
 };
 SmartRuleCreatorDialog.prototype.createLiElement = function (title, hideCount, searchCount)
 {

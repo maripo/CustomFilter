@@ -15,7 +15,7 @@
 	font-weight:normal!important;
 	text-align:left!important;
 	text-indent:0px!important;
-	-webkit-box-shadow: 1px 1px 3px #000; 
+	-webkit-box-shadow: 1px 1px 2px #000; 
 	width:180px;
 	border:solid 1px #888;
 }
@@ -75,8 +75,9 @@
 }
 #smart_rule_creator_dialog li.smartEditorSectionTitle {
 	outline-top: solid 1px #ffffff;
-	outline-bottom:solid 1px #cccccc;
-	background: -webkit-gradient(linear, center top, center bottom, from(#f8f8f8), to(#dddddd))!important;
+	outline-bottom:solid 1px #004488;
+	background: -webkit-gradient(linear, center top, center bottom, from(#99aaff), to(#6688dd))!important;
+	color:white;
 }
 #smart_rule_creator_dialog_edit {
 	background-color:white;
@@ -84,7 +85,7 @@
 	width:360px;
 	border-radius:12px!important;
 	border:solid 1px #888;
-	-webkit-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 2px #000;
 	padding:4px!important;
 }
 

@@ -13,11 +13,19 @@ CustomBlockerUtil.escapeHTML = function (str)
 CustomBlockerUtil.getElementsByXPath = function (xpath)
 {
 	var list = new Array();
-	var result = document.evaluate(xpath, document, null, XPathResult.ANY_TYPE, null);
-	var node;
-	while (node = result.iterateNext()) 
+	
+	try
 	{
-		list.push(node);
+		var result = document.evaluate(xpath, document, null, XPathResult.ANY_TYPE, null);
+		var node;
+		while (node = result.iterateNext()) 
+		{
+			list.push(node);
+		}
+	}
+	catch (ex)
+	{
+		console.log(ex);
 	}
 	return list;
 };
@@ -25,7 +33,8 @@ CustomBlockerUtil.getElementsByCssSelector = function (selector)
 {
 	try
 	{
-		return document.querySelectorAll(selector);
+		var list = document.querySelectorAll(selector);
+		return (list)?list:new Array();
 	}
 	catch (ex)
 	{

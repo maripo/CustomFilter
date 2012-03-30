@@ -252,9 +252,9 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	document.body.appendChild(this.div);
 	this.div.innerHTML = src;
 	
-	CustomBlockerUtil.applyCss('/rule_editor.css');
-	CustomBlockerUtil.applyCss('/keywords.css');
-	CustomBlockerUtil.applyCss('/rule_editor_cursor.css');	
+	CustomBlockerUtil.applyCss('/css/rule_editor.css');
+	CustomBlockerUtil.applyCss('/css/keywords.css');
+	CustomBlockerUtil.applyCss('/css/rule_editor_cursor.css');	
 	
 	this.div.avoidStyle = true;
 	

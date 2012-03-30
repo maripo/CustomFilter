@@ -4,8 +4,8 @@
  */
 var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText)
 {
-	CustomBlockerUtil.applyCss('/smart_rule_editor.css');
-	CustomBlockerUtil.applyCss('/keywords.css');
+	CustomBlockerUtil.applyCss('/css/smart_rule_editor.css');
+	CustomBlockerUtil.applyCss('/css/keywords.css');
 	this.appliedRuleList = appliedRuleList;
 	this.targetElement = targetElement;
 	this.selectionText = selectionText;

@@ -99,11 +99,18 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 	}
 	document.getElementById('smart_rule_editor_body').style.display = 'none';
 	document.getElementById('smart_rule_editor_path_img').src = chrome.extension.getURL('/img/smart_path_preview_img.png');
+	
 	this.advancedSectionVisible = false;
+	
 	document.getElementById('smart_rule_editor_save').addEventListener('click', this.getSaveAction(), true);
 	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);
 	document.getElementById('smart_rule_editor_keyword_add').addEventListener('click', this.getAddKeywordAction(), true);
 	document.getElementById('smart_rule_editor_advanced_link').addEventListener('click', this.getToggleAdvancedAction(), true);
+	
+	document.getElementById('smart_rule_editor_radio_search_css').addEventListener('change', this.setPathInputVisibility, true);
+	document.getElementById('smart_rule_editor_radio_search_xpath').addEventListener('change', this.setPathInputVisibility, true);
+	document.getElementById('smart_rule_editor_radio_hide_css').addEventListener('change', this.setPathInputVisibility, true);
+	document.getElementById('smart_rule_editor_radio_hide_xpath').addEventListener('change', this.setPathInputVisibility, true);
 };
 
 SmartRuleCreatorDialog.prototype.getToggleAdvancedAction  = function ()
@@ -146,7 +153,6 @@ SmartRuleCreatorDialog.prototype.saveRule  = function ()
 		this.showMessage(validateErrors.join('<br/>'));
 		return;
 	}
-
 	this.applyInput();	
 	// Save
 	this.bgCallback({command:'save', type:'rule', obj: this.rule});
@@ -162,6 +168,7 @@ SmartRuleCreatorDialog.prototype.validate = function ()
 		search_block_xpath : document.getElementById('smart_rule_editor_search_block_xpath').value,
 		search_block_css : document.getElementById('smart_rule_editor_search_block_css').value,
 		search_block_description : document.getElementById('smart_rule_editor_search_block_description').value,
+		
 		hide_block_xpath : document.getElementById('smart_rule_editor_hide_block_xpath').value,
 		hide_block_css : document.getElementById('smart_rule_editor_hide_block_css').value,
 		hide_block_description : document.getElementById('smart_rule_editor_hide_block_description').value
@@ -404,13 +411,28 @@ SmartRuleCreatorDialog.prototype.showRule = function (rule)
 	document.getElementById('smart_rule_editor_hide_block_css').value = rule.hide_block_css;
 	document.getElementById('smart_rule_editor_hide_block_description').value = rule.hide_block_description;
 	CustomBlockerUtil.clearChildren(document.getElementById('rule_editor_keywords'));
+	document.getElementById((rule.search_block_by_css)?'smart_rule_editor_radio_search_css':'smart_rule_editor_radio_search_xpath').checked = true;
+	document.getElementById((rule.hide_block_by_css)?'smart_rule_editor_radio_hide_css':'smart_rule_editor_radio_hide_xpath').checked = true;
+	this.setPathInputVisibility();
+	
 	for (var i=0; i<rule.words.length; i++)
 	{
 		document.getElementById('rule_editor_keywords').appendChild(this.getWordElement(rule.words[i]));
 	}
 	document.getElementById('smart_rule_editor_title').focus();
 };
-
+SmartRuleCreatorDialog.prototype.setPathInputVisibility = function ()
+{
+	document.getElementById('smart_rule_editor_search_block_css').style.display
+		= (document.getElementById('smart_rule_editor_radio_search_css').checked)?'inline':'none';
+	document.getElementById('smart_rule_editor_search_block_xpath').style.display
+		= (document.getElementById('smart_rule_editor_radio_search_xpath').checked)?'inline':'none';
+		
+	document.getElementById('smart_rule_editor_hide_block_css').style.display
+		= (document.getElementById('smart_rule_editor_radio_hide_css').checked)?'inline':'none';
+	document.getElementById('smart_rule_editor_hide_block_xpath').style.display
+		= (document.getElementById('smart_rule_editor_radio_hide_xpath').checked)?'inline':'none';
+};
 SmartRuleCreatorDialog.prototype.getWordElement = function (word) 
 {
 	return CustomBlockerUtil.createWordElement(word, this.getWordDeleteAction(word));

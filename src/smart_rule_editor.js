@@ -80,6 +80,7 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 	this.div = document.createElement('DIV');
 	this.div.id = 'smart_rule_creator_dialog';
 	this.div.avoidStyle = true;
+	this.div.style.zIndex = _zIndex;
 	with (this.div.style) 
 	{
 		display = 'none';
@@ -92,7 +93,6 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 		var editDiv = document.createElement('DIV');
 		this.editDiv = editDiv;
 		editDiv.id = 'smart_rule_creator_dialog_edit';
-		editDiv.style.zIndex = _zIndex;
 		editDiv.style.display = 'none';
 		editDiv.innerHTML = this.smartRuleEditorSrc;
 		this.div.appendChild(editDiv);

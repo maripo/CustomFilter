@@ -1,4 +1,5 @@
 var CustomBlockerUtil = {};
+var KEY_CODE_RETURN = 13;
 CustomBlockerUtil.regExpAmp = new RegExp('&','g'); // &amp;
 CustomBlockerUtil.regExpLt = new RegExp('<','g'); // &lt;
 CustomBlockerUtil.regExpGt = new RegExp('>','g'); // &gt;

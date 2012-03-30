@@ -111,8 +111,22 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 	document.getElementById('smart_rule_editor_radio_search_xpath').addEventListener('change', this.setPathInputVisibility, true);
 	document.getElementById('smart_rule_editor_radio_hide_css').addEventListener('change', this.setPathInputVisibility, true);
 	document.getElementById('smart_rule_editor_radio_hide_xpath').addEventListener('change', this.setPathInputVisibility, true);
-};
 
+	
+	document.getElementById('smart_rule_editor_keyword').addEventListener ('keydown', this.getAddWordAction(), true);
+};
+SmartRuleCreatorDialog.prototype.getAddWordAction = function ()
+{
+	var self = this;
+	return function(e)
+	{
+		if (KEY_CODE_RETURN==e.keyCode) 
+		{
+			self.addWord(document.getElementById('smart_rule_editor_keyword').value);
+			document.getElementById('smart_rule_editor_keyword').value = '';
+		}
+	}
+};
 SmartRuleCreatorDialog.prototype.getToggleAdvancedAction  = function ()
 {
 	var self = this;

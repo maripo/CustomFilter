@@ -341,9 +341,9 @@ SmartRuleCreatorDialog.prototype.previewExistingRule = function (rule)
 	CustomBlockerUtil.clearChildren(document.getElementById('smart_rule_editor_preview_keywords'));
 	for (var i=0; i<rule.words.length; i++)
 	{
-		document.getElementById('smart_rule_editor_preview_keywords').appendChild(
-			CustomBlockerUtil.createSimpleWordElement(rule.words[i])
-			);
+		var keywordsDiv = document.getElementById('smart_rule_editor_preview_keywords');
+		keywordsDiv.appendChild(CustomBlockerUtil.createSimpleWordElement(rule.words[i]));
+		keywordsDiv.appendChild(document.createTextNode(' '));
 	}
 };
 SmartRuleCreatorDialog.prototype.getExistingRuleClickAction = function (rule, li)

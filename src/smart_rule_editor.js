@@ -311,7 +311,7 @@ SmartRuleCreatorDialog.prototype.showEdit = function (liElement)
 			this.div.clientWidth : -this.editDiv.clientWidth-4) 
 		+ 'px';
 };
-SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH = 26;
+SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH = 28;
 /**
  * Test & Select Existing Rules
  */

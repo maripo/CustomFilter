@@ -34,13 +34,16 @@
 #smart_rule_creator_dialog label {
 	font-size:85%!important;
 	display:inline;
+	float:initial;
+	color:black;
 }
 /**
  * Rule List
 */
 #smart_rule_creator_dialog li.option {
-	text-indent:4px!important;
+	text-indent:2px!important;
 	cursor:default!important;
+	padding-top:1px!important;
 }
 #smart_rule_creator_dialog li.option:nth-child(odd) {
 	background-color:#fff;
@@ -60,10 +63,11 @@
 	list-style-type:none!important;
 }
 /* Count badge */
-#smart_rule_creator_dialog li.option  span.searchCount {
-	background-color:#f00;
-	border:solid 1px #a00;
+#smart_rule_creator_dialog li.option span.searchCount {
+	background-color:#00f;
+	border:solid 1px #00a;
 	color:white;
+	font-size:9px;
 	border-radius:6px!important;
 	margin-right:2px!important;
 }
@@ -71,6 +75,8 @@
 	background-color:#888;
 	border:solid 1px #444;
 	color:white;
+	font-size:9px;
+	height:11px;
 	border-radius:6px!important;
 	margin-right:2px!important;
 }
@@ -79,6 +85,7 @@
 	outline-bottom:solid 1px #004488;
 	background: -webkit-gradient(linear, center top, center bottom, from(#99aaff), to(#6688dd))!important;
 	color:white;
+	padding-top:1px!important;
 }
 #smart_rule_creator_dialog_edit {
 	background-color:white;
@@ -107,7 +114,9 @@
 	font-size:75%;
 	float:left;
 	text-align:right;
-	padding-right:4px;
+	padding-right:4px!important;
+	font-weight:bold;
+	color:black;
 }
 #smart_rule_editor_body div.section div.input {
 	margin-left:120px;
@@ -119,6 +128,8 @@
 	border:solid 1px #888!important;
 	float:none!important;
 	box-shadow:none!important;
+	line-height:100%!important;
+	font-size:11px!important;
 }
 #smart_rule_editor_body input[type="button"] {
 	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
@@ -129,6 +140,7 @@
 	margin-left:2px!important;
 	height:initial!important;
 	text-align:center!important;
+	font-size:11px!important;
 }
 #smart_rule_editor_body input[type="button"]:active {
 	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
@@ -190,20 +202,29 @@
 	font-size:10px;
 	padding-right:2px;
 	font-weight:bold!important;
+	height:14px;
 }
 /* Hit count */
 #smart_rule_editor_preview div.detail div.count {
 	position:absolute;
-	left:10px;
+	left:4px;
 	top:0px;
-	height:14px;
-	width:18px;
+	height:12px;
+	width:21px;
 	text-align:center;
 	color:white;
-	font-size:10px;
+	font-size:9px;
+	line-height:12px;
 	border-radius:8px!important;
-	background-color:#f00;
-	border: solid 1px #d00;
+	font-weight:bold;
+}
+#smart_rule_editor_preview_hide_count {
+	background-color:#aaa;
+	border: solid 1px #444;
+}
+#smart_rule_editor_preview_search_count {
+	background-color:#00f;
+	border: solid 1px #00d;
 }
 /* Path expression */
 #smart_rule_editor_preview div.detail div.path {
@@ -217,7 +238,18 @@
 #smart_rule_editor_advanced_link {
 	font-sie:11px;
 	color:blue!important;
+	font-weight:normal;
 }
 div.section_detail_link {
 	text-align:right!important;
+}
+/**
+	Input fields
+*/
+
+#smart_rule_editor_title, #smart_rule_editor_url,#smart_rule_editor_example_url, #smart_rule_editor_site_description,
+#smart_rule_editor_search_block_css, #smart_rule_editor_search_block_xpath, #smart_rule_editor_search_block_description,
+#smart_rule_editor_hide_block_css, #smart_rule_editor_hide_block_xpath, #smart_rule_editor_hide_block_description
+ {
+	width:216px;
 }

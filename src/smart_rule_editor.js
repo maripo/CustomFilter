@@ -1,4 +1,3 @@
-
 /**
  * SmartRuleCreator
  */
@@ -11,6 +10,7 @@ var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText)
 	this.selectionText = selectionText;
 	this.scanExistingRules(); //ここでおちた!
 	this.createNewRules();
+	CustomBlockerUtil.enableFlashZIndex();
 };
 SmartRuleCreator.prototype.createNewRules = function ()
 {
@@ -286,7 +286,9 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	var divElements = this.div.getElementsByTagName('*');
 	this.div.avoidStyle = true;
 	for (var i=0; i<divElements.length; i++)
+	{
 		divElements[i].avoidStyle = true;
+	}
 };
 SmartRuleCreatorDialog.prototype.createLiElement = function (title, hideCount, searchCount)
 {

@@ -61,6 +61,7 @@
 	height:16px;
 	font-size:12px;
 	list-style-type:none!important;
+	list-style-image:none;
 }
 /* Count badge */
 #smart_rule_creator_dialog li.option span.searchCount {

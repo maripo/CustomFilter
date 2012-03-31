@@ -297,3 +297,28 @@ CustomBlockerUtil.createSimpleWordElement = function (word)
 	return span;
 
 };
+CustomBlockerUtil.enableFlashZIndex = function ()
+{
+	var embeds = document.getElementsByTagName('EMBED');
+	for (var i=0, l=embeds.length; i<l; i++)
+	{
+		var embed = embeds[i];
+		embed.setAttribute('wmode', 'transparent');
+		var param = document.createElement('PARAM');
+		param.name = 'wmode';
+		param.value = 'transparent';
+		if ('OBJECT'==embed.parentNode.tagName)
+		{
+			embed.parentNode.appendChild(param);
+		}
+		else 
+		{
+			// Wrap <embed> element with <object> element
+			var object = document.createElement('OBJECT');
+			object.appendChild(param);
+			embed.parentNode.appendChild(object);
+			object.appendChild(embed);
+		}
+	}
+};
+

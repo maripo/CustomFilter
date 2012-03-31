@@ -8,7 +8,7 @@ var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText)
 	this.appliedRuleList = appliedRuleList;
 	this.targetElement = targetElement;
 	this.selectionText = selectionText;
-	this.scanExistingRules(); //ここでおちた!
+	this.scanExistingRules();
 	this.createNewRules();
 	CustomBlockerUtil.enableFlashZIndex();
 };
@@ -278,7 +278,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	}
 	document.getElementById('smart_rule_editor_keyword').value = creator.selectionText || '';
 	this.shouldShowDialogRight = event.clientX < document.body.clientWidth/2;
-	var _left = event.clientX + document.body.scrollLeft;
+	var _left = Math.min(event.clientX + document.body.scrollLeft, document.body.clientWidth - this.div.clientWidth - 10);
 	var _top = event.clientY + document.body.scrollTop;
 	this.div.style.left = _left + 'px';
 	this.div.style.top = _top + 'px';

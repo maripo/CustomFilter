@@ -574,7 +574,7 @@ RuleEditorDialog.prototype.processSelection = function (event)
 		return;
 	if (document.getElementById('rule_editor_keyword') == event.srcElement)
 		return;
-	document.getElementById('rule_editor_keyword').value = document.getSelection().toString();
+	//document.getElementById('rule_editor_keyword').value = document.getSelection().toString();
 };
 /**
  * PathPickerDialog

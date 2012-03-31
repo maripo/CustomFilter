@@ -125,7 +125,6 @@
 #rule_editor_keywords {
 	padding: 4px 2px!important;	
 }
-<<<<<<< HEAD
 #rule_editor_keywords span.word {
 	margin:0px 2px 2px 0px!important;
 	padding-left:4px!important;
@@ -151,8 +150,6 @@
 #rule_editor_keywords span.word input.deleteButton:hover {
 	background-image:url(../../img/word_delete_hover.png)!important;
 }
-=======
->>>>>>> quick_rule_creation
 #rule_editor_title {
 	width:240px;
 }
@@ -292,17 +289,14 @@
 	padding:2px!important;	
 }
 input.xpath_picker {
-<<<<<<< HEAD
 }
 
 #rule_editor_closer {
-	background-image:url(img/rule_editor_close.png);
+	background-image:url(../img/rule_editor_close.png);
 	background-repeat:no-repeat;
 	background-position:2px 2px;
 	display:block;
 	width:18px!important;
 	height:18px!important;
-	margin-top:2px!important;	
-=======
->>>>>>> quick_rule_creation
+	margin-top:2px!important;
 }

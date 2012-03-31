@@ -31,6 +31,7 @@ RuleEditor.prototype.initialize = function ()
 	this.ruleEditorDialog = new RuleEditorDialog(this.rule, this.src, this.maxZIndex + 1, this);
 	this.ruleEditorDialog.refreshXPathSelectedStyles();
 	this.ruleEditorDialog.refreshPathSections();
+	CustomBlockerUtil.enableFlashZIndex();
 };
 
 RuleEditor.prototype.getOnMouseoverAction = function (node) 

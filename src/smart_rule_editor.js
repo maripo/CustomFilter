@@ -183,7 +183,13 @@ SmartRuleCreatorDialog.prototype.saveRule  = function ()
 	}
 	this.applyInput();	
 	// Save
+	var _hideNodes = this.rule.hideNodes;
+	var _searchNodes = this.rule.searchNodes;
+	this.rule.hideNodes = null;
+	this.rule.searchNodes = null;
 	this.bgCallback({command:'save', type:'rule', obj: this.rule});
+	this.rule.hideNodes = _hideNodes;
+	this.rule.searchNodes = _searchNodes;
 };
 SmartRuleCreatorDialog.prototype.validate = function ()
 {

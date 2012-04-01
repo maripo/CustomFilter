@@ -1,0 +1,115 @@
+<html>
+
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="css/smart_rule_editor.css"/>
+		<link rel="stylesheet" href="css/keywords.css"/>
+</head>
+
+<body>
+<div id="smart_rule_creator_dialog" style="z-index: 1001; display: block; left: 234px; top: 343px; "><ul class=""><li class="smartEditorSectionTitle">既存のルールに追加</li><li class="option"><span class="hideCount">10</span><span class="searchCount">50</span><span>はてなブックマーク</span></li><li class="smartEditorSectionTitle">新しいルールを作成</li><li class="option"><span class="hideCount">857</span><span class="searchCount">857</span><span>パターン 1</span></li><li class="option"><span class="hideCount">827</span><span class="searchCount">827</span><span>パターン 2</span></li><li class="option"><span class="hideCount">804</span><span class="searchCount">804</span><span>パターン 3</span></li><li class="option"><span class="hideCount">795</span><span class="searchCount">795</span><span>パターン 4</span></li><li class="option"><span class="hideCount">734</span><span class="searchCount">734</span><span>パターン 5</span></li><li class="option"><span class="hideCount">616</span><span class="searchCount">616</span><span>パターン 6</span></li><li class="option"><span class="hideCount">525</span><span class="searchCount">525</span><span>パターン 7</span></li><li class="option"><span class="hideCount">458</span><span class="searchCount">458</span><span>パターン 8</span></li><li class="option"><span class="hideCount">368</span><span class="searchCount">368</span><span>パターン 9</span></li><li class="option"><span class="hideCount">335</span><span class="searchCount">335</span><span>パターン 10</span></li><li class="option"><span class="hideCount">210</span><span class="searchCount">210</span><span>パターン 11</span></li><li class="option"><span class="hideCount">119</span><span class="searchCount">119</span><span>パターン 12</span></li><li class="option"><span class="hideCount">50</span><span class="searchCount">50</span><span>パターン 13</span></li><li class="option"><span class="hideCount">556</span><span class="searchCount">50</span><span>パターン 14</span></li><li class="option"><span class="hideCount">556</span><span class="searchCount">427</span><span>パターン 15</span></li><li class="option selected"><span class="hideCount">556</span><span class="searchCount">556</span><span>パターン 16</span></li><li class="option"><span class="hideCount">480</span><span class="searchCount">50</span><span>パターン 17</span></li><li class="option"><span class="hideCount">480</span><span class="searchCount">335</span><span>パターン 18</span></li><li class="option"><span class="hideCount">480</span><span class="searchCount">480</span><span>パターン 19</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">50</span><span>パターン 20</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">100</span><span>パターン 21</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">250</span><span>パターン 22</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">320</span><span>パターン 23</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">438</span><span>パターン 24</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">525</span><span>パターン 25</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">10</span><span>パターン 26</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">460</span><span>パターン 27</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">490</span><span>パターン 28</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">90</span><span>パターン 29</span></li><li class="option"><span class="hideCount">100</span><span class="searchCount">90</span><span>パターン 30</span></li></ul><div id="smart_rule_creator_dialog_edit" style="top: 268px; display: block; left: 180px; border-left:none;"><div id="smart_rule_editor_preview" style="display: none; ">
+	<h3 id="smart_rule_editor_preview_title">パターン 16</h3>
+	<div class="path_body">
+		<img id="smart_rule_editor_path_img" src="chrome-extension://ppcdnfghpomeigkdaccjlgkcajmfhinl/img/smart_path_preview_img.png">
+		<div class="path_section">
+			<div class="title">隠す要素</div>
+			<div class="detail">
+				<div class="count" id="smart_rule_editor_preview_hide_count">556</div>
+				<div class="path" id="smart_rule_editor_preview_hide_path">LI LI</div>
+			</div>
+		</div>
+		<div class="path_section">
+			<div class="title">検索する要素</div>
+			<div class="detail">
+				<div class="count" id="smart_rule_editor_preview_search_count">556</div>
+				<div class="path" id="smart_rule_editor_preview_search_path">LI LI</div>
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<div id="smart_rule_editor_preview_keywords"></div>
+	</div>
+</div>
+<div id="smart_rule_editor_body" style="display: block; ">
+	<div class="section">
+		<div class="label">タイトル</div>
+		<div class="input"><input type="text" id="smart_rule_editor_title"></div>
+	</div>
+	<div class="section">
+		<div class="label">URL(正規表現)</div>
+		<div class="input"><input type="text" id="smart_rule_editor_url"></div>
+	</div>
+	<div class="section_detail_link">
+		<a href="javascript:void(0)" id="smart_rule_editor_advanced_link" style="background-color: rgba(0, 0, 0, 0); ">詳細を表示</a>
+	</div>
+	<div class="section advanced" id="smart_rule_editor_advanced" style="display:none">
+		<!-- Example URL & Memo -->
+		<div class="section">
+			<div class="label">URL例</div>
+			<div class="input"><input type="text" id="smart_rule_editor_example_url"></div>
+		</div>
+		<div class="section">
+			<div class="label">説明</div>
+			<div class="input"><input type="text" id="smart_rule_editor_site_description"></div>
+		</div>
+		<!-- Path Expression -->
+		<div class="section">
+			<div class="label">検索する要素</div>
+			<div>
+				<input type="radio" id="smart_rule_editor_radio_search_xpath" name="smart_rule_editor_radio_search">
+				<label for="smart_rule_editor_radio_search_xpath">XPath</label>
+				<input type="radio" id="smart_rule_editor_radio_search_css" name="smart_rule_editor_radio_search" checked="true">
+				<label for="smart_rule_editor_radio_search_css">CSS</label>
+			</div>
+		</div>
+		<div class="section">
+			<div class="label">&nbsp;</div>
+			<div class="input">
+				<input type="text" id="smart_rule_editor_search_block_xpath" style="display: none; ">
+				<input type="text" id="smart_rule_editor_search_block_css" style="display: inline; ">
+			</div>
+		</div>
+		<div class="section">
+			<div class="label">説明</div>
+			<div class="input"><input type="text" id="smart_rule_editor_search_block_description"></div>
+		</div>
+		<div class="section">
+			<div class="label">隠す要素</div>
+			<div>
+				<input type="radio" id="smart_rule_editor_radio_hide_xpath" name="smart_rule_editor_radio_hide">
+				<label for="smart_rule_editor_radio_hide_xpath">XPath</label>
+				<input type="radio" id="smart_rule_editor_radio_hide_css" name="smart_rule_editor_radio_hide" checked="true">
+				<label for="smart_rule_editor_radio_hide_css">CSS</label>
+			</div>
+		</div>
+		<div class="section">
+			<div class="label">&nbsp;</div>
+			<div class="input">
+				<input type="text" id="smart_rule_editor_hide_block_xpath" style="display: none; ">
+				<input type="text" id="smart_rule_editor_hide_block_css" style="display: inline; ">
+			</div>
+		</div>
+		<div class="section">
+			<div class="label">説明</div>
+			<div class="input"><input type="text" id="smart_rule_editor_hide_block_description"></div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="label">NGワード</div>
+		<div class="input">
+			<input type="text" id="smart_rule_editor_keyword">
+			<input type="button" value="Add" id="smart_rule_editor_keyword_add">
+			<input type="checkbox" id="smart_rule_editor_keyword_regexp"><label for="smart_rule_editor_keyword_regexp">正規表現</label>
+		</div>
+		<div id="rule_editor_keywords"></div>
+	</div>
+	<div id="smart_rule_editor_alert">
+		<!-- Alert Message -->
+	</div>
+	<div class="section">
+		<input type="button" value="保存" id="smart_rule_editor_save">
+		<input type="button" value="キャンセル" id="smart_rule_editor_cancel">
+	</div>
+</div></div>
+</body>
+</html>

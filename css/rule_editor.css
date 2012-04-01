@@ -42,7 +42,7 @@
 #rule_editor_body div,#rule_editor_body h2{
 	width:auto!important;
 	overflow:visible!important;
-	height:auto!important;
+	height:auto;
 	width:auto!important;
 	left:auto!important;
 	top:auto!important;
@@ -143,12 +143,12 @@
 	width:16px!important;
 	height:16px!important;
 	border:none!important;
-	background-image:url(../../img/word_delete.png)!important;
+	background-image:url(../img/word_delete.png)!important;
 	background-repeat:no-repeat;
 	display:inline-block!important;
 }
 #rule_editor_keywords span.word input.deleteButton:hover {
-	background-image:url(../../img/word_delete_hover.png)!important;
+	background-image:url(../img/word_delete_hover.png)!important;
 }
 #rule_editor_title {
 	width:240px;
@@ -237,8 +237,8 @@
 
 }
 #rule_editor_body_drag {
-	height:24px;
-	font-weight:bold;
+	height:19px!important;
+	font-weight:bold!important;
 	background: -webkit-gradient(linear, center top, center bottom, from(#99aaff), to(#6688dd))!important;
 	cursor:move;
 	line-height:24px;
@@ -299,4 +299,22 @@ input.xpath_picker {
 	width:18px!important;
 	height:18px!important;
 	margin-top:2px!important;
+}
+
+/* Hit count */
+span.rule_editor_count {
+	border-width:1px;
+	border-style:solid;
+	font-size:11px;
+	color:white!important;
+	font-weight:bold;
+	border-radius:4px!important;
+}
+span.rule_editor_count_hide {
+	border-color:black!important;
+	background-color:#888!important;
+}
+span.rule_editor_count_search {
+	border-color:#00f!important;
+	background-color:#00b!important;
 }

@@ -12,6 +12,7 @@ var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText)
 	this.createNewRules();
 	CustomBlockerUtil.enableFlashZIndex();
 };
+
 SmartRuleCreator.prototype.createNewRules = function ()
 {
 	if (!this.matchedRules)
@@ -113,7 +114,44 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 
 	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);
 	document.getElementById('smart_rule_editor_keyword').addEventListener ('keydown', this.getAddWordAction(), true);
+	
+	document.body.addEventListener('mouseup', this.getOnMouseupAction(), false);
+	document.body.addEventListener('mousemove', this.getOnMousemoveAction(), false);
 };
+/* Finish Dragging */
+SmartRuleCreatorDialog.prototype.getOnMouseupAction = function ()
+{
+	var self = this;
+	return function (event)
+	{
+		self.moving = false;
+	};
+};
+/* Finish Dragging */
+SmartRuleCreatorDialog.prototype.getOnMousemoveAction = function ()
+{
+	var self = this;
+	return function (event)
+	{
+		if (!self.moving) return;
+		self.div.style.left = (self.origDivX+(event.pageX - self.origEventX)) + 'px';
+		self.div.style.top = (self.origDivY+(event.pageY - self.origEventY)) + 'px';
+	};
+};
+/* Start Dragging */
+SmartRuleCreatorDialog.prototype.getOnMousedownAction = function ()
+{
+	var self = this;
+	return function (event)
+	{
+		self.moving = true;
+		self.origEventX = event.pageX;
+		self.origEventY = event.pageY;
+		self.origDivX = parseInt(self.div.style.left.replace('px',''));
+		self.origDivY = parseInt(self.div.style.top.replace('px',''));
+	};
+};
+
 SmartRuleCreatorDialog.prototype.getCancelAction = function ()
 {
 	var self = this;
@@ -246,6 +284,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			li.innerHTML = chrome.i18n.getMessage('ruleEditorExistingRules');
 			li.className = 'smartEditorSectionTitle';
 			this.ul.appendChild(li);
+			li.addEventListener('mousedown', this.getOnMousedownAction(), true);
 		}
 		for (var i=0; i<creator.matchedRules.length; i++)
 		{
@@ -259,10 +298,11 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		}
 	}
 	if (creator.suggestedPathList && creator.suggestedPathList.length>0){
-		var li = document.createElement('LI');
-		li.innerHTML = chrome.i18n.getMessage('ruleEditorNewRules');
-		li.className = 'smartEditorSectionTitle';
-		this.ul.appendChild(li);
+		var sectionLi = document.createElement('LI');
+		sectionLi.innerHTML = chrome.i18n.getMessage('ruleEditorNewRules');
+		sectionLi.className = 'smartEditorSectionTitle';
+		sectionLi.addEventListener('mousedown', this.getOnMousedownAction(), true);
+		this.ul.appendChild(lisectionLi);
 		for (var i=0; i<creator.suggestedPathList.length; i++)
 		{
 			var path = creator.suggestedPathList[i];

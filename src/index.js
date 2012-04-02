@@ -115,6 +115,7 @@ function renderApplierRules(list)
 	}
 	else {
 		var emptyLi = document.createElement('LI');
+		emptyLi.className = 'empty';
 		emptyLi.innerHTML = 'None';
 		ul.appendChild(emptyLi);
 	}

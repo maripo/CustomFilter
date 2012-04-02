@@ -53,7 +53,7 @@ h2 {
 #ruleSectionHeader {
 	line-height:24px;
 	height:24px;
-	color:#555;
+	color:#333;
 	text-indent:4px;
 }
 #ruleSectionFooter {
@@ -83,6 +83,12 @@ h2 {
 	clear:both;
 	border-top:1px solid white;
 	border-bottom:1px solid #ddd;
+}
+#activeRules li.empty {
+	line-height:24px;
+	font-size:80%;
+	text-indent:4px;
+	color: #444;
 }
 #activeRules li:nth-child(odd) {
  	background-color:#f0f0f0;

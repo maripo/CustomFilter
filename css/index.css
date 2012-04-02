@@ -46,21 +46,22 @@ h2 {
 */
 #ruleSection {
 	border:1px solid #bbb;
-	border-radius:8px!important;
+	border-radius:4px!important;
 	background-color:#ddd;
 	margin-bottom:2px;
 }
 #ruleSectionHeader {
-	line-height:24px;
-	height:24px;
+	line-height:22px;
+	height:22px;
 	color:#333;
 	text-indent:4px;
+	font-size:1em;
 }
 #ruleSectionFooter {
 	text-align:right;
 }
 #ruleSectionFooter a{
-	color:#888;
+	color:#666;
 	font-size:80%;
 	padding-right:6px;
 	text-decoration:none;
@@ -83,6 +84,7 @@ h2 {
 	clear:both;
 	border-top:1px solid white;
 	border-bottom:1px solid #ddd;
+	font-size:90%;
 }
 #activeRules li.empty {
 	line-height:24px;
@@ -117,7 +119,7 @@ h2 {
 	text-align:center;
 	color:white;
 	font-size:10px;
-	border-radius:8px!important;
+	border-radius:6px!important;
 	float:left;
 }
 #activeRules li div.hit {
@@ -139,7 +141,7 @@ h2 {
  	padding:0px;
 }
 .buttonContainer input,#buttonCreateRule {
-	border-radius:4px;
+	border-radius:6px;
 	display: inline-block;
 	border:1px solid #888;
 	border-image:initial;

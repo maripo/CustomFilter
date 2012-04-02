@@ -209,9 +209,14 @@
 }
 
 #xpath_picker_body li:nth-child(odd) {
- 	background-color:#e4f0ff;
+ 	background-color:#f0f0f0!important;
+	border-top:1px solid white;
+	border-bottom:1px solid #ddd;
  }
 #xpath_picker_body li:nth-child(even) {
+	background-color:#f8f8f8!important;
+	border-top:1px solid white;
+	border-bottom:1px solid #ddd;
  }
 #xpath_picker_body ul a:hover {
 	background-color:#ffc;
@@ -239,14 +244,13 @@
 #rule_editor_body_drag {
 	height:19px!important;
 	font-weight:bold!important;
-	background: -webkit-gradient(linear, center top, center bottom, from(#99aaff), to(#6688dd))!important;
-	cursor:move;
+	background: -webkit-gradient(linear, center top, center bottom, from(#6699ff), to(#4477dd))!important;
+	cursor:move!important;
 	line-height:24px;
 	vertical-align:middle!important;
 	color:white!important;
 	text-indent:4px!important;
 	-webkit-box-shadow: 0px 0px 1px #aaa;
-	text-shadow: 1px 1px 1px #448;
 	font-size:100%!important;
 }
 

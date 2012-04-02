@@ -1,6 +1,6 @@
  {
   "name" : "CustomBlocker",
-  "version" : "2.0.5",
+  "version" : "2.0.13",
   "default_locale": "en",
   "description" : "__MSG_extDescription__",
   "browser_action": {
@@ -18,7 +18,7 @@
       ],
       "js" : 
       [
-        "src/util.js",
+        "src/util.js","src/uuid.js",
         "src/element_highlighter.js",
         "src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js", 
         "src/contentscript.js",

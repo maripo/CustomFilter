@@ -5,18 +5,17 @@ body {
 }
 #header {
 	height:30px;
-	background-color:#ddd;
 	line-height:30px;
-	background: -webkit-gradient(linear, center top, center bottom, from(#eeeeee), to(#bbbbbb))!important;
 }
 #header .menu {
 	width:280px;
 	height:inherit;
 	float:right;
 	text-align:right;
+	font-size:0.8em;
 }
 #header h1 {
-	font-size:1em;
+	font-size:1.2em;
 	margin-right:200px;
 	width:auto;
 	margin-top:0px;
@@ -26,6 +25,10 @@ body {
 	height:inherit;
 	color: #444;
 	margin-left:4px;
+	font-weight:normal;
+}
+#content {
+	padding:7px;
 }
 h2 {
 	font-size:1em;
@@ -34,6 +37,7 @@ h2 {
 	margin-left:0px;
 	margin-bottom:0px;
 	padding:0px;
+	font-weight:normal;
 }
 #ruleList li {
 	height:24px;
@@ -49,19 +53,21 @@ h2 {
 #activeRules {
 	margin:0px;
 	padding:0px;
-	border:1px solid #bbb;
 }
 #activeRules li {
 	height:24px;
 	list-style-type:none;
 	clear:both;
 	border-top:1px solid white;
+	border-bottom:1px solid #ddd;
+	border-right:1px solid #ddd;
+	border-left:1px solid #ddd;
 }
 #activeRules li:nth-child(odd) {
- 	background-color:#dfefff;
+ 	background-color:#f0f0f0;
 }
 #activeRules li:nth-child(even) {
- 	background-color:#f0f4ff;
+ 	background-color:#f8f8f8;
 }
 #activeRules li:hover {
  	background-color:#ffffdd;

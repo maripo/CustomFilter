@@ -82,7 +82,7 @@ ElementHighlighter.selectForHide = function (element)
 	// Add transparent cover
 	else
 	{
-		var elementToCover = element;
+		var elementsToCover = new Array();
 		if ('TR'==element.tagName)
 		{
 			var children = element.childNodes;
@@ -90,37 +90,51 @@ ElementHighlighter.selectForHide = function (element)
 			{
 				if (children[i].tagName)
 				{
-					elementToCover = children[i];
-					break;
+					elementsToCover.push(children[i]);
 				}
 			}
 		}
-		if (elementToCover)
+		else
 		{
-			elementToCover.style.position = 'relative';
-			var div = document.createElement('DIV');
-			with (div.style)
+			elementsToCover.push(element);
+		}
+		if (elementsToCover.length > 0)
+		{
+			var coverDivs = new Array();
+			for (var i=0; i<elementsToCover.length; i++)
 			{
-				backgroundColor = 'black';
-				position = 'absolute';
-				left = '0px';
-				top = '0px';
-				opacity = 0.3;
-				width = element.clientWidth + 'px';
-				height = element.clientHeight + 'px';
+				var elementToCover = elementsToCover[i];
+				elementToCover.style.position = 'relative';
+				var div = document.createElement('DIV');
+				with (div.style)
+				{
+					backgroundColor = 'black';
+					position = 'absolute';
+					left = '0px';
+					top = '0px';
+					opacity = 0.3;
+					width = elementToCover.clientWidth + 'px';
+					height = elementToCover.clientHeight + 'px';
+				}
+				elementToCover.appendChild(div);
+				coverDivs.push(div);
 			}
-			elementToCover.appendChild(div);
-			element.coverDiv = div;
+			element.coverDivs = coverDivs;
 		}
 	}
 };
 
 ElementHighlighter.unselectForHide = function (element)
 {
-	if (element.coverDiv)
+	/* Remove transparent cover div elements */
+	if (element.coverDivs)
 	{
-		element.coverDiv.parentNode.removeChild (element.coverDiv);
-		element.coverDiv = null;
+		for (var i=0; i<element.coverDivs.length; i++)
+		{
+			var coverDiv = element.coverDivs[i];
+			coverDiv.parentNode.removeChild (coverDiv);
+		}
+		element.coverDivs = null;
 	}
 	if (element.backgroundColorChanged)
 	{

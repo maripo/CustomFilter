@@ -39,16 +39,17 @@ h2 {
 	position:relative;
 	cursor:pointer;
 	overflow:hidden;
+	color:#444;
 }
  #ruleList li.odd {
- 	background-color:#dfefff;
-	border-top:solid #e0e0ff 1px;
-	border-bottom:solid #c0d0ff 1px;
+ 	background-color:#f0f0f0;
+	border-top:solid #ffffff 1px;
+	border-bottom:solid #ddd 1px;
  }
  #ruleList li.even {
- 	background-color:#f0f4ff;
+ 	background-color:#f8f8f8;
 	border-top:solid #ffffff 1px;
-	border-bottom:solid #d0d0d0 1px;
+	border-bottom:solid #ddd 1px;
  }
  #ruleList li.filtered {
  	display:none;
@@ -131,12 +132,14 @@ h2 {
 	left:20px;
 	top:2px;
 	height:16px;
+	font-size:0.84em;
 }
 #ruleList li div.information div.url {
  	position:absolute;
 	font-size:0.7em;
 	left:10px;
 	top:20px;
+	color:#444;
 }
 #ruleList li div.information div.keywords {
  	position:absolute;
@@ -236,7 +239,8 @@ h2 {
 	width:inherit;
 	display:block;
 	text-decoration:none;
-	color: #444;
+	color: #666;
+	line-height:24px;
 }
 #header ul li a:active{
 	height:inherit;

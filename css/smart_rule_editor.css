@@ -32,7 +32,7 @@
 	-webkit-border-radius: 0px!important;
 }
 #smart_rule_creator_dialog label {
-	font-size:85%!important;
+	font-size:11px!important;
 	display:inline;
 	float:initial;
 	color:black;
@@ -44,12 +44,16 @@
 	text-indent:2px!important;
 	cursor:default!important;
 	padding-top:1px!important;
+	border-top:1px solid white;
+	border-bottom:1px solid #ddd;
+	border-right:1px solid #ddd;
+	border-left:1px solid #ddd;
 }
 #smart_rule_creator_dialog li.option:nth-child(odd) {
-	background-color:#fff;
+	background-color:#f0f0f0;
 }
 #smart_rule_creator_dialog li.option:nth-child(even) {
-	background-color:#f0f8ff;
+	background-color:#f8f8f8;
 }
 #smart_rule_creator_dialog ul.active li.option:hover {
 	background-color:#ffc!important;
@@ -82,9 +86,13 @@
 	margin-right:2px!important;
 }
 #smart_rule_creator_dialog li.smartEditorSectionTitle {
-	outline-top: solid 1px #ffffff;
-	outline-bottom:solid 1px #004488;
-	background: -webkit-gradient(linear, center top, center bottom, from(#99aaff), to(#6688dd))!important;
+	outline-top: solid 1px #ffffff!important;
+	border-bottom:solid 1px #004488!important;
+	text-indent:4px!important;
+	line-height:18px;
+	height:18px;
+	background: -webkit-gradient(linear, center top, center bottom, from(#6699ff), to(#4477dd))!important;
+	cursor:move!important;
 	color:white;
 	padding-top:1px!important;
 }
@@ -92,7 +100,7 @@
 	background-color:white;
 	position:absolute!important;
 	width:360px;
-	border-radius:12px!important;
+	border-radius:8px!important;
 	border:solid 1px #888;
 	-webkit-box-shadow: 1px 1px 2px #000;
 	padding:4px!important;
@@ -131,6 +139,7 @@
 	box-shadow:none!important;
 	line-height:100%!important;
 	font-size:11px!important;
+	color:black!important;
 }
 #smart_rule_editor_body input[type="button"] {
 	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
@@ -150,7 +159,7 @@
 	width:120px!important;
 }
 #smart_rule_editor_body span.word, #smart_rule_editor_preview span.word {
-	font-size:85%!important;
+	font-size:11px!important;
 }
 
 #smart_rule_editor_alert {

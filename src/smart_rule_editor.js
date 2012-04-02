@@ -136,6 +136,7 @@ SmartRuleCreatorDialog.prototype.getOnMousemoveAction = function ()
 		if (!self.moving) return;
 		self.div.style.left = (self.origDivX+(event.pageX - self.origEventX)) + 'px';
 		self.div.style.top = (self.origDivY+(event.pageY - self.origEventY)) + 'px';
+		self.adjustEditDivPosition();
 	};
 };
 /* Start Dragging */
@@ -302,7 +303,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		sectionLi.innerHTML = chrome.i18n.getMessage('ruleEditorNewRules');
 		sectionLi.className = 'smartEditorSectionTitle';
 		sectionLi.addEventListener('mousedown', this.getOnMousedownAction(), true);
-		this.ul.appendChild(lisectionLi);
+		this.ul.appendChild(sectionLi);
 		for (var i=0; i<creator.suggestedPathList.length; i++)
 		{
 			var path = creator.suggestedPathList[i];
@@ -317,7 +318,6 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			
 	}
 	document.getElementById('smart_rule_editor_keyword').value = creator.selectionText || '';
-	this.shouldShowDialogRight = event.clientX < document.body.clientWidth/2;
 	var _left = Math.min(event.clientX + document.body.scrollLeft, document.body.clientWidth - 190);
 	var _top = event.clientY + document.body.scrollTop;
 	this.div.style.left = _left + 'px';
@@ -353,10 +353,16 @@ SmartRuleCreatorDialog.prototype.showEdit = function (liElement)
 {
 	this.editDiv.style.top = (liElement.offsetTop - 20) + 'px';
 	this.editDiv.style.display = 'block';
+	this.adjustEditDivPosition();
+};
+SmartRuleCreatorDialog.prototype.adjustEditDivPosition = function ()
+{
 	
+	var centerX = this.div.clientLeft + 90;
+	var shouldShowDialogRight = centerX < document.body.clientWidth/2;
+	var shouldShowDialogRight = event.clientX < document.body.clientWidth/2;
 	this.editDiv.style.left = 
-		((this.shouldShowDialogRight)?
-			this.div.clientWidth : -this.editDiv.clientWidth-4) 
+		((shouldShowDialogRight)? this.div.clientWidth : -this.editDiv.clientWidth-4) 
 		+ 'px';
 };
 SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH = 28;

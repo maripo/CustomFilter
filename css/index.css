@@ -23,7 +23,7 @@ body {
 	margin-bottom:0px;
 	padding:0px;
 	height:inherit;
-	color: #444;
+	color: #333;
 	margin-left:4px;
 	font-weight:normal;
 }
@@ -38,6 +38,36 @@ h2 {
 	margin-bottom:0px;
 	padding:0px;
 	font-weight:normal;
+	display:inline;
+}
+
+/*
+	Applied Rules
+*/
+#ruleSection {
+	border:1px solid #bbb;
+	border-radius:8px!important;
+	background-color:#ddd;
+	margin-bottom:2px;
+}
+#ruleSectionHeader {
+	line-height:24px;
+	height:24px;
+	color:#555;
+	text-indent:4px;
+}
+#ruleSectionFooter {
+	text-align:right;
+}
+#ruleSectionFooter a{
+	color:#888;
+	font-size:80%;
+	padding-right:6px;
+	text-decoration:none;
+}
+#activeRules {
+	margin:0px;
+	padding:0px;
 }
 #ruleList li {
 	height:24px;
@@ -47,21 +77,12 @@ h2 {
 	position:relative;
 	clear:both;
 }
-/*
-	Applied Rules
-*/
-#activeRules {
-	margin:0px;
-	padding:0px;
-}
 #activeRules li {
 	height:24px;
 	list-style-type:none;
 	clear:both;
 	border-top:1px solid white;
 	border-bottom:1px solid #ddd;
-	border-right:1px solid #ddd;
-	border-left:1px solid #ddd;
 }
 #activeRules li:nth-child(odd) {
  	background-color:#f0f0f0;

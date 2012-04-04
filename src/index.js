@@ -113,7 +113,8 @@ function renderApplierRules(list)
 			ul.appendChild(li);
 		}
 	}
-	else {
+	else 
+	{
 		var emptyLi = document.createElement('LI');
 		emptyLi.className = 'empty';
 		emptyLi.innerHTML = 'None';

@@ -104,6 +104,10 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 	this.advancedSectionVisible = false;
 	
 	document.getElementById('smart_rule_editor_save').addEventListener('click', this.getSaveAction(), true);
+	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);
+	document.getElementById('smart_rule_editor_close').addEventListener('click', this.getCloseAction(), true);
+	
+	
 	document.getElementById('smart_rule_editor_keyword_add').addEventListener('click', this.getAddKeywordAction(), true);
 	document.getElementById('smart_rule_editor_advanced_link').addEventListener('click', this.getToggleAdvancedAction(), true);
 	
@@ -112,7 +116,6 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 	document.getElementById('smart_rule_editor_radio_hide_css').addEventListener('change', this.setPathInputVisibility, true);
 	document.getElementById('smart_rule_editor_radio_hide_xpath').addEventListener('change', this.setPathInputVisibility, true);
 
-	document.getElementById('smart_rule_editor_cancel').addEventListener('click', this.getCancelAction(), true);
 	document.getElementById('smart_rule_editor_keyword').addEventListener ('keydown', this.getAddWordAction(), true);
 	
 	document.body.addEventListener('mouseup', this.getOnMouseupAction(), false);
@@ -153,20 +156,35 @@ SmartRuleCreatorDialog.prototype.getOnMousedownAction = function ()
 	};
 };
 
+SmartRuleCreatorDialog.prototype.getCloseAction = function ()
+{
+	var self = this;
+	return function (e)
+	{
+		window.elementHighlighter.highlightRule(null);
+		self.div.style.display = 'none';
+		self.cancelEditing()
+	};
+};
+
 SmartRuleCreatorDialog.prototype.getCancelAction = function ()
 {
 	var self = this;
 	return function (e)
 	{
-		self.isEditing = false;
-		self.ruleSelected = false;
-		self.isEditing = false;
-		self.activeLiElement.className = 'option';
-		self.ul.className = 'active';
-		self.activeLiElement = null;
+		self.cancelEditing();
+	};
+};
+SmartRuleCreatorDialog.prototype.cancelEditing = function ()
+{
+		this.isEditing = false;
+		this.ruleSelected = false;
+		this.isEditing = false;
+		this.activeLiElement.className = 'option';
+		this.ul.className = 'active';
+		this.activeLiElement = null;
 		document.getElementById('smart_rule_editor_preview').style.display = 'block';
 		document.getElementById('smart_rule_editor_body').style.display = 'none';
-	};
 };
 SmartRuleCreatorDialog.prototype.getAddWordAction = function ()
 {

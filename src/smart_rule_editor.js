@@ -252,7 +252,7 @@ SmartRuleCreatorDialog.prototype.validate = function ()
 {
 	return Rule.Validator.validate({
 		title : document.getElementById('smart_rule_editor_title').value,
-		site_regexp : document.getElementById('smart_rule_editor_example_url').value,
+		site_regexp : document.getElementById('smart_rule_editor_url').value,
 		example_url : document.getElementById('smart_rule_editor_example_url').value,
 		site_description : document.getElementById('smart_rule_editor_site_description').value,
 		
@@ -269,7 +269,7 @@ SmartRuleCreatorDialog.prototype.applyInput = function ()
 {
 	// Set form values to rule
 	this.rule.title = document.getElementById('smart_rule_editor_title').value;
-	this.rule.site_regexp = document.getElementById('smart_rule_editor_example_url').value;
+	this.rule.site_regexp = document.getElementById('smart_rule_editor_url').value;
 	this.rule.site_description = document.getElementById('smart_rule_editor_site_description').value;
 	this.rule.example_url = document.getElementById('smart_rule_editor_example_url').value;
 	this.rule.search_block_xpath = document.getElementById('smart_rule_editor_search_block_xpath').value;
@@ -555,7 +555,7 @@ SmartRuleCreatorDialog.prototype.addWord = function(wordStr)
 	
 	word.word = wordStr;
 	word.isNew = 'true';
-	var checked = document.getElementById('smart_rule_editor_keyword_regexp').checked;
+	var checked = document.getElementById('smart_rule_editor_keyword_ xp').checked;
 	word.is_regexp = checked;
 	
 	word.dirty = true;

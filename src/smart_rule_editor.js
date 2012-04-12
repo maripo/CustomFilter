@@ -567,7 +567,7 @@ SmartRuleCreatorDialog.prototype.addWord = function(wordStr)
 	
 	word.word = wordStr;
 	word.isNew = 'true';
-	var checked = document.getElementById('smart_rule_editor_keyword_ xp').checked;
+	var checked = document.getElementById('smart_rule_editor_keyword_regexp').checked;
 	word.is_regexp = checked;
 	
 	word.dirty = true;

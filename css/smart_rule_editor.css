@@ -19,6 +19,18 @@
 	width:180px;
 	border:solid 1px #888;
 }
+#smart_rule_editor_preview a.help {
+	background-color:#aaa!important;
+	color:white!important;
+	text-decoration:none!important;
+	vertical-align:middle!important;
+	margin:0px 2px 0px 2px!important;
+	padding-left:4px!important;
+	padding-right:4px!important;
+	border-radius:8px!important;
+	border:solid 1px #888;
+	float:right!important;
+}
 #smart_rule_creator_dialog * {
 	text-align:left;
 	background:none;

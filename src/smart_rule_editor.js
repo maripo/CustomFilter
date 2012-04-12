@@ -98,6 +98,9 @@ var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
 		editDiv.innerHTML = this.smartRuleEditorSrc;
 		this.div.appendChild(editDiv);
 	}
+	var helpLink = document.getElementById('smartRuleEditorPreviewHelp');
+	helpLink.addEventListener('click',CustomBlockerUtil.getShowHelpAction(helpLink.href),false);
+	helpLink.href = 'javascript:void(0)';
 	document.getElementById('smart_rule_editor_body').style.display = 'none';
 	document.getElementById('smart_rule_editor_path_img').src = chrome.extension.getURL('/img/smart_path_preview_img.png');
 	

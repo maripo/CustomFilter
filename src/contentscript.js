@@ -74,14 +74,14 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	else if ('stop'==request.command) 
 	{
 		bgCallback = sendResponse;
-		if (blockInterval) window.clearInterval(blockInterval);
-		blockInterval = null;
+		if (RuleExecutor.blockInterval) window.clearInterval(RuleExecutor.blockInterval);
+		RuleExecutor.blockInterval = null;
 	}
 	else if ('resume'==request.command) 
 	{
 		bgCallback = sendResponse;
-		if (!blockInterval)
-			blockInterval = window.setInterval(execBlock, 2000);
+		if (!RuleExecutor.blockInterval)
+			RuleExecutor.blockInterval = window.setInterval(execBlock, 2000);
 	}
 	else if ('quickRuleCreation'==request.command)
 	{

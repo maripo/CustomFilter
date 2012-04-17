@@ -22,7 +22,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 {
 	if ('init'==request.command &&request.rules) 
 	{
-		console.log("INIT rules=" + request.rules);
 		if (window.customBlockerInitDone) return;
 		window.customBlockerInitDone = true;
 		rules = new Array();

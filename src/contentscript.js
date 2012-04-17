@@ -17,6 +17,7 @@ var RuleExecutor =
 
 var rules;
 window.ruleEditor = null;
+
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 {
 	if ('init'==request.command &&request.rules) 
@@ -26,7 +27,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 		window.customBlockerInitDone = true;
 		rules = new Array();
 		bgCallback = sendResponse;
-		checkRules(request.rules);
+		RuleExecutor.checkRules(request.rules);
 	}
 	else if ('badge'==request.command) 
 	{
@@ -96,7 +97,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 });
 
 
-function checkRules(list)
+RuleExecutor.checkRules = function (list)
 {
 	for (var i = 0, l = list.length; i < l; i++) 
 	{
@@ -115,13 +116,13 @@ function checkRules(list)
 	}
 	bgCallback(rules);
 	if (rules.length > 0) 
-		startBlock();
+		RuleExecutor.startBlock();
 }
 
-var blockTimeout = null;
-var blockInterval = null;
+RuleExecutor.blockTimeout = null;
+RuleExecutor.blockInterval = null;
 
-function startBlock()
+RuleExecutor.startBlock = function()
 {
 	for (var i=0, l=rules.length; i<l; i++) 
 	{
@@ -150,8 +151,8 @@ function startBlock()
 	}
 	if (needBlocking)
 	{
-		blockTimeout = setTimeout(execBlock, 50);
-		blockInterval = setInterval(execBlock, 2000);
+		RuleExecutor.blockTimeout = setTimeout(execBlock, 50);
+		RuleExecutor.blockInterval = setInterval(execBlock, 2000);
 	}
 }
 
@@ -169,8 +170,8 @@ function addBlockCss (xpath)
 
 function stopBlockAction () 
 {
-	if (blockTimeout) clearTimeout(blockTimeout);
-	if (blockInterval) clearInterval(blockInterval);
+	if (RuleExecutor.blockTimeout) clearTimeout(RuleExecutor.blockTimeout);
+	if (RuleExecutor.blockInterval) clearInterval(RuleExecutor.blockInterval);
 }
 
 function execBlock()

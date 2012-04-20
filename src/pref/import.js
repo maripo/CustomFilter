@@ -16,13 +16,11 @@ var Import =
 	},
 	onRuleListLoaded: function(list) 
 	{
-		console.log("omRuleListLoaded");
 		Import.ruleList = list;
 		Import.wordPeer.select('', Import.onWordListLoaded, null);
 	}, 
 	onWordListLoaded: function (wordList)
 	{
-		console.log("onWordListLoaded");
 		var ruleMap = new Array();
 		for (var i=0, l=Import.ruleList.length; i<l; i++) 
 		{
@@ -37,7 +35,6 @@ var Import =
 				rule.words.push(wordList[i]);
 			}
 		}
-		console.log("onWordListLoaded done.");
 	},
 	readFile: function (event)
 	{

@@ -39,7 +39,7 @@ function removeFromExistingTabList (tabIdToRemove)
 }
 function addToExistingTabList (tabIdToAdd)
 {
-	existingTabs[tabIdToAdd] = true;				
+	existingTabs[tabIdToAdd] = true;
 }
 function onWordListLoaded (wordList) 
 {

@@ -100,11 +100,27 @@ function isMatched (rule, filterString)
 {
 	if (null==filterString || ''==filterString) return true;
 	filterString = filterString.toLowerCase();
+	return (isMatchedByRule(rule, filterString) || isMatchedByWords(rule, filterString));
+}
+
+function isMatchedByRule (rule, filterString)
+{
 	return (
 			rule.title.toLowerCase().indexOf(filterString)>=0 ||
 			rule.site_regexp.toLowerCase().indexOf(filterString)>=0 ||
 			rule.example_url.toLowerCase().indexOf(filterString)>=0
 			);
+
+}
+function isMatchedByWords (rule, filterString)
+{
+	if (!rule.words) return false;
+	for (var i=0; i<rule.words.length; i++)
+	{
+		if (rule.words[i].word.toLowerCase().indexOf(filterString)>=0)
+			return true;
+	}
+	return false;
 }
 
 var RuleContainer = function (rule) 

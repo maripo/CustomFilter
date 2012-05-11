@@ -3,7 +3,6 @@
 
  */
 var bgCallback = null;
-var badgeCallback = null;
 
 if (!window.elementHighlighter)
 {
@@ -22,15 +21,16 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 {
 	if ('init'==request.command && request.rules) 
 	{
+		bgCallback = sendResponse;
 		if (window.customBlockerInitDone) return;
+		
 		window.customBlockerInitDone = true;
 		rules = new Array();
-		bgCallback = sendResponse;
 		RuleExecutor.checkRules(request.rules);
 	}
 	else if ('badge'==request.command) 
 	{
-		badgeCallback = sendResponse;
+		bgCallback = sendResponse;
 	}
 	else if ('highlight'==request.command)
 	{
@@ -259,10 +259,10 @@ function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide, i
 	{
 		searchNodes[i].containsNgWord = false;
 	}
-	if (needRefreshBadge && blockedCount > 0 && badgeCallback) 
+	if (needRefreshBadge && blockedCount > 0 && bgCallback) 
 	{
-		badgeCallback({command:'badge', rules:rules, count:blockedCount});
-		badgeCallback = null;
+		bgCallback({command:'badge', rules:rules, count:blockedCount});
+		bgCallback = null;
 	}	
 }
 

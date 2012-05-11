@@ -205,10 +205,9 @@ function execCallbackSetApplied (tabId, param)
 function execCallbackBadge (tabId, param)
 {
 	var count = param.count;
-	console.log("foregroundCallback ---badge");
 	try {
-		tabBadgeMap[tabId] = badgeText;
 		var badgeText = ''+count;
+		tabBadgeMap[tabId] = badgeText;
 		chrome.browserAction.setBadgeText({
 			text: badgeText,
 			tabId: tabId
@@ -375,9 +374,6 @@ if (!chrome.tabs.customBlockerOnUpdateSet)
 		(function(_tabId, selectInfo) 
 			{
 				var tabId = parseInt(_tabId);
-				var isDisabled = ('true' == localStorage.blockDisabled);
-				_setIconDisabled(isDisabled, tabId);
-				console.log("new tab open. " + tabId);
 				for (var _index in existingTabs) 
 				{ 
 					var tabIdToDisable = parseInt(_index);
@@ -391,6 +387,19 @@ if (!chrome.tabs.customBlockerOnUpdateSet)
 				}
 				try
 				{
+					if ('true' == localStorage.blockDisabled)
+						_setIconDisabled(!applied, tabId);
+					else
+					{	
+						var applied = appliedRuleMap[tabId]
+							&& appliedRuleMap[tabId].length>0;
+						chrome.browserAction.setIcon(
+						{
+							path:(applied)?'icon.png':'icon_disabled.png',
+							tabId:tabId
+						});	
+							
+					}
 					chrome.tabs.sendRequest(tabId, 
 						{
 							command: 'resume'
@@ -401,7 +410,6 @@ if (!chrome.tabs.customBlockerOnUpdateSet)
 							text: tabBadgeMap[tabId],
 							tabId: tabId
 						});
-						
 					}
 				}
 				catch (ex) {console.log(ex);}

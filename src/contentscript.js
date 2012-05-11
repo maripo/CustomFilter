@@ -20,7 +20,7 @@ window.ruleEditor = null;
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 {
-	if ('init'==request.command &&request.rules) 
+	if ('init'==request.command && request.rules) 
 	{
 		if (window.customBlockerInitDone) return;
 		window.customBlockerInitDone = true;
@@ -81,7 +81,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 	{
 		bgCallback = sendResponse;
 		if (!RuleExecutor.blockInterval)
-			RuleExecutor.blockInterval = window.setInterval(execBlock, 2000);
+			RuleExecutor.blockInterval = window.setInterval(RuleExecutor.execBlock, 2000);
 	}
 	else if ('quickRuleCreation'==request.command)
 	{
@@ -94,7 +94,6 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 		window.smartRuleCreatorDialog.show(creator, lastRightClickedElement, lastRightClickEvent);
 	}
 });
-
 
 RuleExecutor.checkRules = function (list)
 {
@@ -113,7 +112,7 @@ RuleExecutor.checkRules = function (list)
 			console.log(e);
 		}
 	}
-	bgCallback(rules);
+	bgCallback({command:'setApplied', list:rules});
 	if (rules.length > 0) 
 		RuleExecutor.startBlock();
 }
@@ -150,8 +149,8 @@ RuleExecutor.startBlock = function()
 	}
 	if (needBlocking)
 	{
-		RuleExecutor.blockTimeout = setTimeout(execBlock, 50);
-		RuleExecutor.blockInterval = setInterval(execBlock, 2000);
+		RuleExecutor.blockTimeout = setTimeout(RuleExecutor.execBlock, 50);
+		RuleExecutor.blockInterval = setInterval(RuleExecutor.execBlock, 2000);
 	}
 }
 
@@ -173,8 +172,9 @@ function stopBlockAction ()
 	if (RuleExecutor.blockInterval) clearInterval(RuleExecutor.blockInterval);
 }
 
-function execBlock()
+RuleExecutor.execBlock = function ()
 {
+	console.log("execBlock");
 	if (!rules) return;
 	for (var i = 0; i < rules.length; i++)
 	{
@@ -261,10 +261,16 @@ function applyRule(rule, /* boolean */ ignoreHidden, /*function(node)*/onHide, i
 	}
 	if (needRefreshBadge && blockedCount > 0 && badgeCallback) 
 	{
-		badgeCallback({count:blockedCount, rules:rules});
+		badgeCallback({command:'badge', rules:rules, count:blockedCount});
 		badgeCallback = null;
 	}	
 }
+
+RuleExecutor.reloadRules = function ()
+{
+	console.log("RuleExecutor.reloadRules")
+};
+
 function containsChildFlagged (node, list) 
 {
 	for (var i=0, l=list.length; i<l; i++) 

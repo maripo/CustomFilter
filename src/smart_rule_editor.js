@@ -166,7 +166,8 @@ SmartRuleCreatorDialog.prototype.getCloseAction = function ()
 	{
 		window.elementHighlighter.highlightRule(null);
 		self.div.style.display = 'none';
-		self.cancelEditing()
+		self.cancelEditing();
+		RuleExecutor.reloadRules();
 	};
 };
 

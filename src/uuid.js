@@ -14,7 +14,7 @@ function UUID() {}
  * The simplest function to get an UUID string.
  * @returns {string} A version 4 UUID string.
  */
-.generate = function() {
+UUID.generate = function() {
   var rand = UUID._gri, hex = UUID._ha;
   return  hex(rand(32), 8)          // time_low
         + "-"

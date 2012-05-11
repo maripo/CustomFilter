@@ -20,10 +20,9 @@ function createWordTable ()
 {
 	wordPeer.createTable(loadLists);
 }
-function loadLists () 
+function loadLists (callback) 
 {
-	peer.select('', 
-		onRuleListLoaded, null);
+	peer.select('', onRuleListLoaded, null);
 }
 function onRuleListLoaded (list) 
 {
@@ -91,7 +90,6 @@ function reloadLists ()
 {
 	loadLists();
 }
-
 function openRulePicker (selectedRule) 
 {
 	try 
@@ -111,6 +109,7 @@ function openRulePicker (selectedRule)
 }
 function getRulePickerOnCommandFunc (tabId, bySmartRuleCreator)
 {
+//TODO callback.
 	return function (command)
 	{
 		try 
@@ -161,27 +160,70 @@ var tabOnUpdate = function(tabId, changeInfo, tab)
 			rules: ruleList,
 			tabId: tabId
 		},
-		function(list)
-		{
-			try {
-				chrome.browserAction.setIcon(
-					{
-						path:((list.length>0)?'icon.png':'icon_disabled.png'),
-						tabId:tabId
-					});
-			} catch (ex) 
-			{
-				console.log(ex)
-			}
-			appliedRuleMap[tab.id] = list;
-			chrome.tabs.sendRequest(tab.id, 
-			{
-				command: 'badge'
-			}, getBadgeAction(tabId));
-		});
+		getForegroundCallback (tabId)
+		);
 	}
 }
 
+function getForegroundCallback (tabId)
+{
+		//TODO callback.
+		return function(param)
+		{
+			console.log("params.command=" + param.command);
+			switch (param.command)
+			{
+				case 'badge': 
+					execCallbackBadge(tabId, param);
+					break;
+				case 'setApplied': 
+					execCallbackSetApplied(tabId, param);
+					break;
+			}
+			
+			// Set callback
+			chrome.tabs.sendRequest(tabId, 
+			{
+				command: 'badge'
+			}, getForegroundCallback (tabId));
+	
+		};
+
+};
+function execCallbackSetApplied (tabId, param)
+{
+	console.log("foregroundCallback setApplied. param.list=" + param.list);
+	var list = param.list || new Array();
+	chrome.browserAction.setIcon(
+		{
+			path:((list.length>0)?'icon.png':'icon_disabled.png'),
+			tabId:tabId
+		});
+	appliedRuleMap[tabId] = list;
+
+};
+function execCallbackBadge (tabId, param)
+{
+	var count = param.count;
+	console.log("foregroundCallback ---badge");
+	try {
+		tabBadgeMap[tabId] = badgeText;
+		var badgeText = ''+count;
+		chrome.browserAction.setBadgeText({
+			text: badgeText,
+			tabId: tabId
+		});
+		chrome.browserAction.setTitle({
+			title: getBadgeTooltipString(count),
+			tabId:tabId
+		});
+		appliedRuleMap[tabId] = param.rules;
+	} catch (ex) 
+	{
+		console.log(ex)
+	}
+
+}
 function getAppliedRules (callback) 
 {
 	chrome.tabs.getSelected(null,function(tab)
@@ -335,25 +377,24 @@ if (!chrome.tabs.customBlockerOnUpdateSet)
 				var tabId = parseInt(_tabId);
 				var isDisabled = ('true' == localStorage.blockDisabled);
 				_setIconDisabled(isDisabled, tabId);
-				var ids = new Array();
+				console.log("new tab open. " + tabId);
 				for (var _index in existingTabs) 
 				{ 
-					var index = parseInt(_index);
-					if (existingTabs[index] && index!=tabId)
+					var tabIdToDisable = parseInt(_index);
+					if (tabIdToDisable && tabIdToDisable!=tabId)
 					{
-						chrome.tabs.sendRequest(index, 
+						chrome.tabs.sendRequest(tabIdToDisable, 
 							{
 								command: 'stop'
-							}, getBadgeAction(index));
+							}, getForegroundCallback (tabIdToDisable));
 					}
-					ids.push(index);
 				}
 				try
 				{
 					chrome.tabs.sendRequest(tabId, 
 						{
 							command: 'resume'
-						}, getBadgeAction(tabId));
+						}, getForegroundCallback(tabId));
 					if (tabBadgeMap[tabId])
 					{
 						chrome.browserAction.setBadgeText({
@@ -386,33 +427,6 @@ function _setIconDisabled (isDisabled, tabId)
 	});	
 	
 }
-function getBadgeAction (tabId) 
-{
-	return function (params) 
-	{
-		var count = params.count;
-		var rules = params.rules;
-		try 
-		{
-			appliedRuleMap[tabId] = rules;
-			var badgeText = ''+count;
-			chrome.browserAction.setBadgeText({
-				text: badgeText,
-				tabId: tabId
-			});
-			tabBadgeMap[tabId] = badgeText;
-			chrome.browserAction.setTitle({
-				title: getBadgeTooltipString(count),
-				tabId:tabId
-			});
-		} catch (ex) {
-			console.log(ex)
-		}
-		chrome.tabs.sendRequest(tabId, {
-			command: 'badge'
-		}, getBadgeAction(tabId));
-	}
-};
 function highlightRuleElements (rule)
 {
 	chrome.tabs.getSelected(null,function(tab)
@@ -421,7 +435,7 @@ function highlightRuleElements (rule)
 				{
 					command: 'highlight',
 					rule: rule
-				}, getBadgeAction(tab.id));
+				}, getForegroundCallback(tab.id));
 		});
 }
 function getBadgeTooltipString (count)

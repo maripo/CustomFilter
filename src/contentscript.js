@@ -4,15 +4,15 @@
  */
 var bgCallback = null;
 
-if (!window.elementHighlighter)
-{
-	window.elementHighlighter = new ElementHighlighter();
-}
-
 
 window.ruleEditor = null;
 
-function processBackgroundRequest (request, sender, sendResponse)
+var BgProcessor = function ()
+{
+
+};
+
+BgProcessor.prototype.processBackgroundRequest = function (request, sender, sendResponse)
 {
 
 	if ('init'==request.command && request.rules) 
@@ -91,10 +91,21 @@ function processBackgroundRequest (request, sender, sendResponse)
 	}
 };
 
-chrome.extension.onRequest.addListener(processBackgroundRequest);
+if (!window.elementHighlighter)
+	window.elementHighlighter = new ElementHighlighter();
+if (!window.bgProcessor)
+	window.bgProcessor = new BgProcessor();
 
+chrome.extension.onRequest.addListener
+(
+	function (request, sender, sendResponse) 
+	{
+		window.bgProcessor.processBackgroundRequest(request, sender, sendResponse)
+	}
+);
 
 //Memorize right-clicked event source
 var lastRightClickedElement = null;
 var lastRightClickEvent = null; 
 document.body.oncontextmenu = function(event){lastRightClickedElement=event.srcElement; lastRightClickEvent=event};
+

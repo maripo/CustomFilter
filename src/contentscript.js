@@ -3,8 +3,6 @@
 
  */
 var bgCallback = null;
-
-
 window.ruleEditor = null;
 
 var BgProcessor = function ()

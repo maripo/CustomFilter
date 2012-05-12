@@ -96,6 +96,11 @@ RuleExecutor.execBlock = function ()
 RuleExecutor.reloadRules = function ()
 {
 	console.log("RuleExecutor.reloadRules")
+	window.bgProcessor.sendRequest(
+		'reload', 
+		{}, 
+		'reload'
+	);
 };
 
 
@@ -155,7 +160,11 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 	}
 	if (needRefreshBadge && RuleExecutor.blockedCount > 0) 
 	{
-		window.bgProcessor.sendRequest('badge', {rules:rules, count: RuleExecutor.blockedCount}, 'badge');
+		window.bgProcessor.sendRequest(
+			'badge', 
+			{rules:rules, count: RuleExecutor.blockedCount}, 
+			'badge'
+		);
 	}	
 };
 

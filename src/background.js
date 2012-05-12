@@ -148,6 +148,10 @@ function getForegroundCallback (tabId)
 				useCallback = true;
 				execCallbackDb(tabId, param);
 				break;
+			case 'reload':
+				useCallback = true;
+				execCallbackReload(tabId, param);
+				break;
 		}
 		
 		// Set callback
@@ -161,6 +165,15 @@ function getForegroundCallback (tabId)
 	};
 
 };
+function execCallbackReload (tabId, param)
+{
+	console.log("execCallbackReload (stub)");
+	chrome.tabs.sendRequest(tabId, 
+	{
+		command: (param.nextAction)
+	}, getForegroundCallback (tabId));
+
+}
 function execCallbackDb (tabId, param)
 {
 	try 

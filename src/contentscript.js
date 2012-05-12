@@ -46,6 +46,8 @@ BgProcessor.prototype.processBackgroundRequest = function (request, sender, send
 			this.execStop(request); break;
 		case 'resume':
 			this.execResume(request); break;
+		case 'reload':
+			this.execReload(request); break;
 		case 'quickRuleCreation':
 			this.execQuickQuleCreation(request); break;
 	}
@@ -95,6 +97,10 @@ BgProcessor.prototype.execResume = function (request)
 {
 	if (!RuleExecutor.blockInterval)
 		RuleExecutor.blockInterval = window.setInterval(RuleExecutor.execBlock, 2000);
+};
+BgProcessor.prototype.execReload = function (request)
+{
+	console.log("BgProcessor.execReload (stub)");
 };
 BgProcessor.prototype.execQuickQuleCreation = function (request)
 {

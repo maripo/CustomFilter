@@ -16,7 +16,7 @@ RuleEditor.prototype.initialize = function ()
 {
 	var nodes = document.body.getElementsByTagName('*');
 	this.maxZIndex = RuleEditor.getMaxZIndex();
-	stopBlockAction();
+	RuleExecutor.stopBlockAction();
 	
 	for (var i=0; i<nodes.length;  i++) 
 	{		
@@ -384,7 +384,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		{
 			styleTag.parentNode.removeChild(styleTag);
 		}
-		applyRule(rule, true,
+		RuleExecutor.applyRule(rule, true,
 			function (node) 
 			{
 				addToHiddenNodes(node);
@@ -398,7 +398,6 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		document.getElementById('rule_editor_alert_site_regexp').style.display = (matched)?'none':'block';
 	},
 	false);
-	CustomBlockerUtil.setHelpLinks();
 	var helpLinks = CustomBlockerUtil.getElementsByXPath('id("rule_editor_body")//a[@class="help"]');
 	for (var i=0, l=helpLinks.length; i<l; i++) 
 	{

@@ -380,9 +380,9 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		{
 			hiddenNodes[i].style.display = 'block';
 		}
-		if (styleTag)
+		if (RuleExecutor.styleTag)
 		{
-			styleTag.parentNode.removeChild(styleTag);
+			RuleExecutor.styleTag.parentNode.removeChild(RuleExecutor.styleTag);
 		}
 		RuleExecutor.applyRule(rule, true,
 			function (node) 

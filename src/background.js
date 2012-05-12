@@ -107,41 +107,6 @@ function openRulePicker (selectedRule)
 	} 
 	catch (ex) {console.log(ex)}
 }
-function getRulePickerOnCommandFunc (tabId, bySmartRuleCreator)
-{
-//TODO callback.
-	return function (command)
-	{
-		try 
-		{
-			var exPeer;
-			if ('save' == command.command) 
-			{
-				var rule =command.obj;
-				var saveRuleTask = new SaveRuleTask(rule, reloadLists, tabId, bySmartRuleCreator);
-				saveRuleTask.exec();
-			}
-				
-			if ('delete' == command.command) 
-			{
-				exPeer.deleteObject(command.obj, reloadLists);
-			}
-		} 
-		catch (e) 
-		{
-			console.log(e)
-		}
-		chrome.tabs.getSelected(null,function(tab)
-		{
-			chrome.tabs.sendRequest(tab.id, 
-			{
-				command: 'ruleEditorRegister',
-				bySmartRuleCreator: bySmartRuleCreator
-			}, getRulePickerOnCommandFunc(tab.id, bySmartRuleCreator));
-		});
-		
-	}
-}
 var tabOnUpdate = function(tabId, changeInfo, tab)
 {
 	addToExistingTabList(tabId);
@@ -167,29 +132,52 @@ var tabOnUpdate = function(tabId, changeInfo, tab)
 
 function getForegroundCallback (tabId)
 {
-		//TODO callback.
-		return function(param)
+	//TODO callback.
+	return function(param)
+	{
+		var useCallback = false;
+		switch (param.command)
 		{
-			console.log("params.command=" + param.command);
-			switch (param.command)
-			{
-				case 'badge': 
-					execCallbackBadge(tabId, param);
-					break;
-				case 'setApplied': 
-					execCallbackSetApplied(tabId, param);
-					break;
-			}
-			
-			// Set callback
+			case 'badge': 
+				execCallbackBadge(tabId, param);
+				break;
+			case 'setApplied': 
+				execCallbackSetApplied(tabId, param);
+				break;
+			case 'db':
+				useCallback = true;
+				execCallbackDb(tabId, param);
+				break;
+		}
+		
+		// Set callback
+		if (!useCallback)
+		{
 			chrome.tabs.sendRequest(tabId, 
 			{
-				command: 'badge'
+				command: (param.nextAction || 'badge')
 			}, getForegroundCallback (tabId));
-	
-		};
+		}
+	};
 
 };
+function execCallbackDb (tabId, param)
+{
+	try 
+	{
+		var exPeer;
+		if ('save' == param.dbCommand) 
+		{
+			var rule =param.obj;
+			var saveRuleTask = new SaveRuleTask(rule, reloadLists, tabId);
+			saveRuleTask.exec(param.nextAction);
+		}
+	} 
+	catch (e) 
+	{
+		console.log(e)
+	}
+}
 function execCallbackSetApplied (tabId, param)
 {
 	console.log("foregroundCallback setApplied. param.list=" + param.list);
@@ -271,9 +259,8 @@ function loadSmartRuleEditorSrc()
 	xhr.send();
 }
 
-var SaveRuleTask = function (rule, reloadLists, tabId, bySmartRuleCreator) 
+var SaveRuleTask = function (rule, reloadLists, tabId) 
 {
-	this.bySmartRuleCreator = bySmartRuleCreator;
 	var saveWords = new Array();
 	var deleteWords = new Array();
 	
@@ -298,12 +285,12 @@ var SaveRuleTask = function (rule, reloadLists, tabId, bySmartRuleCreator)
 	
 	this.reloadLists /* function */ = reloadLists;
 };
-SaveRuleTask.prototype.exec = function () 
+SaveRuleTask.prototype.exec = function (nextAction) 
 {
 	//peer, wordPeer
-	peer.saveObject(this.rule, this.getNextTask());	
+	peer.saveObject(this.rule, this.getNextTask(nextAction));	
 };
-SaveRuleTask.prototype.getNextTask = function () 
+SaveRuleTask.prototype.getNextTask = function (nextAction) 
 {
 	var self = this;
 	return function () 
@@ -311,24 +298,23 @@ SaveRuleTask.prototype.getNextTask = function ()
 		var nextSaveWord = self.getNextSaveWord();
 		if (nextSaveWord) 
 		{
-			wordPeer.saveObject(nextSaveWord, self.getNextTask());
+			wordPeer.saveObject(nextSaveWord, self.getNextTask(nextAction));
 			return;
 		}
 		var nextDeleteWord = self.getNextDeleteWord();
 		if (nextDeleteWord) 
 		{
-			wordPeer.deleteObject(nextDeleteWord, self.getNextTask());
+			wordPeer.deleteObject(nextDeleteWord, self.getNextTask(nextAction));
 			return;
 		}
 		chrome.tabs.sendRequest(self.tabId,
 		{
-			command:'ruleSaveDone',
+			command:nextAction,
 			rules: ruleList,
 			tabId: self.tabId,
-			rule: self.rule,
-			bySmartRuleCreator: self.bySmartRuleCreator
+			rule: self.rule
 		}
-		, getRulePickerOnCommandFunc(self.tabId)
+		, getForegroundCallback(self.tabId)
 		);
 		self.reloadLists();
 	}
@@ -465,7 +451,7 @@ function onRightClick(clicked, tab) {
 			appliedRuleList: appliedRuleMap[tab.id],
 			selectionText: clicked.selectionText
 		}, 
-		getRulePickerOnCommandFunc(tab.id, true)
+		getForegroundCallback(tab.id)
 	);
 }
 

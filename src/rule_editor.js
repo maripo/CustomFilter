@@ -170,7 +170,7 @@ RuleEditor.prototype.save = function ()
 		this.rule.global_identifier = UUID.generate();
 	}
 	this.applyInput();
-	this.bgCallback({command:'save', type:'rule', obj: this.rule});
+	window.bgProcessor.sendRequest('db', {dbCommand:'save', type:'rule', obj: this.rule}, 'ruleSaveDoneRuleEditor');
 	
 };
 RuleEditor.prototype.applyInput = function ()

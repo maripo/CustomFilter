@@ -21,7 +21,7 @@
         "src/util.js","src/uuid.js",
         "src/element_highlighter.js",
         "src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js", 
-        "src/contentscript.js",
+        "src/rule_executor.js", "src/contentscript.js",
       	"src/smart_path_analyzer.js",
       	"src/rule_editor.js",
         "src/smart_rule_editor.js",

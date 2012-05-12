@@ -100,7 +100,10 @@ BgProcessor.prototype.execResume = function (request)
 };
 BgProcessor.prototype.execReload = function (request)
 {
-	console.log("BgProcessor.execReload (stub)");
+	for (var i=0; i<request.rules.length; i++)
+	{
+		console.log("title=" + request.rules[i].title);
+	}
 };
 BgProcessor.prototype.execQuickQuleCreation = function (request)
 {

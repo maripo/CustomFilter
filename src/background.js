@@ -170,7 +170,8 @@ function execCallbackReload (tabId, param)
 	console.log("execCallbackReload (stub)");
 	chrome.tabs.sendRequest(tabId, 
 	{
-		command: (param.nextAction)
+		command: (param.nextAction),
+		rules: ruleList
 	}, getForegroundCallback (tabId));
 
 }

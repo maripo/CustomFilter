@@ -9,86 +9,108 @@ window.ruleEditor = null;
 
 var BgProcessor = function ()
 {
-
 };
 
 BgProcessor.prototype.processBackgroundRequest = function (request, sender, sendResponse)
 {
-
-	if ('init'==request.command && request.rules) 
+	switch (request.command)
 	{
-		bgCallback = sendResponse;
+		case 'init':
+			this.execInit(request, sendResponse); break;
+		case 'badge':
+			this.execBadge(request, sendResponse); break;
+		case 'highlight':
+			this.execHighlight(request, sendResponse); break;
+		case 'ruleEditor':
+			this.execRuleEditor(request, sendResponse); break;
+		case 'ruleSaveDone':
+			this.execRuleSaveDone(request,sendResponse); break;
+		case 'ruleEditorRegister':
+			this.execRuleEditorRegister(); break;
+		case 'stop':
+			this.execStop(request, sendResponse); break;
+		case 'resume':
+			this.execResume(request, sendResponse); break;
+		case 'quickRuleCreation':
+			this.execQuickQuleCreation(request, sendResponse); break;
+	}
+};
+BgProcessor.prototype.execInit = function (request, sendResponse)
+{
+	bgCallback = sendResponse;
+	if (request.rules)
+	{
 		if (window.customBlockerInitDone) return;
 		
 		window.customBlockerInitDone = true;
 		rules = new Array();
 		RuleExecutor.checkRules(request.rules);
 	}
-	else if ('badge'==request.command) 
+};
+BgProcessor.prototype.execBadge = function (request, sendResponse)
+{
+	bgCallback = sendResponse;
+};
+BgProcessor.prototype.execHighlight = function (request, sendResponse)
+{
+	window.elementHighlighter.highlightRule(request.rule);
+	badgeCallback = sendResponse;
+};
+BgProcessor.prototype.execRuleEditor = function (request, sendResponse)
+{
+	if (!window.ruleEditor) 
 	{
-		bgCallback = sendResponse;
+		window.ruleEditor = new RuleEditor(request.rule, request.src, request.appliedRuleList);
+		window.ruleEditor.initialize();
+		window.ruleEditor.bgCallback = sendResponse;
 	}
-	else if ('highlight'==request.command)
+};
+BgProcessor.prototype.execRuleSaveDone = function (request, sendResponse)
+{
+	if (request.bySmartRuleCreator)
 	{
-		window.elementHighlighter.highlightRule(request.rule);
-		badgeCallback = sendResponse;
+		window.smartRuleCreatorDialog.onSaveDone(request.rule);
+		window.smartRuleCreatorDialog.bgCallback = sendResponse;
 	}
-	else if ('ruleEditor'==request.command) 
+	else if (window.ruleEditor)
 	{
-		if (!window.ruleEditor) 
-		{
-			window.ruleEditor = new RuleEditor(request.rule, request.src, request.appliedRuleList);
-			window.ruleEditor.initialize();
-			window.ruleEditor.bgCallback = sendResponse;
-		}
+		window.ruleEditor.onSaveDone(request.rule);
+		window.ruleEditor.bgCallback = sendResponse;
 	}
-	else if ('ruleSaveDone'==request.command)
+};
+
+BgProcessor.prototype.execRuleEditorRegister = function (request, sendResponse)
+{
+	if (request.bySmartRuleCreator)
 	{
-		if (request.bySmartRuleCreator)
-		{
-			window.smartRuleCreatorDialog.onSaveDone(request.rule);
-			window.smartRuleCreatorDialog.bgCallback = sendResponse;
-		}
-		else if (window.ruleEditor)
-		{
-			window.ruleEditor.onSaveDone(request.rule);
-			window.ruleEditor.bgCallback = sendResponse;
-		}
+		window.smartRuleCreatorDialog.bgCallback = sendResponse;
 	}
-	else if ('ruleEditorRegister'==request.command) 
+	else 
 	{
-		if (request.bySmartRuleCreator)
-		{
-			window.smartRuleCreatorDialog.bgCallback = sendResponse;
-		
-		}
-		else 
-		{
-			window.ruleEditor.bgCallback = sendResponse;
-		}
+		window.ruleEditor.bgCallback = sendResponse;
 	}
-	else if ('stop'==request.command) 
+};
+BgProcessor.prototype.execStop = function (request, sendResponse)
+{
+	bgCallback = sendResponse;
+	if (RuleExecutor.blockInterval) window.clearInterval(RuleExecutor.blockInterval);
+	RuleExecutor.blockInterval = null;
+};
+BgProcessor.prototype.execResume = function (request, sendResponse)
+{
+	bgCallback = sendResponse;
+	if (!RuleExecutor.blockInterval)
+		RuleExecutor.blockInterval = window.setInterval(RuleExecutor.execBlock, 2000);
+};
+BgProcessor.prototype.execQuickQuleCreation = function (request, sendResponse)
+{
+	if (!window.smartRuleCreatorDialog)
 	{
-		bgCallback = sendResponse;
-		if (RuleExecutor.blockInterval) window.clearInterval(RuleExecutor.blockInterval);
-		RuleExecutor.blockInterval = null;
-	}
-	else if ('resume'==request.command) 
-	{
-		bgCallback = sendResponse;
-		if (!RuleExecutor.blockInterval)
-			RuleExecutor.blockInterval = window.setInterval(RuleExecutor.execBlock, 2000);
-	}
-	else if ('quickRuleCreation'==request.command)
-	{
-		if (!window.smartRuleCreatorDialog)
-		{
-			window.smartRuleCreatorDialog = new SmartRuleCreatorDialog(RuleEditor.getMaxZIndex() + 1, this, request.src);
-			window.smartRuleCreatorDialog.bgCallback = sendResponse;
-		}			
-		var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText);
-		window.smartRuleCreatorDialog.show(creator, lastRightClickedElement, lastRightClickEvent);
-	}
+		window.smartRuleCreatorDialog = new SmartRuleCreatorDialog(RuleEditor.getMaxZIndex() + 1, request.src);
+		window.smartRuleCreatorDialog.bgCallback = sendResponse;
+	}			
+	var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText);
+	window.smartRuleCreatorDialog.show(creator, lastRightClickedElement, lastRightClickEvent);
 };
 
 if (!window.elementHighlighter)

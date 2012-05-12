@@ -74,10 +74,9 @@ SmartRuleCreator.prototype.isMatched = function (rule)
 	}
 	return false;
 };
-var SmartRuleCreatorDialog = function (_zIndex, ruleEditor, smartRuleEditorSrc)
+var SmartRuleCreatorDialog = function (_zIndex, smartRuleEditorSrc)
 {
 	this.smartRuleEditorSrc = smartRuleEditorSrc;
-	this.ruleEditor = ruleEditor;
 	this.div = document.createElement('DIV');
 	this.div.id = 'smart_rule_creator_dialog';
 	this.div.avoidStyle = true;

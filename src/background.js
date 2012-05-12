@@ -102,7 +102,7 @@ function openRulePicker (selectedRule)
 				src: rulePickerSrc,
 				rule: selectedRule,
 				appliedRuleList: appliedRuleMap[tab.id]
-			}, getRulePickerOnCommandFunc(tab.id, false));
+			}, getForegroundCallback(tab.id));
 		});
 	} 
 	catch (ex) {console.log(ex)}

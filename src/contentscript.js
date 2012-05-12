@@ -100,11 +100,10 @@ BgProcessor.prototype.execResume = function (request)
 };
 BgProcessor.prototype.execReload = function (request)
 {
-	for (var i=0; i<request.rules.length; i++)
-	{
-		console.log("title=" + request.rules[i].title);
-	}
+	rules = new Array();
+	RuleExecutor.checkRules(request.rules);
 };
+
 BgProcessor.prototype.execQuickQuleCreation = function (request)
 {
 	if (!window.smartRuleCreatorDialog)
@@ -114,6 +113,7 @@ BgProcessor.prototype.execQuickQuleCreation = function (request)
 	var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText);
 	window.smartRuleCreatorDialog.show(creator, lastRightClickedElement, lastRightClickEvent);
 };
+
 
 if (!window.elementHighlighter)
 	window.elementHighlighter = new ElementHighlighter();

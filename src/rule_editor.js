@@ -523,8 +523,9 @@ RuleEditorDialog.prototype.getCloseAction = function ()
 	var self = this;
 	return function (event)
 	{
-		location.reload();
-		self.div.parentNode.removeChild(self.div);	
+		window.elementHighlighter.highlightRule(null);
+		self.div.parentNode.removeChild(self.div);
+		RuleExecutor.reloadRules();	
 	}
 	
 };

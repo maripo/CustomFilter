@@ -594,7 +594,6 @@ var PathPickerDialog = function (_zIndex, ruleEditor)
 		fontSize = 'small';
 		textAlign = 'left';
 		position = 'absolute';
-		outline = 'solid 1px black';
 		padding = '4px';
 		color = 'black';
 	}

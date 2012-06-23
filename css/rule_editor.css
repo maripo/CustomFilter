@@ -7,11 +7,12 @@
 	font-size : small!important;
 	text-align : left!important;
 	position : fixed!important;
-	outline : solid 1px #444!important;
+	border : solid 1px #444!important;
 	padding : 0px!important;
 	color : black!important;
 	right : 10px;
 	top :10px;
+	border-radius:8px!important;
 	-webkit-box-shadow: 1px 1px 2px #000!important;
 }
 #rule_editor_body {
@@ -66,11 +67,9 @@
 	font-weight:bold!important;
 }
 #rule_editor_body div.section {
-	border: solid 1px #888!important;
 	margin:4px!important;
 	padding:4px!important;
 	font-size:0.8em!important;
-	-webkit-box-shadow: inset 0px 0px 2px #888!important;
 }
 
 #rule_editor_body div.input_section{
@@ -252,6 +251,8 @@
 	text-indent:4px!important;
 	-webkit-box-shadow: 0px 0px 1px #aaa;
 	font-size:100%!important;
+	border-top-left-radius: 8px!important;
+	border-top-right-radius: 8px!important;
 }
 
 #rule_editor_body_drag a.close{

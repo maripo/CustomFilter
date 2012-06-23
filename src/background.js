@@ -469,5 +469,5 @@ function onRightClick(clicked, tab) {
 	);
 }
 
-var menuId = chrome.contextMenus.create({"title": chrome.i18n.getMessage('menuCreateRule') + " (Beta)", "contexts":["selection"],
+var menuId = chrome.contextMenus.create({"title": chrome.i18n.getMessage('menuCreateRule'), "contexts":["selection"],
 	"onclick": onRightClick});

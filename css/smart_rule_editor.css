@@ -19,18 +19,6 @@
 	width:180px;
 	border:solid 1px #888;
 }
-#smart_rule_editor_preview a.help {
-	background-color:#aaa!important;
-	color:white!important;
-	text-decoration:none!important;
-	vertical-align:middle!important;
-	margin:0px 2px 0px 2px!important;
-	padding-left:4px!important;
-	padding-right:4px!important;
-	border-radius:8px!important;
-	border:solid 1px #888;
-	float:right!important;
-}
 #smart_rule_creator_dialog * {
 	text-align:left;
 	background:none;
@@ -42,6 +30,18 @@
 	margin:0px!important;
 	border-radius: 0px!important;
 	-webkit-border-radius: 0px!important;
+}
+#smart_rule_editor_preview a.help {
+	background-color:#aaa!important;
+	color:white!important;
+	text-decoration:none!important;
+	vertical-align:middle!important;
+	margin:0px 2px 0px 2px!important;
+	padding-left:4px!important;
+	padding-right:4px!important;
+	border-radius:8px!important;
+	border:solid 1px #888;
+	float:right!important;
 }
 #smart_rule_creator_dialog label {
 	font-size:11px!important;
@@ -61,6 +61,17 @@
 	border-right:1px solid #ddd;
 	border-left:1px solid #ddd;
 }
+#smart_rule_creator_dialog li.option input[type="button"]{
+	display:none;
+	float:right;
+	height:16px!important;
+	font-size:10px!important;
+	line-height:16px!important;
+	
+}
+#smart_rule_creator_dialog li.option:hover input{
+	display:inline;
+}
 #smart_rule_creator_dialog li.option:nth-child(odd) {
 	background-color:#f0f0f0;
 }
@@ -74,7 +85,7 @@
 	background-color:#feb!important;
 }
 #smart_rule_creator_dialog li {
-	height:16px;
+	height:18px;
 	font-size:12px;
 	list-style-type:none!important;
 	list-style-image:none;
@@ -153,7 +164,7 @@
 	font-size:11px!important;
 	color:black!important;
 }
-#smart_rule_editor_body input[type="button"] {
+#smart_rule_editor_body input[type="button"], #smart_rule_creator_dialog input[type="button"] {
 	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
 	border-radius:4px!important;
 	border:1px solid #888!important;
@@ -164,7 +175,7 @@
 	text-align:center!important;
 	font-size:11px!important;
 }
-#smart_rule_editor_body input[type="button"]:active {
+#smart_rule_editor_body input[type="button"]:active, #smart_rule_creator_dialog input[type="button"]:active {
 	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
 }
 #smart_rule_editor_keyword {

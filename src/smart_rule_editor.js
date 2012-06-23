@@ -316,6 +316,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			li.innerHTML = chrome.i18n.getMessage('ruleEditorExistingRules');
 			li.className = 'smartEditorSectionTitle';
 			this.ul.appendChild(li);
+			// Draggable
 			li.addEventListener('mousedown', this.getOnMousedownAction(), true);
 		}
 		for (var i=0; i<creator.matchedRules.length; i++)
@@ -324,7 +325,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			var rule = creator.matchedRules[i];
 			if (!rule.hideNodes) rule.hideNodes = new Array();
 			if (!rule.searchNodes) rule.searchNodes = new Array();
-			var li = this.createLiElement(CustomBlockerUtil.shorten(rule.title,20), rule.hideNodes.length, rule.searchNodes.length);
+			var li = this.createLiElement(CustomBlockerUtil.shorten(rule.title,20), rule.hideNodes.length, rule.searchNodes.length, "Edit"); //TODO i18n
 			li.addEventListener('mouseover', this.getExistingRuleHoverAction(rule, li), true);
 			li.addEventListener('click', this.getExistingRuleClickAction(rule, li), true);
 			this.ul.appendChild(li);
@@ -336,6 +337,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		var sectionLi = document.createElement('LI');
 		sectionLi.innerHTML = chrome.i18n.getMessage('ruleEditorNewRules');
 		sectionLi.className = 'smartEditorSectionTitle';
+		// Draggable
 		sectionLi.addEventListener('mousedown', this.getOnMousedownAction(), true);
 		this.ul.appendChild(sectionLi);
 		for (var i=0; i<creator.suggestedPathList.length; i++)
@@ -343,7 +345,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			// New rule
 			var path = creator.suggestedPathList[i];
 			path.title = chrome.i18n.getMessage('smartRuleEditorSuggestedTitlePrefix') + (i + 1);
-			var li = this.createLiElement(path.title, path.hidePath.elements.length, path.searchPath.elements.length);
+			var li = this.createLiElement(path.title, path.hidePath.elements.length, path.searchPath.elements.length, "Create"); //TODO i18n
 			li.addEventListener('mouseover', this.getSuggestedPathHoverAction(path, li), true);
 			li.addEventListener('click', this.getSuggestedPathClickAction(path, li), true);
 			li.className = 'option';
@@ -365,7 +367,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		divElements[i].avoidStyle = true;
 	}
 };
-SmartRuleCreatorDialog.prototype.createLiElement = function (title, hideCount, searchCount)
+SmartRuleCreatorDialog.prototype.createLiElement = function (title, hideCount, searchCount, buttonTitle)
 {
 	var li = document.createElement('LI');
 	var spanHideCount = document.createElement('SPAN');
@@ -377,9 +379,14 @@ SmartRuleCreatorDialog.prototype.createLiElement = function (title, hideCount, s
 	var spanTitle = document.createElement('SPAN');
 	spanTitle.innerHTML = title;
 	
+	var button = document.createElement('INPUT');
+	button.type = 'button';
+	button.value = buttonTitle;
+		
 	li.appendChild(spanHideCount);
 	li.appendChild(spanSearchCount);
 	li.appendChild(spanTitle);
+	li.appendChild(button);
 	
 	li.className = 'option';
 	return li;

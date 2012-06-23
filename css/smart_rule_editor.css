@@ -286,3 +286,7 @@ div.section_detail_link {
  {
 	width:216px;
 }
+#smart_rule_editor_preview_suggested {
+	font-size:11px!important;
+	color:blue;
+}

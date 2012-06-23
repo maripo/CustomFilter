@@ -435,6 +435,7 @@ SmartRuleCreatorDialog.prototype.previewExistingRule = function (rule)
 		CustomBlockerUtil.shorten(((rule.search_block_by_css)?
 			rule.search_block_css:rule.search_block_xpath), SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH);
 	CustomBlockerUtil.clearChildren(document.getElementById('smart_rule_editor_preview_keywords'));
+	document.getElementById('smart_rule_editor_preview_suggested').style.display = 'none';
 	for (var i=0; i<rule.words.length; i++)
 	{
 		var keywordsDiv = document.getElementById('smart_rule_editor_preview_keywords');
@@ -476,6 +477,8 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathHoverAction = function (path, l
 SmartRuleCreatorDialog.prototype.previewSuggestedPath = function (path)
 {
 	document.getElementById('smart_rule_editor_preview_title').innerHTML = path.title;
+	
+	document.getElementById('smart_rule_editor_preview_suggested').style.display = 'block';
 	document.getElementById('smart_rule_editor_preview_hide_count').innerHTML = path.hidePath.elements.length;
 	document.getElementById('smart_rule_editor_preview_hide_path').innerHTML = 
 		CustomBlockerUtil.shorten(path.hidePath.path, SmartRuleCreatorDialog.PREVIEW_PATH_WIDTH);

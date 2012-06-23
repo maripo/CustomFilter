@@ -1,11 +1,13 @@
-<div id="rule_editor_body">
-<div id="rule_editor_body_drag">
+<div id="rule_editor_body" class="customblocker_rule_dialog">
+<div id="rule_editor_body_drag" class="header">
 	<a id="rule_editor_closer" class="close" href="javascript:void(0)"></a>
 	Edit Rule
 </div>
 <div class="section">
-	<h2>Title</h2>
-	<div><input type="text" class="rule_editor_textbox" id="rule_editor_title"/></div>
+	<div class="rule_editor_switch_section">
+		<div class="label">Title</div>
+		<input type="text" class="rule_editor_textbox" id="rule_editor_title"/>
+	</div>
 </div>
 <div class="section">
 	<h2>Site</h2>
@@ -25,8 +27,8 @@
 		<input type="radio" id="rule_editor_radio_search_css" name="rule_editor_radio_search" checked checked="true"/>
 		<label for="rule_editor_radio_search_css">CSS</label>
 	</div>
-	<div class="input_section" id="rule_editor_section_search_xpath"><div class="label"><span class="rule_editor_count rule_editor_count_search" id="rule_editor_count_search_block_xpath">邵ｲ�ｽ/span>XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_xpath"/><input class="uiButton xpath_picker" type="button" value="Suggest XPath" id="rule_editor_button_search_block_xpath"/><a href="search.html" class="help">?</a></div>
-	<div class="input_section" id="rule_editor_section_search_css"><div class="label"><span class="rule_editor_count rule_editor_count_search" id="rule_editor_count_search_block_css">邵ｲ�ｽ/span>CSS Selector</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_css"/><input class="uiButton xpath_picker" type="button" value="Suggest CSS Selector" id="rule_editor_button_search_block_css"/><a href="search.html" class="help">?</a></div>
+	<div class="input_section" id="rule_editor_section_search_xpath"><div class="label"><span class="rule_editor_count rule_editor_count_search" id="rule_editor_count_search_block_xpath"></span>XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_xpath"/><input class="uiButton xpath_picker" type="button" value="Suggest XPath" id="rule_editor_button_search_block_xpath"/><a href="search.html" class="help">?</a></div>
+	<div class="input_section" id="rule_editor_section_search_css"><div class="label"><span class="rule_editor_count rule_editor_count_search" id="rule_editor_count_search_block_css"></span>CSS Selector</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_css"/><input class="uiButton xpath_picker" type="button" value="Suggest CSS Selector" id="rule_editor_button_search_block_css"/><a href="search.html" class="help">?</a></div>
 	<div class="section_alert" style="display:none" id="rule_editor_alert_search_block_xpath">Invalid XPath</div>
 	<div class="input_section"><div class="label">Description</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_description"/></div>
 	<div class="description">
@@ -41,8 +43,8 @@
 		<input type="radio" id="rule_editor_radio_hide_css" name="rule_editor_radio_hide" checked checked="true"/>
 		<label for="rule_editor_radio_hide_css">CSS</label>
 	</div>
-	<div class="input_section" id="rule_editor_section_hide_xpath"><div class="label"><span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_xpath">邵ｲ�ｽ/span> XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_xpath"/><input class="uiButton xpath_picker" type="button" value="Suggest XPath" id="rule_editor_button_hide_block_xpath"/><a href="hide.html" class="help">?</a></div>
-	<div class="input_section" id="rule_editor_section_hide_css"><div class="label"><span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_css">邵ｲ�ｽ/span> CSS Selector</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_css"/><input class="uiButton xpath_picker" type="button" value="Suggest CSS Selector" id="rule_editor_button_hide_block_css"/><a href="hide.html" class="help">?</a></div>
+	<div class="input_section" id="rule_editor_section_hide_xpath"><div class="label"><span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_xpath"></span> XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_xpath"/><input class="uiButton xpath_picker" type="button" value="Suggest XPath" id="rule_editor_button_hide_block_xpath"/><a href="hide.html" class="help">?</a></div>
+	<div class="input_section" id="rule_editor_section_hide_css"><div class="label"><span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_css"></span> CSS Selector</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_css"/><input class="uiButton xpath_picker" type="button" value="Suggest CSS Selector" id="rule_editor_button_hide_block_css"/><a href="hide.html" class="help">?</a></div>
 	<div class="section_alert" style="display:none" id="rule_editor_alert_hide_block_xpath">Invalid XPath</div>
 	<div class="input_section"><div class="label">Description</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_description"/></div>
 	<div class="description">

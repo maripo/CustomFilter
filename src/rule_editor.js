@@ -254,6 +254,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	this.div.innerHTML = src;
 	
 	CustomBlockerUtil.applyCss('/css/rule_editor.css');
+	CustomBlockerUtil.applyCss('/css/rule_editor_common.css');
 	CustomBlockerUtil.applyCss('/css/keywords.css');
 	CustomBlockerUtil.applyCss('/css/rule_editor_cursor.css');	
 	

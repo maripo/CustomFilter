@@ -2,6 +2,7 @@
 <html>
 <head>
 		<link rel="stylesheet" href="css/smart_rule_editor.css"/>
+		<link rel="stylesheet" href="css/rule_editor_common.css"/>
 </head>
 <body>
 -->
@@ -37,12 +38,13 @@
 		</div>
 	</div>
 </div>
-<div id="smart_rule_editor_body">
+<div id="smart_rule_editor_body" class="customblocker_rule_dialog">
 	<div class="section">
-		<div class="label">タイトル</div>
+		<div class="label">ルールのタイトル</div>
 		<div class="input"><input type="text" id="smart_rule_editor_title"/></div>
 	</div>
 	<div class="section">
+		<h2>サイト</h2>
 		<div class="label">URL(正規表現)</div>
 		<div class="input"><input type="text" id="smart_rule_editor_url"/></div>
 	</div>
@@ -62,9 +64,9 @@
 			<div class="input"><input type="text" id="smart_rule_editor_site_description"/></div>
 		</div>
 		<!-- Path Expression -->
-		<div class="section">
-			<div class="label">検索する要素</div>
-			<div>
+		<div class="section" style="position:relative!important;">
+			<h2>検索する要素</h2>
+			<div style="position:absolute!important;right:2px!important;top:2px!important;text-align:right!important;">
 				<input type="radio" id="smart_rule_editor_radio_search_xpath" name="smart_rule_editor_radio_search"/>
 				<label for="smart_rule_editor_radio_search_xpath">XPath</label>
 				<input type="radio" id="smart_rule_editor_radio_search_css" name="smart_rule_editor_radio_search" checked="true"/>
@@ -72,7 +74,8 @@
 			</div>
 		</div>
 		<div class="section">
-			<div class="label">&nbsp;</div>
+			<div class="label" id="smart_rule_editor_search_block_xpath_label">XPath</div>
+			<div class="label" id="smart_rule_editor_search_block_css_label">CSS Selector</div>
 			<div class="input">
 				<input type="text" id="smart_rule_editor_search_block_xpath"/>
 				<input type="text" id="smart_rule_editor_search_block_css"/>
@@ -82,9 +85,9 @@
 			<div class="label">説明</div>
 			<div class="input"><input type="text" id="smart_rule_editor_search_block_description"/></div>
 		</div>
-		<div class="section">
-			<div class="label">隠す要素</div>
-			<div>
+		<div class="section" style="position:relative!important;">
+			<h2>隠す要素</h2>
+			<div style="position:absolute!important;right:2px!important;top:2px!important;text-align:right!important;">
 				<input type="radio" id="smart_rule_editor_radio_hide_xpath" name="smart_rule_editor_radio_hide"/>
 				<label for="smart_rule_editor_radio_hide_xpath">XPath</label>
 				<input type="radio" id="smart_rule_editor_radio_hide_css" name="smart_rule_editor_radio_hide" checked="true"/>
@@ -92,7 +95,8 @@
 			</div>
 		</div>
 		<div class="section">
-			<div class="label">&nbsp;</div>
+			<div class="label" id="smart_rule_editor_hide_block_xpath_label">XPath</div>
+			<div class="label" id="smart_rule_editor_hide_block_css_label">CSS Selector</div>
 			<div class="input">
 				<input type="text" id="smart_rule_editor_hide_block_xpath"/>
 				<input type="text" id="smart_rule_editor_hide_block_css"/>
@@ -104,7 +108,8 @@
 		</div>
 	</div>
 	<div class="section">
-		<div class="label">NGワード</div>
+		<h2>NGワード</h2>
+		<div class="label"></div>
 		<div class="input">
 			<input type="text" id="smart_rule_editor_keyword"/>
 			<input type="checkbox" id="smart_rule_editor_keyword_regexp"/><label for="smart_rule_editor_keyword_regexp">正規表現</label>

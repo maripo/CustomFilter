@@ -140,16 +140,6 @@
 #smart_rule_editor_body div.section {
 	clear:left;
 }
-
-#smart_rule_editor_body div.section div.label {
-	width:102px;
-	font-size:75%;
-	float:left;
-	text-align:right;
-	padding-right:4px!important;
-	font-weight:bold;
-	color:black;
-}
 #smart_rule_editor_body div.section div.input {
 	margin-left:120px;
 }

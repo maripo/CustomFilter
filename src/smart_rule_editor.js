@@ -325,7 +325,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			var rule = creator.matchedRules[i];
 			if (!rule.hideNodes) rule.hideNodes = new Array();
 			if (!rule.searchNodes) rule.searchNodes = new Array();
-			var li = this.createLiElement(CustomBlockerUtil.shorten(rule.title,20), rule.hideNodes.length, rule.searchNodes.length, "Edit"); //TODO i18n
+			var li = this.createLiElement(CustomBlockerUtil.shorten(rule.title,19), rule.hideNodes.length, rule.searchNodes.length, chrome.i18n.getMessage('smartRuleEditorExistingButtonLabel'));
 			li.addEventListener('mouseover', this.getExistingRuleHoverAction(rule, li), true);
 			li.addEventListener('click', this.getExistingRuleClickAction(rule, li), true);
 			this.ul.appendChild(li);
@@ -345,7 +345,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			// New rule
 			var path = creator.suggestedPathList[i];
 			path.title = chrome.i18n.getMessage('smartRuleEditorSuggestedTitlePrefix') + (i + 1);
-			var li = this.createLiElement(path.title, path.hidePath.elements.length, path.searchPath.elements.length, "Create"); //TODO i18n
+			var li = this.createLiElement(path.title, path.hidePath.elements.length, path.searchPath.elements.length,  chrome.i18n.getMessage('smartRuleEditorSuggestedButtonLabel'));
 			li.addEventListener('mouseover', this.getSuggestedPathHoverAction(path, li), true);
 			li.addEventListener('click', this.getSuggestedPathClickAction(path, li), true);
 			li.className = 'option';

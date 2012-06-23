@@ -311,6 +311,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 	if (null!=creator.matchedRules && creator.matchedRules.length>0)
 	{
 		{
+			// Header of "Existing Rules" section
 			var li = document.createElement('LI');
 			li.innerHTML = chrome.i18n.getMessage('ruleEditorExistingRules');
 			li.className = 'smartEditorSectionTitle';
@@ -319,6 +320,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		}
 		for (var i=0; i<creator.matchedRules.length; i++)
 		{
+			// Existing rule
 			var rule = creator.matchedRules[i];
 			if (!rule.hideNodes) rule.hideNodes = new Array();
 			if (!rule.searchNodes) rule.searchNodes = new Array();
@@ -328,7 +330,9 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			this.ul.appendChild(li);
 		}
 	}
-	if (creator.suggestedPathList && creator.suggestedPathList.length>0){
+	if (creator.suggestedPathList && creator.suggestedPathList.length>0)
+	{
+		// Header of "New Rules" section
 		var sectionLi = document.createElement('LI');
 		sectionLi.innerHTML = chrome.i18n.getMessage('ruleEditorNewRules');
 		sectionLi.className = 'smartEditorSectionTitle';
@@ -336,6 +340,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		this.ul.appendChild(sectionLi);
 		for (var i=0; i<creator.suggestedPathList.length; i++)
 		{
+			// New rule
 			var path = creator.suggestedPathList[i];
 			path.title = chrome.i18n.getMessage('smartRuleEditorSuggestedTitlePrefix') + (i + 1);
 			var li = this.createLiElement(path.title, path.hidePath.elements.length, path.searchPath.elements.length);

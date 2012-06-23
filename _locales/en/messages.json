@@ -47,5 +47,6 @@
 	"smartRuleEditorSuggestedTitlePrefix":{"message":"Pattern "},
 	"menuCreateRule":{"message":"Create a Rule"},
 	"smartRuleEditorSuggestedButtonLabel":{"message":"Edit"},
-	"smartRuleEditorExistingButtonLabel":{"message":"Create"}
+	"smartRuleEditorExistingButtonLabel":{"message":"Create"},
+	"smartRuleEditorSuggestedMessage":{"message":"This rule is automatically suggested."}
 }

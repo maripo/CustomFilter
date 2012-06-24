@@ -31,18 +31,6 @@
 	border-radius: 0px!important;
 	-webkit-border-radius: 0px!important;
 }
-#smart_rule_editor_preview a.help {
-	background-color:#aaa!important;
-	color:white!important;
-	text-decoration:none!important;
-	vertical-align:middle!important;
-	margin:0px 2px 0px 2px!important;
-	padding-left:4px!important;
-	padding-right:4px!important;
-	border-radius:8px!important;
-	border:solid 1px #888;
-	float:right!important;
-}
 #smart_rule_creator_dialog label {
 	font-size:11px!important;
 	display:inline;
@@ -145,15 +133,6 @@
 }
 #smart_rule_editor_body div.advanced {
 }
-#smart_rule_editor_body input[type="text"] {
-	height:initial!important;
-	border:solid 1px #888!important;
-	float:none!important;
-	box-shadow:none!important;
-	line-height:100%!important;
-	font-size:11px!important;
-	color:black!important;
-}
 #smart_rule_editor_body input[type="button"], #smart_rule_creator_dialog input[type="button"] {
 	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
 	border-radius:4px!important;
@@ -168,12 +147,7 @@
 #smart_rule_editor_body input[type="button"]:active, #smart_rule_creator_dialog input[type="button"]:active {
 	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
 }
-#smart_rule_editor_keyword {
-	width:120px!important;
-}
-#smart_rule_editor_body span.word, #smart_rule_editor_preview span.word {
-	font-size:11px!important;
-}
+
 
 #smart_rule_editor_alert {
 	background-color:#fea!important;

@@ -538,14 +538,14 @@ SmartRuleCreatorDialog.prototype.showRule = function (rule)
 	document.getElementById('smart_rule_editor_hide_block_xpath').value = rule.hide_block_xpath;
 	document.getElementById('smart_rule_editor_hide_block_css').value = rule.hide_block_css;
 	document.getElementById('smart_rule_editor_hide_block_description').value = rule.hide_block_description;
-	CustomBlockerUtil.clearChildren(document.getElementById('rule_editor_keywords'));
+	CustomBlockerUtil.clearChildren(document.getElementById('smart_rule_editor_keywords'));
 	document.getElementById((rule.search_block_by_css)?'smart_rule_editor_radio_search_css':'smart_rule_editor_radio_search_xpath').checked = true;
 	document.getElementById((rule.hide_block_by_css)?'smart_rule_editor_radio_hide_css':'smart_rule_editor_radio_hide_xpath').checked = true;
 	this.setPathInputVisibility();
 	
 	for (var i=0; i<rule.words.length; i++)
 	{
-		document.getElementById('rule_editor_keywords').appendChild(this.getWordElement(rule.words[i]));
+		document.getElementById('smart_rule_editor_keywords').appendChild(this.getWordElement(rule.words[i]));
 	}
 	document.getElementById('smart_rule_editor_title').focus();
 };
@@ -597,7 +597,7 @@ SmartRuleCreatorDialog.prototype.addWord = function(wordStr)
 	word.dirty = true;
 	
 	var span = this.getWordElement(word)
-	document.getElementById('rule_editor_keywords').appendChild(span);
+	document.getElementById('smart_rule_editor_keywords').appendChild(span);
 	
 	this.rule.words.push(word);
 	

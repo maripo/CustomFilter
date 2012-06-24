@@ -1,20 +1,67 @@
-#rule_editor_keywords span.word, #smart_rule_editor_preview_keywords span.word {
-	
+#rule_editor_keywords span.word,
+#smart_rule_editor_keywords span.word, 
+#smart_rule_editor_preview_keywords span.word {
 	margin:0px 2px 2px 0px!important;
 	padding-left:4px!important;
 	padding-right:4px!important;
+	padding-top:1px!important;
+	padding-bottom:1px!important;
 	border-radius:8px!important;
+	font-size:11px!important;
 }
-#rule_editor_keywords span.regexp, #smart_rule_editor_preview_keywords span.regexp {
+#rule_editor_keywords span.regexp,
+#smart_rule_editor_keywords span.regexp, 
+#smart_rule_editor_preview_keywords span.regexp {
 	background-color:#fdd!important;
 	border: solid 1px #f77!important;
 }
-#rule_editor_keywords span.not_regexp, #smart_rule_editor_preview_keywords span.not_regexp {
+#rule_editor_keywords span.not_regexp,
+#smart_rule_editor_keywords span.not_regexp, 
+#smart_rule_editor_preview_keywords span.not_regexp {
 	background-color:#def!important;
 	border: solid 1px #78f!important;
 }
-#rule_editor_keywords span.word .deleteButton, #smart_rule_editor_preview_keywords span.word .deleteButton {
+
+#rule_editor_keywords span.word .deleteButton,
+#smart_rule_editor_keywords span.word .deleteButton, 
+#smart_rule_editor_preview_keywords span.word .deleteButton {
 	color:#444;
 	font-size:0.8em;
 	text-decoration:none;
+	text-indent:-100px!important;
+	background-image:url(../img/word_delete.png)!important;
+}
+
+
+#rule_editor_keywords span.word .deleteButton:hover,
+#smart_rule_editor_keywords span.word .deleteButton:hover, 
+#smart_rule_editor_preview_keywords span.word .deleteButton:hover {
+	background-image:url(../img/word_delete_hover.png)!important;
+}
+
+#rule_editor_keywords,
+#smart_rule_editor_keywords {
+	padding: 4px 2px!important;	
+}
+
+#rule_editor_keywords span.word,
+#smart_rule_editor_keywords span.word {
+	margin:0px 2px 2px 0px!important;
+	padding-left:4px!important;
+	padding-right:2px!important;
+	border-radius:8px!important;
+}
+#rule_editor_keywords span.word input.deleteButton,
+#smart_rule_editor_keywords span.word input.deleteButton {
+	width:16px!important;
+	height:16px!important;
+	border:none!important;
+	background-image:url(../img/word_delete.png)!important;
+	background-repeat:no-repeat;
+	display:inline-block!important;
+	line-height:18px!important;
+}
+#rule_editor_keywords span.word input.deleteButton:hover,
+#smart_rule_editor_keywords span.word input.deleteButton:hover {
+	background-image:url(../img/word_delete_hover.png)!important;
 }

@@ -9,11 +9,47 @@ div.customblocker_rule_dialog {
 }
 
 div.customblocker_rule_dialog div.section div.label {
-	width:102px!important;
+	width:82px!important;
 	font-size:75%!important;
 	float:left!important;
 	text-align:right!important;
 	padding-right:4px!important;
 	font-weight:bold!important;
 	color:black!important;
+}
+
+#smart_rule_editor_body input[type="text"],
+#rule_editor_body input[type="text"] {
+	height:initial!important;
+	border:solid 1px #888!important;
+	float:none!important;
+	box-shadow:none!important;
+	line-height:100%!important;
+	font-size:11px!important;
+	color:black!important;
+}
+
+#smart_rule_editor_body input[type="button"],
+#rule_editor_body input[type="button"] {
+	font-size:11px!important;
+}
+
+#rule_editor_body a.help,
+#smart_rule_editor_preview a.help {
+	background-color:#aaa!important;
+	color:white!important;
+	text-decoration:none!important;
+	vertical-align:middle!important;
+	margin:0px 2px 0px 2px!important;
+	padding-left:4px!important;
+	padding-right:4px!important;
+	border-radius:8px!important;
+	border:solid 1px #888;
+	font-size:11px!important;
+}
+#smart_rule_editor_keyword {
+	width:120px!important;
+}
+#smart_rule_editor_body span.word, #smart_rule_editor_preview span.word {
+	font-size:11px!important;
 }

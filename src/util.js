@@ -274,12 +274,12 @@ CustomBlockerUtil.getSuggestedSiteRegexp = function ()
 CustomBlockerUtil.createWordElement = function (word, deleteCallback /* function(span) */)
 {
 	var span = CustomBlockerUtil.createSimpleWordElement(word);
-	var deleteButton = document.createElement('A');
+	var deleteButton = document.createElement('INPUT');
 	
 	deleteButton.avoidStyle = true;
 	deleteButton.className = 'deleteButton';
+	deleteButton.type = 'button';
 	deleteButton.href = 'javascript:void(0)'
-	deleteButton.innerHTML = ' [x] '
 	deleteButton.addEventListener('click', function(){deleteCallback(span)}, true);
 	
 	span.appendChild(deleteButton);

@@ -39,12 +39,12 @@
 	width:auto!important;
 	display:inline!important;
 }
-#rule_editor_body div,#rule_editor_body h2{
+#rule_editor_body div,
+#rule_editor_body h2{
 	overflow:visible!important;
 	height:auto;
 	left:auto!important;
 	top:auto!important;
-	line-height:normal!important;
 	border:none!important;
 }
 #rule_editor_body a {
@@ -189,8 +189,8 @@
 
 }
 #rule_editor_body_drag {
-	height:19px!important;
-	font-weight:bold!important;
+	height:22px!important;
+	font-weight:normal!important;
 	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#aaaaaa))!important;
 	cursor:move!important;
 	line-height:24px;

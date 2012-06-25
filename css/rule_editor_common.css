@@ -15,13 +15,14 @@ div.customblocker_rule_dialog {
 	font-size : small!important;
 }
 
-div.customblocker_rule_dialog div.section div.label {
+#smart_rule_editor_body  div.section div.label,
+#rule_editor_body  div.section div.label {
 	width:82px!important;
 	font-size:75%!important;
 	float:left!important;
 	text-align:right!important;
 	padding-right:4px!important;
-	font-weight:bold!important;
+	font-weight:normal!important;
 	color:black!important;
 }
 

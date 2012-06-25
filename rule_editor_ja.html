@@ -4,19 +4,23 @@
 	ルールを編集
 </div>
 <div class="section">
-	<div class="rule_editor_switch_section">
-		<div class="label">ルールのタイトル</div>
-		<input type="text" class="rule_editor_textbox" id="rule_editor_title"/>
+	<div class="content">
+		<div class="rule_editor_switch_section">
+			<div class="label">ルールのタイトル</div>
+			<input type="text" class="rule_editor_textbox" id="rule_editor_title"/>
+		</div>
 	</div>
 </div>
 <div class="section">
 	<h2>サイト</h2>
-	<div class="input_section"><div class="label">正規表現</div><input type="text" class="rule_editor_textbox" id="rule_editor_site_regexp"/><a href="site.html" class="help">?</a></div>
-	<div class="section_alert" id="rule_editor_alert_site_regexp">このページのURLにはマッチしません</div>
-	<div class="input_section"><div class="label">URL例</div><input type="text" class="rule_editor_textbox" id="rule_editor_example_url"/></div>
-	<div class="input_section"><div class="label">説明</div><input type="text" class="rule_editor_textbox" id="rule_editor_site_description"/></div>
-	<div class="description">
-		該当するサイトでルールが適用されます
+	<div class="content">
+		<div class="input_section"><div class="label">正規表現</div><input type="text" class="rule_editor_textbox" id="rule_editor_site_regexp"/><a href="site.html" class="help">?</a></div>
+		<div class="section_alert" id="rule_editor_alert_site_regexp">このページのURLにはマッチしません</div>
+		<div class="input_section"><div class="label">URL例</div><input type="text" class="rule_editor_textbox" id="rule_editor_example_url"/></div>
+		<div class="input_section"><div class="label">説明</div><input type="text" class="rule_editor_textbox" id="rule_editor_site_description"/></div>
+		<div class="description">
+			該当するサイトでルールが適用されます
+		</div>
 	</div>
 </div>
 <div class="section" style="position:relative!important">
@@ -27,12 +31,14 @@
 		<input type="radio" id="rule_editor_radio_search_css" name="rule_editor_radio_search" checked="true"/>
 		<label for="rule_editor_radio_search_css">CSS</label>
 	</div>
-	<div class="input_section" id="rule_editor_section_search_xpath"><div class="label"><span class="rule_editor_count rule_editor_count_search" id="rule_editor_count_search_block_xpath">　</span>XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_xpath"/><input type="button" class="uiButton xpath_picker" value="XPathを取得" id="rule_editor_button_search_block_xpath"/><a href="search.html" class="help">?</a></div>
-	<div class="input_section" id="rule_editor_section_search_css"><div class="label"><span class="rule_editor_count rule_editor_count_search" id="rule_editor_count_search_block_css">　</span>CSSセレクタ</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_css"/><input type="button" class="uiButton xpath_picker" value="CSSセレクタを取得" id="rule_editor_button_search_block_css"/><a href="search.html" class="help">?</a></div>
-	<div class="section_alert" style="display:none" id="rule_editor_alert_search_block_xpath">XPathが不正です</div>
-	<div class="input_section"><div class="label">説明</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_description"/></div>
-	<div class="description">
-		該当する要素の中にNGワードが含まれていた場合に発動します
+	<div class="content">
+		<div class="input_section" id="rule_editor_section_search_xpath"><div class="label"><span class="rule_editor_count rule_editor_count_search" id="rule_editor_count_search_block_xpath">　</span>XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_xpath"/><input type="button" class="uiButton xpath_picker" value="XPathを取得" id="rule_editor_button_search_block_xpath"/><a href="search.html" class="help">?</a></div>
+		<div class="input_section" id="rule_editor_section_search_css"><div class="label"><span class="rule_editor_count rule_editor_count_search" id="rule_editor_count_search_block_css">　</span>CSSセレクタ</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_css"/><input type="button" class="uiButton xpath_picker" value="CSSセレクタを取得" id="rule_editor_button_search_block_css"/><a href="search.html" class="help">?</a></div>
+		<div class="section_alert" style="display:none" id="rule_editor_alert_search_block_xpath">XPathが不正です</div>
+		<div class="input_section"><div class="label">説明</div><input type="text" class="rule_editor_textbox" id="rule_editor_search_block_description"/></div>
+		<div class="description">
+			該当する要素の中にNGワードが含まれていた場合に発動します
+		</div>
 	</div>
 </div>
 <div class="section" style="position:relative!important">
@@ -43,25 +49,29 @@
 		<input type="radio" id="rule_editor_radio_hide_css" name="rule_editor_radio_hide" checked="true"/>
 		<label for="rule_editor_radio_hide_css">CSS</label>
 	</div>
-	<div class="input_section" id="rule_editor_section_hide_xpath"><div class="label"><span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_xpath">　</span> XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_xpath"/><input type="button" class="uiButton xpath_picker" value="XPathを取得" id="rule_editor_button_hide_block_xpath"/><a href="hide.html" class="help">?</a></div>
-	<div class="input_section" id="rule_editor_section_hide_css"><div class="label"><span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_css">　</span> CSSセレクタ</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_css"/><input type="button" class="uiButton xpath_picker" value="CSSセレクタを取得" id="rule_editor_button_hide_block_css"/><a href="hide.html" class="help">?</a></div>
-	<div class="section_alert" style="display:none" id="rule_editor_alert_hide_block_xpath">XPathが不正です</div>
-	<div class="input_section"><div class="label">説明</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_description"/></div>
-	<div class="description">
-		「検索する要素」にNGワードが含まれていると、ここで指定した要素を非表示にします
+	<div class="content">
+		<div class="input_section" id="rule_editor_section_hide_xpath"><div class="label"><span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_xpath">　</span> XPath</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_xpath"/><input type="button" class="uiButton xpath_picker" value="XPathを取得" id="rule_editor_button_hide_block_xpath"/><a href="hide.html" class="help">?</a></div>
+		<div class="input_section" id="rule_editor_section_hide_css"><div class="label"><span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_css">　</span> CSSセレクタ</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_css"/><input type="button" class="uiButton xpath_picker" value="CSSセレクタを取得" id="rule_editor_button_hide_block_css"/><a href="hide.html" class="help">?</a></div>
+		<div class="section_alert" style="display:none" id="rule_editor_alert_hide_block_xpath">XPathが不正です</div>
+		<div class="input_section"><div class="label">説明</div><input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_description"/></div>
+		<div class="description">
+			「検索する要素」にNGワードが含まれていると、ここで指定した要素を非表示にします
+		</div>
 	</div>
 </div>
 <div class="section">
 	<h2>NGワード</h2>
-	<div>
-		<div class="label">&nbsp;</div>
-		<input type="text" class="rule_editor_textbox" id="rule_editor_keyword"/>
-	<input type="checkbox" id="rule_editor_keyword_regexp_checkbox"/><label for="rule_editor_keyword_regexp_checkbox">正規表現<a href="keywords.html" class="help">?</a></label>
-	<input class="uiButton" type="button" id="rule_editor_add_keyword_button" value="ADD"/></div>
-	<div id="rule_editor_keywords"></div>
-	<div class="section_alert" id="rule_editor_alert_keywords">キーワードを設定するか "Block Anyway" を選んでください</div>
-	<div>
-		<input type="checkbox" id="rule_editor_block_anyway"/><label for="rule_editor_block_anyway">Block Anyway</label><a href="block_anyway.html" class="help">?</a>
+	<div class="content">
+		<div>
+			<div class="label">&nbsp;</div>
+			<input type="text" class="rule_editor_textbox" id="rule_editor_keyword"/>
+		<input type="checkbox" id="rule_editor_keyword_regexp_checkbox"/><label for="rule_editor_keyword_regexp_checkbox">正規表現<a href="keywords.html" class="help">?</a></label>
+		<input class="uiButton" type="button" id="rule_editor_add_keyword_button" value="ADD"/></div>
+		<div id="rule_editor_keywords"></div>
+		<div class="section_alert" id="rule_editor_alert_keywords">キーワードを設定するか "Block Anyway" を選んでください</div>
+		<div>
+			<input type="checkbox" id="rule_editor_block_anyway"/><label for="rule_editor_block_anyway">Block Anyway</label><a href="block_anyway.html" class="help">?</a>
+		</div>
 	</div>
 </div>
 <div id="rule_editor_alert">

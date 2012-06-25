@@ -58,10 +58,6 @@
 	margin-top:0px!important;
 	margin-bottom:0px!important;
 }
-#rule_editor_body div.section {
-	margin:4px!important;
-	padding:4px!important;
-}
 
 #rule_editor_body div.input_section{
 	clear:both;
@@ -195,7 +191,7 @@
 #rule_editor_body_drag {
 	height:19px!important;
 	font-weight:bold!important;
-	background: -webkit-gradient(linear, center top, center bottom, from(#6699ff), to(#4477dd))!important;
+	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#aaaaaa))!important;
 	cursor:move!important;
 	line-height:24px;
 	vertical-align:middle!important;

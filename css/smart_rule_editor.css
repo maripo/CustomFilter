@@ -114,7 +114,6 @@
 	border-radius:8px!important;
 	border:solid 1px #888;
 	-webkit-box-shadow: 1px 1px 1px #000;
-	padding:4px!important;
 }
 
 /**
@@ -122,12 +121,8 @@
 */
 
 #smart_rule_editor_body {
-	margin:6px!important;
 }
 
-#smart_rule_editor_body div.section {
-	clear:left;
-}
 #smart_rule_editor_body div.section div.input {
 	margin-left:120px;
 }

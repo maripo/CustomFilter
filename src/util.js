@@ -183,7 +183,7 @@ CustomBlockerUtil.trim = function (str)
 CustomBlockerUtil.CSS_CLASS = "customblocker-css";
 CustomBlockerUtil.applyCss = function (path) 
 {
-	var cssNode = document.createElement('LINK');
+	// Check duplication
 	var existingLinks = document.getElementsByTagName('LINK');
 	for (var i=0, l=existingLinks.length; i<l; i++)
 	{
@@ -191,11 +191,28 @@ CustomBlockerUtil.applyCss = function (path)
 		if (CustomBlockerUtil.CSS_CLASS==existingLink.className && existingLink.href.indexOf(path)>0)
 			return;
 	}
+	// Create Link Element
+	var cssNode = document.createElement('LINK');
 	cssNode.rel = "stylesheet";
 	cssNode.className = CustomBlockerUtil.CSS_CLASS;
 	cssNode.href = chrome.extension.getURL(path);
 	document.getElementsByTagName('HEAD')[0].appendChild(cssNode);
 };
+
+CustomBlockerUtil.removeCss = function (path) 
+{
+	var existingLinks = document.getElementsByTagName('LINK');
+	for (var i=0, l=existingLinks.length; i<l; i++)
+	{
+		var existingLink = existingLinks[i];
+		if (CustomBlockerUtil.CSS_CLASS==existingLink.className && existingLink.href.indexOf(path)>0)
+		{
+			existingLink.parentNode.removeChild(existingLink);
+			return;
+		}
+	}
+};
+
 /**
  * Return true if targetNode is contained in or equal to ancestorNode
  */

@@ -526,6 +526,7 @@ RuleEditorDialog.prototype.getCloseAction = function ()
 	{
 		window.elementHighlighter.highlightRule(null);
 		self.div.parentNode.removeChild(self.div);
+		CustomBlockerUtil.removeCss('/css/rule_editor_cursor.css');
 		RuleExecutor.reloadRules();
 		window.ruleEditor = null;
 	}

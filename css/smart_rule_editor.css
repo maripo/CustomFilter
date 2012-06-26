@@ -31,12 +31,6 @@
 	border-radius: 0px!important;
 	-webkit-border-radius: 0px!important;
 }
-#smart_rule_creator_dialog label {
-	font-size:11px!important;
-	display:inline;
-	float:initial;
-	color:black;
-}
 /**
  * Rule List
 */
@@ -111,7 +105,7 @@
 	background-color:white;
 	position:absolute!important;
 	width:360px;
-	border-radius:8px!important;
+	border-radius:6px!important;
 	border:solid 1px #888;
 	-webkit-box-shadow: 1px 1px 1px #000;
 }
@@ -147,7 +141,7 @@
 #smart_rule_editor_alert {
 	background-color:#fea!important;
 	border: solid 1px #fc0!important;
-	border-radius:8px!important;
+	border-radius:6px!important;
 	color:#444;
 	padding:2px 6px 2px 6px!important;
 	margin:3px!important;
@@ -207,7 +201,7 @@
 	color:white;
 	font-size:9px;
 	line-height:12px;
-	border-radius:8px!important;
+	border-radius:6px!important;
 	font-weight:bold;
 }
 #smart_rule_editor_preview_hide_count {

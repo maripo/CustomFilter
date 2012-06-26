@@ -51,7 +51,7 @@ div.customblocker_rule_dialog {
 	margin:0px 2px 0px 2px!important;
 	padding-left:4px!important;
 	padding-right:4px!important;
-	border-radius:8px!important;
+	border-radius:6px!important;
 	border:solid 1px #888;
 	font-size:11px!important;
 }
@@ -82,9 +82,21 @@ div.customblocker_rule_dialog {
 #rule_editor_body div.bottom_button_container,
 #smart_rule_editor_body div.bottom_button_container {
 	border-top:1px solid #aaa!important;
+	padding-top:2px!important;
+	padding-bottom:2px!important;
+	text-align:center!important;
 }
 #rule_editor_body div.bottom_button_container input[type="button"],
 #smart_rule_editor_body div.bottom_button_container input[type="button"] {
 	font-size:14px!important;
 	line-height:18px!important;
+	padding:2px 8px!important;
+	color:#222!important;
+}
+#rule_editor_body label,
+#smart_rule_editor_body label {
+	font-size:11px!important;
+	display:inline;
+	float:initial;
+	color:black;
 }

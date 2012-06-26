@@ -11,7 +11,7 @@
 	color : black!important;
 	right : 10px;
 	top :10px;
-	border-radius:8px!important;
+	border-radius:6px!important;
 	-webkit-box-shadow: 1px 1px 2px #000!important;
 }
 #rule_editor_body {
@@ -182,7 +182,7 @@
  #xpath_picker_body ul a span.badge{
 	color:white;
 	border: solid 1px #aa0000!important;
-	border-radius:8px!important;
+	border-radius:6px!important;
 	font-size:80%;
 	padding:0px 2px 0px 2px;
 	background: -webkit-gradient(linear, center top, center bottom, from(#ff6666), to(#dd0000))!important;
@@ -199,8 +199,8 @@
 	text-indent:4px!important;
 	-webkit-box-shadow: 0px 0px 1px #aaa;
 	font-size:100%!important;
-	border-top-left-radius: 8px!important;
-	border-top-right-radius: 8px!important;
+	border-top-left-radius: 6px!important;
+	border-top-right-radius: 6px!important;
 }
 
 #rule_editor_body_drag a.close{
@@ -214,7 +214,7 @@
 #rule_editor_alert {
 	background-color:#fea!important;
 	border: solid 1px #fc0!important;
-	border-radius:8px!important;
+	border-radius:6px!important;
 	color:#444;
 	padding:2px 6px 2px 6px!important;
 	margin:3px!important;

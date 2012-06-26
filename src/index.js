@@ -78,6 +78,7 @@ function renderApplierRules(list)
 		{
 			var rule = list[i];
 			var li = document.createElement('LI');
+			li.title = getRuleDetailTip(rule);
 			li.addEventListener ('mouseover',
 					getLiMouseoverAction(rule),
 					true);
@@ -124,7 +125,7 @@ function renderApplierRules(list)
 
 function getEditRuleAction(rule)
 {
-	return function()
+	return function ()
 	{
 		removeHighlight();
 		var bgWindow = chrome.extension.getBackgroundPage();
@@ -133,7 +134,21 @@ function getEditRuleAction(rule)
 	}
 }
 
-function openPreference()
+function getRuleDetailTip (rule)
+{
+	if (rule.block_anyway)
+		return 'Block Anyway';
+	if (null==rule.words || 0==rule.words.length)
+		return null;
+	var wordStrings = new Array();
+	for (var i=0, l=rule.words.length; i<l; i++)
+	{
+		wordStrings.push(rule.words[i].word);
+	}
+	return wordStrings.join(', ');
+}
+
+function openPreference ()
 {
 	window.open('pref/index.html');
 }

@@ -180,11 +180,19 @@ CustomBlockerUtil.trim = function (str)
 	return str.replace(/^[\s　]+|[\s　]+$/g, '');
 };
 
-
+CustomBlockerUtil.CSS_CLASS = "customblocker-css";
 CustomBlockerUtil.applyCss = function (path) 
 {
 	var cssNode = document.createElement('LINK');
+	var existingLinks = document.getElementsByTagName('LINK');
+	for (var i=0, l=existingLinks.length; i<l; i++)
+	{
+		var existingLink = existingLinks[i];
+		if (CustomBlockerUtil.CSS_CLASS==existingLink.className && existingLink.href.indexOf(path)>0)
+			return;
+	}
 	cssNode.rel = "stylesheet";
+	cssNode.className = CustomBlockerUtil.CSS_CLASS;
 	cssNode.href = chrome.extension.getURL(path);
 	document.getElementsByTagName('HEAD')[0].appendChild(cssNode);
 };

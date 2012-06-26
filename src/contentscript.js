@@ -47,7 +47,7 @@ BgProcessor.prototype.processBackgroundRequest = function (request, sender, send
 		case 'reload':
 			this.execReload(request); break;
 		case 'quickRuleCreation':
-			this.execQuickQuleCreation(request); break;
+			this.execQuickRuleCreation(request); break;
 	}
 };
 BgProcessor.prototype.execInit = function (request)
@@ -102,7 +102,7 @@ BgProcessor.prototype.execReload = function (request)
 	RuleExecutor.checkRules(request.rules);
 };
 
-BgProcessor.prototype.execQuickQuleCreation = function (request)
+BgProcessor.prototype.execQuickRuleCreation = function (request)
 {
 	if (!window.smartRuleCreatorDialog)
 	{

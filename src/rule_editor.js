@@ -39,7 +39,7 @@ RuleEditor.prototype.getOnMouseoverAction = function (node)
 	var self = this;
 	return function (event)
 	{
-		if (selectedNode ==null && self.ruleEditorDialog && self.ruleEditorDialog.pathPickerTarget) 
+		if (window.ruleEditor && selectedNode ==null && self.ruleEditorDialog && self.ruleEditorDialog.pathPickerTarget) 
 		{
 			selectedNode = node;
 			origStyle = selectedNode.style.outline;
@@ -79,7 +79,7 @@ RuleEditor.prototype.getOnClickAction = function (node)
 	var self = this;
 	return function (event) 
 	{
-		if (!self.ruleEditorDialog.pathPickerTarget || self.ruleEditorDialog.pathPickerTarget.none)
+		if (!window.ruleEditor || !self.ruleEditorDialog.pathPickerTarget || self.ruleEditorDialog.pathPickerTarget.none)
 			return;
 		if (selectedNode ==node) 
 		{
@@ -96,7 +96,7 @@ RuleEditor.prototype.getOnMouseoutAction = function (node)
 {
 	return function (event) 
 	{
-		if (selectedNode) 
+		if (window.ruleEditor && selectedNode) 
 		{
 			selectedNode.style.outline = origStyle;
 			selectedNode.href = origHref;

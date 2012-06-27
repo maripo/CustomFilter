@@ -78,7 +78,7 @@ function renderApplierRules(list)
 		{
 			var rule = list[i];
 			var li = document.createElement('LI');
-			li.title = getRuleDetailTip(rule);
+			li.title = CustomBlockerUtil.getRuleDetailTip(rule);
 			li.addEventListener ('mouseover',
 					getLiMouseoverAction(rule),
 					true);
@@ -132,20 +132,6 @@ function getEditRuleAction(rule)
 		bgWindow.openRulePicker(rule);
 		window.close();
 	}
-}
-
-function getRuleDetailTip (rule)
-{
-	if (rule.block_anyway)
-		return 'Block Anyway';
-	if (null==rule.words || 0==rule.words.length)
-		return null;
-	var wordStrings = new Array();
-	for (var i=0, l=rule.words.length; i<l; i++)
-	{
-		wordStrings.push(rule.words[i].word);
-	}
-	return wordStrings.join(', ');
 }
 
 function openPreference ()

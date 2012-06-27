@@ -105,6 +105,20 @@ CustomBlockerUtil.getRelativeElementsByXPath = function(targetNode, xpath)
 	}
 	return list;
 };
+
+CustomBlockerUtil.getRuleDetailTip = function (rule)
+{
+	if (rule.block_anyway)
+		return 'Block Anyway';
+	if (null==rule.words || 0==rule.words.length)
+		return null;
+	var wordStrings = new Array();
+	for (var i=0, l=rule.words.length; i<l; i++)
+	{
+		wordStrings.push(rule.words[i].word);
+	}
+	return wordStrings.join(', ');
+};
 CustomBlockerUtil.arrayEquals = function (array0, array1)
 {
 	if (!array0 || !array1 || array0.length!=array1.length) 

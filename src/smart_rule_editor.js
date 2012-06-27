@@ -327,6 +327,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 			if (!rule.hideNodes) rule.hideNodes = new Array();
 			if (!rule.searchNodes) rule.searchNodes = new Array();
 			var li = this.createLiElement(CustomBlockerUtil.shorten(rule.title,19), rule.hideNodes.length, rule.searchNodes.length, chrome.i18n.getMessage('smartRuleEditorExistingButtonLabel'));
+			li.title = CustomBlockerUtil.getRuleDetailTip(rule);
 			li.addEventListener('mouseover', this.getExistingRuleHoverAction(rule, li), true);
 			li.addEventListener('click', this.getExistingRuleClickAction(rule, li), true);
 			this.ul.appendChild(li);

@@ -23,7 +23,7 @@
 	"prefTitle":{"message":"Manage Rules"},
 	"buttonLabelEdit":{"message":"Edit"},
 	"buttonLabelDelete":{"message":"Delete"},
-	"dialogDelete":{"message":"Are you sure to delete this rule?"},
+	"dialogDelete":{"message":"Are you sure you want to delete this rule?"},
 	"tooltipCount":{"message":"__count__ Elements are Hidden."},
 	"tooltipCountSingle":{"message":"1 Element is Hidden."},
 	"errorTitleEmpty":{"message":"Title cannot be empty"},
@@ -48,5 +48,6 @@
 	"menuCreateRule":{"message":"Create a Rule"},
 	"smartRuleEditorSuggestedButtonLabel":{"message":"Create"},
 	"smartRuleEditorExistingButtonLabel":{"message":"Edit"},
-	"smartRuleEditorSuggestedMessage":{"message":"This rule is automatically suggested."}
+	"smartRuleEditorSuggestedMessage":{"message":"This rule is automatically suggested."},
+	"unsavedDialog":{"message":"There are unsaved changes in this rule. Are you sure you want to close this dialog?"}
 }

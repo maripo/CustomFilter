@@ -170,6 +170,7 @@ RuleEditor.prototype.save = function ()
 		this.rule.global_identifier = UUID.generate();
 	}
 	this.applyInput();
+	self.rule.changed = false;
 	window.bgProcessor.sendRequest('db', {dbCommand:'save', type:'rule', obj: this.rule}, 'ruleSaveDoneRuleEditor');
 	
 };
@@ -243,6 +244,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	this.ruleEditor = ruleEditor;
 	this.div = document.createElement('DIV');
 	this.div.id='rule_editor_container';
+	this.rule = rule;
 	
 	with (this.div.style) 
 	{
@@ -271,54 +273,59 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		var span = ruleEditor.getWordElement(word)
 		document.getElementById('rule_editor_keywords').appendChild(span);
 	}
+	
+	this.title = document.getElementById('rule_editor_title');
+	this.site_regexp = document.getElementById('rule_editor_site_regexp');
+	this.example_url = document.getElementById('rule_editor_example_url');
+	this.site_description = document.getElementById('rule_editor_site_description');
+	this.search_block_xpath = document.getElementById('rule_editor_search_block_xpath');
+	this.search_block_css = document.getElementById('rule_editor_search_block_css');
+	this.radio_search_css = document.getElementById('rule_editor_radio_search_css');
+	this.radio_search_xpath = document.getElementById('rule_editor_radio_search_xpath');
+	this.search_block_description = document.getElementById('rule_editor_search_block_description');
+	this.hide_block_xpath = document.getElementById('rule_editor_hide_block_xpath');
+	this.hide_block_css = document.getElementById('rule_editor_hide_block_css');
+	this.radio_hide_css = document.getElementById('rule_editor_radio_hide_css');
+	this.radio_hide_xpath = document.getElementById('rule_editor_radio_hide_xpath');
+	this.hide_block_description = document.getElementById('rule_editor_hide_block_description');
+	this.block_anyway = document.getElementById('rule_editor_block_anyway');
 
 	if (rule.rule_id && rule.rule_id > 0) 
 	{
-		document.getElementById('rule_editor_title').value 
-			= rule.title;
-		document.getElementById('rule_editor_site_regexp').value 
-			= rule.site_regexp;
-		document.getElementById('rule_editor_example_url').value 
-			= rule.example_url;
-		document.getElementById('rule_editor_site_description').value 
-			= rule.site_description;
-		document.getElementById('rule_editor_search_block_xpath').value 
-			= rule.search_block_xpath;
-		document.getElementById('rule_editor_search_block_css').value 
-			= rule.search_block_css;
-		(document.getElementById('rule_editor_radio_search_'+((rule.search_block_by_css)?'css':'xpath'))).checked 
-			= true;
-		document.getElementById('rule_editor_search_block_description').value 
-			= rule.search_block_description;
-		document.getElementById('rule_editor_hide_block_xpath').value 
-			= rule.hide_block_xpath;
-		document.getElementById('rule_editor_hide_block_css').value 
-			= rule.hide_block_css;
-		(document.getElementById('rule_editor_radio_hide_'+((rule.hide_block_by_css)?'css':'xpath'))).checked 
-			= true;
-		document.getElementById('rule_editor_hide_block_description').value 
-			= rule.hide_block_description;
-		document.getElementById('rule_editor_block_anyway').checked = rule.block_anyway;
+		this.title.value = rule.title;
+		this.site_regexp.value = rule.site_regexp;
+		this.example_url.value = rule.example_url;
+		this.site_description.value = rule.site_description;
+		this.search_block_xpath.value = rule.search_block_xpath;
+		this.search_block_css.value = rule.search_block_css;
+		((rule.search_block_by_css)?this.radio_search_css:this.radio_search_xpath) .checked = true;
+		this.search_block_description.value  = rule.search_block_description;
+		this.hide_block_xpath.value = rule.hide_block_xpath;
+		this.hide_block_css.value = rule.hide_block_css;
+		((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath) .checked = true;
+		this.hide_block_description.value = rule.hide_block_description;
+		this.block_anyway.checked = rule.block_anyway;
 	}
 	else 
 	{
 		
-		document.getElementById('rule_editor_site_regexp').value = CustomBlockerUtil.getSuggestedSiteRegexp();
-		document.getElementById('rule_editor_site_description').value = document.title;
-		document.getElementById('rule_editor_title').value = document.title;
-		document.getElementById('rule_editor_example_url').value = location.href;
+		this.site_regexp.value = CustomBlockerUtil.getSuggestedSiteRegexp();
+		this.site_description.value = document.title;
+		this.title.value = document.title;
+		this.example_url.value = location.href;
 	}
 	var dragger = document.getElementById('rule_editor_body_drag');
 	dragger.addEventListener('mousedown', this.getOnMousedownAction(), false);
 	document.body.addEventListener('mousemove', this.getOnMousemoveAction(), false);
 	document.body.addEventListener('mouseup', this.getOnMouseupAction(), false);
+	
 	document.getElementById('rule_editor_closer').addEventListener('click', this.getCloseAction(), false);
 	document.getElementById('rule_editor_close_button').addEventListener('click', this.getCloseAction(), false);
 
-	document.getElementById('rule_editor_radio_hide_xpath').addEventListener('change', this.getRefreshPathSecionsAction(), false);
-	document.getElementById('rule_editor_radio_hide_css').addEventListener('change', this.getRefreshPathSecionsAction(), false);
-	document.getElementById('rule_editor_radio_search_xpath').addEventListener('change', this.getRefreshPathSecionsAction(), false);
-	document.getElementById('rule_editor_radio_search_css').addEventListener('change', this.getRefreshPathSecionsAction(), false);
+	this.radio_hide_xpath.addEventListener('change', this.getRefreshPathSecionsAction(), false);
+	this.radio_hide_css.addEventListener('change', this.getRefreshPathSecionsAction(), false);
+	this.radio_search_xpath.addEventListener('change', this.getRefreshPathSecionsAction(), false);
+	this.radio_search_css.addEventListener('change', this.getRefreshPathSecionsAction(), false);
 	
 	this.pathPickerTarget = PathPickerDialog.targetNone;
 	var self = this;
@@ -366,14 +373,14 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 			document.getElementById('rule_editor_keyword').value = '';
 		}, 
 		true);
-	document.getElementById('rule_editor_hide_block_xpath').addEventListener ('keyup',this.getRefreshHideBlockXPathAction(), false);
-	document.getElementById('rule_editor_search_block_xpath').addEventListener ('keyup',this.getRefreshSearchBlockXPathAction(), false);
-	document.getElementById('rule_editor_hide_block_xpath').addEventListener ('change',this.getRefreshHideBlockXPathAction(), false);
-	document.getElementById('rule_editor_search_block_xpath').addEventListener ('change',this.getRefreshSearchBlockXPathAction(), false);
-	document.getElementById('rule_editor_hide_block_css').addEventListener ('keyup',this.getRefreshHideBlockXPathAction(), false);
-	document.getElementById('rule_editor_search_block_css').addEventListener ('keyup',this.getRefreshSearchBlockXPathAction(), false);
-	document.getElementById('rule_editor_hide_block_css').addEventListener ('change',this.getRefreshHideBlockXPathAction(), false);
-	document.getElementById('rule_editor_search_block_css').addEventListener ('change',this.getRefreshSearchBlockXPathAction(), false);
+	this.hide_block_xpath.addEventListener ('keyup',this.getRefreshHideBlockXPathAction(), false);
+	this.search_block_xpath.addEventListener ('keyup',this.getRefreshSearchBlockXPathAction(), false);
+	this.hide_block_xpath.addEventListener ('change',this.getRefreshHideBlockXPathAction(), false);
+	this.search_block_xpath.addEventListener ('change',this.getRefreshSearchBlockXPathAction(), false);
+	this.hide_block_css.addEventListener ('keyup',this.getRefreshHideBlockXPathAction(), false);
+	this.search_block_css.addEventListener ('keyup',this.getRefreshSearchBlockXPathAction(), false);
+	this.hide_block_css.addEventListener ('change',this.getRefreshHideBlockXPathAction(), false);
+	this.search_block_css.addEventListener ('change',this.getRefreshSearchBlockXPathAction(), false);
 	
 	document.getElementById('rule_editor_test_button').addEventListener('click', function () 
 	{
@@ -409,6 +416,30 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	}
 	document.getElementById('rule_editor_keyword_regexp_checkbox').addEventListener('click',RuleEditorDialog.changeKeywordColor, false);
 	RuleEditorDialog.changeKeywordColor(null);
+	this.rule.changed = false;
+	this.title.addEventListener('change', this.getChangedAction(), false);
+	this.site_regexp.addEventListener('change', this.getChangedAction(), false);
+	this.example_url.addEventListener('change', this.getChangedAction(), false);
+	this.site_description.addEventListener('change', this.getChangedAction(), false);
+	this.search_block_xpath.addEventListener('change', this.getChangedAction(), false);
+	this.search_block_css.addEventListener('change', this.getChangedAction(), false);
+	this.radio_search_css.addEventListener('change', this.getChangedAction(), false);
+	this.radio_search_xpath.addEventListener('change', this.getChangedAction(), false);
+	this.search_block_description.addEventListener('change', this.getChangedAction(), false);
+	this.hide_block_xpath.addEventListener('change', this.getChangedAction(), false);
+	this.hide_block_css.addEventListener('change', this.getChangedAction(), false);
+	this.radio_hide_css.addEventListener('change', this.getChangedAction(), false);
+	this.radio_hide_xpath.addEventListener('change', this.getChangedAction(), false);
+	this.hide_block_description.addEventListener('change', this.getChangedAction(), false);
+	this.block_anyway.addEventListener('change', this.getChangedAction(), false);
+};
+RuleEditorDialog.prototype.getChangedAction = function ()
+{
+	var self = this;
+	return function (sender)
+	{
+		self.rule.changed = true;
+	}
 };
 RuleEditorDialog.changeKeywordColor = function (sender)
 {
@@ -525,6 +556,11 @@ RuleEditorDialog.prototype.getCloseAction = function ()
 	var self = this;
 	return function (event)
 	{
+		if (self.rule.changed)
+		{
+			if (!window.confirm(chrome.i18n.getMessage('unsavedDialog')))
+				return;
+		}
 		window.elementHighlighter.highlightRule(null);
 		self.div.parentNode.removeChild(self.div);
 		CustomBlockerUtil.removeCss('/css/rule_editor_cursor.css');

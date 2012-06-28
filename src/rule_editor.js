@@ -313,6 +313,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	document.body.addEventListener('mousemove', this.getOnMousemoveAction(), false);
 	document.body.addEventListener('mouseup', this.getOnMouseupAction(), false);
 	document.getElementById('rule_editor_closer').addEventListener('click', this.getCloseAction(), false);
+	document.getElementById('rule_editor_close_button').addEventListener('click', this.getCloseAction(), false);
 
 	document.getElementById('rule_editor_radio_hide_xpath').addEventListener('change', this.getRefreshPathSecionsAction(), false);
 	document.getElementById('rule_editor_radio_hide_css').addEventListener('change', this.getRefreshPathSecionsAction(), false);

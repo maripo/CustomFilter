@@ -62,6 +62,7 @@ function onWordListLoaded (wordList)
 		}
 	}
 	renderRules();
+	showCount();
 }
 var prevFilterString = null;
 function renderRules ()
@@ -93,9 +94,19 @@ function applyFilter (filterString)
 		container.filtered = !matched;
 		container.applyClassName(visibleIndex);
 		if (matched) visibleIndex++;
-	}	
+	}
+	showCount();
 }
-
+function showCount ()
+{
+	var visibleCount = 0;
+	for (var i = 0, l = ruleContainerList.length; i < l; i++)
+	{
+		if (!ruleContainerList[i].filtered) visibleCount ++;
+	}
+	document.getElementById('activeRuleCount').innerHTML = visibleCount;
+	document.getElementById('totalRuleCount').innerHTML = ruleContainerList.length;
+}
 function isMatched (rule, filterString)
 {
 	if (null==filterString || ''==filterString) return true;

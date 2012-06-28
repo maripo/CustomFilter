@@ -1,6 +1,6 @@
  {
   "name" : "CustomBlocker",
-  "version" : "2.1.5",
+  "version" : "2.1.6",
   "default_locale": "en",
   "description" : "__MSG_extDescription__",
   "browser_action": {

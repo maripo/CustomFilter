@@ -333,19 +333,23 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	document.getElementById('rule_editor_button_search_block_xpath').addEventListener('click', 
 			function()
 			{
+				self.hideCover();
 				self.pathPickerTarget = PathPickerDialog.targetSearchXpath;
 				}, false);
 	document.getElementById('rule_editor_button_search_block_css').addEventListener('click', 
 			function()
 			{
+				self.hideCover();
 				self.pathPickerTarget = PathPickerDialog.targetSearchCss;
 				}, false);
 	document.getElementById('rule_editor_button_hide_block_xpath').addEventListener('click', 
 			function(){
+				self.hideCover();
 				self.pathPickerTarget = PathPickerDialog.targetHideXpath;
 			}, false);
 	document.getElementById('rule_editor_button_hide_block_css').addEventListener('click', 
 			function(){
+				self.hideCover();
 				self.pathPickerTarget = PathPickerDialog.targetHideCss;
 			}, false);
 	
@@ -432,6 +436,10 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	this.radio_hide_xpath.addEventListener('change', this.getChangedAction(), false);
 	this.hide_block_description.addEventListener('change', this.getChangedAction(), false);
 	this.block_anyway.addEventListener('change', this.getChangedAction(), false);
+};
+RuleEditorDialog.prototype.hideCover = function ()
+{
+	window.elementHighlighter.highlightHideElements (null);
 };
 RuleEditorDialog.prototype.getChangedAction = function ()
 {

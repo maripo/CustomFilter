@@ -276,3 +276,7 @@ span.word input.deleteButton {
 	display:inline-block;
 	margin-top:3px;
 }
+div.rule_count {
+	font-size:80%;
+	color: #444;
+}

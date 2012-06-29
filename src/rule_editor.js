@@ -143,17 +143,18 @@ RuleEditor.prototype.getSuggestedXPath = function (_node)
 
 RuleEditor.prototype.save = function () 
 {
+	var dialog = this.ruleEditorDialog;
 	var validateErrors = Rule.Validator.validate({
-		title : document.getElementById('rule_editor_title').value,
-		site_regexp : document.getElementById('rule_editor_site_regexp').value,
-		example_url : document.getElementById('rule_editor_example_url').value,
-		site_description : document.getElementById('rule_editor_site_description').value,
-		search_block_xpath : document.getElementById('rule_editor_search_block_xpath').value,
-		search_block_css : document.getElementById('rule_editor_search_block_css').value,
-		search_block_description : document.getElementById('rule_editor_search_block_description').value,
-		hide_block_xpath : document.getElementById('rule_editor_hide_block_xpath').value,
-		hide_block_css : document.getElementById('rule_editor_hide_block_css').value,
-		hide_block_description : document.getElementById('rule_editor_hide_block_description').value
+		title : dialog.title.value,
+		site_regexp : dialog.site_regexp.value,
+		example_url : dialog.example_url.value,
+		site_description : dialog.site_description.value,
+		search_block_xpath : dialog.search_block_xpath.value,
+		search_block_css : dialog.search_block_css.value,
+		search_block_description : dialog.search_block_description.value,
+		hide_block_xpath : dialog.hide_block_xpath.value,
+		hide_block_css : dialog.hide_block_css.value,
+		hide_block_description : dialog.hide_block_description.value
 	});
 	if (validateErrors.length>0)
 	{
@@ -176,19 +177,20 @@ RuleEditor.prototype.save = function ()
 };
 RuleEditor.prototype.applyInput = function ()
 {
-	this.rule.title = document.getElementById('rule_editor_title').value;
-	this.rule.site_regexp = document.getElementById('rule_editor_site_regexp').value;
-	this.rule.example_url = document.getElementById('rule_editor_example_url').value;
-	this.rule.site_description = document.getElementById('rule_editor_site_description').value;
-	this.rule.search_block_xpath = document.getElementById('rule_editor_search_block_xpath').value;
-	this.rule.search_block_css = document.getElementById('rule_editor_search_block_css').value;
-	this.rule.search_block_by_css = document.getElementById('rule_editor_radio_search_css').checked;
-	this.rule.search_block_description = document.getElementById('rule_editor_search_block_description').value;
-	this.rule.hide_block_xpath = document.getElementById('rule_editor_hide_block_xpath').value;
-	this.rule.hide_block_css = document.getElementById('rule_editor_hide_block_css').value;
-	this.rule.hide_block_by_css = document.getElementById('rule_editor_radio_hide_css').checked;
-	this.rule.hide_block_description = document.getElementById('rule_editor_hide_block_description').value;
-	this.rule.block_anyway = document.getElementById('rule_editor_block_anyway').checked;
+	var dialog = this.ruleEditorDialog;
+	this.rule.title = dialog.title.value;
+	this.rule.site_regexp = dialog.site_regexp.value;
+	this.rule.example_url = dialog.example_url.value;
+	this.rule.site_description = dialog.site_description.value;
+	this.rule.search_block_xpath = dialog.search_block_xpath.value;
+	this.rule.search_block_css = dialog.search_block_css.value;
+	this.rule.search_block_by_css = dialog.radio_search_css.checked;
+	this.rule.search_block_description = dialog.search_block_description.value;
+	this.rule.hide_block_xpath = dialog.hide_block_xpath.value;
+	this.rule.hide_block_css = dialog.hide_block_css.value;
+	this.rule.hide_block_by_css = dialog.radio_hide_css.checked;
+	this.rule.hide_block_description = dialog.hide_block_description.value;
+	this.rule.block_anyway = dialog.block_anyway.checked;
 	
 };
 RuleEditor.prototype.addWord = function(wordStr)

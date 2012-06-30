@@ -114,12 +114,18 @@ var SmartRuleCreatorDialog = function (_zIndex, smartRuleEditorSrc)
 	document.getElementById('smart_rule_editor_keyword_add').addEventListener('click', this.getAddKeywordAction(), true);
 	document.getElementById('smart_rule_editor_advanced_link').addEventListener('click', this.getToggleAdvancedAction(), true);
 	
-	document.getElementById('smart_rule_editor_radio_search_css').addEventListener('change', this.setPathInputVisibility, true);
-	document.getElementById('smart_rule_editor_radio_search_xpath').addEventListener('change', this.setPathInputVisibility, true);
-	document.getElementById('smart_rule_editor_radio_hide_css').addEventListener('change', this.setPathInputVisibility, true);
-	document.getElementById('smart_rule_editor_radio_hide_xpath').addEventListener('change', this.setPathInputVisibility, true);
+	this.radio_search_css = document.getElementById('smart_rule_editor_radio_search_css');
+	this.radio_search_xpath = document.getElementById('smart_rule_editor_radio_search_xpath');
+	this.radio_hide_css = document.getElementById('smart_rule_editor_radio_hide_css');
+	this.radio_hide_xpath = document.getElementById('smart_rule_editor_radio_hide_xpath');
+	this.input_keyword = document.getElementById('smart_rule_editor_keyword');
+	
+	this.radio_search_css.addEventListener('change', this.setPathInputVisibility, true);
+	this.radio_search_xpath.addEventListener('change', this.setPathInputVisibility, true);
+	this.radio_hide_css.addEventListener('change', this.setPathInputVisibility, true);
+	this.radio_hide_xpath.addEventListener('change', this.setPathInputVisibility, true);
 
-	document.getElementById('smart_rule_editor_keyword').addEventListener ('keydown', this.getAddWordAction(), true);
+	this.input_keyword.addEventListener ('keydown', this.getAddWordAction(), true);
 	
 	document.body.addEventListener('mouseup', this.getOnMouseupAction(), false);
 	document.body.addEventListener('mousemove', this.getOnMousemoveAction(), false);
@@ -197,8 +203,8 @@ SmartRuleCreatorDialog.prototype.getAddWordAction = function ()
 	{
 		if (KEY_CODE_RETURN==e.keyCode) 
 		{
-			self.addWord(document.getElementById('smart_rule_editor_keyword').value);
-			document.getElementById('smart_rule_editor_keyword').value = '';
+			self.addWord(self.input_keyword.value);
+			self.input_keyword.value = '';
 		}
 	};
 };
@@ -220,10 +226,9 @@ SmartRuleCreatorDialog.prototype.getAddKeywordAction  = function ()
 	var self = this;
 	return function (event)
 	{
-		var keywordInput = document.getElementById('smart_rule_editor_keyword');
-		self.addWord(keywordInput.value);
-		keywordInput.value = '';
-		keywordInput.focus();
+		self.addWord(self.input_keyword.value);
+		self.input_keyword.value = '';
+		self.input_keyword.focus();
 	}
 };
 SmartRuleCreatorDialog.prototype.getSaveAction  = function ()
@@ -356,7 +361,7 @@ SmartRuleCreatorDialog.prototype.show = function (/*SmartRuleCreator*/creator, t
 		}
 			
 	}
-	document.getElementById('smart_rule_editor_keyword').value = creator.selectionText || '';
+	this.input_keyword.value = creator.selectionText || '';
 	var _left = Math.min(event.clientX + document.body.scrollLeft, document.body.clientWidth - 190);
 	var _top = event.clientY + document.body.scrollTop;
 	this.div.style.left = _left + 'px';
@@ -539,9 +544,12 @@ SmartRuleCreatorDialog.prototype.showRule = function (rule)
 	document.getElementById('smart_rule_editor_hide_block_xpath').value = rule.hide_block_xpath;
 	document.getElementById('smart_rule_editor_hide_block_css').value = rule.hide_block_css;
 	document.getElementById('smart_rule_editor_hide_block_description').value = rule.hide_block_description;
-	CustomBlockerUtil.clearChildren(document.getElementById('smart_rule_editor_keywords'));
-	document.getElementById((rule.search_block_by_css)?'smart_rule_editor_radio_search_css':'smart_rule_editor_radio_search_xpath').checked = true;
-	document.getElementById((rule.hide_block_by_css)?'smart_rule_editor_radio_hide_css':'smart_rule_editor_radio_hide_xpath').checked = true;
+	CustomBlockerUtil.clearChildren(this.input_keyword);
+	
+	var searchRadio = (rule.search_block_by_css)?this.radio_search_css:this.radio_search_xpath;
+	searchRadio.checked = true;
+	var hideRadio = (rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath;
+	var hideRadio.checked = true;
 	this.setPathInputVisibility();
 	
 	for (var i=0; i<rule.words.length; i++)
@@ -553,22 +561,22 @@ SmartRuleCreatorDialog.prototype.showRule = function (rule)
 SmartRuleCreatorDialog.prototype.setPathInputVisibility = function ()
 {
 	document.getElementById('smart_rule_editor_search_block_css').style.display
-		= (document.getElementById('smart_rule_editor_radio_search_css').checked)?'inline':'none';
+		= (this.radio_search_css.checked)?'inline':'none';
 	document.getElementById('smart_rule_editor_search_block_xpath').style.display
-		= (document.getElementById('smart_rule_editor_radio_search_xpath').checked)?'inline':'none';
+		= (this.radio_search_xpath.checked)?'inline':'none';
 	document.getElementById('smart_rule_editor_search_block_css_label').style.display
-		= (document.getElementById('smart_rule_editor_radio_search_css').checked)?'inline':'none';
+		= (this.radio_search_css.checked)?'inline':'none';
 	document.getElementById('smart_rule_editor_search_block_xpath_label').style.display
-		= (document.getElementById('smart_rule_editor_radio_search_xpath').checked)?'inline':'none';
+		= (this.radio_search_xpath.checked)?'inline':'none';
 		
 	document.getElementById('smart_rule_editor_hide_block_css').style.display
-		= (document.getElementById('smart_rule_editor_radio_hide_css').checked)?'inline':'none';
+		= (this.radio_hide_css.checked)?'inline':'none';
 	document.getElementById('smart_rule_editor_hide_block_xpath').style.display
-		= (document.getElementById('smart_rule_editor_radio_hide_xpath').checked)?'inline':'none';
+		= (this.radio_hide_xpath.checked)?'inline':'none';
 	document.getElementById('smart_rule_editor_hide_block_css_label').style.display
-		= (document.getElementById('smart_rule_editor_radio_hide_css').checked)?'inline':'none';
+		= (this.radio_hide_css.checked)?'inline':'none';
 	document.getElementById('smart_rule_editor_hide_block_xpath_label').style.display
-		= (document.getElementById('smart_rule_editor_radio_hide_xpath').checked)?'inline':'none';
+		= (this.radio_hide_xpath.checked)?'inline':'none';
 };
 SmartRuleCreatorDialog.prototype.getWordElement = function (word) 
 {

@@ -173,8 +173,6 @@ var SmartRuleCreatorDialog = function (_zIndex, smartRuleEditorSrc)
 	this.input_hide_block_css = document.getElementById('smart_rule_editor_hide_block_css');
 	this.input_hide_block_description = document.getElementById('smart_rule_editor_hide_block_description');
 	
-	this.input_keyword.focus();
-	
 	// XPath & CSS radio buttons
 	this.radio_search_css.addEventListener('change', this.setPathInputVisibility, true);
 	this.radio_search_xpath.addEventListener('change', this.setPathInputVisibility, true);
@@ -612,7 +610,7 @@ SmartRuleCreatorDialog.prototype.showRule = function (rule)
 	{
 		document.getElementById('smart_rule_editor_keywords').appendChild(this.getWordElement(rule.words[i]));
 	}
-	this.input_title.focus();
+	this.input_keyword.focus();
 };
 SmartRuleCreatorDialog.prototype.setPathInputVisibility = function ()
 {

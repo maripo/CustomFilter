@@ -182,7 +182,7 @@ SmartRuleCreatorDialog.prototype.getOnMousedownAction = function ()
 SmartRuleCreatorDialog.prototype.getCloseAction = function ()
 {
 	var self = this;
-	return function (e)
+	return function (event)
 	{
 		window.elementHighlighter.highlightRule(null);
 		self.div.style.display = 'none';

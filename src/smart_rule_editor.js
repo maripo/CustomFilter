@@ -194,7 +194,7 @@ SmartRuleCreatorDialog.prototype.getCloseAction = function ()
 SmartRuleCreatorDialog.prototype.getCancelAction = function ()
 {
 	var self = this;
-	return function (e)
+	return function (event)
 	{
 		self.cancelEditing();
 	};
@@ -213,9 +213,9 @@ SmartRuleCreatorDialog.prototype.cancelEditing = function ()
 SmartRuleCreatorDialog.prototype.getAddWordAction = function ()
 {
 	var self = this;
-	return function(e)
+	return function(event)
 	{
-		if (KEY_CODE_RETURN==e.keyCode) 
+		if (KEY_CODE_RETURN==event.keyCode) 
 		{
 			self.addWord(self.input_keyword.value);
 			self.input_keyword.value = '';

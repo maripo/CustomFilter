@@ -201,14 +201,14 @@ SmartRuleCreatorDialog.prototype.getCancelAction = function ()
 };
 SmartRuleCreatorDialog.prototype.cancelEditing = function ()
 {
-		this.isEditing = false;
-		this.ruleSelected = false;
-		this.isEditing = false;
-		this.activeLiElement.className = 'option';
-		this.ul.className = 'active';
-		this.activeLiElement = null;
-		document.getElementById('smart_rule_editor_preview').style.display = 'block';
-		document.getElementById('smart_rule_editor_body').style.display = 'none';
+	this.isEditing = false;
+	this.ruleSelected = false;
+	this.isEditing = false;
+	this.activeLiElement.className = 'option';
+	this.ul.className = 'active';
+	this.activeLiElement = null;
+	document.getElementById('smart_rule_editor_preview').style.display = 'block';
+	document.getElementById('smart_rule_editor_body').style.display = 'none';
 };
 SmartRuleCreatorDialog.prototype.getAddWordAction = function ()
 {

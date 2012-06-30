@@ -122,6 +122,10 @@ var SmartRuleCreatorDialog = function (_zIndex, smartRuleEditorSrc)
 	this.input_keyword = document.getElementById('smart_rule_editor_keyword');
 	this.input_title = document.getElementById('smart_rule_editor_title');
 	this.input_url = document.getElementById('smart_rule_editor_url');
+	this.input_example_url = document.getElementById('smart_rule_editor_example_url');
+	this.input_site_description = document.getElementById('smart_rule_editor_site_description');
+	
+	this.input_keyword.focus();
 	
 	this.radio_search_css.addEventListener('change', this.setPathInputVisibility, true);
 	this.radio_search_xpath.addEventListener('change', this.setPathInputVisibility, true);
@@ -274,8 +278,8 @@ SmartRuleCreatorDialog.prototype.validate = function ()
 	return Rule.Validator.validate({
 		title : this.input_title.value,
 		site_regexp : this.input_url.value,
-		example_url : document.getElementById('smart_rule_editor_example_url').value,
-		site_description : document.getElementById('smart_rule_editor_site_description').value,
+		example_url : this.input_example_url.value,
+		site_description : this.input_site_description.value,
 		
 		search_block_xpath : document.getElementById('smart_rule_editor_search_block_xpath').value,
 		search_block_css : document.getElementById('smart_rule_editor_search_block_css').value,
@@ -291,8 +295,8 @@ SmartRuleCreatorDialog.prototype.applyInput = function ()
 	// Set form values to rule
 	this.rule.title = this.input_title.value;
 	this.rule.site_regexp = this.input_url.value;
-	this.rule.site_description = document.getElementById('smart_rule_editor_site_description').value;
-	this.rule.example_url = document.getElementById('smart_rule_editor_example_url').value;
+	this.rule.site_description = this.input_site_description.value;
+	this.rule.example_url = this.input_example_url.value;
 	this.rule.search_block_xpath = document.getElementById('smart_rule_editor_search_block_xpath').value;
 	this.rule.search_block_css = document.getElementById('smart_rule_editor_search_block_css').value;
 	this.rule.search_block_description = document.getElementById('smart_rule_editor_search_block_description').value;
@@ -537,8 +541,8 @@ SmartRuleCreatorDialog.prototype.showRule = function (rule)
 	document.getElementById('smart_rule_editor_preview').style.display = 'none';
 	document.getElementById('smart_rule_editor_body').style.display = 'block';
 	
-	document.getElementById('smart_rule_editor_example_url').value = rule.example_url;
-	document.getElementById('smart_rule_editor_site_description').value = rule.site_description;
+	this.input_example_url.value = rule.example_url;
+	this.input_site_description.value = rule.site_description;
 	this.input_title.value = rule.title;
 	this.input_url.value = rule.site_regexp;
 	document.getElementById('smart_rule_editor_search_block_xpath').value = rule.search_block_xpath;

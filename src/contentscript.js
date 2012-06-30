@@ -74,7 +74,7 @@ BgProcessor.prototype.execRuleEditor = function (request)
 	{
 		window.ruleEditor = new RuleEditor(request.rule, request.src, request.appliedRuleList);
 		window.ruleEditor.initialize();
-	}
+	} 
 };
 BgProcessor.prototype.execRuleSaveDoneRuleEditor = function (request)
 {
@@ -109,7 +109,6 @@ BgProcessor.prototype.execQuickRuleCreation = function (request)
 		window.smartRuleCreatorDialog = new SmartRuleCreatorDialog(RuleEditor.getMaxZIndex() + 1, request.src);
 	}			
 	var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText);
-	window.smartRuleCreatorDialog.show(creator, lastRightClickedElement, lastRightClickEvent);
 };
 
 

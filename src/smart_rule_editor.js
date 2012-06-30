@@ -9,9 +9,21 @@ var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText)
 	this.appliedRuleList = appliedRuleList;
 	this.targetElement = targetElement;
 	this.selectionText = selectionText;
-	this.scanExistingRules();
-	this.createNewRules();
+	this.showLoadingIcon();
+	window.setTimeout(this.getScanThread(),1000);
 	CustomBlockerUtil.enableFlashZIndex();
+};
+
+SmartRuleCreator.prototype.getScanThread = function ()
+{
+	var self = this;
+	return function()
+	{
+		self.scanExistingRules();
+		self.createNewRules();
+		self.hideLoadingIcon();
+		window.smartRuleCreatorDialog.show(self, lastRightClickedElement, lastRightClickEvent);
+	};
 };
 
 SmartRuleCreator.prototype.createNewRules = function ()
@@ -34,9 +46,39 @@ SmartRuleCreator.prototype.createNewRules = function ()
 		rule.searchNodes = searchNodes;
 	}
 	var analyzer = new SmartPathAnalyzer(this.targetElement, new CssBuilder(), this.appliedRuleList);
+	this.hideLoadingIcon();
 	this.suggestedPathList = analyzer.createPathList();
 	
 }
+SmartRuleCreator.prototype.showLoadingIcon = function ()
+{
+	this.loadingImageDiv = document.createElement('DIV');
+	with (this.loadingImageDiv.style)
+	{
+		//TODO max zIndex
+		zIndex = RuleEditor.getMaxZIndex() + 1;
+		padding = '8px';
+		borderRadius = '6px';
+		border = '1px solid #888';
+		position = "absolute";
+		left = lastRightClickEvent.clientX + document.body.scrollLeft + "px";
+		top = lastRightClickEvent.clientY + document.body.scrollTop + "px";
+		backgroundColor = "white";
+	}
+	var loadingImage = document.createElement('IMG');
+	loadingImage.src = chrome.extension.getURL('/img/loading.gif');
+	this.loadingImageDiv.appendChild(loadingImage);
+	document.body.appendChild(this.loadingImageDiv);
+	
+};
+SmartRuleCreator.prototype.hideLoadingIcon = function ()
+{
+	if (this.loadingImageDiv && this.loadingImageDiv.parentNode)
+	{
+		this.loadingImageDiv.parentNode.removeChild(this.loadingImageDiv);
+	}
+};
+
 SmartRuleCreator.prototype.scanExistingRules = function ()
 {
 	this.matchedRules = new Array();
@@ -292,7 +334,7 @@ SmartRuleCreatorDialog.prototype.validate = function ()
 		search_block_css : this.input_search_block_css.value,
 		search_block_description : this.input_search_block_description.value,
 		
-		this.input_hide_block_xpath.value,
+		hide_block_xpath: this.input_hide_block_xpath.value,
 		hide_block_css : this.input_hide_block_css.value,
 		hide_block_description : this.input_hide_block_description.value
 	});
@@ -563,7 +605,7 @@ SmartRuleCreatorDialog.prototype.showRule = function (rule)
 	var searchRadio = (rule.search_block_by_css)?this.radio_search_css:this.radio_search_xpath;
 	searchRadio.checked = true;
 	var hideRadio = (rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath;
-	var hideRadio.checked = true;
+	hideRadio.checked = true;
 	this.setPathInputVisibility();
 	
 	for (var i=0; i<rule.words.length; i++)

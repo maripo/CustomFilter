@@ -309,11 +309,25 @@ RuleContainer.prototype.getDeleteAction = function ()
 		if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
 			peer.deleteObject(self.rule);
 			self.liElement.parentNode.removeChild(self.liElement);
+			removeElement (self);
+			showCount();
+			reloadBackground();
 		}
-		reloadBackground();
 	};
 };
 
+function removeElement (element)
+{
+
+	for (var i=0; i<ruleContainerList.length; i++)
+	{
+		if (ruleContainerList[i]==element)
+		{
+			ruleContainerList.splice(i, 1);
+			return;
+		}
+	}
+}
 
 function refreshPathSections ()
 {

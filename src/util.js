@@ -153,11 +153,14 @@ CustomBlockerUtil.notEmpty = function (str)
 CustomBlockerUtil.LOCALIZE_CLASS_REGEXP = new RegExp('custom_filter_localize_([^ ]+)');
 CustomBlockerUtil.localize = function ()
 {
-	var spans = document.getElementsByTagName('SPAN');
+	var tags = [];
+	CustomBlockerUtil.addAll(tags, document.getElementsByTagName('SPAN'));
+	CustomBlockerUtil.addAll(tags, document.getElementsByTagName('LABEL'));
+	
 	var buttons = document.getElementsByTagName('INPUT');
-	for (var i=0, l=spans.length; i<l; i++)
+	for (var i=0, l=tags.length; i<l; i++)
 	{
-		var element = spans[i];
+		var element = tags[i];
 		if (null!=element.className && element.className.match(CustomBlockerUtil.LOCALIZE_CLASS_REGEXP))
 		{
 			element.innerHTML = chrome.i18n.getMessage(RegExp.$1);
@@ -173,6 +176,11 @@ CustomBlockerUtil.localize = function ()
 		}
 	}
 };
+CustomBlockerUtil.addAll = function (array, elementsToAdd)
+{
+	for (var i=0; i<elementsToAdd.length; i++)
+		array.push(elementsToAdd[i]);
+}
 CustomBlockerUtil.REGEX_FILE_NAME = new RegExp('/([a-zA-Z0-9_]+\.html)$');
 CustomBlockerUtil.getShowHelpAction = function (_fileName)
 {

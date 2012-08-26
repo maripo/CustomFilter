@@ -50,5 +50,6 @@
 	"smartRuleEditorExistingButtonLabel":{"message":"Edit"},
 	"smartRuleEditorSuggestedMessage":{"message":"This rule is automatically suggested."},
 	"ruleSuffix":{"message":"Rules"},
-	"unsavedDialog":{"message":"There are unsaved changes in this rule. Are you sure you want to close this dialog?"}
+	"unsavedDialog":{"message":"There are unsaved changes in this rule. Are you sure you want to close this dialog?"},
+	"selectAll":{"message":"Select All"}
 }

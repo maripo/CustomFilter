@@ -117,7 +117,7 @@ var tabOnUpdate = function(tabId, changeInfo, tab)
 		return;
 	}
 	var url = tab.url;
-	if (url !== undefined && changeInfo.status == "complete") 
+	if (isValidURL(url) && changeInfo.status == "complete") 
 	{
 		chrome.tabs.sendRequest(tabId,
 		{
@@ -129,12 +129,17 @@ var tabOnUpdate = function(tabId, changeInfo, tab)
 		);
 	}
 }
+var VALID_URL_REGEX = new RegExp('^https?:');
+function isValidURL (url) 
+{
+	return  url && url.match(VALID_URL_REGEX);
+}
 
 function getForegroundCallback (tabId)
 {
-	//TODO callback.
 	return function(param)
 	{
+		if (!param) return;
 		var useCallback = false;
 		switch (param.command)
 		{
@@ -167,7 +172,6 @@ function getForegroundCallback (tabId)
 };
 function execCallbackReload (tabId, param)
 {
-	console.log("execCallbackReload (stub)");
 	chrome.tabs.sendRequest(tabId, 
 	{
 		command: (param.nextAction),
@@ -194,13 +198,19 @@ function execCallbackDb (tabId, param)
 }
 function execCallbackSetApplied (tabId, param)
 {
-	console.log("foregroundCallback setApplied. param.list=" + param.list);
 	var list = param.list || new Array();
-	chrome.browserAction.setIcon(
-		{
-			path:((list.length>0)?'icon.png':'icon_disabled.png'),
-			tabId:tabId
-		});
+	try
+	{
+		chrome.browserAction.setIcon(
+			{
+				path:((list.length>0)?'icon.png':'icon_disabled.png'),
+				tabId:tabId
+			});
+	}
+	catch (ex)
+	{
+		console.log(ex);
+	}
 	appliedRuleMap[tabId] = list;
 
 };

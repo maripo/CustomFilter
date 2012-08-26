@@ -61,13 +61,21 @@ var Import =
 				Import.relateWithExistingWord(rule, existingRule);
 				rule = existingRule;
 				rule.existing = true;
+			
+			}
+		}
+		if (!rule.existing)
+		{
+			for (var i=0; i<rule.words.length; i++)
+			{
+				rule.words[i].word_id = 0;
 			}
 		}
 		return rule;
 	},
 	relateWithExistingWord: function (rule, existingRule)
 	{
-		if (existingRule.words || rule.words) return null;
+		if (!existingRule.words || !rule.words) return null;
 		for (var i = 0; i < existingRule.words.length; i++)
 		{
 			var found = false;
@@ -76,7 +84,9 @@ var Import =
 			{
 				var word = rule.words[j];
 				if (word.is_regexp == existingWord.is_regexp && word.word == existingWord.word)
+				{
 					found = true;
+				}
 			}
 			if (!found)
 			{

@@ -20,7 +20,12 @@ RuleExecutor.checkRules = function (list)
 		{
 			if (new RegExp(rule.site_regexp).test(location.href)) 
 			{
+				Log.v("Rule is applied." + location.href + "<=>" + rule.site_regexp);
 				rules.push(rule);
+			}
+			else
+			{
+				Log.v("Rule is NOT applied." + location.href + "<=>" + rule.site_regexp);
 			}
 		} 
 		catch (e) 

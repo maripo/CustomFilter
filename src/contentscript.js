@@ -14,6 +14,7 @@ var BgProcessor = function ()
  */
 BgProcessor.prototype.sendRequest = function (command, param, nextAction)
 {
+	Log.d("BgProcessor.sendRequest command=" + command);
 	param.command = command;
 	param.nextAction = nextAction;
 	bgCallback(param);
@@ -25,6 +26,7 @@ BgProcessor.prototype.sendRequest = function (command, param, nextAction)
  */
 BgProcessor.prototype.processBackgroundRequest = function (request, sender, sendResponse)
 {
+	Log.d("BgProcessor.processBackgroundRequest command=" + request.command);
 	bgCallback = sendResponse;
 	switch (request.command)
 	{

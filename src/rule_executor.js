@@ -42,6 +42,7 @@ RuleExecutor.startBlock = function()
 		var rule = rules[i];
 		if (rule.block_anyway && !rule.is_disabled)
 		{
+			Log.d("RuleExecutor BLOCK_ANYWAY " + rule.title);
 			var cssSelector = (rule.hide_block_by_css)?
 				rule.hide_block_css:CustomBlockerUtil.xpathToCss(rule.hide_block_xpath);
 			if (cssSelector!=null)

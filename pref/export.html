@@ -6,15 +6,15 @@
 		<link rel="stylesheet" type="text/css" href="../css/rule_editor.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/keywords.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/pref/list_rules.css"/>
-		<script language="JavaScript" src="../src/db/DbObj.js"></script>
-		<script language="JavaScript" src="../src/db/DbInit.js"></script>
-		<script language="JavaScript" src="../src/db/Rule.js"></script>
-		<script language="JavaScript" src="../src/db/Word.js"></script>
-		<script language="JavaScript" src="../src/pref/import_export.js"></script>
-		<script language="JavaScript" src="../src/pref/export.js"></script>
-		<script language="JavaScript" src="../src/util.js"></script>
+		<script type="text/javascript" src="../src/db/DbObj.js"></script>
+		<script type="text/javascript" src="../src/db/DbInit.js"></script>
+		<script type="text/javascript" src="../src/db/Rule.js"></script>
+		<script type="text/javascript" src="../src/db/Word.js"></script>
+		<script type="text/javascript" src="../src/util.js"></script>
+		<script type="text/javascript" src="../src/pref/import_export.js"></script>
+		<script type="text/javascript" src="../src/pref/export.js"></script>
 	</head>
-	<body onload="Export.onStart()">
+	<body>
 		<div id="header">
 			<h1><img src="../img/top_title.png" alt="CustomBlocker for Google Chrome"/></h1>
 		<ul>
@@ -37,7 +37,7 @@
 			</div>
 		</div>
 		<div>
-			<input type="button" onclick="javascript:Export.exportSelected()" value="Export"/>
+			<input type="button" id="buttonExportSelected" value="Export"/>
 		</div>
 	</body>
 </html>

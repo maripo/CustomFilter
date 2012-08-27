@@ -10,6 +10,10 @@ var Export =
 		Export.ruleWrapperList = new Array();
 		Export.loadLists();
 		document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
+
+		document.getElementById('checkboxToggleAll').addEventListener('change', Export.toggleAllCheckboxes,null);
+				document.getElementById('buttonExportSelected').addEventListener('click', Export.exportSelected,null);
+		
 		CustomBlockerUtil.localize();
 	},
 	exportSelected: function()
@@ -27,8 +31,8 @@ var Export =
 		var url = "data:application/octet-stream," + encodeURIComponent(JSON.stringify(ruleList));
 		window.open(url);
 	},
-	toggleAllCheckboxes: function (sender) {
-		RuleWrapper.toggleAllCheckboxes (sender, Export.ruleWrapperList);
+	toggleAllCheckboxes: function () {
+		RuleWrapper.toggleAllCheckboxes (document.getElementById('checkboxToggleAll'), Export.ruleWrapperList);
 	},
 	loadLists: function  () 
 	{
@@ -68,3 +72,4 @@ var Export =
 RuleWrapper.getSubDivClassName = function () {
 	return "sub_export";
 };
+window.onload = Export.onStart;

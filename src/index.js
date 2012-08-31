@@ -169,3 +169,14 @@ function getDisableAction (rule, disableButton)
 		}
 	}
 }
+
+window.onload = function ()
+{
+	getAppliedRules();
+	document.getElementById('buttonOn').addEventListener ('click', 
+			function(){ setBlockOn(true); }, false);
+	document.getElementById('buttonOff').addEventListener ('click', 
+			function(){ setBlockOn(false); }, false);
+	document.getElementById('buttonOpenPreference').addEventListener('click', openPreference, false);
+	document.getElementById('buttonCreateRule').addEventListener('click', openRuleEditor, false);
+}

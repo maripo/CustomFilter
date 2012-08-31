@@ -11,12 +11,12 @@
 		<script type="text/javascript" src="src/uuid.js"></script>
 		<title>CustomBlocker</title>
 	</head>
-	<body style="width:480px;" onload="getAppliedRules()">
+	<body style="width:480px;">
 		<div id="header">
 			<div class="menu">
-				<input type="radio" name="extenstion_enable" id="buttonOn" onclick="setBlockOn(true)"/>
+				<input type="radio" name="extenstion_enable" id="buttonOn"/>
 				<label for="">ON</label>
-				<input type="radio" name="extenstion_enabled" id="buttonOff" onclick="setBlockOn(false)"/>
+				<input type="radio" name="extenstion_enabled" id="buttonOff" />
 				<label for="">OFF</label>
 				<a href="javascript:void(0)" onclick="openPreference()"><span class="custom_filter_localize_preference">Preference</span></a>
 			</div>
@@ -30,12 +30,12 @@
 				<ul id="activeRules">
 				</ul>
 				<div id="ruleSectionFooter">
-					<a href="javascript:void(0)" onclick="openPreference()"><span class="custom_filter_localize_preference">Preference</span></a>
+					<a href="#" id="buttonOpenPreference"><span class="custom_filter_localize_preference">Preference</span></a>
 				</div>
 				
 			</div>
 			<div>
-				<input id="buttonCreateRule" type="button" onclick="openRuleEditor()" value="Create a new rule for this site" class="custom_filter_localize_newRuleForThisSite"/>
+				<input id="buttonCreateRule" type="button" value="Create a new rule for this site" class="custom_filter_localize_newRuleForThisSite"/>
 			</div>
 		</div>
 		<script type="text/javascript" src="src/index.js"></script>

@@ -541,3 +541,4 @@ RuleEditor.prototype.saveWord = function ()
 		alert("save failed")
 		});
 }
+window.onload = onStart;

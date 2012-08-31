@@ -6,6 +6,9 @@ var Import =
 	onStart: function()
 	{
 		var fileSelector = document.getElementById('fileSelector');
+		
+		document.getElementById('button_import').addEventListener('click', Import.saveSelected, false);
+		
 		fileSelector.addEventListener('change', Import.readFile);
 		Import.rulePeer = RulePeer.getInstance();
 		Import.wordPeer = WordPeer.getInstance();
@@ -91,7 +94,7 @@ var Import =
 			if (!found)
 			{
 				existingWord.word_id = 0;
-				rule.words.add(existingWord);
+				rule.words.push(existingWord);
 			}
 		}
 	},
@@ -207,3 +210,4 @@ var Import =
 RuleWrapper.getSubDivClassName = function () {
 	return "sub_import";
 };
+window.onload = Import.onStart;

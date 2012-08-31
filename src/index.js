@@ -178,5 +178,6 @@ window.onload = function ()
 	document.getElementById('buttonOff').addEventListener ('click', 
 			function(){ setBlockOn(false); }, false);
 	document.getElementById('buttonOpenPreference').addEventListener('click', openPreference, false);
+	document.getElementById('buttonOpenPreferenceTop').addEventListener('click', openPreference, false);
 	document.getElementById('buttonCreateRule').addEventListener('click', openRuleEditor, false);
 }

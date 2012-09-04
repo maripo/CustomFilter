@@ -14,6 +14,7 @@ var Export =
 		document.getElementById('checkboxToggleAll').addEventListener('change', Export.toggleAllCheckboxes,null);
 				document.getElementById('buttonExportSelected').addEventListener('click', Export.exportSelected,null);
 		
+				
 		CustomBlockerUtil.localize();
 	},
 	exportSelected: function()

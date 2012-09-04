@@ -28,7 +28,7 @@
 		</div>
 			<div id="prefMain">
 				<div>
-					<input type="text" id="search_box" onchange="search(this)" onkeyup="search(this)"/>
+					<input type="text" id="search_box"/>
 				</div>
 				<div id="rule_editor_body" class="customblocker_rule_dialog">
 				<div class="section">
@@ -50,9 +50,9 @@
 				<div class="section" style="position:relative!important">
 					<h2><span class="custom_filter_localize_sectionSearch">Elements to Search</span></h2>
 					<div class="selector_radio_container" style="position:absolute!important;right:2px!important;top:2px!important;text-align:right!important;">
-						<input type="radio" id="rule_editor_radio_search_xpath" name="rule_editor_radio_search" onchange="refreshPathSections()"/>
+						<input type="radio" id="rule_editor_radio_search_xpath" name="rule_editor_radio_search"/>
 						<label for="rule_editor_radio_search_xpath">XPath</label>
-						<input type="radio" id="rule_editor_radio_search_css" name="rule_editor_radio_search" onchange="refreshPathSections()"/>
+						<input type="radio" id="rule_editor_radio_search_css" name="rule_editor_radio_search"/>
 						<label for="rule_editor_radio_search_css">CSS</label>
 					</div>
 					<div class="input_section" id="rule_editor_section_search_xpath"><div class="label">XPath</div><input type="text" id="rule_editor_search_block_xpath"/></div>
@@ -65,9 +65,9 @@
 				<div class="section" style="position:relative!important">
 					<h2><span class="custom_filter_localize_sectionHide">Elements to Hide</span></h2>
 					<div class="selector_radio_container" style="position:absolute!important;right:2px!important;top:2px!important;text-align:right!important;">
-						<input type="radio" id="rule_editor_radio_hide_xpath" name="rule_editor_radio_hide" onchange="refreshPathSections()"/>
+						<input type="radio" id="rule_editor_radio_hide_xpath" name="rule_editor_radio_hide"/>
 						<label for="rule_editor_radio_hide_xpath">XPath</label>
-						<input type="radio" id="rule_editor_radio_hide_css" name="rule_editor_radio_hide" onchange="refreshPathSections()"/>
+						<input type="radio" id="rule_editor_radio_hide_css" name="rule_editor_radio_hide"/>
 						<label for="rule_editor_radio_hide_css">CSS</label>
 					</div>
 					<div class="input_section" id="rule_editor_section_hide_xpath"><div class="label">XPath</div><input type="text" id="rule_editor_hide_block_xpath"/></div>

@@ -10,6 +10,7 @@ var Import =
 		document.getElementById('button_import').addEventListener('click', Import.saveSelected, false);
 		
 		fileSelector.addEventListener('change', Import.readFile);
+		document.getElementById('checkboxToggleAll').addEventListener('change', Import.toggleAllCheckboxes, false);
 		Import.rulePeer = RulePeer.getInstance();
 		Import.wordPeer = WordPeer.getInstance();
 		Import.rulePeer.select('', Import.onRuleListLoaded, null);
@@ -50,7 +51,7 @@ var Import =
 		reader.onload =  Import.readContent;
 	},
 	toggleAllCheckboxes: function (sender) {
-		RuleWrapper.toggleAllCheckboxes (sender, Import.list);
+		RuleWrapper.toggleAllCheckboxes (document.getElementById('checkboxToggleAll'), Import.list);
 	},
 	relateWithExistingRule: function (rule)
 	{

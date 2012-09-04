@@ -1,4 +1,5 @@
- {
+{
+  "manifest_version": 2,
   "name" : "CustomBlocker",
   "version" : "2.1.16",
   "default_locale": "en",
@@ -6,10 +7,23 @@
   "browser_action": {
       "default_title": "CustomBlocker preference",
       "default_icon": "icon_disabled.png",
-      "popup": "index.html"
+      "default_popup": "index.html"
   },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "options_page":"pref/index.html",
-  "background_page":"background_page.html",
+  "background": {
+      "page":"background_page.html"
+  },
+  "web_accessible_resources": [
+    "css/rule_editor_common.css",
+    "css/rule_editor.css",
+    "css/smart_rule_editor.css",
+    "css/keywords.css",
+    "css/rule_editor_cursor.css",
+    "img/word_delete.png",
+    "img/word_delete_hover.png",
+    "img/rule_editor_close.png"
+  ],
   "content_scripts" : [
     {
       "matches" : [
@@ -22,8 +36,8 @@
         "src/element_highlighter.js",
         "src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js", 
         "src/rule_executor.js", "src/contentscript.js",
-      	"src/smart_path_analyzer.js",
-      	"src/rule_editor.js",
+        "src/smart_path_analyzer.js",
+        "src/rule_editor.js",
         "src/smart_rule_editor.js",
         "src/path_analyzer.js",
         "src/xpath_builder.js", "src/css_builder.js"

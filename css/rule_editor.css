@@ -259,3 +259,7 @@ span.rule_editor_count_search {
 	border-color:#00f!important;
 	background-color:#00b!important;
 }
+
+#rule_editor_container div.block_anyway div.section_keywords {
+	background-color:#ddd!important;
+}

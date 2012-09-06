@@ -291,6 +291,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	this.radio_hide_xpath = document.getElementById('rule_editor_radio_hide_xpath');
 	this.hide_block_description = document.getElementById('rule_editor_hide_block_description');
 	this.block_anyway = document.getElementById('rule_editor_block_anyway');
+	
 
 	if (rule.rule_id && rule.rule_id > 0) 
 	{
@@ -307,6 +308,8 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath) .checked = true;
 		this.hide_block_description.value = rule.hide_block_description;
 		this.block_anyway.checked = rule.block_anyway;
+		document.getElementById('rule_editor_body').className = 
+			(rule.block_anyway)?'customblocker_rule_dialog block_anyway':'customblocker_rule_dialog';
 	}
 	else 
 	{
@@ -448,6 +451,9 @@ RuleEditorDialog.prototype.getChangedAction = function ()
 	var self = this;
 	return function (sender)
 	{
+		console.log("change block_anyway=" + self.block_anyway.checked);
+		document.getElementById('rule_editor_body').className = 
+			(self.block_anyway.checked)?'customblocker_rule_dialog block_anyway':'customblocker_rule_dialog';
 		self.rule.changed = true;
 	}
 };

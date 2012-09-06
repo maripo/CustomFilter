@@ -20,6 +20,8 @@
     "css/smart_rule_editor.css",
     "css/keywords.css",
     "css/rule_editor_cursor.css",
+    "img/loading.gif",
+    "img/smart_path_preview_img.png",
     "img/word_delete.png",
     "img/word_delete_hover.png",
     "img/rule_editor_close.png"

@@ -381,7 +381,7 @@ Log.Level =
 		WARNING: 4,
 		ERROR: 5
 };
-Log.FILTER_LEVEL = Log.Level.VERBOSE;
+Log.FILTER_LEVEL = Log.Level.WARNING;
 
 Log._write = function (message, level, label)
 {

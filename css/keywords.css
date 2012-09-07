@@ -30,6 +30,18 @@
 }
 
 /**
+	"Block Anyway"
+*/
+#rule_editor_container div.block_anyway span.not_regexp {
+	background-color:#ccd!important;
+	border: solid 1px #aab!important;
+}
+#rule_editor_container div.block_anyway span.regexp {
+	background-color:#dcc!important;
+	border: solid 1px #baa!important;
+}
+
+/**
 	Delete Button (Normal & Hover)
 */
 

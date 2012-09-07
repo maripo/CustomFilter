@@ -308,8 +308,8 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath) .checked = true;
 		this.hide_block_description.value = rule.hide_block_description;
 		this.block_anyway.checked = rule.block_anyway;
-		document.getElementById('rule_editor_body').className = 
-			(rule.block_anyway)?'customblocker_rule_dialog block_anyway':'customblocker_rule_dialog';
+		document.getElementById('rule_editor_keyword_section_wrapper').className = 
+			(this.block_anyway.checked)?'block_anyway':'';
 	}
 	else 
 	{
@@ -452,8 +452,8 @@ RuleEditorDialog.prototype.getChangedAction = function ()
 	return function (sender)
 	{
 		console.log("change block_anyway=" + self.block_anyway.checked);
-		document.getElementById('rule_editor_body').className = 
-			(self.block_anyway.checked)?'customblocker_rule_dialog block_anyway':'customblocker_rule_dialog';
+		document.getElementById('rule_editor_keyword_section_wrapper').className = 
+			(self.block_anyway.checked)?'block_anyway':'';
 		self.rule.changed = true;
 	}
 };

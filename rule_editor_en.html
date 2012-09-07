@@ -62,12 +62,16 @@
 <div class="section section_keywords">
 	<h2>Words</h2>
 	<div class="content">
-		<div>
-			<div class="label">&nbsp;</div>
-			<input type="text" class="rule_editor_textbox" id="rule_editor_keyword"/>
-			<input type="checkbox" id="rule_editor_keyword_regexp_checkbox"/><label for="rule_editor_keyword_regexp_checkbox">RegEx<a href="keywords.html" class="help">?</a></label>
-		<input class="uiButton" type="button" id="rule_editor_add_keyword_button" value="ADD"/></div>
-		<div id="rule_editor_keywords"></div>
+		<div id="rule_editor_keyword_section_wrapper">
+			<div class="rule_editor_keyword_section">
+				<div>
+					<div class="label">&nbsp;</div>
+					<input type="text" class="rule_editor_textbox" id="rule_editor_keyword"/>
+					<input type="checkbox" id="rule_editor_keyword_regexp_checkbox"/><label for="rule_editor_keyword_regexp_checkbox">RegEx<a href="keywords.html" class="help">?</a></label>
+				<input class="uiButton" type="button" id="rule_editor_add_keyword_button" value="ADD"/></div>
+				<div id="rule_editor_keywords"></div>
+			</div>
+		</div>
 		<div class="section_alert" id="rule_editor_alert_keywords">Input any keyword or check "Block Anyway"</div>
 		<div>
 			<input type="checkbox" id="rule_editor_block_anyway"/><label for="rule_editor_block_anyway">Block Anyway</label><a href="block_anyway.html" class="help">?</a>

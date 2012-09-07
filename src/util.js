@@ -109,7 +109,7 @@ CustomBlockerUtil.getRelativeElementsByXPath = function(targetNode, xpath)
 CustomBlockerUtil.getRuleDetailTip = function (rule)
 {
 	if (rule.block_anyway)
-		return 'Block Anyway';
+		return chrome.i18n.getMessage('blockAnyway');
 	if (null==rule.words || 0==rule.words.length)
 		return null;
 	var wordStrings = new Array();

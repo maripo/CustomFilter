@@ -193,7 +193,7 @@ RuleContainer.prototype.getLiElement = function ()
 	if (this.rule.block_anyway)
 	{
 		var span = document.createElement('SPAN');
-		span.innerHTML = 'Block Anyway';
+		span.innerHTML = chrome.i18n.getMessage('blockAnyway');
 		span.className = 'blockAnyway';
 		keywordsDiv.appendChild(span);
 	}

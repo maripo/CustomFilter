@@ -51,5 +51,6 @@
 	"smartRuleEditorSuggestedMessage":{"message":"自動生成されたルールの候補です。"},
 	"ruleSuffix":{"message":"件"},
 	"unsavedDialog":{"message":"保存されていない変更があります。ダイアログを閉じると変更は失われます。本当に閉じますか?"},
-	"selectAll":{"message":"すべて選択"}
+	"selectAll":{"message":"すべて選択"},
+	"blockAnyway":{"message":"無条件で隠す"}
 }

@@ -260,6 +260,9 @@ span.rule_editor_count_search {
 	background-color:#00b!important;
 }
 
-#rule_editor_container div.block_anyway div.rule_editor_keyword_section {
+/* Block Anyway */
+#rule_editor_container div.block_anyway div.rule_editor_keyword_section,
+#rule_editor_container div.block_anyway div.rule_editor_search_section {
 	background-color:#ddd!important;
+	outline: 1px dotted #888!important;
 }

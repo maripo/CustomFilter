@@ -308,8 +308,8 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath) .checked = true;
 		this.hide_block_description.value = rule.hide_block_description;
 		this.block_anyway.checked = rule.block_anyway;
-		document.getElementById('rule_editor_keyword_section_wrapper').className = 
-			(this.block_anyway.checked)?'block_anyway':'';
+
+		this.setBlockAnywayStyle(this.block_anyway.checked);
 	}
 	else 
 	{
@@ -452,10 +452,14 @@ RuleEditorDialog.prototype.getChangedAction = function ()
 	return function (sender)
 	{
 		console.log("change block_anyway=" + self.block_anyway.checked);
-		document.getElementById('rule_editor_keyword_section_wrapper').className = 
-			(self.block_anyway.checked)?'block_anyway':'';
+		self.setBlockAnywayStyle(self.block_anyway.checked);
 		self.rule.changed = true;
 	}
+};
+RuleEditorDialog.prototype.setBlockAnywayStyle = function (on)
+{
+	document.getElementById('rule_editor_keyword_section_wrapper').className = (on)?'block_anyway':'';
+	document.getElementById('rule_editor_search_section_wrapper').className = (on)?'block_anyway':'';
 };
 RuleEditorDialog.changeKeywordColor = function (sender)
 {

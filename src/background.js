@@ -466,18 +466,30 @@ function getBadgeTooltipString (count)
 chrome.tabs.customBlockerOnUpdateSet = true;
 onStart();
 
-function onRightClick(clicked, tab) {
-	chrome.tabs.sendRequest(
-		tab.id, 
-		{
-			command: 'quickRuleCreation',
-			src: smartRuleEditorSrc,
-			appliedRuleList: appliedRuleMap[tab.id],
-			selectionText: clicked.selectionText
-		}, 
-		getForegroundCallback(tab.id)
-	);
-}
+function menuCreateOnRightClick(clicked, tab) {
+	sendQuickRuleCreationRequest(clicked, tab, true);
+};
 
-var menuId = chrome.contextMenus.create({"title": chrome.i18n.getMessage('menuCreateRule'), "contexts":["selection"],
-	"onclick": onRightClick});
+function menuAddOnRightClick(clicked, tab) {
+	sendQuickRuleCreationRequest(clicked, tab, false);
+};
+
+function sendQuickRuleCreationRequest (clicked, tab, needSuggestion)
+{
+	chrome.tabs.sendRequest(
+			tab.id, 
+			{
+				command: 'quickRuleCreation',
+				src: smartRuleEditorSrc,
+				appliedRuleList: appliedRuleMap[tab.id],
+				selectionText: clicked.selectionText,
+				needSuggestion: needSuggestion
+			}, 
+			getForegroundCallback(tab.id)
+		);
+};
+
+var menuIdCreate = chrome.contextMenus.create({"title": chrome.i18n.getMessage('menuCreateRule'), "contexts":["selection"],
+	"onclick": menuCreateOnRightClick});
+var menuIdAdd = chrome.contextMenus.create({"title": chrome.i18n.getMessage('menuAddToExistingRule'), "contexts":["selection"],
+	"onclick": menuAddOnRightClick});

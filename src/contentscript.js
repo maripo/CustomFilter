@@ -109,8 +109,8 @@ BgProcessor.prototype.execQuickRuleCreation = function (request)
 	if (!window.smartRuleCreatorDialog)
 	{
 		window.smartRuleCreatorDialog = new SmartRuleCreatorDialog(RuleEditor.getMaxZIndex() + 1, request.src);
-	}			
-	var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText);
+	}
+	var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText, request.needSuggestion);
 };
 
 

@@ -1,7 +1,7 @@
 /**
  * SmartRuleCreator
  */
-var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText)
+var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText, needSuggestion)
 {
 	CustomBlockerUtil.applyCss('/css/smart_rule_editor.css');
 	CustomBlockerUtil.applyCss('/css/rule_editor_common.css');
@@ -9,6 +9,7 @@ var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText)
 	this.appliedRuleList = appliedRuleList;
 	this.targetElement = targetElement;
 	this.selectionText = selectionText;
+	this.needSuggestion = needSuggestion;
 	this.showLoadingIcon();
 	window.setTimeout(this.getScanThread(),1000);
 	CustomBlockerUtil.enableFlashZIndex();
@@ -20,7 +21,8 @@ SmartRuleCreator.prototype.getScanThread = function ()
 	return function()
 	{
 		self.scanExistingRules();
-		self.createNewRules();
+		if (self.needSuggestion || self.matchedRules.length==0)
+			self.createNewRules();
 		self.hideLoadingIcon();
 		window.smartRuleCreatorDialog.show(self, lastRightClickedElement, lastRightClickEvent);
 	};

@@ -163,6 +163,7 @@ CustomBlockerUtil.localize = function ()
 		var element = tags[i];
 		if (null!=element.className && element.className.match(CustomBlockerUtil.LOCALIZE_CLASS_REGEXP))
 		{
+			Log.v("CustomBlockerUtil.localize " + element.innerHTML + "->" + chrome.i18n.getMessage(RegExp.$1));
 			element.innerHTML = chrome.i18n.getMessage(RegExp.$1);
 		}
 	}
@@ -172,6 +173,7 @@ CustomBlockerUtil.localize = function ()
 		if ('button'!=element.type) continue;
 		if (null!=element.className && element.className.match(CustomBlockerUtil.LOCALIZE_CLASS_REGEXP))
 		{
+			Log.v("CustomBlockerUtil.localize " + element.value + "->" + chrome.i18n.getMessage(RegExp.$1));
 			element.value = chrome.i18n.getMessage(RegExp.$1);
 		}
 	}

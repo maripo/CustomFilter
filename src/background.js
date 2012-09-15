@@ -468,10 +468,12 @@ onStart();
 
 function menuCreateOnRightClick(clicked, tab) {
 	sendQuickRuleCreationRequest(clicked, tab, true);
+	Analytics.trackEvent('contextMenu', 'create');
 };
 
 function menuAddOnRightClick(clicked, tab) {
 	sendQuickRuleCreationRequest(clicked, tab, false);
+	Analytics.trackEvent('contextMenu', 'add');
 };
 
 function sendQuickRuleCreationRequest (clicked, tab, needSuggestion)

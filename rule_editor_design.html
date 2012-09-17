@@ -1,0 +1,88 @@
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<!-- 
+		<link rel="stylesheet" type="text/css" href="css/smart_rule_editor.css"/>
+		 -->
+		<link rel="stylesheet" type="text/css" href="css/keywords.css"/>
+		<style type="text/css">
+		div,h1,h2,h3 {
+			border: 1px solid #888;
+			padding:2px;
+			margin:2px;
+			font-family:sans-serif;
+		}
+		h1 {
+			font-size:16px;
+			background-color:#ccc;
+		}
+		h2 {
+			font-size:15px;
+			background-color:#ddd;
+		}
+		h3 {
+			font-size:14px;
+			background-color:#eee;
+		}
+		input[type="text"] {
+			width:180px;
+		}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>ルールの編集</h1>
+			<div>
+				<h2>ルールの名前</h2>
+				<div>
+					<input type="text"/>
+				</div>
+			</div>
+			<div>
+				<h2>適用するサイト</h2>
+				<div>
+					<input type="text"/>
+					<div>
+						正規表現が使えます
+					</div>
+				</div>
+			</div>
+			<div>
+				<h2>隠す要素</h2>
+				<div>
+					<h3>XPath/CSS</h3>
+					<div>
+						<input type="text"/>
+					</div>
+				</div>
+			</div>
+			<div>
+				<h2>発動条件</h2>
+				<div>
+					<h3>XPath/CSS</h3>
+					<div>
+						<input type="text"/>
+					</div>
+				</div>
+				<div>
+					<h3>NGワード</h3>
+					<input type="text"/>
+					<input type="checkbox"/>正規表現
+					<input type="button" value="追加"/>
+					<div id="rule_editor_keywords">
+						<span class="word word not_regexp">Hoge</span>
+						<span class="word word not_regexp">Hoge</span>
+						<span class="word word not_regexp">Hoge</span>
+						<span class="word word not_regexp">Hoge</span>
+						<span class="word word not_regexp">Hoge</span>
+					</div>
+				</div>
+			</div>
+			<div>
+				<input type="button" value="Save"/>
+				<input type="button" value="Cancel"/>
+			</div>
+		</div>
+	</body>
+</html>

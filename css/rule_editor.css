@@ -89,6 +89,8 @@
 #rule_editor_body input[type="text"] {
 	border:solid 1px #888!important;
 	float:none!important;
+	min-height:initial!important;
+	min-width:initial!important;
 	box-shadow:none!important;
 }
 #rule_editor_body div.section div.description {

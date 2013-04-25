@@ -24,7 +24,7 @@
 	text-align:left;
 	background:none;
 	text-indent:0px!important;
-	position:static!important;
+	position:relative!important;
 	font-family:sans-serif!important;
 	margin:0px!important;
 	padding:0px!important;
@@ -267,4 +267,7 @@ span.rule_editor_count_search {
 #rule_editor_container div.block_anyway div.rule_editor_search_section {
 	background-color:#ddd!important;
 	outline: 1px dotted #888!important;
+}
+#rule_editor_container div.sectionBody {
+	position:relative!important;
 }

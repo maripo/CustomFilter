@@ -1,190 +1,280 @@
-<div id="rule_editor_body" class="customblocker_rule_dialog">
-	<div id="rule_editor_body_drag" class="header">
-		<a id="rule_editor_closer" class="close" href="javascript:void(0)"></a>
-		<h1>ルールの編集</h1>
-	</div>
-	<div>
-		<div class="section">
-			<h2>ルールの名前</h2>
-			<div class="sectionBody">
-				<input type="text" class="rule_editor_textbox"
-					id="rule_editor_title">
-			</div>
-		</div>
-		<hr />
-		<div class="section">
-			<h2>適用するサイト</h2>
-			<div class="sectionBody">
-				<div class="input_section">
-					<div class="label">RegEx</div>
-					<input type="text" class="rule_editor_textbox"
-						id="rule_editor_site_regexp"><a href="javascript:void(0)"
-						class="help">?</a>
-				</div>
-				<div class="section_alert" id="rule_editor_alert_site_regexp">This
-					RegEx does not match this site.</div>
-				<div class="input_section">
-					<div class="label">Example URL</div>
-					<input type="text" class="rule_editor_textbox"
-						id="rule_editor_example_url">
-				</div>
-				<div class="input_section">
-					<div class="label">Description</div>
-					<input type="text" class="rule_editor_textbox"
-						id="rule_editor_site_description">
-				</div>
-				<div class="description">This rule is applied on matched
-					sites.</div>
-			</div>
-		</div>
-		<hr />
-		<div class="section">
-			<h2>隠す要素</h2>
-			<div class="sectionBody">
-				<div
-					style="position: absolute !important; right: 2px !important; top: 1px !important; text-align: right !important;"
-					class="selector_radio_container">
-					<input type="radio" id="rule_editor_radio_hide_xpath"
-						name="rule_editor_radio_hide"> <label
-						for="rule_editor_radio_hide_xpath">XPath</label> <input
-						type="radio" id="rule_editor_radio_hide_css"
-						name="rule_editor_radio_hide" checked=""> <label
-						for="rule_editor_radio_hide_css">CSS</label>
-				</div>
-				<div class="content">
-					<div class="input_section" id="rule_editor_section_hide_xpath"
-						style="display: none;">
-						<div class="label">
-							<span class="rule_editor_count rule_editor_count_hide"
-								id="rule_editor_count_hide_block_xpath"></span> XPath
-						</div>
-						<input type="text" class="rule_editor_textbox"
-							id="rule_editor_hide_block_xpath"><input
-							class="uiButton xpath_picker" type="button" value="Suggest XPath"
-							id="rule_editor_button_hide_block_xpath"><a
-							href="javascript:void(0)" class="help">?</a>
-					</div>
-					<div class="input_section" id="rule_editor_section_hide_css"
-						style="display: block;">
-						<div class="label">
-							<span class="rule_editor_count rule_editor_count_hide"
-								id="rule_editor_count_hide_block_css">51</span> CSS Selector
-						</div>
-						<input type="text" class="rule_editor_textbox"
-							id="rule_editor_hide_block_css"><input
-							class="uiButton xpath_picker" type="button"
-							value="Suggest Selector" id="rule_editor_button_hide_block_css"><a
-							href="javascript:void(0)" class="help">?</a>
-					</div>
-					<div class="section_alert" style="display: none;"
-						id="rule_editor_alert_hide_block_xpath">Invalid XPath</div>
-					<div class="input_section">
-						<div class="label">Description</div>
-						<input type="text" class="rule_editor_textbox"
-							id="rule_editor_hide_block_description">
-					</div>
-					<div class="description">Matched elements will disappear if
-						they meet the condition.</div>
-				</div>
 
-			</div>
-		</div>
-		<hr />
-		<div class="section">
-			<h2>発動条件</h2>
-			<div class="sectionBody">
-				<div>
-					<input type="radio" id="rule_editor_block_anyway"
-						name="rule_editor_block_anyway" /><label
-						for="rule_editor_block_anyway">Block Anyway</label><a
-						href="javascript:void(0)" class="help">?</a> <input type="radio"
-						id="rule_editor_block_anyway_false"
-						name="rule_editor_block_anyway" /><label
-						for="rule_editor_block_anyway_false">Filter with keywords</label>
-				</div>
-				<h3>XPath/CSS</h3>
+      <div id="rule_editor_body" class="customblocker_rule_dialog">
+        <div id="rule_editor_body_drag" class="header">
+          <a id="rule_editor_closer" class="close" href="javascript:void(0)">
+          </a>
+          <h1>
+            ルールの編集
+          </h1>
+        </div>
+        <div>
+          <div class="section">
+            <h2>
+              ルールの名前
+            </h2>
+            <div class="sectionBody">
+              <input type="text" class="rule_editor_textbox" id="rule_editor_title">
+            </div>
+          </div>
+          <hr />
+          <div class="section">
+            <h2>
+              適用するサイト
+            </h2>
+            <div class="sectionBody">
+              <div class="input_section">
+                <div class="label">
+                  RegEx
+                </div>
+                <input type="text" class="rule_editor_textbox" id="rule_editor_site_regexp">
+                <a href="javascript:void(0)" class="help">
+                  ?
+                </a>
+              </div>
+              <div class="section_alert" id="rule_editor_alert_site_regexp">
+                This RegEx does not match this site.
+              </div>
+              <div class="input_section">
+                <div class="label">
+                  Example URL
+                </div>
+                <input type="text" class="rule_editor_textbox" id="rule_editor_example_url">
+              </div>
+              <div class="input_section">
+                <div class="label">
+                  Description
+                </div>
+                <input type="text" class="rule_editor_textbox" id="rule_editor_site_description">
+              </div>
+              <div class="description">
+                This rule is applied on matched sites.
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="section">
+            <h2>
+              隠す要素
+            </h2>
+            <div class="sectionBody">
+              <div 
+                  style="position: absolute !important; right: 2px !important; top: 1px !important; text-align: right !important;"
+                  class="selector_radio_container">
 
-				<div id="rule_editor_search_section_wrapper" class="">
-					<div class="rule_editor_search_section">
-						<div
-							style="position: absolute !important; right: 2px !important; top: 1px !important; text-align: right !important;"
-							class="selector_radio_container">
-							<input type="radio" id="rule_editor_radio_search_xpath"
-								name="rule_editor_radio_search"> <label
-								for="rule_editor_radio_search_xpath">XPath</label> <input
-								type="radio" id="rule_editor_radio_search_css"
-								name="rule_editor_radio_search" checked=""> <label
-								for="rule_editor_radio_search_css">CSS</label>
-						</div>
-						<div class="content">
-							<div class="input_section" id="rule_editor_section_search_xpath"
-								style="display: none;">
-								<div class="label">
-									<span class="rule_editor_count rule_editor_count_search"
-										id="rule_editor_count_search_block_xpath"></span>XPath
-								</div>
-								<input type="text" class="rule_editor_textbox"
-									id="rule_editor_search_block_xpath"><input
-									class="uiButton xpath_picker" type="button"
-									value="Suggest XPath"
-									id="rule_editor_button_search_block_xpath"><a
-									href="javascript:void(0)" class="help">?</a>
-							</div>
-							<div class="input_section" id="rule_editor_section_search_css"
-								style="display: block;">
-								<div class="label">
-									<span class="rule_editor_count rule_editor_count_search"
-										id="rule_editor_count_search_block_css">83</span>CSS Selector
-								</div>
-								<input type="text" class="rule_editor_textbox"
-									id="rule_editor_search_block_css"><input
-									class="uiButton xpath_picker" type="button"
-									value="Suggest Selector"
-									id="rule_editor_button_search_block_css"><a
-									href="javascript:void(0)" class="help">?</a>
-							</div>
-							<div class="section_alert" style="display: none;"
-								id="rule_editor_alert_search_block_xpath">Invalid XPath</div>
-							<div class="input_section">
-								<div class="label">Description</div>
-								<input type="text" class="rule_editor_textbox"
-									id="rule_editor_search_block_description">
-							</div>
-							<div class="description">The filter works when these
-								elements contain "Words".</div>
-						</div>
-					</div>
-				</div>
 
-				<h3>NGワード</h3>
-				<div id="rule_editor_keyword_section_wrapper" class="">
-					<div class="rule_editor_keyword_section">
-						<div>
-							<div class="label">&nbsp;</div>
-							<input type="text" class="rule_editor_textbox"
-								id="rule_editor_keyword"
-								style="background-color: rgb(221, 238, 255);"> <input
-								type="checkbox" id="rule_editor_keyword_regexp_checkbox"><label
-								for="rule_editor_keyword_regexp_checkbox">RegEx<a
-								href="javascript:void(0)" class="help">?</a></label> <input
-								class="uiButton" type="button"
-								id="rule_editor_add_keyword_button" value="ADD">
-						</div>
-						<div id="rule_editor_keywords">
-						</div>
-					</div>
-				</div>
-				<div class="section_alert" id="rule_editor_alert_keywords">Input
-					any keyword or check "Block Anyway"</div>
 
-			</div>
-		</div>
-		<hr />
-		<div>
-			<input type="button" value="Save" id="rule_editor_save_button" /> <input
-				type="button" value="Test Rule" id="rule_editor_test_button" /> <input
-				type="button" value="Close" id="rule_editor_close_button" />
-		</div>
-	</div>
-	<div id="rule_editor_alert"></div>
-</div>
+
+                <input type="radio" id="rule_editor_radio_hide_xpath" name="rule_editor_radio_hide">
+                <label for="rule_editor_radio_hide_xpath">
+                  XPath
+                </label>
+                <input type="radio" id="rule_editor_radio_hide_css" name="rule_editor_radio_hide" checked="">
+                <label for="rule_editor_radio_hide_css">
+                  CSS
+                </label>
+              </div>
+              <div class="content">
+                <div class="input_section" id="rule_editor_section_hide_xpath" style="display: none;">
+                  <div class="label">
+                    <span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_xpath">
+                    </span>
+                    XPath
+                  </div>
+                  <input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_xpath">
+                  <input 
+                      class="uiButton xpath_picker"
+                      type="button"
+                      value="Suggest XPath"
+                      id="rule_editor_button_hide_block_xpath">
+
+
+
+
+                  <a href="javascript:void(0)" class="help">
+                    ?
+                  </a>
+                </div>
+                <div class="input_section" id="rule_editor_section_hide_css" style="display: block;">
+                  <div class="label">
+                    <span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_css">
+                      51
+                    </span>
+                    CSS Selector
+                  </div>
+                  <input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_css">
+                  <input 
+                      class="uiButton xpath_picker"
+                      type="button"
+                      value="Suggest Selector"
+                      id="rule_editor_button_hide_block_css">
+
+
+                  <a href="javascript:void(0)" class="help">
+                    ?
+                  </a>
+                </div>
+                <div class="section_alert" style="display: none;" id="rule_editor_alert_hide_block_xpath">
+                  Invalid XPath
+                </div>
+                <div class="input_section">
+                  <div class="label">
+                    Description
+                  </div>
+                  <input type="text" class="rule_editor_textbox" id="rule_editor_hide_block_description">
+                </div>
+                <div class="description">
+                  Matched elements will disappear if they meet the condition.
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="section">
+            <h2>
+              発動条件
+            </h2>
+            <div class="sectionBody">
+              <div>
+                <!-- Radio Buttons -->
+                <div>
+                  <input type="radio" id="rule_editor_block_anyway" name="rule_editor_block_anyway" />
+                  <label for="rule_editor_block_anyway">
+                    Block Anyway
+                  </label>
+                  <a href="javascript:void(0)" class="help">
+                    ?
+                  </a>
+                </div>
+                <div>
+                  <input type="radio" id="rule_editor_block_anyway_false" name="rule_editor_block_anyway" />
+                  <label for="rule_editor_block_anyway_false">
+                    Filter with keywords
+                  </label>
+                </div>
+              </div>
+              <div id="rule_editor_hide_detail">
+                <h3>
+                  XPath/CSS
+                </h3>
+
+                <div id="rule_editor_search_section_wrapper" class="">
+                  <div class="rule_editor_search_section">
+                    <div 
+                        style="position: absolute !important; right: 2px !important; top: 1px !important; text-align: right !important;"
+                        class="selector_radio_container">
+                      <input type="radio" id="rule_editor_radio_search_xpath" name="rule_editor_radio_search">
+                      <label for="rule_editor_radio_search_xpath">
+                        XPath
+                      </label>
+                      <input type="radio" id="rule_editor_radio_search_css" name="rule_editor_radio_search" checked="">
+                      <label for="rule_editor_radio_search_css">
+                        CSS
+                      </label>
+                    </div>
+                    <div class="content">
+                      <div class="input_section" id="rule_editor_section_search_xpath" style="display: none;">
+                        <div class="label">
+                          <span 
+                              class="rule_editor_count rule_editor_count_search"
+                              id="rule_editor_count_search_block_xpath">
+
+
+
+
+                          </span>
+                          XPath
+                        </div>
+                        <input type="text" class="rule_editor_textbox" id="rule_editor_search_block_xpath">
+                        <input 
+                            class="uiButton xpath_picker"
+                            type="button"
+                            value="Suggest XPath"
+                            id="rule_editor_button_search_block_xpath">
+
+
+
+
+                        <a href="javascript:void(0)" class="help">
+                          ?
+                        </a>
+                      </div>
+                      <div class="input_section" id="rule_editor_section_search_css" style="display: block;">
+                        <div class="label">
+                          <span 
+                              class="rule_editor_count rule_editor_count_search"
+                              id="rule_editor_count_search_block_css">
+
+
+                            83
+                          </span>
+                          CSS Selector
+                        </div>
+                        <input type="text" class="rule_editor_textbox" id="rule_editor_search_block_css">
+                        <input 
+                            class="uiButton xpath_picker"
+                            type="button"
+                            value="Suggest Selector"
+                            id="rule_editor_button_search_block_css">
+
+
+
+
+                        <a href="javascript:void(0)" class="help">
+                          ?
+                        </a>
+                      </div>
+                      <div class="section_alert" style="display: none;" id="rule_editor_alert_search_block_xpath">
+                        Invalid XPath
+                      </div>
+                      <div class="input_section">
+                        <div class="label">
+                          Description
+                        </div>
+                        <input type="text" class="rule_editor_textbox" id="rule_editor_search_block_description">
+                      </div>
+                      <div class="description">
+                        The filter works when these elements contain "Words".
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h3>
+                  NGワード
+                </h3>
+                <div id="rule_editor_keyword_section_wrapper" class="">
+                  <div class="rule_editor_keyword_section">
+                    <div>
+                      <div class="label">
+                        &nbsp;
+                      </div>
+                      <input type="text" class="rule_editor_textbox" id="rule_editor_keyword">
+                      <input type="checkbox" id="rule_editor_keyword_regexp_checkbox">
+                      <label for="rule_editor_keyword_regexp_checkbox">
+                        RegEx
+                        <a href="javascript:void(0)" class="help">
+                          ?
+                        </a>
+                      </label>
+                      <input class="uiButton" type="button" id="rule_editor_add_keyword_button" value="ADD">
+                    </div>
+                    <div id="rule_editor_keywords">
+                    </div>
+                  </div>
+                </div>
+                <div class="section_alert" id="rule_editor_alert_keywords">
+                  Input any keyword or check "Block Anyway"
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div>
+            <input type="button" value="Save" id="rule_editor_save_button" />
+            <input type="button" value="Test Rule" id="rule_editor_test_button" />
+            <input type="button" value="Close" id="rule_editor_close_button" />
+          </div>
+        </div>
+        <div id="rule_editor_alert">
+        </div>
+      </div>

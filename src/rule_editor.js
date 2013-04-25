@@ -291,7 +291,8 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	this.radio_hide_xpath = document.getElementById('rule_editor_radio_hide_xpath');
 	this.hide_block_description = document.getElementById('rule_editor_hide_block_description');
 	this.block_anyway = document.getElementById('rule_editor_block_anyway');
-	
+	this.block_anyway_false = document.getElementById('rule_editor_block_anyway_false');
+	this.hide_detail = document.getElementById('rule_editor_hide_detail');
 
 	if (rule.rule_id && rule.rule_id > 0) 
 	{
@@ -307,7 +308,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		this.hide_block_css.value = rule.hide_block_css;
 		((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath) .checked = true;
 		this.hide_block_description.value = rule.hide_block_description;
-		this.block_anyway.checked = rule.block_anyway;
+		((rule.block_anyway)?this.block_anyway:this.block_anyway_false).checked = true;
 
 		this.setBlockAnywayStyle(this.block_anyway.checked);
 	}
@@ -441,6 +442,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	this.radio_hide_xpath.addEventListener('change', this.getChangedAction(), false);
 	this.hide_block_description.addEventListener('change', this.getChangedAction(), false);
 	this.block_anyway.addEventListener('change', this.getChangedAction(), false);
+	this.block_anyway_false.addEventListener('change', this.getChangedAction(), false);
 };
 RuleEditorDialog.prototype.hideCover = function ()
 {
@@ -458,8 +460,13 @@ RuleEditorDialog.prototype.getChangedAction = function ()
 };
 RuleEditorDialog.prototype.setBlockAnywayStyle = function (on)
 {
-	document.getElementById('rule_editor_keyword_section_wrapper').className = (on)?'block_anyway':'';
-	document.getElementById('rule_editor_search_section_wrapper').className = (on)?'block_anyway':'';
+	this.hide_detail.style.display = (on)?'none':'block';
+	/*
+	document.getElementById('rule_editor_keyword_section_wrapper').className 
+		= (on)?'block_anyway':'';
+	document.getElementById('rule_editor_search_section_wrapper').className 
+		= (on)?'block_anyway':'';
+	*/
 };
 RuleEditorDialog.changeKeywordColor = function (sender)
 {

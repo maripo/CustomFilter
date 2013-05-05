@@ -319,6 +319,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		this.site_description.value = document.title;
 		this.title.value = document.title;
 		this.example_url.value = location.href;
+		this.block_anyway_false.checked = true;
 	}
 	var dragger = document.getElementById('rule_editor_body_drag');
 	dragger.addEventListener('mousedown', this.getOnMousedownAction(), false);

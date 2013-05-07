@@ -45,8 +45,6 @@
 	height:auto;
 	left:auto!important;
 	top:auto!important;
-	border:none!important;
-	display:block;
 }
 #rule_editor_body a {
 	text-indent:0px!important;
@@ -61,8 +59,9 @@
 }
 
 #rule_editor_body div.input_section{
-	clear:both;
-	height:24px;
+	clear:both!important;
+	height:24px!important;
+	line-height:24px!important;
 }
 #rule_editor_body input{
 	height:auto!important;
@@ -94,6 +93,7 @@
 	min-width:initial!important;
 	box-shadow:none!important;
 }
+
 #rule_editor_body div.section div.description {
 	clear:both!important;
 	float:none!important;
@@ -193,20 +193,26 @@
 }
 #rule_editor_body_drag {
 	height:22px!important;
+	margin-tobbom:8px!important;
 	font-weight:normal!important;
-	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#aaaaaa))!important;
+	background-color:white!important;
 	cursor:move!important;
-	line-height:24px!important;
+	line-height:18px!important;
 	vertical-align:middle!important;
-	color:white!important;
+	color:black!important;
 	text-indent:4px!important;
-	-webkit-box-shadow: 0px 0px 1px #aaa!important;
 	font-size:100%!important;
 	border-top-left-radius: 6px!important;
 	border-top-right-radius: 6px!important;
 }
 #rule_editor_body_drag h1 {
-	color:white!important;
+	color:black!important;
+	border:none!important;
+	font-size:14px!important;
+	line-height:18px!important;
+	font-weight:bold!important;
+	text-indent:8px!important;
+	padding-top:2px!important;
 }
 
 #rule_editor_body_drag a.close{

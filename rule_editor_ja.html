@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<div class="section">
-		<h2>Target Sites</h2>
+		<h2><span class="text">Target Sites</span></h2>
 		<div class="sectionBody">
 			<div class="input_section">
 				<div class="label">RegEx</div>
@@ -41,19 +41,29 @@
 		</div>
 	</div>
 	<div class="section">
-		<h2>Elements to Hide</h2>
+		<h2><span class="text">Elements to Hide</span></h2>
 		<div class="sectionBody">
-			<div
-				style="position: absolute !important; right: 2px !important; top: 1px !important; text-align: right !important;"
-				class="selector_radio_container">
-				<input type="radio" id="rule_editor_radio_hide_xpath"
-					name="rule_editor_radio_hide"> <label
-					for="rule_editor_radio_hide_xpath"> XPath </label> <input
-					type="radio" id="rule_editor_radio_hide_css"
-					name="rule_editor_radio_hide" checked=""> <label
-					for="rule_editor_radio_hide_css"> CSS </label>
-			</div>
 			<div class="content">
+				<div class="input_section" id="rule_editor_section_hide_css"
+					style="display: block;">
+					<div class="label">
+						<span class="rule_editor_count rule_editor_count_hide"
+							id="rule_editor_count_hide_block_css">-</span> CSS Selector
+					</div>
+					<input type="text" class="rule_editor_textbox"
+						id="rule_editor_hide_block_css"> <input
+						class="uiButton xpath_picker" type="button"
+						value="Suggest Selector" id="rule_editor_button_hide_block_css">
+					<a href="hide.html" class="help"> ? </a>
+				</div>
+				<div class="selector_radio_container">
+					<input type="radio" id="rule_editor_radio_hide_xpath"
+						name="rule_editor_radio_hide"> <label
+						for="rule_editor_radio_hide_xpath"> XPath </label> <input
+						type="radio" id="rule_editor_radio_hide_css"
+						name="rule_editor_radio_hide" checked=""> <label
+						for="rule_editor_radio_hide_css"> CSS </label>
+				</div>
 				<div class="input_section" id="rule_editor_section_hide_xpath"
 					style="display: none;">
 					<div class="label">
@@ -65,18 +75,6 @@
 						class="uiButton xpath_picker" type="button" value="Suggest XPath"
 						id="rule_editor_button_hide_block_xpath"> <a
 						href="hide.html" class="help"> ? </a>
-				</div>
-				<div class="input_section" id="rule_editor_section_hide_css"
-					style="display: block;">
-					<div class="label">
-						<span class="rule_editor_count rule_editor_count_hide"
-							id="rule_editor_count_hide_block_css"> 51 </span> CSS Selector
-					</div>
-					<input type="text" class="rule_editor_textbox"
-						id="rule_editor_hide_block_css"> <input
-						class="uiButton xpath_picker" type="button"
-						value="Suggest Selector" id="rule_editor_button_hide_block_css">
-					<a href="hide.html" class="help"> ? </a>
 				</div>
 				<div class="section_alert" style="display: none;"
 					id="rule_editor_alert_hide_block_xpath">Invalid XPath</div>
@@ -91,7 +89,7 @@
 		</div>
 	</div>
 	<div class="section">
-		<h2>Condition</h2>
+		<h2><span class="text">Condition</span></h2>
 		<div class="sectionBody">
 			<!-- Radio Buttons -->
 			<div>
@@ -128,30 +126,20 @@
 				</div>
 				<div id="rule_editor_search_section_wrapper" class="">
 					<div class="rule_editor_search_section">
-						<h3>XPath/CSS</h3>
-						<div
-							style="position: absolute !important; right: 2px !important; top: 1px !important; text-align: right !important;"
-							class="selector_radio_container">
-							<input type="radio" id="rule_editor_radio_search_xpath"
-								name="rule_editor_radio_search"> <label
-								for="rule_editor_radio_search_xpath"> XPath </label> <input
-								type="radio" id="rule_editor_radio_search_css"
-								name="rule_editor_radio_search" checked=""> <label
-								for="rule_editor_radio_search_css"> CSS </label>
-						</div>
 						<div class="content">
 							<div class="input_section" id="rule_editor_section_search_xpath"
 								style="display: none;">
 								<div class="label">
 									<span class="rule_editor_count rule_editor_count_search"
-										id="rule_editor_count_search_block_xpath"> </span> XPath
+										id="rule_editor_count_search_block_xpath"></span> XPath
 								</div>
 								<input type="text" class="rule_editor_textbox"
-									id="rule_editor_search_block_xpath"> <input
+									id="rule_editor_search_block_xpath"> 
+								<input
 									class="uiButton xpath_picker" type="button"
 									value="Suggest XPath"
-									id="rule_editor_button_search_block_xpath"> <a
-									href="search.html" class="help"> ? </a>
+									id="rule_editor_button_search_block_xpath"> 
+								<a href="search.html" class="help"> ? </a>
 							</div>
 							<div class="input_section" id="rule_editor_section_search_css"
 								style="display: block;">
@@ -167,6 +155,14 @@
 									id="rule_editor_button_search_block_css"> <a
 									href="search.html" class="help"> ? </a>
 							</div>
+							<div class="selector_radio_container">
+								<input type="radio" id="rule_editor_radio_search_xpath"
+									name="rule_editor_radio_search"> <label
+									for="rule_editor_radio_search_xpath"> XPath </label> <input
+									type="radio" id="rule_editor_radio_search_css"
+									name="rule_editor_radio_search" checked=""> <label
+									for="rule_editor_radio_search_css"> CSS </label>
+							</div>
 							<div class="section_alert" style="display: none;"
 								id="rule_editor_alert_search_block_xpath">Invalid XPath</div>
 							<div class="input_section" style="display: none">
@@ -174,8 +170,9 @@
 								<input type="text" class="rule_editor_textbox"
 									id="rule_editor_search_block_description">
 							</div>
-							<div class="description">The filter works when these
-								elements contain "Words".</div>
+							<div class="description">
+								The filter works when these elements contain "Keywords".
+							</div>
 						</div>
 					</div>
 				</div>

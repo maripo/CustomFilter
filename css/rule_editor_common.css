@@ -1,16 +1,24 @@
-#smart_rule_editor_body h2,
-#rule_editor_body h2 {
+#smart_rule_editor_body div.section h2,
+#rule_editor_body div.section h2 {
 	color:#444!important;
 	font-size:1em!important;
-	background: -webkit-gradient(linear, center top, center bottom, from(#e8e8e8), to(#dddddd))!important;
-	border-top:1px solid #eeeeee!important;
-	border-bottom:1px solid #bbbbbb!important;
-	-webkit-box-shadow: 0px 0px 1px #aaa!important;
 	line-height:110%!important;
 	text-indent:4px!important;
 	font-weight:normal!important;
+	margin-top:-6px!important;
+	margin-left:0px!important;
+	display:block!important;
+	border:none!important;
 }
-
+#smart_rule_editor_body div.section h3,
+#rule_editor_body div.section h3 {
+	font-size:13px!important;
+	font-weight:bold!important;
+}
+#smart_rule_editor_body div.section h2 span.text,
+#rule_editor_body div.section h2 span.text{
+	background-color:white!important;
+}
 div.customblocker_rule_dialog {
 	font-size : small!important;
 }
@@ -64,8 +72,10 @@ div.customblocker_rule_dialog {
 #rule_editor_body div.section,
 #smart_rule_editor_body div.section {
 	clear:left;
-	margin:0px!important;
+	margin:8px!important;
 	padding:0px!important;
+	border:1px solid black;
+	border-radius:6px!important;
 }
 #rule_editor_body div.section div.content,
 #smart_rule_editor_body div.section div.content {
@@ -78,6 +88,7 @@ div.customblocker_rule_dialog {
 {
 	font-size:10px!important;
 	line-height:10px!important;
+	text-align:right!important;
 }
 #rule_editor_body div.bottom_button_container,
 #smart_rule_editor_body div.bottom_button_container {

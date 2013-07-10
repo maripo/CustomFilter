@@ -24,7 +24,7 @@ h2 {
 #ruleList {
 	padding:0px;
 	margin:0px;
-	font-size:1em;
+	font-size:12px;
 	-webkit-box-shadow: 0px 0px 2px #888!important;
 }
 #rule_editor_body {
@@ -132,18 +132,18 @@ h2 {
 	left:20px;
 	top:2px;
 	height:16px;
-	font-size:0.84em;
+	font-size:12px;
 }
 #ruleList li div.information div.url {
  	position:absolute;
-	font-size:0.7em;
+	font-size:10px;
 	left:10px;
 	top:20px;
 	color:#444;
 }
 #ruleList li div.information div.keywords {
  	position:absolute;
-	font-size:0.6em;
+	font-size:9px;
 	left:250px;
 	top:22px;
 }
@@ -170,7 +170,7 @@ h2 {
 }
 #ruleList li div.information a.exampleUrl {
 	position:absolute;
-	font-size:0.7em;
+	font-size:10px;
 	left:210px;
 	top:20px;
 }

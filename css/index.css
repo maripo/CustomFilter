@@ -12,10 +12,10 @@ body {
 	height:inherit;
 	float:right;
 	text-align:right;
-	font-size:0.8em;
+	font-size:10px;
 }
 #header h1 {
-	font-size:1.2em;
+	font-size:1.4px;
 	margin-right:200px;
 	width:auto;
 	margin-top:0px;
@@ -31,7 +31,7 @@ body {
 	padding:7px;
 }
 h2 {
-	font-size:1em;
+	font-size:12px;
 	width:auto;
 	margin-top:0px;
 	margin-left:0px;
@@ -55,7 +55,7 @@ h2 {
 	height:22px;
 	color:#333;
 	text-indent:4px;
-	font-size:1em;
+	font-size:12px;
 }
 #ruleSectionFooter {
 	text-align:right;

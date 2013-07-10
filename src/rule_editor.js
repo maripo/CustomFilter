@@ -191,6 +191,7 @@ RuleEditor.prototype.applyInput = function ()
 	this.rule.hide_block_by_css = dialog.radio_hide_css.checked;
 	this.rule.hide_block_description = dialog.hide_block_description.value;
 	this.rule.block_anyway = dialog.block_anyway.checked;
+	this.rule.specify_url_by_regexp = dialog.specify_url_by_regexp_checkbox.checked;
 	
 };
 RuleEditor.prototype.addWord = function(wordStr)
@@ -278,6 +279,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	
 	this.title = document.getElementById('rule_editor_title');
 	this.site_regexp = document.getElementById('rule_editor_site_regexp');
+	this.specify_url_by_regexp_checkbox = document.getElementById('specify_url_by_regexp_checkbox');
 	this.example_url = document.getElementById('rule_editor_example_url');
 	this.site_description = document.getElementById('rule_editor_site_description');
 	this.search_block_xpath = document.getElementById('rule_editor_search_block_xpath');
@@ -302,13 +304,14 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		this.site_description.value = rule.site_description;
 		this.search_block_xpath.value = rule.search_block_xpath;
 		this.search_block_css.value = rule.search_block_css;
-		((rule.search_block_by_css)?this.radio_search_css:this.radio_search_xpath) .checked = true;
+		((rule.search_block_by_css)?this.radio_search_css:this.radio_search_xpath).checked = true;
 		this.search_block_description.value  = rule.search_block_description;
 		this.hide_block_xpath.value = rule.hide_block_xpath;
 		this.hide_block_css.value = rule.hide_block_css;
-		((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath) .checked = true;
+		((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath).checked = true;
 		this.hide_block_description.value = rule.hide_block_description;
 		((rule.block_anyway)?this.block_anyway:this.block_anyway_false).checked = true;
+		this.specify_url_by_regexp_checkbox.checked = rule.specify_url_by_regexp;
 
 		this.setBlockAnywayStyle(this.block_anyway.checked);
 	}
@@ -444,6 +447,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	this.hide_block_description.addEventListener('change', this.getChangedAction(), false);
 	this.block_anyway.addEventListener('change', this.getChangedAction(), false);
 	this.block_anyway_false.addEventListener('change', this.getChangedAction(), false);
+	this.specify_url_by_regexp_checkbox.addEventListener('change', this.getChangedAction(), false);
 };
 RuleEditorDialog.prototype.hideCover = function ()
 {

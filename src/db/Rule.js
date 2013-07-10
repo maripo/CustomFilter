@@ -22,6 +22,8 @@ RulePeer.getInstance = function ()
 	instance.addColumn('site_regexp', DbColumn.TYPE_TEXT, 1.0);
 	instance.addColumn('example_url', DbColumn.TYPE_TEXT, 1.0);
 	instance.addColumn('site_description', DbColumn.TYPE_TEXT, 1.0);
+
+	instance.addColumn('specify_url_by_regexp', DbColumn.TYPE_BOOLEAN, 2.0);
 	
 	// Element Matcher
 	instance.addColumn('search_block_xpath', DbColumn.TYPE_TEXT, 1.0);

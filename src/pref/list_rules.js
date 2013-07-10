@@ -409,6 +409,7 @@ RuleEditor.prototype.selectRule = function (/* Rule */ rule)
 		
 		document.getElementById('rule_editor_hide_block_description').value = rule.hide_block_description;
 		document.getElementById('rule_editor_block_anyway').checked = rule.block_anyway;
+		document.getElementById('specify_url_by_regexp_checkbox').checked = rule.specify_url_by_regexp;
 		refreshPathSections();
 	}
 	for (var i=0, l=rule.words.length; i<l; i++) 
@@ -462,6 +463,7 @@ RuleEditor.prototype.saveRule = function ()
 	this.rule.hide_block_by_css = document.getElementById('rule_editor_radio_hide_css').checked;
 	this.rule.hide_block_description = document.getElementById('rule_editor_hide_block_description').value;
 	this.rule.block_anyway = document.getElementById('rule_editor_block_anyway').checked;
+	this.rule.specify_url_by_regexp = document.getElementById('specify_url_by_regexp_checkbox').checked;
 	var self = this;
 	// set UUIDs
 	if (CustomBlockerUtil.isEmpty(this.rule.user_identifier))

@@ -42,6 +42,14 @@ CustomBlockerUtil.getElementsByCssSelector = function (selector)
 		return new Array();
 	}
 };
+/**
+ * Example: http://*.maripo.org/q=* -> http://*.maripo.org/q=*
+ */
+var REGEX_WILDCARD_TO_REGEXP = new RegExp('([^A-Za-z0-9_\\*])', 'g');
+var REGEX_WILDCARD = new RegExp('\\*', 'g');
+CustomBlockerUtil.wildcardToRegExp = function (str) {
+	return str.replace(REGEX_WILDCARD_TO_REGEXP, function(){return '\\' + RegExp.$1}).replace(REGEX_WILDCARD, '.*');
+};
 var REGEX_DOUBLE_SLASH = new RegExp('//','g');
 var REGEX_SLASH = new RegExp('/','g');
 var REGEX_SINGLE_CLASS_NAME = new RegExp('\\[@class=[\'\"](.*?)[\'\"]\\]', 'g');

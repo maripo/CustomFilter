@@ -369,6 +369,8 @@ var RuleEditor = function ()
 	this.alertDiv = document.getElementById('rule_editor_alert');
 
 	document.getElementById('rule_editor_keyword_regexp_checkbox').addEventListener('click',RuleEditor.changeKeywordColor, false);
+	document.getElementById('rule_editor_block_anyway').addEventListener('change',RuleEditor.setVisibilityOfConditionDetail, false);
+	document.getElementById('rule_editor_block_anyway_false').addEventListener('change',RuleEditor.setVisibilityOfConditionDetail, false);
 	RuleEditor.changeKeywordColor(null);
 };
 RuleEditor.changeKeywordColor = function (sender)
@@ -378,8 +380,12 @@ RuleEditor.changeKeywordColor = function (sender)
 
 }
 
-RuleEditor.prototype.getSaveAction = function () 
-{
+RuleEditor.setVisibilityOfConditionDetail = function () {
+	document.getElementById('rule_editor_hide_detail').style.display = 
+		(document.getElementById('rule_editor_block_anyway').checked)?'none':'block';
+}
+
+RuleEditor.prototype.getSaveAction = function () {
 	var self = this;
 	
 	return function () 
@@ -387,8 +393,7 @@ RuleEditor.prototype.getSaveAction = function ()
 		self.saveRule();
 	};
 }
-RuleEditor.prototype.selectRule = function (/* Rule */ rule) 
-{
+RuleEditor.prototype.selectRule = function (/* Rule */ rule) {
 	this.rule = rule;
 	document.getElementById('rule_editor_keywords').innerHTML = '';
 	if (rule.rule_id && rule.rule_id > 0) 
@@ -408,7 +413,8 @@ RuleEditor.prototype.selectRule = function (/* Rule */ rule)
 			= true;
 		
 		document.getElementById('rule_editor_hide_block_description').value = rule.hide_block_description;
-		document.getElementById('rule_editor_block_anyway').checked = rule.block_anyway;
+		(document.getElementById((rule.block_anyway)?'rule_editor_block_anyway':'rule_editor_block_anyway_false')).checked = true;
+		document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway)?'none':'block';
 		document.getElementById('specify_url_by_regexp_checkbox').checked = rule.specify_url_by_regexp;
 		refreshPathSections();
 	}

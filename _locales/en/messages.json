@@ -9,7 +9,8 @@
 	"preference": {"message":"Preference"},
 	"activeRules": {"message":"Applied Rules"},
 	"help":{"message":"Help"},
-	"sectionRuleTitle":{"message":"Title"},
+	"sectionRuleTitle":{"message":"Name"},
+	"url":{"message":"URL"},
 	"sectionSite":{"message":"Site"},
 	"sectionSearch":{"message":"Elements to Search"},
 	"sectionHide":{"message":"Elements to Hide"},
@@ -53,5 +54,7 @@
 	"ruleSuffix":{"message":"Rules"},
 	"unsavedDialog":{"message":"There are unsaved changes in this rule. Are you sure you want to close this dialog?"},
 	"selectAll":{"message":"Select All"},
-	"blockAnyway":{"message":"Block anyway"}
+	"blockAnyway":{"message":"Block anyway"},
+	"filterWithKeywords":{"message":"Filter with keywords"},
+	"condition":{"message":"Condition"}
 }

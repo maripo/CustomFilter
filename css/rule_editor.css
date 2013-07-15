@@ -101,7 +101,7 @@
 	color: #444!important;
 }
 #rule_editor_title {
-	width:240px;
+	width:180px;
 }
 #rule_editor_site_regexp {
 	width:180px;
@@ -206,6 +206,7 @@
 	border-top-right-radius: 6px!important;
 }
 #rule_editor_body_drag h1 {
+	width:180px!important;
 	color:black!important;
 	border:none!important;
 	font-size:14px!important;
@@ -248,10 +249,11 @@ input.xpath_picker {
 	background-image:url(../img/rule_editor_close.png);
 	background-repeat:no-repeat;
 	background-position:2px 2px;
-	display:block;
+	display:block!important;
 	width:22px!important;
 	height:18px!important;
 	margin-top:2px!important;
+	cursor: pointer!important;
 }
 
 /* Hit count */

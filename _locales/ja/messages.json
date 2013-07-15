@@ -9,7 +9,8 @@
 	"preference": {"message":"設定・ルール一覧"},
 	"activeRules": {"message":"適用中のルール"},
 	"help":{"message":"ヘルプ"},
-	"sectionRuleTitle":{"message":"ルールのタイトル"},
+	"sectionRuleTitle":{"message":"ルールの名前"},
+	"url":{"message":"URL"},
 	"sectionSite":{"message":"サイト"},
 	"sectionSearch":{"message":"検索する要素"},
 	"sectionHide":{"message":"隠す要素"},
@@ -53,5 +54,7 @@
 	"ruleSuffix":{"message":"件"},
 	"unsavedDialog":{"message":"保存されていない変更があります。ダイアログを閉じると変更は失われます。本当に閉じますか?"},
 	"selectAll":{"message":"すべて選択"},
-	"blockAnyway":{"message":"無条件で隠す"}
+	"blockAnyway":{"message":"無条件で隠す"},
+	"filterWithKeywords":{"message":"キーワードを使ってフィルタ"},
+	"condition":{"message":"発動条件"}
 }

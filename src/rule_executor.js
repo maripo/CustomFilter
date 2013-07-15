@@ -18,7 +18,14 @@ RuleExecutor.checkRules = function (list)
 		var rule = list[i];
 		try 
 		{
-			if (new RegExp(rule.site_regexp).test(location.href)) 
+			var regex;
+			if (rule.specify_url_by_regexp)
+				regex = new RegExp(rule.site_regexp);
+			else {
+				Log.v("Using wildcard...");
+				regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(rule.site_regexp));
+			}
+			if (regex.test(location.href)) 
 			{
 				Log.v("Rule is applied." + location.href + "<=>" + rule.site_regexp);
 				rules.push(rule);

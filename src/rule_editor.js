@@ -318,7 +318,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	else 
 	{
 		
-		this.site_regexp.value = CustomBlockerUtil.getSuggestedSiteRegexp();
+		this.site_regexp.value = location.href;
 		this.site_description.value = document.title;
 		this.title.value = document.title;
 		this.example_url.value = location.href;
@@ -417,7 +417,15 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	}, false);
 	document.getElementById('rule_editor_site_regexp').addEventListener ('keyup',function()
 	{
-		var matched = new RegExp(document.getElementById('rule_editor_site_regexp').value).test(location.href);
+		var regex;
+		if (document.getElementById('specify_url_by_regexp_checkbox').checked) {
+			// Use RegExp
+			regex = new RegExp(document.getElementById('rule_editor_site_regexp').value);
+		} else {
+			regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(document.getElementById('rule_editor_site_regexp').value));
+			
+		}
+		var matched = regex.test(location.href);
 		document.getElementById('rule_editor_alert_site_regexp').style.display = (matched)?'none':'block';
 	},
 	false);

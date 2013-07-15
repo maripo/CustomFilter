@@ -15,10 +15,10 @@ function onStart ()
 	document.getElementById('search_box').addEventListener('change', search, false);
 	document.getElementById('search_box').addEventListener('keyup', search, false);
 
-	document.getElementById('search_box').addEventListener('rule_editor_radio_search_xpath', refreshPathSections, false);
-	document.getElementById('search_box').addEventListener('rule_editor_radio_search_css', refreshPathSections, false);
-	document.getElementById('search_box').addEventListener('rule_editor_radio_hide_xpath', refreshPathSections, false);
-	document.getElementById('search_box').addEventListener('rule_editor_radio_hide_css', refreshPathSections, false);
+	document.getElementById('rule_editor_radio_search_xpath').addEventListener('change', refreshPathSections, false);
+	document.getElementById('rule_editor_radio_search_css').addEventListener('change', refreshPathSections, false);
+	document.getElementById('rule_editor_radio_hide_xpath').addEventListener('change', refreshPathSections, false);
+	document.getElementById('rule_editor_radio_hide_css').addEventListener('change', refreshPathSections, false);
 	
 	ruleEditor = new RuleEditor();
 	peer.createTable(createWordTable);
@@ -338,6 +338,7 @@ function removeElement (element)
 
 function refreshPathSections ()
 {
+	console.log("refreshPathSections");
 	var hideByXPath = document.getElementById('rule_editor_radio_hide_xpath').checked;
 	var searchByXPath = document.getElementById('rule_editor_radio_search_xpath').checked;
 	document.getElementById('rule_editor_section_hide_xpath').style.display = (hideByXPath)?'block':'none';

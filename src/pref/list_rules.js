@@ -489,16 +489,18 @@ RuleEditor.prototype.saveRule = function ()
 }
 RuleEditor.prototype.getWordElement = function (word) 
 {
-	
 	var span = document.createElement('SPAN');
-	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
 	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
+	/*
+	var textSpan = document.createElement('SPAN');
+	textSpan.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
+	*/
+	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
+	//span.appendChild(textSpan);
 	
-	var deleteButton = document.createElement('INPUT');
-	deleteButton.className = 'deleteButton';
-	deleteButton.type = 'BUTTON';
-	deleteButton.innerHTML = ''
+	var deleteButton = CustomBlockerUtil.createDeleteButton();
 	deleteButton.addEventListener('click', this.getDeleteWordAction(word, span), true);
+	
 	span.appendChild(deleteButton);
 	
 	return span;

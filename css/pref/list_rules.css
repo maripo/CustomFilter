@@ -272,9 +272,8 @@ span.word input.deleteButton {
 	height:16px!important;
 	background-image:url(../../img/word_delete.png)!important;
 	background-repeat:no-repeat;
-	background-position:0px 3px;
-	display:inline-block;
-	margin-top:3px;
+	background-position:0px 0px;
+	vertical-align:middle;
 }
 div.rule_count {
 	font-size:80%;

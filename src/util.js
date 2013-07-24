@@ -331,26 +331,28 @@ CustomBlockerUtil.getSuggestedSiteRegexp = function ()
 CustomBlockerUtil.createWordElement = function (word, deleteCallback /* function(span) */)
 {
 	var span = CustomBlockerUtil.createSimpleWordElement(word);
-	var deleteButton = document.createElement('INPUT');
-	
-	deleteButton.avoidStyle = true;
-	deleteButton.className = 'deleteButton';
-	deleteButton.type = 'button';
-	deleteButton.href = 'javascript:void(0)'
+	var deleteButton = CustomBlockerUtil.createDeleteButton();
 	deleteButton.addEventListener('click', function(){deleteCallback(span)}, true);
-	
 	span.appendChild(deleteButton);
 	
 	return span;
 };
+/* Create [x] button (without function) */
+CustomBlockerUtil.createDeleteButton = function () {
+	var span = document.createElement('SPAN');
+	var button = document.createElement('INPUT');
+	button.avoidStyle = true;
+	button.className = 'deleteButton';
+	button.type = 'button';
+	button.href = 'javascript:void(0)';
+	return button;
+};
 CustomBlockerUtil.createSimpleWordElement = function (word)
 {
 	var span = document.createElement('SPAN');
-	
+	span.innerHTML = word.word;
 	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
-	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
 	span.avoidStyle = true;
-	
 	return span;
 
 };

@@ -38,6 +38,7 @@
 	font-size:100%!important;
 	width:auto!important;
 	display:inline!important;
+	font-weight:normal!important;
 }
 #rule_editor_body div,
 #rule_editor_body h2{
@@ -82,6 +83,7 @@
 	padding-right:2px!important;
 	padding-left:2px!important;
 	margin-left:2px!important;
+	vertical-align:middle!important;
 }
 #rule_editor_body input.uiButton:active {
 	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
@@ -191,6 +193,7 @@
 	background: -webkit-gradient(linear, center top, center bottom, from(#ff6666), to(#dd0000))!important;
 
 }
+/* Header */
 #rule_editor_body_drag {
 	height:22px!important;
 	margin-tobbom:8px!important;
@@ -222,6 +225,11 @@
 	color:white;
 	float:right;
 	text-align:right;
+}
+/* Footer */
+#rule_editor_body  div.footer {
+	text-align:center!important;
+	padding:2px 0px 4px!important;
 }
 
 #rule_editor_alert {

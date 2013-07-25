@@ -56,15 +56,15 @@
 				</div>
 				<div class="section" style="position:relative!important">
 					<h2><span class="custom_filter_localize_sectionHide text">Elements to Hide</span></h2>
-					<div class="selector_radio_container" style="position:absolute!important;right:2px!important;top:2px!important;text-align:right!important;">
+					<div class="input_section" id="rule_editor_section_hide_xpath"><div class="label">XPath</div><input type="text" id="rule_editor_hide_block_xpath"/></div>
+					<div class="input_section" id="rule_editor_section_hide_css"><div class="label">CSS Selector</div><input type="text" id="rule_editor_hide_block_css"/></div>
+					<div class="input_section" style="display:none"><div class="label"><span class="custom_filter_localize_description">Description</span></div><input type="text" id="rule_editor_hide_block_description"/></div>
+					<div class="selector_radio_container">
 						<input type="radio" id="rule_editor_radio_hide_xpath" name="rule_editor_radio_hide"/>
 						<label for="rule_editor_radio_hide_xpath">XPath</label>
 						<input type="radio" id="rule_editor_radio_hide_css" name="rule_editor_radio_hide"/>
 						<label for="rule_editor_radio_hide_css">CSS</label>
 					</div>
-					<div class="input_section" id="rule_editor_section_hide_xpath"><div class="label">XPath</div><input type="text" id="rule_editor_hide_block_xpath"/></div>
-					<div class="input_section" id="rule_editor_section_hide_css"><div class="label">CSS Selector</div><input type="text" id="rule_editor_hide_block_css"/></div>
-					<div class="input_section" style="display:none"><div class="label"><span class="custom_filter_localize_description">Description</span></div><input type="text" id="rule_editor_hide_block_description"/></div>
 					<div class="description">
 						<span class="custom_filter_localize_descriptionHide">Matched elements will disappear if they meet the condition.</span>
 					</div>
@@ -82,15 +82,15 @@
 						<label for="rule_editor_block_anyway_false" class="custom_filter_localize_filterWithKeywords">Filter with keywords </label>
 					</div>
 					<div id="rule_editor_hide_detail">
-						<div class="selector_radio_container" style="position:absolute!important;right:2px!important;top:2px!important;text-align:right!important;">
+						<div class="input_section" id="rule_editor_section_search_xpath"><div class="label">XPath</div><input type="text" id="rule_editor_search_block_xpath"/></div>
+						<div class="input_section" id="rule_editor_section_search_css"><div class="label">CSS Selector</div><input type="text" id="rule_editor_search_block_css"/></div>
+						<div class="input_section" style="display:none"><div class="label"><span class="custom_filter_localize_description">Description</span></div><input type="text" id="rule_editor_search_block_description"/></div>
+						<div class="selector_radio_container">
 							<input type="radio" id="rule_editor_radio_search_xpath" name="rule_editor_radio_search"/>
 							<label for="rule_editor_radio_search_xpath">XPath</label>
 							<input type="radio" id="rule_editor_radio_search_css" name="rule_editor_radio_search"/>
 							<label for="rule_editor_radio_search_css">CSS</label>
 						</div>
-						<div class="input_section" id="rule_editor_section_search_xpath"><div class="label">XPath</div><input type="text" id="rule_editor_search_block_xpath"/></div>
-						<div class="input_section" id="rule_editor_section_search_css"><div class="label">CSS Selector</div><input type="text" id="rule_editor_search_block_css"/></div>
-						<div class="input_section" style="display:none"><div class="label"><span class="custom_filter_localize_description">Description</span></div><input type="text" id="rule_editor_search_block_description"/></div>
 						<div class="description">
 							<span class="custom_filter_localize_descriptionSearch">The filter works when these elements contain "Words".</span>
 						</div>

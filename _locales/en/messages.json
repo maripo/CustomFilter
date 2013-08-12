@@ -56,5 +56,6 @@
 	"selectAll":{"message":"Select All"},
 	"blockAnyway":{"message":"Block anyway"},
 	"filterWithKeywords":{"message":"Filter with keywords"},
-	"condition":{"message":"Condition"}
+	"condition":{"message":"Condition"},
+	"invalidRegEx":{"message":"Invalid regular expression."}
 }

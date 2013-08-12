@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name" : "CustomBlocker",
-  "version" : "2.3.3",
+  "version" : "2.4.0.0",
   "default_locale": "en",
   "description" : "__MSG_extDescription__",
   "browser_action": {
@@ -24,7 +24,9 @@
     "img/smart_path_preview_img.png",
     "img/word_delete.png",
     "img/word_delete_hover.png",
-    "img/rule_editor_close.png"
+    "img/rule_editor_close.png",
+    "img/wand.png",
+    "img/help_icon.png"
   ],
   "content_scripts" : [
     {

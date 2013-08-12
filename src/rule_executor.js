@@ -66,8 +66,13 @@ RuleExecutor.startBlock = function()
 		for (var j=0; j< rule.words.length; j++) 
 		{
 			var word = rule.words[j];
-			if (word.is_regexp)
-				word.regExp = new RegExp(word.word, 'i')
+			if (word.is_regexp) {
+				try {
+					word.regExp = new RegExp(word.word, 'i')
+				} catch (ex) {
+					console.log("Invalid RegExp: " + word.word);
+				}
+			}
 		}
 	}
 	var needBlocking = false;
@@ -120,16 +125,25 @@ RuleExecutor.reloadRules = function ()
 RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(node)*/onHide, isTesting)
 {
 	var needRefreshBadge = false;
-	var searchNodes = (rule.block_anyway)?[]:(
-			(rule.search_block_by_css)?
-				CustomBlockerUtil.getElementsByCssSelector(rule.search_block_css)
-				:
-				CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath)
-			);
 	var hideNodes = (rule.hide_block_by_css)?
 			CustomBlockerUtil.getElementsByCssSelector(rule.hide_block_css)
 			:
 			CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
+	var searchNodes;
+	if ( (rule.search_block_by_css && CustomBlockerUtil.isEmpty(rule.search_block_css)) || 
+			(!rule.search_block_by_css && CustomBlockerUtil.isEmpty(rule.search_block_xpath) )) {
+		searchNodes = [];
+		for (var i=0; i<hideNodes.length; i++) {
+			searchNodes.push(hideNodes[i]);
+		}
+	} else {
+		searchNodes = (rule.block_anyway)?[]:(
+				(rule.search_block_by_css)?
+					CustomBlockerUtil.getElementsByCssSelector(rule.search_block_css)
+					:
+					CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath)
+				);
+	}
 	for (var i = 0, l = searchNodes.length; i < l; i++) 
 	{
 		var node = searchNodes[i];
@@ -221,19 +235,24 @@ RuleExecutor.containsAsChild = function(rootNode, _node)
 
 RuleExecutor.nodeContains = function (node, words)
 {
-	var text = node.textContent;
-	if (!(text.length>0)) 
+	try {
+		var text = node.textContent;
+		if (!(text.length>0)) 
+			return false;
+		for (var i = 0, l = words.length; i < l; i++) 
+		{
+			var word = words[i];
+			if (word.deleted) continue;
+			if (word.is_regexp && word.regExp && word.regExp.test(text)) 
+				return true;
+			if (!word.is_regexp && text.indexOf(word.word)>-1)
+				return true;
+		}
 		return false;
-	for (var i = 0, l = words.length; i < l; i++) 
-	{
-		var word = words[i];
-		if (word.deleted) continue;
-		if (word.is_regexp && word.regExp.test(text)) 
-			return true;
-		if (!word.is_regexp && text.indexOf(word.word)>-1)
-			return true;
+	} catch (ex) {
+		console.log(ex);
+		return false;
 	}
-	return false;
 };
 
 /*

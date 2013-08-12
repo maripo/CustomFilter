@@ -41,9 +41,9 @@ SmartRuleCreator.prototype.createNewRules = function ()
 				CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
 		var searchNodes = 
 			(rule.search_block_by_css)?
-				CustomBlockerUtil.getElementsByCssSelector(rule.search_block_css)
+				CustomBlockerUtil.getElementsByCssSelector(rule.search_block_css || rule.hide_block_css)
 				:
-				CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath);
+				CustomBlockerUtil.getElementsByXPath(rule.search_block_xpath || rule.hide_block_xpath);
 		rule.hideNodes = hideNodes;
 		rule.searchNodes = searchNodes;
 	}
@@ -57,10 +57,9 @@ SmartRuleCreator.prototype.showLoadingIcon = function ()
 	this.loadingImageDiv = document.createElement('DIV');
 	with (this.loadingImageDiv.style)
 	{
-		//TODO max zIndex
 		zIndex = RuleEditor.getMaxZIndex() + 1;
 		padding = '8px';
-		borderRadius = '6px';
+		borderRadius = '4px';
 		border = '1px solid #888';
 		position = "absolute";
 		left = lastRightClickEvent.clientX + document.body.scrollLeft + "px";

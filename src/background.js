@@ -26,6 +26,8 @@ function loadLists (callback)
 }
 function onRuleListLoaded (list) 
 {
+	var count = '' + list.length;
+	Analytics.trackEvent('loadRuleList', count);
 	ruleList = list;
 	wordPeer.select('', onWordListLoaded, null);
 }
@@ -42,6 +44,8 @@ function addToExistingTabList (tabIdToAdd)
 }
 function onWordListLoaded (wordList) 
 {
+	var count = '' + wordList.length;
+	Analytics.trackEvent('loadWordList', count);
 	var ruleMap = new Array();
 	for (var i=0, l=ruleList.length; i<l; i++) 
 	{
@@ -92,6 +96,8 @@ function reloadLists ()
 }
 function openRulePicker (selectedRule) 
 {
+	var status = (selectedRule)?'edit':'create';
+	Analytics.trackEvent('openRulePicker', status);
 	try 
 	{
 		chrome.tabs.getSelected(null,function(tab)
@@ -186,6 +192,7 @@ function execCallbackDb (tabId, param)
 		var exPeer;
 		if ('save' == param.dbCommand) 
 		{
+			Analytics.trackEvent('save', 'save');
 			var rule =param.obj;
 			var saveRuleTask = new SaveRuleTask(rule, reloadLists, tabId);
 			saveRuleTask.exec(param.nextAction);

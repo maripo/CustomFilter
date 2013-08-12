@@ -4,7 +4,7 @@
 	font-size:12px!important;
 	line-height:110%!important;
 	text-indent:4px!important;
-	font-weight:normal!important;
+	font-weight:bold!important;
 	margin-top:-6px!important;
 	margin-left:0px!important;
 	display:block!important;
@@ -14,6 +14,12 @@
 #rule_editor_body div.section h3 {
 	font-size:13px!important;
 	font-weight:bold!important;
+}
+#smart_rule_editor_body div.section h4,
+#rule_editor_body div.section h4 {
+	font-size:12px!important;
+	font-weight:normal!important;
+	padding:0px 0px 0px 4px!important;
 }
 #smart_rule_editor_body div.section h2 span.text,
 #rule_editor_body div.section h2 span.text{
@@ -39,10 +45,10 @@ div.customblocker_rule_dialog {
 	height:initial!important;
 	border:solid 1px #888!important;
 	float:none!important;
-	box-shadow:none!important;
 	line-height:100%!important;
 	font-size:11px!important;
 	color:black!important;
+	box-shadow:inset 1px 1px 1px rgba(0,0,0,0.3)!important;
 }
 
 #smart_rule_editor_body input[type="button"],
@@ -51,17 +57,18 @@ div.customblocker_rule_dialog {
 }
 
 #rule_editor_body a.help,
-#smart_rule_editor_preview a.help {
-	background-color:#aaa!important;
+#smart_rule_editor_preview a.help {;
 	color:white!important;
 	text-decoration:none!important;
 	vertical-align:middle!important;
 	margin:0px 2px 0px 2px!important;
-	padding-left:4px!important;
-	padding-right:4px!important;
-	border-radius:6px!important;
-	border:solid 1px #888;
-	font-size:11px!important;
+	font-size:0px!important;
+	text-indent:-20px!important;
+	display:block!important;
+	float:right;
+	background-image:url(../img/help_icon.png)!important;
+	width:17px!important;
+	height:17px!important;
 }
 #smart_rule_editor_keyword {
 	width:120px!important;
@@ -74,8 +81,8 @@ div.customblocker_rule_dialog {
 	clear:left;
 	margin:6px 8px 2px!important;
 	padding:2px 6px!important;
-	border:1px solid black;
-	border-radius:6px!important;
+	border:1px solid #999;
+	border-radius:4px!important;
 }
 #rule_editor_body div.section div.content,
 #smart_rule_editor_body div.section div.content {
@@ -109,7 +116,12 @@ div.customblocker_rule_dialog {
 #smart_rule_editor_body label {
 	font-size:11px!important;
 	display:inline!important;
-	float:initial;
+	float:initial!important;
 	color:black!important;
 	font-weight:normal!important;
+}
+#rule_editor_body input.xpath_picker {
+	background-image:url(../../img/wand.png)!important;
+	background-repeat:no-repeat!important;
+	padding:0px 3px 0px 18px!important;
 }

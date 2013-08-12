@@ -2,7 +2,7 @@
 	Keyword Container
 */
 #rule_editor_keywords {
-	padding: 2px 5px!important;
+	padding: 2px 5px 2px 15px!important;
 }
 
 /** 
@@ -16,7 +16,7 @@
 	padding-right:2px!important;
 	padding-top:0px!important;
 	padding-bottom:0px!important;
-	border-radius:8px!important;
+	border-radius:4px!important;
 	font-size:11px!important;
 	display:inline-block!important;
 	height:16px!important;

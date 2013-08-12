@@ -367,7 +367,6 @@ var RuleEditor = function ()
 	this.addWordButton.addEventListener('click', this.getAddWordAction(), true);
 	document.getElementById('rule_editor_keyword').addEventListener('keydown', this.getAddWordByEnterAction(), true);
 	this.alertDiv = document.getElementById('rule_editor_alert');
-
 	document.getElementById('rule_editor_keyword_regexp_checkbox').addEventListener('click',RuleEditor.changeKeywordColor, false);
 	document.getElementById('rule_editor_block_anyway').addEventListener('change',RuleEditor.setVisibilityOfConditionDetail, false);
 	document.getElementById('rule_editor_block_anyway_false').addEventListener('change',RuleEditor.setVisibilityOfConditionDetail, false);
@@ -376,7 +375,7 @@ var RuleEditor = function ()
 RuleEditor.changeKeywordColor = function (sender)
 {
 	document.getElementById('rule_editor_keyword').style.backgroundColor =
-		(document.getElementById('rule_editor_keyword_regexp_checkbox').checked)?'#fdd':'#def';
+		(document.getElementById('rule_editor_keyword_regexp_checkbox').checked)?'#fdd!important':'#def!important';
 
 }
 

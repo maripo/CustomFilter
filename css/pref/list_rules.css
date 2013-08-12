@@ -153,12 +153,12 @@ h2 {
 	padding:0px 2px;
 	background-color:#dfd!important;
 	border: solid 1px #4d4!important;
-	border-radius:8px!important;
+	border-radius:4px!important;
 }
 #ruleList div.keywords span.keyword {
 	margin-right:4px;
 	padding:0px 2px;
-	border-radius:8px!important;
+	border-radius:4px!important;
 	
 }
 #ruleList div.keywords span.regex {

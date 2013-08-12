@@ -6,13 +6,13 @@
 	background-color : white!important;
 	text-align : left!important;
 	position : fixed!important;
-	border : solid 1px #444!important;
+	border : solid 1px rgba(0,0,0,0.5)!important;
 	padding : 0px!important;
 	color : black!important;
 	right : 10px;
 	top :10px;
-	border-radius:6px!important;
-	-webkit-box-shadow: 1px 1px 2px #000!important;
+	border-radius:4px!important;
+	-webkit-box-shadow: 1px 1px 2px #0008!important;
 }
 #rule_editor_body {
 	cursor:default!important;
@@ -74,7 +74,6 @@
 	box-shadow:none!important;
 	outline:none!important;
 	border:initial!important;
-	background-color:initial!important;
 }
 #rule_editor_body input.uiButton {
 	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
@@ -103,10 +102,10 @@
 	color: #444!important;
 }
 #rule_editor_title {
-	width:180px;
+	width:210px;
 }
 #rule_editor_site_regexp {
-	width:180px;
+	width:210px;
 }
 #rule_editor_example_url {
 	width:180px;
@@ -187,7 +186,7 @@
  #xpath_picker_body ul a span.badge{
 	color:white;
 	border: solid 1px #aa0000!important;
-	border-radius:6px!important;
+	border-radius:4px!important;
 	font-size:80%;
 	padding:0px 2px 0px 2px;
 	background: -webkit-gradient(linear, center top, center bottom, from(#ff6666), to(#dd0000))!important;
@@ -205,8 +204,8 @@
 	color:black!important;
 	text-indent:4px!important;
 	font-size:100%!important;
-	border-top-left-radius: 6px!important;
-	border-top-right-radius: 6px!important;
+	border-top-left-radius: 4px!important;
+	border-top-right-radius: 4px!important;
 }
 #rule_editor_body_drag h1 {
 	width:180px!important;
@@ -216,7 +215,7 @@
 	line-height:18px!important;
 	font-weight:bold!important;
 	text-indent:8px!important;
-	padding-top:2px!important;
+	padding-top:6px!important;
 }
 
 #rule_editor_body_drag a.close{
@@ -235,7 +234,7 @@
 #rule_editor_alert {
 	background-color:#fea!important;
 	border: solid 1px #fc0!important;
-	border-radius:6px!important;
+	border-radius:4px!important;
 	color:#444;
 	padding:2px 6px 2px 6px!important;
 	margin:3px!important;

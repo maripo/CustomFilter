@@ -87,7 +87,7 @@
 	color:white;
 	font-size:9px;
 	height:11px;
-	border-radius:6px!important;
+	border-radius:4px!important;
 	margin-right:2px!important;
 }
 #smart_rule_creator_dialog li.smartEditorSectionTitle {
@@ -105,7 +105,7 @@
 	background-color:white;
 	position:absolute!important;
 	width:360px;
-	border-radius:6px!important;
+	border-radius:4px!important;
 	border:solid 1px #888;
 	-webkit-box-shadow: 1px 1px 1px #000;
 }

@@ -196,15 +196,23 @@ RuleEditor.prototype.applyInput = function ()
 };
 RuleEditor.prototype.addWord = function(wordStr)
 {
-	console.log("addWord 1 word=" + wordStr);
+	console.log("addWord word=" + wordStr);
 	if (!wordStr || ''==wordStr) return; //Empty
 	var word = new Word();
-	console.log("addWord 2");
 	
 	word.word = wordStr;
 	word.isNew = 'true';
 	var checked = document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
 	word.is_regexp = checked;
+	if (word.is_regexp) {
+		// Check if received RegExp is valid
+		try {
+			new RegExp(wordStr);
+		} catch (ex) {
+			alert(chrome.i18n.getMessage('invalidRegEx'));
+			return false;
+		}
+	}
 	
 	word.dirty = true;
 	
@@ -221,6 +229,8 @@ RuleEditor.prototype.addWord = function(wordStr)
 	{
 		word.rule_id=0;
 	}
+	
+	return true;
 };
 
 RuleEditor.prototype.getWordElement = function (word) 
@@ -374,17 +384,16 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		{
 			if (KEY_CODE_RETURN==e.keyCode) 
 			{
-				window.ruleEditor.addWord(document.getElementById('rule_editor_keyword').value);
-				document.getElementById('rule_editor_keyword').value = '';
+				if (window.ruleEditor.addWord(document.getElementById('rule_editor_keyword').value))
+					document.getElementById('rule_editor_keyword').value = '';
 			}
 		}, 
 		true);
 	document.getElementById('rule_editor_add_keyword_button').addEventListener ('click',
 		function()
 		{
-			document.getElementById('rule_editor_keyword').style.backgroundColor = 'yellow'
-			window.ruleEditor.addWord(document.getElementById('rule_editor_keyword').value);
-			document.getElementById('rule_editor_keyword').value = '';
+			if (window.ruleEditor.addWord(document.getElementById('rule_editor_keyword').value))
+				document.getElementById('rule_editor_keyword').value = '';
 		}, 
 		true);
 	this.hide_block_xpath.addEventListener ('keyup',this.getRefreshHideBlockXPathAction(), false);
@@ -436,6 +445,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		link.addEventListener('click',CustomBlockerUtil.getShowHelpAction(link.href),false);
 		link.href = 'javascript:void(0)';
 	}
+	console.log("Action added to checkbox.");
 	document.getElementById('rule_editor_keyword_regexp_checkbox').addEventListener('click',RuleEditorDialog.changeKeywordColor, false);
 	RuleEditorDialog.changeKeywordColor(null);
 	this.rule.changed = false;

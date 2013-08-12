@@ -1,135 +1,54 @@
-<div id="smart_rule_editor_preview">
-	<a href="smart.html" id="smartRuleEditorPreviewHelp" class="help">?</a>
-	<h3 id="smart_rule_editor_preview_title">Rule Title</h3>
-	<p id="smart_rule_editor_preview_suggested">
-		This rule is automatically suggested.
-	</p>
-	<div class="path_body">
-		<img id="smart_rule_editor_path_img"/>
-		<div class="path_section">
-			<div class="title">Elements to Hide</div>
-			<div class="detail">
-				<div class="count" id="smart_rule_editor_preview_hide_count">18</div>
-				<div class="path" id="smart_rule_editor_preview_hide_path">DIV.hoge DIV.fuga</div>
-			</div>
-		</div>
-		<div class="path_section">
-			<div class="title">Elements to Search</div>
-			<div class="detail">
-				<div class="count" id="smart_rule_editor_preview_search_count">26</div>
-				<div class="path" id="smart_rule_editor_preview_search_path">DIV.hoge DIV.fuga</div>
-			</div>
-		</div>
-	</div>
-	<div class="section">
-		<div id="smart_rule_editor_preview_keywords">
-			<span class="word not_regexp">hoge</span>
-			<span class="word not_regexp">fuga</span>
-			<span class="word regexp">moge</span>
-		</div>
-	</div>
-</div>
-<div id="smart_rule_editor_body" class="customblocker_rule_dialog">
-	<div class="section">
-		<div class="content">
-			<div class="label">Title</div>
-			<div class="input"><input type="text" id="smart_rule_editor_title"/></div>
-		</div>
-	</div>
-	<div class="section">
-		<h2>Site</h2>
-		<div class="content">
-			<div class="label">URL</div>
-			<div class="input"><input type="text" id="smart_rule_editor_url"/></div>
-		</div>
-	</div>
-	<div class="section">
-		<div class="label">
-			<a href="javascript:void(0)" id="smart_rule_editor_advanced_link">Show detail</a>
-		</div>
-	</div>
-	<div class="section advanced" id="smart_rule_editor_advanced" style="display:none">
-		<!-- Example URL & Memo -->
-		<div class="section">
-			<div class="content">
-				<div class="label">Example URL</div>
-				<div class="input"><input type="text" id="smart_rule_editor_example_url"/></div>
-			</div>
-		</div>
-		<div class="section">
-			<div class="content">
-				<div class="label">Description</div>
-				<div class="input"><input type="text" id="smart_rule_editor_site_description"/></div>
-			</div>
-		</div>
-		<!-- Path Expression -->
-		<div class="section" style="position:relative!important;">
-			<h2>Elements to Search</h2>
-		</div>
-		<div class="section">
-			<div class="content">
-				<div class="label" id="smart_rule_editor_search_block_xpath_label">XPath</div>
-				<div class="label" id="smart_rule_editor_search_block_css_label">CSS Selector</div>
-				<div class="input">
-					<input type="text" id="smart_rule_editor_search_block_xpath"/>
-					<input type="text" id="smart_rule_editor_search_block_css"/>
-				</div>
-			</div>
-			<div class="selector_radio_container">
-				<input type="radio" id="smart_rule_editor_radio_search_xpath" name="smart_rule_editor_radio_search"/>
-				<label for="smart_rule_editor_radio_search_xpath">XPath</label>
-				<input type="radio" id="smart_rule_editor_radio_search_css" name="smart_rule_editor_radio_search" checked="true"/>
-				<label for="smart_rule_editor_radio_search_css">CSS</label>
-			</div>
-		</div>
-		<div class="section">
-			<div class="label">Description</div>
-			<div class="input"><input type="text" id="smart_rule_editor_search_block_description"/></div>
-		</div>
-		<div class="section" style="position:relative!important;">
-			<h2>Elements to Hide</h2>
-		</div>
-		<div class="section">
-			<div class="content">
-				<div class="label" id="smart_rule_editor_hide_block_xpath_label">XPath</div>
-				<div class="label" id="smart_rule_editor_hide_block_css_label">CSS Selector</div>
-				<div class="input">
-					<input type="text" id="smart_rule_editor_hide_block_xpath"/>
-					<input type="text" id="smart_rule_editor_hide_block_css"/>
-				</div>
-			</div>
-			<div class="selector_radio_container">
-				<input type="radio" id="smart_rule_editor_radio_hide_xpath" name="smart_rule_editor_radio_hide"/>
-				<label for="smart_rule_editor_radio_hide_xpath">XPath</label>
-				<input type="radio" id="smart_rule_editor_radio_hide_css" name="smart_rule_editor_radio_hide" checked="true"/>
-				<label for="smart_rule_editor_radio_hide_css">CSS</label>
-			</div>
-		</div>
-		<div class="section">
-			<div class="content">
-				<div class="label">Description</div>
-				<div class="input"><input type="text" id="smart_rule_editor_hide_block_description"/></div>
-			</div>
-		</div>
-	</div>
-	<div class="section">
-		<h2>Words</h2>
-		<div class="content">
-			<div class="label">&nbsp;</div>
-			<div class="input">
-				<input type="text" id="smart_rule_editor_keyword"/>
-				<input type="checkbox" id="smart_rule_editor_keyword_regexp"/><label for="smart_rule_editor_keyword_regexp">RegExp</label>
-				<input type="button" value="Add" id="smart_rule_editor_keyword_add"/>
-			</div>
-			<div id="smart_rule_editor_keywords"></div>
-		</div>
-	</div>
-	<div id="smart_rule_editor_alert">
-		<!-- Alert Message -->
-	</div>
-	<div class="bottom_button_container">
-		<input type="button" value="Save" id="smart_rule_editor_save"/>
-		<input type="button" value="Select Another Rule" id="smart_rule_editor_cancel"/>
-		<input type="button" value="Close" id="smart_rule_editor_close"/>
-	</div>
-</div>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Welcome | CustomBlocker</title>
+		<link rel="stylesheet" type="text/css" href="./css/rule_editor.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/pref/list_rules.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/pref/help.css"/>
+	</head>
+	<body>
+		<div id="header">
+			<h1><img src="img/top_title.png" alt="CustomBlocker for Google Chrome"/></h1>
+			<h2>CustomBlocker 2.4の新要素</h2>
+			<h3>シンプルになったユーザインターフェイス</h3>
+			<p>
+				今まで項目の多かったCustomBlockerのルール作成ダイアログをシンプルにしました。
+				利用頻度が低いと思われる項目を削り、「URL」「隠す要素」「条件」の3セクションに再構築しました。
+			</p>
+			<table>
+				<tr>
+					<td>旧</td>
+					<td>新</td>
+				</tr>
+				<tr>
+					<td style="padding:4px">
+						<img src="img/help/old_ui.png"/>
+					</td>
+					<td style="padding:4px">
+						<img src="img/help/new_ui.png"/>
+					</td>
+				</tr>
+			</table>
+			<h3>ワイルドカードでURLを指定</h3>
+			<p>
+				今まではURLの指定に正規表現を用いていましたが、正規表現は直感的には読みにくく、一部の人以外には親しみのないものです。
+				そこで、より簡単なワイルドカードを用いてURLを指定することができるようにしました。
+				「*」はあらゆる文字と一致します。
+			</p>
+			<dl style="font-size:90%">
+				<dt style="font-weight:bold">Regular Expression</dt>
+				<dd>https:\/\/twitter\.com\/.*\/following</dd>
+				<dt style="font-weight:bold">Wildcard</dt>
+				<dd>https://twitter.com/*/following</dd>
+			</dl>
+			<h2>今後の開発予定</h2>
+			<h3>クラウド同期</h3>
+			<p>
+				CustomBlockerには「インポート」と「エクスポート」の機能があり、これを使うと複数のPCの間でルールをやりとりすることができます。
+				しかし毎回インポートとエクスポートを手動で行うのはだんだん面倒になってくるものです。
+				そこで今後、クラウド同期の機能をつけることにしました。同じGoogleアカウントを使っているPC間で、自動的にルールが同期されるようになる予定です。
+			</p>
+		<script type="text/javascript" src="../src/analytics.js"></script>
+	</body>
+</html>

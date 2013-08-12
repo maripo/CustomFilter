@@ -495,3 +495,10 @@ var menuIdCreate = chrome.contextMenus.create({"title": chrome.i18n.getMessage('
 	"onclick": menuCreateOnRightClick});
 var menuIdAdd = chrome.contextMenus.create({"title": chrome.i18n.getMessage('menuAddToExistingRule'), "contexts":["selection"],
 	"onclick": menuAddOnRightClick});
+
+chrome.runtime.onInstalled.addListener(function(details) {
+	console.log("reason=" + details.reason);
+	console.log("previousVersion=" + details.previousVersion);
+	if (details.reason=="update" && details.previousVersion && details.previousVersion.match(/^2\.3\./))
+	window.open(chrome.extension.getURL('/welcome_'+chrome.i18n.getMessage("extLocale")+'.html'));
+});

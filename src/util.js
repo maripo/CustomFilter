@@ -171,11 +171,12 @@ CustomBlockerUtil.localize = function ()
 		var element = tags[i];
 		if (null!=element.className && element.className.match(CustomBlockerUtil.LOCALIZE_CLASS_REGEXP))
 		{
-			if (!!chrome.i18n.getMessage(RegExp.$1)) {
-				Log.v("CustomBlockerUtil.localize " + element.innerHTML + "->" + chrome.i18n.getMessage(RegExp.$1));
-				element.innerHTML = chrome.i18n.getMessage(RegExp.$1);
+			var key = RegExp.$1;
+			if (!!chrome.i18n.getMessage(key)) {
+				Log.v("CustomBlockerUtil.localize " + element.innerHTML + "->" + chrome.i18n.getMessage(key));
+				element.innerHTML = chrome.i18n.getMessage(key);
 			} else {
-				Log.e("Missing localization key: " + RegExp.$1);
+				Log.e("Missing localization key: " + key + ", className=" + element.className);
 			}
 		}
 	}
@@ -185,11 +186,11 @@ CustomBlockerUtil.localize = function ()
 		if ('button'!=element.type) continue;
 		if (null!=element.className && element.className.match(CustomBlockerUtil.LOCALIZE_CLASS_REGEXP))
 		{
-			if (!!chrome.i18n.getMessage(RegExp.$1)) {
-				Log.v("CustomBlockerUtil.localize " + element.value + "->" + chrome.i18n.getMessage(RegExp.$1));
-				element.innerHTML = chrome.i18n.getMessage(RegExp.$1);
+			var key = RegExp.$1;
+			if (!!chrome.i18n.getMessage(key)) {
+				element.value = chrome.i18n.getMessage(key);
 			} else {
-				element.value = chrome.i18n.getMessage(RegExp.$1);
+				Log.v("CustomBlockerUtil.localize " + element.value + "->" + chrome.i18n.getMessage(key));
 			}
 		}
 	}

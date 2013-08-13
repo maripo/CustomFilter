@@ -3,7 +3,7 @@
 		"message": "ja"
 	},
 	"extDescription": {
-		"message": "サイト・要素・NGワードなどを指定してフィルタを自由に作れる"
+		"message": "サイト・要素・キーワードなどを指定してフィルタを自由に作れる"
 	},
 	"newRuleForThisSite": {"message":"このサイト用のルールを新規作成"},
 	"preference": {"message":"設定・ルール一覧"},
@@ -12,14 +12,14 @@
 	"sectionRuleTitle":{"message":"ルールの名前"},
 	"url":{"message":"URL"},
 	"sectionSite":{"message":"サイト"},
-	"sectionSearch":{"message":"検索する要素"},
+	"sectionSearch":{"message":"検索範囲"},
 	"sectionHide":{"message":"隠す要素"},
-	"sectionWord":{"message":"NGワード"},
+	"sectionWord":{"message":"キーワード"},
 	"regex":{"message":"正規表現"},
 	"exampleUrl":{"message":"URL例"},
 	"description":{"message":"説明"},
-	"descriptionHide":{"message":"「検索する要素」にNGワードが含まれていると、ここで指定した要素を非表示にします"},
-	"descriptionSearch":{"message":"該当する要素の中にNGワードが含まれていた場合に発動します"},
+	"descriptionHide":{"message":"「検索範囲」にキーワードが含まれていると、ここで指定した要素を非表示にします"},
+	"descriptionSearch":{"message":"該当する要素の中にキーワードが含まれていた場合に発動します"},
 	"descriptionSite":{"message":"該当するサイトでルールが適用されます"},
 	"prefTitle":{"message":"ルールの管理"},
 	"buttonLabelEdit":{"message":"編集"},
@@ -47,7 +47,7 @@
 	"smartRuleEditorHideAdvancedMode":{"message":"詳細を非表示"},
 	"smartRuleEditorSuggestedTitlePrefix":{"message":"パターン "},
 	"menuCreateRule":{"message":"この要素を使ってルールを作成"},
-	"menuAddToExistingRule":{"message":"既存のルールにNGワードとして追加する"},
+	"menuAddToExistingRule":{"message":"既存のルールにキーワードとして追加する"},
 	"smartRuleEditorSuggestedButtonLabel":{"message":"作成"},
 	"smartRuleEditorExistingButtonLabel":{"message":"編集"},
 	"smartRuleEditorSuggestedMessage":{"message":"自動生成されたルールの候補です。"},

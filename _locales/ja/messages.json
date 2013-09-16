@@ -57,5 +57,6 @@
 	"blockAnyway":{"message":"無条件で隠す"},
 	"filterWithKeywords":{"message":"キーワードを使ってフィルタ"},
 	"condition":{"message":"発動条件"},
-	"invalidRegEx":{"message":"正しい正規表現ではありません。"}
+	"invalidRegEx":{"message":"正しい正規表現ではありません。"},
+	"errorExportNoRule":{"message":"ルールが選択されていません。"}
 }

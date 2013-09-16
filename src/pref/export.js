@@ -28,6 +28,10 @@ var Export =
 				ruleList.push(ruleWrapper.rule);
 			}
 		}
+		if (ruleList.length<1) {
+			alert(chrome.i18n.getMessage('errorExportNoRule'));
+			return;
+		}
 		console.log(JSON.stringify(ruleList));
 		var url = "data:application/octet-stream," + encodeURIComponent(JSON.stringify(ruleList));
 		window.open(url);

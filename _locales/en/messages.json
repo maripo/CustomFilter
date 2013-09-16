@@ -57,5 +57,6 @@
 	"blockAnyway":{"message":"Block anyway"},
 	"filterWithKeywords":{"message":"Filter with keywords"},
 	"condition":{"message":"Condition"},
-	"invalidRegEx":{"message":"Invalid regular expression."}
+	"invalidRegEx":{"message":"Invalid regular expression."},
+	"errorExportNoRule":{"message":"No rule is selected."}
 }

@@ -1,5 +1,6 @@
 body {
 	font-family:sans-serif;
+	max-width:910px;
 }
 h1 {
 	font-size:150%;
@@ -8,6 +9,14 @@ h1 {
 }
 h2 {
 	font-size:120%;
+}
+.donate {
+	text-align:right;
+	width:200px;
+	height:auto;
+	position:absolute;
+	top:0px;
+	right:0px;
 }
 #prefMain {
 	width:910px;	
@@ -214,6 +223,7 @@ h2 {
 #header {
 	padding:0px;
 	margin-bottom:6px;
+	position:relative;
 }
 #header h1{
 	font-weight:normal;

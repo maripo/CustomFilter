@@ -463,8 +463,7 @@ function highlightRuleElements (rule)
 				}, getForegroundCallback(tab.id));
 		});
 }
-function getBadgeTooltipString (count)
-{
+function getBadgeTooltipString (count) {
 	if (count > 1)
 		return chrome.i18n.getMessage("tooltipCount").replace("__count__",count);
 	else
@@ -483,8 +482,7 @@ function menuAddOnRightClick(clicked, tab) {
 	Analytics.trackEvent('contextMenu', 'add');
 };
 
-function sendQuickRuleCreationRequest (clicked, tab, needSuggestion)
-{
+function sendQuickRuleCreationRequest (clicked, tab, needSuggestion) {
 	chrome.tabs.sendRequest(
 			tab.id, 
 			{
@@ -506,6 +504,11 @@ var menuIdAdd = chrome.contextMenus.create({"title": chrome.i18n.getMessage('men
 chrome.runtime.onInstalled.addListener(function(details) {
 	console.log("reason=" + details.reason);
 	console.log("previousVersion=" + details.previousVersion);
-	if (details.reason=="update" && details.previousVersion && details.previousVersion.match(/^2\.3\./))
-	window.open(chrome.extension.getURL('/welcome_'+chrome.i18n.getMessage("extLocale")+'.html'));
+	if ("install"==details.reason || true) { //TODO debug
+		console.log("New install.");
+		window.open(chrome.extension.getURL('/welcome_install_'+chrome.i18n.getMessage("extLocale")+'.html'));
+	}
+	else if (details.reason=="update" && details.previousVersion && details.previousVersion.match(/^2\.3\./)) {
+		window.open(chrome.extension.getURL('/welcome_'+chrome.i18n.getMessage("extLocale")+'.html'));
+	}
 });

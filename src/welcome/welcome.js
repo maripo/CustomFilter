@@ -2,14 +2,12 @@ var Welcome = {
 	init: function () {
 		Welcome.rulePeer = RulePeer.getInstance();
 		Welcome.siteWrappers = [];
-		console.log("Welcome.init");
 		Welcome.renderPreset();
-		console.log("TODO Init Buttons");
-		document.getElementById("buttonUse").addEventListener('click',Welcome.useChecked);
+		document.getElementById("buttonUse").addEventListener('click',Welcome.useChecked, false);
+		document.getElementById("checkAll").checked = true;
+		document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
 	},
 	renderPreset: function () {
-		console.log("Welcome.renderPreset");
-		console.log(PRESET_RULES.length);
 		var listElement = document.getElementById("sites");
 		for (var i=0; i<PRESET_RULES.length; i++) {
 			var wrapper = new Welcome.SiteWrapper(PRESET_RULES[i]);
@@ -17,19 +15,22 @@ var Welcome = {
 			listElement.appendChild(wrapper.getElement());
 		}
 	},
+	toggleAll: function (sender) {
+		for (var i=0; i<Welcome.siteWrappers.length; i++) {
+			var siteWrapper = Welcome.siteWrappers[i];
+			siteWrapper.setChecked(sender.srcElement.checked);
+		}
+	},
 	useChecked: function () {
-		console.log("Welcome.renderPreset");
 		var rulesToUse = [];
 		for (var i=0; i<Welcome.siteWrappers.length; i++) {
 			var siteWrapper = Welcome.siteWrappers[i];
-			console.log(siteWrapper.site.name);
 			for (var j=0; j<siteWrapper.ruleWrappers.length; j++) {
 				var rule = siteWrapper.ruleWrappers[j];
 				if (rule.isChecked())
 					rulesToUse.push(rule);
 			}
 		}
-		console.log(rulesToUse.length);
 		for (var i=0; i<rulesToUse.length; i++) {
 			Welcome.rulePeer.saveObject(rulesToUse[i].rule);
 		}
@@ -49,7 +50,7 @@ Welcome.SiteWrapper.prototype.getElement = function () {
 	var checkbox = document.createElement("INPUT");
 	checkbox.type = "checkbox";
 	checkbox.checked = true;
-	checkbox.addEventListener("click", this.getOnClickAction(), true);
+	checkbox.addEventListener("change", this.getOnClickAction(), true);
 	this.checkbox = checkbox;
 	li.appendChild(checkbox);
 	li.appendChild(document.createTextNode(this.site.name));
@@ -65,11 +66,17 @@ Welcome.SiteWrapper.prototype.getElement = function () {
 Welcome.SiteWrapper.prototype.getOnClickAction = function () {
 	var self = this;
 	return function () {
-		var checked = self.checkbox.checked;
-		for (var i=0; i<self.ruleWrappers.length; i++) {
-			self.ruleWrappers[i].setChecked(checked);
-		}
+		self.toggleAllRules(self.checkbox.checked);
 	};
+};
+Welcome.SiteWrapper.prototype.setChecked = function (checked) {
+	this.checkbox.checked = checked;
+	this.toggleAllRules(checked);
+};
+Welcome.SiteWrapper.prototype.toggleAllRules = function (checked) {
+	for (var i=0; i<this.ruleWrappers.length; i++) {
+		this.ruleWrappers[i].setChecked(checked);
+	}
 };
 
 Welcome.RuleWrapper = function (site,rule) {

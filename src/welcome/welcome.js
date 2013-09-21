@@ -48,6 +48,9 @@ Welcome.SiteWrapper.prototype.getElement = function () {
 	var li = document.createElement("LI");
 	var checkbox = document.createElement("INPUT");
 	checkbox.type = "checkbox";
+	checkbox.checked = true;
+	checkbox.addEventListener("click", this.getOnClickAction(), true);
+	this.checkbox = checkbox;
 	li.appendChild(checkbox);
 	li.appendChild(document.createTextNode(this.site.name));
 	var ul = document.createElement("UL");
@@ -57,6 +60,16 @@ Welcome.SiteWrapper.prototype.getElement = function () {
 	}
 	this.li = li;
 	return li;
+};
+
+Welcome.SiteWrapper.prototype.getOnClickAction = function () {
+	var self = this;
+	return function () {
+		var checked = self.checkbox.checked;
+		for (var i=0; i<self.ruleWrappers.length; i++) {
+			self.ruleWrappers[i].setChecked(checked);
+		}
+	};
 };
 
 Welcome.RuleWrapper = function (site,rule) {
@@ -87,12 +100,16 @@ Welcome.RuleWrapper.prototype.getElement = function () {
 	if (this.li) return this.li;
 	var li = document.createElement("LI");
 	var checkbox = document.createElement("INPUT");
+	checkbox.checked = true;
 	checkbox.type = "checkbox";
 	this.checkbox = checkbox;
 	li.appendChild(checkbox);
 	li.appendChild(document.createTextNode(this.label));
 	this.li = li;
 	return li;
+};
+Welcome.RuleWrapper.prototype.setChecked = function (checked) {
+	this.checkbox.checked = checked;
 };
 Welcome.RuleWrapper.prototype.isChecked = function () {
 	return this.checkbox.checked;

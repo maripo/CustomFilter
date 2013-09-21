@@ -6,6 +6,13 @@
 		<link rel="stylesheet" type="text/css" href="./css/rule_editor.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/pref/list_rules.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/pref/help.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/welcome_install.css"/>
+		<script type="text/javascript" src="src/welcome/welcome.js"></script>
+		<script type="text/javascript" src="src/welcome/preset.js"></script>
+		<script type="text/javascript" src="src/db/DbObj.js"></script>
+		<script type="text/javascript" src="src/db/DbInit.js"></script>
+		<script type="text/javascript" src="src/db/Rule.js"></script>
+		<script type="text/javascript" src="src/db/Word.js"></script>
 	</head>
 	<body>
 		<div id="header">
@@ -15,40 +22,11 @@
 			<p>
 				Would you like to install preset rules?
 			</p>
-			<ul>
-				<li>Twitter</li>
-				<li>Facebook</li>
-				<li>Google+</li>
-				<li>Google Search</li>
-				<li>Baidu Search</li>
-				<li>Yahoo Answers</li>
-				<li>Github</li>
-				<li>Digg</li>
-				<li>eBay</li>
-				<li>Amazon.com</li>
-				<li>Amazon.co.*</li>
-				<li>Slashdot</li>
-				<li>Tumblr</li>
-				<li>LinkedIn</li>
-				<li>MySpace</li>
-				<li>DeviantArt</li>
-				<li>Foursquare</li>
-				<li>Google News</li>
-				<li>StackOverflow</li>
-				<li>Reddit</li>
-				<li>YouTube</li>
-				<li>Hatena Bookmark</li>
-				<li>Livedoor Reader</li>
-				<li>Nico Nico Douga</li>
-				<li>2chanel</li>
-				<li>mixi</li>
-				<li>Tabelog</li>
-				<li>Cookpad</li>
-				<li>Togetter</li>
-				<li>Naver Matome</li>
-				<li>Pixiv</li>
-				<li>Yahoo Chiebukuro</li>
+			<ul id="sites" class="sites">
 			</ul>
+			<div>
+				<input type="button" value="Use Checked Rules" id="buttonUse"/>
+			</div>
 		<script type="text/javascript" src="../src/analytics.js"></script>
 	</body>
 </html>

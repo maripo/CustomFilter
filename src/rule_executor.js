@@ -25,6 +25,7 @@ RuleExecutor.checkRules = function (list)
 				Log.v("Using wildcard...");
 				regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(rule.site_regexp));
 			}
+			console.log("RegEx=" + regex);
 			if (regex.test(location.href)) 
 			{
 				Log.v("Rule is applied." + location.href + "<=>" + rule.site_regexp);

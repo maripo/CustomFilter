@@ -57,7 +57,15 @@ var PRESET_RULES = [ {
 	} ]
 }, {
 	name : "Google+",
-	rules : []
+	rules : [ {
+		"title" : "Comment Filter (by users)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "plus.google.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.VC",
+		"hide_block_css" : "DIV.Sb"
+	} ]
 }, {
 	name : "Google Search",
 	// URL Filter
@@ -90,37 +98,36 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.c-abstract",
 		"hide_block_css" : "TD.c-default"
-	}
-	]
+	} ]
 }, {
 	name : "Yahoo Answers",
 	rules : [
 
-{
-	"title" : "Summary Filter",
-	"search_block_by_css" : true,
-	"hide_block_by_css" : true,
-	"site_regexp" : "answers.yahoo.com",
-	"specify_url_by_regexp" : false,
-	"search_block_css" : "SPAN.question-description",
-	"hide_block_css" : "#ya-col-2 LI"
-},{
-	"title" : "Category Filter",
-	"search_block_by_css" : true,
-	"hide_block_by_css" : true,
-	"site_regexp" : "answers.yahoo.com",
-	"specify_url_by_regexp" : false,
-	"search_block_css" : "DIV.question-meta>A",
-	"hide_block_css" : "#ya-col-2 LI"
-},{
-	"title" : "Author Filter",
-	"search_block_by_css" : true,
-	"hide_block_by_css" : true,
-	"site_regexp" : "answers.yahoo.com",
-	"specify_url_by_regexp" : false,
-	"search_block_css" : "DIV.question-meta>A",
-	"hide_block_css" : "#ya-col-2 LI"
-} ]
+	{
+		"title" : "Summary Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "answers.yahoo.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "SPAN.question-description",
+		"hide_block_css" : "#ya-col-2 LI"
+	}, {
+		"title" : "Category Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "answers.yahoo.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.question-meta>A",
+		"hide_block_css" : "#ya-col-2 LI"
+	}, {
+		"title" : "Author Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "answers.yahoo.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.question-meta>A",
+		"hide_block_css" : "#ya-col-2 LI"
+	} ]
 }, {
 	name : "Github",
 	rules : []
@@ -159,7 +166,46 @@ var PRESET_RULES = [ {
 	rules : []
 }, {
 	name : "StackOverflow",
-	rules : []
+	rules : [
+
+	{
+		"title" : "Tag Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "stackoverflow.com/questions",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.tags>A",
+		"hide_block_css" : "DIV.question-summary"
+	},
+
+	{
+		"title" : "Title Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "stackoverflow.com/questions",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "H3>A",
+		"hide_block_css" : "DIV.question-summary"
+	},
+	{
+		"title" : "Summary Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "stackoverflow.com/questions",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.excerpt",
+		"hide_block_css" : "DIV.question-summary"
+	},
+
+	{
+		"title" : "Author Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "stackoverflow.com/questions",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.user-details>A",
+		"hide_block_css" : "DIV.question-summary"
+	}]
 }, {
 	name : "Reddit",
 	rules : []

@@ -1,5 +1,6 @@
 var PRESET_RULES = [ {
 	name : "Twitter",
+	url: "http://twitter.com",
 	rules : [ {
 		"title" : "Hashtag Filter",
 		"search_block_by_css" : true,
@@ -33,10 +34,10 @@ var PRESET_RULES = [ {
 		"search_block_css" : "P.tweet-text",
 		"hide_block_css" : "P.tweet-text"
 	}
-	// Trends Filter
 	]
 }, {
 	name : "Facebook",
+	url: "http://www.facebook.com",
 	// Content Filter
 	rules : [ {
 		"title" : "Comment Filter",
@@ -57,6 +58,7 @@ var PRESET_RULES = [ {
 	} ]
 }, {
 	name : "Google+",
+	url: "https://plus.google.com",
 	rules : [ {
 		"title" : "Comment Filter (by users)",
 		"search_block_by_css" : true,
@@ -68,12 +70,14 @@ var PRESET_RULES = [ {
 	} ]
 }, {
 	name : "Google Search",
+	url: "https://www.google.com",
 	// URL Filter
 	// Snippet Filter
 	// Title Filter
 	rules : []
 }, {
 	name : "Baidu Search",
+	url: "http://www.baidu.com",
 	rules : [ {
 		"title" : "URL Filter",
 		"search_block_by_css" : true,
@@ -101,6 +105,7 @@ var PRESET_RULES = [ {
 	} ]
 }, {
 	name : "Yahoo Answers",
+	url: "http://answers.yahoo.com/",
 	rules : [
 
 	{
@@ -130,27 +135,35 @@ var PRESET_RULES = [ {
 	} ]
 }, {
 	name : "Github",
+	url: "https://github.com/",
 	rules : []
 }, {
 	name : "Digg",
+	url: "http://digg.com/",
 	rules : []
 }, {
 	name : "eBay",
+	url: "http://www.ebay.com/",
 	rules : []
 }, {
 	name : "Amazon.com",
+	url: "http://www.amazon.com/",
 	rules : []
 }, {
 	name : "Amazon.co.*",
+	url: "http://www.amazon.co.jp/",
 	rules : []
 }, {
 	name : "Slashdot",
+	url: "http://slashdot.org/",
 	rules : []
 }, {
 	name : "Tumblr",
+	url: "https://www.tumblr.com/",
 	rules : []
 }, {
 	name : "LinkedIn",
+	url: "http://www.linkedin.com/",
 	rules : []
 }, {
 	name : "MySpace",

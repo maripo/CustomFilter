@@ -53,6 +53,10 @@ Welcome.SiteWrapper.prototype.getElement = function () {
 	checkbox.addEventListener("change", this.getOnClickAction(), true);
 	this.checkbox = checkbox;
 	li.appendChild(checkbox);
+	var favicon = document.createElement('IMG');
+	favicon.src = (this.site.url)?
+		'chrome://favicon/' + this.site.url:chrome.extension.getURL('img/world.png');
+	li.appendChild(favicon);
 	li.appendChild(document.createTextNode(this.site.name));
 	var ul = document.createElement("UL");
 	li.appendChild(ul);

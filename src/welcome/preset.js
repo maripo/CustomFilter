@@ -1,6 +1,6 @@
 var PRESET_RULES = [ {
 	name : "Twitter",
-	url: "http://twitter.com",
+	url : "http://twitter.com",
 	rules : [ {
 		"title" : "Hashtag Filter",
 		"search_block_by_css" : true,
@@ -33,11 +33,10 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "P.tweet-text",
 		"hide_block_css" : "P.tweet-text"
-	}
-	]
+	} ]
 }, {
 	name : "Facebook",
-	url: "http://www.facebook.com",
+	url : "http://www.facebook.com",
 	// Content Filter
 	rules : [ {
 		"title" : "Comment Filter",
@@ -58,9 +57,9 @@ var PRESET_RULES = [ {
 	} ]
 }, {
 	name : "Google+",
-	url: "https://plus.google.com",
+	url : "https://plus.google.com",
 	rules : [ {
-		"title" : "Comment Filter (by users)",
+		"title" : "Content Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "plus.google.com",
@@ -70,14 +69,37 @@ var PRESET_RULES = [ {
 	} ]
 }, {
 	name : "Google Search",
-	url: "https://www.google.com",
-	// URL Filter
-	// Snippet Filter
-	// Title Filter
-	rules : []
+	url : "https://www.google.com",
+	rules : [ {
+		"title" : "URL Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "www.google.co",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "CITE",
+		"hide_block_css" : "DIV.VC"
+	}, {
+		"title" : "Title Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "www.google.co",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "H3>A",
+		"hide_block_css" : "DIV.VC"
+	},
+
+	{
+		"title" : "Summary Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "www.google.co",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "SPAN.st",
+		"hide_block_css" : "DIV.VC"
+	} ]
 }, {
 	name : "Baidu Search",
-	url: "http://www.baidu.com",
+	url : "http://www.baidu.com",
 	rules : [ {
 		"title" : "URL Filter",
 		"search_block_by_css" : true,
@@ -105,7 +127,7 @@ var PRESET_RULES = [ {
 	} ]
 }, {
 	name : "Yahoo Answers",
-	url: "http://answers.yahoo.com/",
+	url : "http://answers.yahoo.com/",
 	rules : [
 
 	{
@@ -135,50 +157,55 @@ var PRESET_RULES = [ {
 	} ]
 }, {
 	name : "Github",
-	url: "https://github.com/",
+	url : "https://github.com/",
 	rules : []
 }, {
 	name : "Digg",
-	url: "http://digg.com/",
+	url : "http://digg.com/",
 	rules : []
 }, {
 	name : "eBay",
-	url: "http://www.ebay.com/",
+	url : "http://www.ebay.com/",
 	rules : []
 }, {
 	name : "Amazon.com",
-	url: "http://www.amazon.com/",
+	url : "http://www.amazon.com/",
 	rules : []
 }, {
 	name : "Amazon.co.*",
-	url: "http://www.amazon.co.jp/",
+	url : "http://www.amazon.co.jp/",
 	rules : []
 }, {
 	name : "Slashdot",
-	url: "http://slashdot.org/",
+	url : "http://slashdot.org/",
 	rules : []
 }, {
 	name : "Tumblr",
-	url: "https://www.tumblr.com/",
+	url : "https://www.tumblr.com/",
 	rules : []
 }, {
 	name : "LinkedIn",
-	url: "http://www.linkedin.com/",
+	url : "http://www.linkedin.com/",
 	rules : []
 }, {
 	name : "MySpace",
+	url : "https://myspace.com/",
 	rules : []
 }, {
 	name : "DeviantArt",
+	url : "http://www.deviantart.com/",
 	rules : []
 }, {
 	name : "Foursquare",
+	url : "https://foursquare.com/activity",
 	rules : []
 }, {
 	name : "Google News",
+	url : "https://news.google.com/",
 	rules : []
 }, {
 	name : "StackOverflow",
+	url : "http://stackoverflow.com/",
 	rules : [
 
 	{
@@ -199,8 +226,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "H3>A",
 		"hide_block_css" : "DIV.question-summary"
-	},
-	{
+	}, {
 		"title" : "Summary Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -218,44 +244,58 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.user-details>A",
 		"hide_block_css" : "DIV.question-summary"
-	}]
+	} ]
 }, {
 	name : "Reddit",
+	url : "http://www.reddit.com/",
 	rules : []
 }, {
 	name : "YouTube",
+	url : "http://www.youtube.com/",
 	rules : []
 }, {
 	name : "Hatena Bookmark",
+	url : "http://b.hatena.ne.jp/",
 	rules : []
 }, {
 	name : "Livedoor Reader",
+	url : "http://reader.livedoor.com/",
 	rules : []
 }, {
 	name : "Nico Nico Douga",
+	url : "http://www.nicovideo.jp/",
 	rules : []
 }, {
 	name : "2chanel",
+	url : "http://www.2ch.net/",
 	rules : []
 }, {
 	name : "mixi",
+	url : "http://mixi.jp/",
 	rules : []
 }, {
 	name : "Tabelog",
+	url : "http://tabelog.com/",
 	rules : []
 }, {
 	name : "Cookpad",
+	url : "http://cookpad.com/",
 	rules : []
 }, {
 	name : "Togetter",
+	url : "http://togetter.com/",
 	rules : []
 }, {
 	name : "Naver Matome",
+	url : "http://matome.naver.jp/",
 	rules : []
 }, {
 	name : "Pixiv",
+	url : "http://www.pixiv.net/",
 	rules : []
 }, {
 	name : "Yahoo Chiebukuro",
+	url : "http://chiebukuro.yahoo.co.jp/",
 	rules : []
 } ];
+// TODO yelp, ameba now, 4chan, last.fm, kakaku.com, rottentomato

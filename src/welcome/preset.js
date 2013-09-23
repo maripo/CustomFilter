@@ -420,7 +420,23 @@ var PRESET_RULES = [ {
 }, {
 	name : "2channel",
 	url : "http://www.2ch.net/",
-	rules : []
+	rules : [{
+		"title" : "Thread Title Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "2ch.net",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "A",
+		"hide_block_css" : "TD A,#trad>A"
+	},{
+		"title" : "Content Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "2ch.net/test/read.cgi/",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DD",
+		"hide_block_css" : "DD"
+	}]
 }, {
 	name : "mixi",
 	url : "http://mixi.jp/",

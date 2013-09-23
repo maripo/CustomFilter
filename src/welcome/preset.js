@@ -269,8 +269,17 @@ var PRESET_RULES = [ {
 		"hide_block_by_css" : true,
 		"site_regexp" : "news.google.co",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "H3>A",
-		"hide_block_css" : "DIV.question-summary"
+		"search_block_css" : "H2 SPAN.titletext",
+		"hide_block_css" : "DIV.esc-body"
+	},
+	{
+		"title" : "Source Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "news.google.co",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "TD.source-cell>SPAN",
+		"hide_block_css" : "DIV.esc-body"
 	}]
 }, {
 	name : "StackOverflow",

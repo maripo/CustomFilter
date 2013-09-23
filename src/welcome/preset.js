@@ -158,7 +158,7 @@ var PRESET_RULES = [ {
 }, {
 	name : "Github",
 	url : "https://github.com/",
-	rules : [{
+	rules : [ {
 		"title" : "News Feed & Public Activity Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -166,11 +166,11 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.alert",
 		"hide_block_css" : "DIV.alert"
-	}]
+	} ]
 }, {
 	name : "Digg",
 	url : "http://digg.com/",
-	rules : [{
+	rules : [ {
 		"title" : "Title Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -178,8 +178,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "ARTICLE A.story-link",
 		"hide_block_css" : "ARTICLE"
-	},
-	{
+	}, {
 		"title" : "Dimain Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -187,8 +186,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.story-meta A",
 		"hide_block_css" : "ARTICLE"
-	},
-	{
+	}, {
 		"title" : "Content Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -196,19 +194,31 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "ARTICLE P",
 		"hide_block_css" : "ARTICLE"
-	}]
-},  {
-	name : "Amazon.com",
-	url : "http://www.amazon.com/",
-	rules : []
+	} ]
 }, {
-	name : "Amazon.co.*",
-	url : "http://www.amazon.co.jp/",
-	rules : []
+	name : "Amazon.co*",
+	url : "http://www.amazon.com/",
+	rules : [{
+		"title" : "Review Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "digg.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.pc DIV.reviews",
+		"hide_block_css" : "DIV.pc DIV.reviews"
+	},{
+		"title" : "Item Search Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "digg.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.prod",
+		"hide_block_css" : "DIV.prod"
+	}]
 }, {
 	name : "Slashdot",
 	url : "http://slashdot.org/",
-	rules : [{
+	rules : [ {
 		"title" : "Filter Stories by Titles",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -216,8 +226,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "H2.story A",
 		"hide_block_css" : "ARTICLE"
-	},
-	{
+	}, {
 		"title" : "Filter Stories by Users",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -225,8 +234,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.details>A",
 		"hide_block_css" : "ARTICLE"
-	},
-	{
+	}, {
 		"title" : "Filter Stories by Contents",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -234,8 +242,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "SECTION I",
 		"hide_block_css" : "ARTICLE"
-	},
-	{
+	}, {
 		"title" : "Comment Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -243,23 +250,23 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "LI.full DIV.commentBody",
 		"hide_block_css" : "LI.full DIV.commentBody"
-	}]
+	} ]
 }, {
 	name : "LinkedIn",
 	url : "http://www.linkedin.com/",
-	rules : []
-}, {
-	name : "MySpace",
-	url : "https://myspace.com/",
-	rules : []
-}, {
-	name : "DeviantArt",
-	url : "http://www.deviantart.com/",
-	rules : []
+	rules : [{
+		"title" : "Feed Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "www.linkedin.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.feed-content A",
+		"hide_block_css" : "LI.full DIV.commentBody"
+	}]
 }, {
 	name : "Foursquare",
 	url : "https://foursquare.com/activity",
-	rules : [{
+	rules : [ {
 		"title" : "Tips Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -267,8 +274,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.tipsSections LI",
 		"hide_block_css" : "DIV.tipsSections LI"
-	},
-	{
+	}, {
 		"title" : "Venue Name Filter for Activity Page",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -276,11 +282,11 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.create DIV.text,DIV.venueDetails",
 		"hide_block_css" : "DIV.create DIV.text,DIV.venueDetails"
-	}]
+	} ]
 }, {
 	name : "Google News",
 	url : "https://news.google.com/",
-	rules : [{
+	rules : [ {
 		"title" : "Title Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -288,8 +294,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "H2 SPAN.titletext",
 		"hide_block_css" : "DIV.esc-body"
-	},
-	{
+	}, {
 		"title" : "Source Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -297,7 +302,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "TD.source-cell>SPAN",
 		"hide_block_css" : "DIV.esc-body"
-	}]
+	} ]
 }, {
 	name : "StackOverflow",
 	url : "http://stackoverflow.com/",
@@ -343,11 +348,63 @@ var PRESET_RULES = [ {
 }, {
 	name : "Reddit",
 	url : "http://www.reddit.com/",
-	rules : []
+	rules : [ {
+		"title" : "Title Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "www.reddit.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "#siteTable A.title",
+		"hide_block_css" : "DIV.link"
+	},
+
+	{
+		"title" : "Domain Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "www.reddit.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "SPAN.domain>A",
+		"hide_block_css" : "DIV.link"
+	},
+
+	{
+		"title" : "Comment Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "www.reddit.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.comment P",
+		"hide_block_css" : "DIV.comment P"
+	} ]
 }, {
 	name : "YouTube",
 	url : "http://www.youtube.com/",
-	rules : []
+	rules : [ {
+		"title" : "Title Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "youtube.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "H3 SPAN",
+		"hide_block_css" : "LI.clearfix"
+	}, {
+		"title" : "Comment Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "youtube.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "LI.comment",
+		"hide_block_css" : "LI.comment"
+	}, {
+		"title" : "Related Movies Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "youtube.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "#content SPAN.title",
+		"hide_block_css" : "A.related-video"
+	} ]
 }, {
 	name : "Hatena Bookmark",
 	url : "http://b.hatena.ne.jp/",
@@ -361,7 +418,7 @@ var PRESET_RULES = [ {
 	url : "http://www.nicovideo.jp/",
 	rules : []
 }, {
-	name : "2chanel",
+	name : "2channel",
 	url : "http://www.2ch.net/",
 	rules : []
 }, {
@@ -375,7 +432,7 @@ var PRESET_RULES = [ {
 }, {
 	name : "Cookpad",
 	url : "http://cookpad.com/",
-	rules : [{
+	rules : [ {
 		"title" : "Ingredients Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -383,7 +440,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.material",
 		"hide_block_css" : "DIV.recipe-preview"
-	},{
+	}, {
 		"title" : "Title Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -391,7 +448,7 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "A.recipe-title",
 		"hide_block_css" : "DIV.recipe-preview"
-	},{
+	}, {
 		"title" : "User Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
@@ -399,22 +456,66 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "SPAN.font12>A",
 		"hide_block_css" : "DIV.recipe-preview"
-	}]
+	} ]
 }, {
 	name : "Togetter",
 	url : "http://togetter.com/",
-	rules : []
+	rules : [ {
+		"title" : "Title Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "togetter.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "H3>A",
+		"hide_block_css" : "DIV.contents LI"
+	},{
+		"title" : "Tag Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "togetter.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "A.category_link",
+		"hide_block_css" : "DIV.contents LI"
+	},{
+		"title" : "Tweet Filter (by Contents)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "togetter.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.tweet",
+		"hide_block_css" : "DIV.type_tweet"
+	},{
+		"title" : "Tweet Filter (by Authors)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "togetter.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "LI A.status_name",
+		"hide_block_css" : "DIV.type_tweet"
+	},{
+		"title" : "Tweet Filter (by Authors)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "togetter.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "LI A.status_name",
+		"hide_block_css" : "DIV.type_tweet"
+	}]
 }, {
 	name : "Naver Matome",
 	url : "http://matome.naver.jp/",
-	rules : []
-}, {
-	name : "Pixiv",
-	url : "http://www.pixiv.net/",
-	rules : []
+	rules : [ {
+		"title" : "Title Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "matome.naver.jp",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "H3>A",
+		"hide_block_css" : "LI"
+	} ]
 }, {
 	name : "Yahoo Chiebukuro",
 	url : "http://chiebukuro.yahoo.co.jp/",
 	rules : []
 } ];
-// TODO yelp, ameba now, 4chan, last.fm, kakaku.com, rottentomato, Yahoo Auction, Tumblr
+// TODO yelp, ameba now, 4chan, last.fm, kakaku.com, rottentomato, Yahoo Auction, Tumblr, MySpace, DeviantArt, Pixiv

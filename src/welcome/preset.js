@@ -408,7 +408,39 @@ var PRESET_RULES = [ {
 }, {
 	name : "Hatena Bookmark",
 	url : "http://b.hatena.ne.jp/",
-	rules : []
+	rules : [{
+		"title" : "Domain Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "b.hatena.ne.jp",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "A.domain>SPAN,CITE A",
+		"hide_block_css" : "LI.entry-unit,LI.search-result"
+	},{
+		"title" : "Entry Title Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "b.hatena.ne.jp",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "H3>A",
+		"hide_block_css" : "LI.entry-unit,LI.search-result"
+	},{
+		"title" : "Comment Filter (by Tags)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "b.hatena.ne.jp/entry",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "A.user-tag",
+		"hide_block_css" : "UL.bookmark-list>LI"
+	},{
+		"title" : "Comment Filter (by Contents)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "b.hatena.ne.jp/entry",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "SPAN.comment",
+		"hide_block_css" : "UL.bookmark-list>LI"
+	}]
 }, {
 	name : "Livedoor Reader",
 	url : "http://reader.livedoor.com/",
@@ -440,11 +472,59 @@ var PRESET_RULES = [ {
 }, {
 	name : "mixi",
 	url : "http://mixi.jp/",
-	rules : []
+	rules : [{
+		"title" : "Timeline Filter (by Users)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "mixi.jp",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "P.name>A",
+		"hide_block_css" : "UL.homeFeedList>LI"
+	},{
+		"title" : "Timeline Filter (by Contents)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "mixi.jp",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "LI.voice P.description",
+		"hide_block_css" : "UL.homeFeedList>LI"
+	},{
+		"title" : "Community Comment Filter (by Contents)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "http://mixi.jp/view_bbs.pl",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DL.commentContent01>DD",
+		"hide_block_css" : "DL.commentList01 DL"
+	},{
+		"title" : "Community Comment Filter (by Users)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "http://mixi.jp/view_bbs.pl",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DL.commentContent01 A",
+		"hide_block_css" : "DL.commentList01 DL"
+	}]
 }, {
 	name : "Tabelog",
 	url : "http://tabelog.com/",
-	rules : []
+	rules : [{
+		"title" : "Restaurant Name Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "tabelog.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.mname A",
+		"hide_block_css" : "LI.clearfix"
+	},{
+		"title" : "Review Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "tabelog.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "#contents-review LI",
+		"hide_block_css" : "#contents-review LI"
+	}]
 }, {
 	name : "Cookpad",
 	url : "http://cookpad.com/",
@@ -529,9 +609,5 @@ var PRESET_RULES = [ {
 		"search_block_css" : "H3>A",
 		"hide_block_css" : "LI"
 	} ]
-}, {
-	name : "Yahoo Chiebukuro",
-	url : "http://chiebukuro.yahoo.co.jp/",
-	rules : []
 } ];
-// TODO yelp, ameba now, 4chan, last.fm, kakaku.com, rottentomato, Yahoo Auction, Tumblr, MySpace, DeviantArt, Pixiv
+// TODO yelp, ameba now, 4chan, last.fm, kakaku.com, rottentomato, Yahoo Auction, Tumblr, MySpace, DeviantArt, Pixiv, Yahoo Chiebukuro

@@ -405,7 +405,30 @@ var PRESET_RULES = [ {
 		"search_block_css" : "#content SPAN.title",
 		"hide_block_css" : "A.related-video"
 	} ]
-}, {
+}, 
+ {
+	name : "Rotten Tomatoes",
+	url : "http://www.rottentomatoes.com/",
+	rules : [ {
+		"title" : "Review Filter (by Contents)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "news.google.co",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.user_review",
+		"hide_block_css" : "#content DIV.media_block"
+	},{
+		"title" : "Review Filter (by Users)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "news.google.co",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.fl>A",
+		"hide_block_css" : "#content DIV.media_block"
+	} ]
+},
+/* Japan */
+{
 	name : "Hatena Bookmark",
 	url : "http://b.hatena.ne.jp/",
 	rules : [{
@@ -442,13 +465,17 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "UL.bookmark-list>LI"
 	}]
 }, {
-	name : "Livedoor Reader",
-	url : "http://reader.livedoor.com/",
-	rules : []
-}, {
 	name : "Nico Nico Douga",
 	url : "http://www.nicovideo.jp/",
-	rules : []
+	rules : [{
+		"title" : "Thread Title Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "www.nicovideo.jp",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "A.watch",
+		"hide_block_css" : "TR"
+	}]
 }, {
 	name : "2channel",
 	url : "http://www.2ch.net/",
@@ -610,4 +637,4 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "LI"
 	} ]
 } ];
-// TODO yelp, ameba now, 4chan, last.fm, kakaku.com, rottentomato, Yahoo Auction, Tumblr, MySpace, DeviantArt, Pixiv, Yahoo Chiebukuro
+// TODO yelp, ameba now, 4chan, last.fm, kakaku.com,  Yahoo Auction, Tumblr, MySpace, DeviantArt, Pixiv, Yahoo Chiebukuro, livedoor reader

@@ -375,7 +375,31 @@ var PRESET_RULES = [ {
 }, {
 	name : "Cookpad",
 	url : "http://cookpad.com/",
-	rules : []
+	rules : [{
+		"title" : "Ingredients Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "http://cookpad.com/search/",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.material",
+		"hide_block_css" : "DIV.recipe-preview"
+	},{
+		"title" : "Title Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "http://cookpad.com/search/",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "A.recipe-title",
+		"hide_block_css" : "DIV.recipe-preview"
+	},{
+		"title" : "User Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "http://cookpad.com/search/",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "SPAN.font12>A",
+		"hide_block_css" : "DIV.recipe-preview"
+	}]
 }, {
 	name : "Togetter",
 	url : "http://togetter.com/",

@@ -259,7 +259,24 @@ var PRESET_RULES = [ {
 }, {
 	name : "Foursquare",
 	url : "https://foursquare.com/activity",
-	rules : []
+	rules : [{
+		"title" : "Tips Filter",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "slashdot.org",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.tipsSections LI",
+		"hide_block_css" : "DIV.tipsSections LI"
+	},
+	{
+		"title" : "Venue Name Filter for Activity Page",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "slashdot.org",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.create DIV.text,DIV.venueDetails",
+		"hide_block_css" : "DIV.create DIV.text,DIV.venueDetails"
+	}]
 }, {
 	name : "Google News",
 	url : "https://news.google.com/",

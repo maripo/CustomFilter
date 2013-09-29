@@ -7,7 +7,7 @@ var PRESET_RULES = [ {
 		"hide_block_by_css" : true,
 		"site_regexp" : "twitter.com",
 		"specify_url_by_regexp" : false,
-		"hide_block_css" : "OL>LI",
+		"hide_block_css" : "DIV.tweet",
 		"search_block_css" : "P.tweet-text B"
 	}, {
 		"title" : "URL Filter",
@@ -15,7 +15,7 @@ var PRESET_RULES = [ {
 		"hide_block_by_css" : true,
 		"site_regexp" : "twitter.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "OL>LI",
+		"search_block_css" : "DIV.tweet",
 		"hide_block_css" : "A.twitter-timeline-link"
 	}, {
 		"title" : "Tweet Content Filter",
@@ -23,8 +23,8 @@ var PRESET_RULES = [ {
 		"hide_block_by_css" : true,
 		"site_regexp" : "twitter.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "P.tweet-text",
-		"hide_block_css" : "A.twitter-timeline-link"
+		"search_block_css" : "DIV.tweet",
+		"hide_block_css" : "P.tweet-text"
 	}, {
 		"title" : "Trends Filter",
 		"search_block_by_css" : true,
@@ -54,6 +54,22 @@ var PRESET_RULES = [ {
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "UL.mtm LI.display",
 		"hide_block_css" : "UL.mtm A.UFICommentActorName"
+	}, {
+		"title" : "Feet Filter (by users and pages)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "www.facebook.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.actorName>A",
+		"hide_block_css" : "LI>DIV.storyContent"
+	}, {
+		"title" : "Feet Filter (by contents)",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "www.facebook.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "SPAN.userContent",
+		"hide_block_css" : "LI>DIV.storyContent"
 	} ]
 }, {
 	name : "Google+",

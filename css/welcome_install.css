@@ -3,8 +3,24 @@ ul.sites {
 	height:480px;
 	overflow-y:auto;
 	list-style-type: none;
+	padding-left:8px;
 }
 ul.sites > LI > ul {
 	list-style-type: none;
-	
+	-webkit-transition: height .1s linear;
+	overflow-y: hidden;
+}
+ul.sites > LI > ul > li {
+	height:18px;
+}
+input.openButton {
+	width:13px;
+	height:13px;
+	border:none;
+}
+input.plus {
+	background-image:url(../img/open_plus.png);
+}
+input.minus {
+	background-image:url(../img/open_minus.png);
 }

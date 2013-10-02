@@ -40,6 +40,7 @@ var Welcome = {
 Welcome.SiteWrapper = function (site) {
 	this.site = site;
 	this.ruleWrappers = [];
+	this.open = false;
 	for (var i=0; i<site.rules.length; i++) {
 		this.ruleWrappers.push(new Welcome.RuleWrapper(site, site.rules[i]));
 	}
@@ -47,6 +48,12 @@ Welcome.SiteWrapper = function (site) {
 Welcome.SiteWrapper.prototype.getElement = function () {
 	if (this.li) return this.li;
 	var li = document.createElement("LI");
+	var openButton = document.createElement("INPUT");
+	openButton.type = "button";
+	openButton.className = "openButton plus";
+	this.openButton = openButton;
+	li.appendChild(openButton);
+	openButton.addEventListener("click", this.getOpenAction(), true)
 	var checkbox = document.createElement("INPUT");
 	checkbox.type = "checkbox";
 	checkbox.checked = true;
@@ -59,14 +66,24 @@ Welcome.SiteWrapper.prototype.getElement = function () {
 	li.appendChild(favicon);
 	li.appendChild(document.createTextNode(this.site.name));
 	var ul = document.createElement("UL");
-	li.appendChild(ul);
+	this.ul = ul;
 	for (var i=0; i<this.ruleWrappers.length; i++) {
 		ul.appendChild(this.ruleWrappers[i].getElement())
 	}
+	li.appendChild(ul);
+	ul.style.height = "0px";
 	this.li = li;
 	return li;
 };
-
+Welcome.SiteWrapper.prototype.getOpenAction = function () {
+	var self = this;
+	return function () {
+		self.open = !self.open;
+		self.openButton.className = "openButton " + ((self.open)?"minus":"plus");
+		self.ul.style.height = (self.open)?((18*self.ruleWrappers.length) + "px"):"0px";
+		console.log("open");
+	};
+};
 Welcome.SiteWrapper.prototype.getOnClickAction = function () {
 	var self = this;
 	return function () {

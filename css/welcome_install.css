@@ -13,6 +13,9 @@ ul.sites > LI > ul {
 ul.sites > LI > ul > li {
 	height:18px;
 }
+ul.sites > LI > ul > li.done {
+	color:#888;
+}
 input.openButton {
 	width:13px;
 	height:13px;

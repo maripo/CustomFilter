@@ -27,13 +27,18 @@ var Welcome = {
 			var siteWrapper = Welcome.siteWrappers[i];
 			for (var j=0; j<siteWrapper.ruleWrappers.length; j++) {
 				var rule = siteWrapper.ruleWrappers[j];
-				if (rule.isChecked())
+				if (rule.isChecked() && !rule.isAlreadyImported) {
 					rulesToUse.push(rule);
+					siteWrapper.ruleWrappers[j].li.className = siteWrapper.ruleWrappers[j].li.className + " done";
+					siteWrapper.ruleWrappers[j].checkbox.disabled = true;
+					rule.isAlreadyImported = true;
+				}
 			}
 		}
 		for (var i=0; i<rulesToUse.length; i++) {
 			Welcome.rulePeer.saveObject(rulesToUse[i].rule);
 		}
+		alert("Done. Enjoy CustomBlocker!");
 	}
 };
 

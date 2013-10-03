@@ -38,6 +38,15 @@ var Welcome = {
 		for (var i=0; i<rulesToUse.length; i++) {
 			Welcome.rulePeer.saveObject(rulesToUse[i].rule);
 		}
+		// Reload imported rules
+		try {
+			var bgWindow = chrome.extension.getBackgroundPage();
+			bgWindow.reloadLists();
+		}
+		catch (ex)
+		{
+			alert(ex)
+		}
 		alert("Done. Enjoy CustomBlocker!");
 	}
 };

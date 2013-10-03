@@ -15,16 +15,16 @@ var PRESET_RULES = [ {
 		"hide_block_by_css" : true,
 		"site_regexp" : "twitter.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.tweet",
-		"hide_block_css" : "A.twitter-timeline-link"
+		"search_block_css" : "A.twitter-timeline-link",
+		"hide_block_css" : "DIV.tweet"
 	}, {
 		"title" : "Tweet Content Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "twitter.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.tweet",
-		"hide_block_css" : "P.tweet-text"
+		"search_block_css" : "P.tweet-text",
+		"hide_block_css" : "DIV.tweet"
 	}, {
 		"title" : "Trends Filter",
 		"search_block_by_css" : true,
@@ -44,32 +44,16 @@ var PRESET_RULES = [ {
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.facebook.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "UL.mtm LI.display",
-		"hide_block_css" : ""
+		"search_block_css" : "",
+		"hide_block_css" : "LI.display"
 	}, {
 		"title" : "Comment Filter (by users)",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.facebook.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "UL.mtm LI.display",
-		"hide_block_css" : "UL.mtm A.UFICommentActorName"
-	}, {
-		"title" : "Feet Filter (by users and pages)",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "www.facebook.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.actorName>A",
-		"hide_block_css" : "LI>DIV.storyContent"
-	}, {
-		"title" : "Feet Filter (by contents)",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "www.facebook.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "SPAN.userContent",
-		"hide_block_css" : "LI>DIV.storyContent"
+		"search_block_css" : "A.UFICommentActorName",
+		"hide_block_css" : "LI.display"
 	} ]
 }, {
 	name : "Google+",
@@ -84,6 +68,7 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.Sb"
 	} ]
 }, {
+	/* <- Test OK */
 	name : "Google Search",
 	url : "https://www.google.com",
 	rules : [ {

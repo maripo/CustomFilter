@@ -68,7 +68,6 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.Sb"
 	} ]
 }, {
-	/* <- Test OK */
 	name : "Google Search",
 	url : "https://www.google.com",
 	rules : [ {
@@ -99,6 +98,7 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "LI.g"
 	} ]
 }, {
+	/* <- Test OK */
 	name : "Baidu Search",
 	url : "http://www.baidu.com",
 	rules : [ {

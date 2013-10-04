@@ -98,7 +98,6 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "LI.g"
 	} ]
 }, {
-	/* <- Test OK */
 	name : "Baidu Search",
 	url : "http://www.baidu.com",
 	rules : [ {
@@ -127,6 +126,7 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "TD.c-default"
 	} ]
 }, {
+	/* <- Test OK */
 	name : "Yahoo Answers",
 	url : "http://answers.yahoo.com/",
 	rules : [

@@ -196,7 +196,6 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "ARTICLE"
 	} ]
 }, {
-	/* <- Test OK */
 	name : "Amazon.co*",
 	url : "http://www.amazon.com/",
 	rules : [{
@@ -261,8 +260,8 @@ var PRESET_RULES = [ {
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.linkedin.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.feed-content A",
-		"hide_block_css" : "LI.full DIV.commentBody"
+		"search_block_css" : "LI.feed-item",
+		"hide_block_css" : "LI.feed-item"
 	}]
 }, {
 	name : "Foursquare",
@@ -271,7 +270,7 @@ var PRESET_RULES = [ {
 		"title" : "Tips Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
-		"site_regexp" : "slashdot.org",
+		"site_regexp" : "foursquare.com",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.tipsSections LI",
 		"hide_block_css" : "DIV.tipsSections LI"
@@ -279,10 +278,10 @@ var PRESET_RULES = [ {
 		"title" : "Venue Name Filter for Activity Page",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
-		"site_regexp" : "slashdot.org",
+		"site_regexp" : "foursquare.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.create DIV.text,DIV.venueDetails",
-		"hide_block_css" : "DIV.create DIV.text,DIV.venueDetails"
+		"search_block_css" : "a.venue,H5>A,#userHistory A",
+		"hide_block_css" : "DIV.activity,DIV.tip,DIV.historyItem"
 	} ]
 }, {
 	name : "Google News",
@@ -305,6 +304,7 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.esc-body"
 	} ]
 }, {
+	/* <- Test OK */
 	name : "StackOverflow",
 	url : "http://stackoverflow.com/",
 	rules : [

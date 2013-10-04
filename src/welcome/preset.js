@@ -203,7 +203,7 @@ var PRESET_RULES = [ {
 		"title" : "Review Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
-		"site_regexp" : "digg.com",
+		"site_regexp" : "www.amazon.co",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.pc DIV.reviews",
 		"hide_block_css" : "DIV.pc DIV.reviews"
@@ -211,7 +211,7 @@ var PRESET_RULES = [ {
 		"title" : "Item Search Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
-		"site_regexp" : "digg.com",
+		"site_regexp" : "www.amazon.co",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.prod",
 		"hide_block_css" : "DIV.prod"

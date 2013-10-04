@@ -168,7 +168,6 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.alert"
 	} ]
 }, {
-	/* <- Test OK */
 	name : "Digg",
 	url : "http://digg.com/",
 	rules : [ {
@@ -180,7 +179,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "ARTICLE A.story-link",
 		"hide_block_css" : "ARTICLE"
 	}, {
-		"title" : "Dimain Filter",
+		"title" : "Domain Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "digg.com",
@@ -197,6 +196,7 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "ARTICLE"
 	} ]
 }, {
+	/* <- Test OK */
 	name : "Amazon.co*",
 	url : "http://www.amazon.com/",
 	rules : [{

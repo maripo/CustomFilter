@@ -126,7 +126,6 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "TD.c-default"
 	} ]
 }, {
-	/* <- Test OK */
 	name : "Yahoo Answers",
 	url : "http://answers.yahoo.com/",
 	rules : [
@@ -157,6 +156,7 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "#ya-col-2 LI"
 	} ]
 }, {
+	/* <- Test OK */
 	name : "Github",
 	url : "https://github.com/",
 	rules : [ {

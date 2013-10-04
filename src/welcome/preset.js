@@ -304,11 +304,9 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.esc-body"
 	} ]
 }, {
-	/* <- Test OK */
 	name : "StackOverflow",
 	url : "http://stackoverflow.com/",
 	rules : [
-
 	{
 		"title" : "Tag Filter",
 		"search_block_by_css" : true,
@@ -318,7 +316,6 @@ var PRESET_RULES = [ {
 		"search_block_css" : "DIV.tags>A",
 		"hide_block_css" : "DIV.question-summary"
 	},
-
 	{
 		"title" : "Title Filter",
 		"search_block_by_css" : true,
@@ -336,7 +333,6 @@ var PRESET_RULES = [ {
 		"search_block_css" : "DIV.excerpt",
 		"hide_block_css" : "DIV.question-summary"
 	},
-
 	{
 		"title" : "Author Filter",
 		"search_block_by_css" : true,
@@ -347,6 +343,7 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.question-summary"
 	} ]
 }, {
+	/* <- Test OK */
 	name : "Reddit",
 	url : "http://www.reddit.com/",
 	rules : [ {

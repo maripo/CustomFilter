@@ -156,7 +156,6 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "#ya-col-2 LI"
 	} ]
 }, {
-	/* <- Test OK */
 	name : "Github",
 	url : "https://github.com/",
 	rules : [ {
@@ -169,6 +168,7 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.alert"
 	} ]
 }, {
+	/* <- Test OK */
 	name : "Digg",
 	url : "http://digg.com/",
 	rules : [ {

@@ -38,6 +38,7 @@ var Welcome = {
 		for (var i=0; i<rulesToUse.length; i++) {
 			Welcome.rulePeer.saveObject(rulesToUse[i].rule);
 		}
+		alert("Done. Enjoy CustomBlocker!");
 		// Reload imported rules
 		try {
 			var bgWindow = chrome.extension.getBackgroundPage();
@@ -47,7 +48,6 @@ var Welcome = {
 		{
 			alert(ex)
 		}
-		alert("Done. Enjoy CustomBlocker!");
 	}
 };
 

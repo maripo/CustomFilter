@@ -324,6 +324,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		this.specify_url_by_regexp_checkbox.checked = rule.specify_url_by_regexp;
 
 		this.setBlockAnywayStyle(this.block_anyway.checked);
+		document.getElementById('rule_editor_keyword').focus();
 	}
 	else 
 	{

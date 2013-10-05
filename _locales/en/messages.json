@@ -32,7 +32,7 @@
 	"errorHideXpathInvalid":{"message":"XPath for \"Elements to Hide\" is invalid"},
 	"errorSearchXpathInvalid":{"message":"XPath for \"Search Region\" is invalid"},
 	"saveDone":{"message":"The rule is successfully saved."},
-	"descriptionEmpty":{"message":"There is no rule.Make rules for your favorite sites."},
+	"descriptionEmpty":{"message":"There is no rule. Make rules for your favorite sites or <a href=\"../welcome_install_en.html\">import preset rules</a>"},
 	"helpEmpty":{"message":"[Learn how to make rules]"},
 	"import":{"message":"Import"},
 	"export":{"message":"Export"},
@@ -58,5 +58,7 @@
 	"filterWithKeywords":{"message":"Filter with keywords"},
 	"condition":{"message":"Condition"},
 	"invalidRegEx":{"message":"Invalid regular expression."},
-	"errorExportNoRule":{"message":"No rule is selected."}
+	"errorExportNoRule":{"message":"No rule is selected."},
+	"welcomeDone":{"message":"Filters are installed! Enjoy CustomBlocker by adding some keywords!"}
+	
 }

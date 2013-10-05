@@ -2,7 +2,7 @@ var PRESET_RULES = [ {
 	name : "Twitter",
 	url : "http://twitter.com",
 	rules : [ {
-		"title" : "Hashtag Filter",
+		"title" : "ハッシュタグフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "twitter.com",
@@ -10,7 +10,7 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.tweet",
 		"search_block_css" : "P.tweet-text B"
 	}, {
-		"title" : "URL Filter",
+		"title" : "URLフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "twitter.com",
@@ -18,7 +18,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "A.twitter-timeline-link",
 		"hide_block_css" : "DIV.tweet"
 	}, {
-		"title" : "Tweet Content Filter",
+		"title" : "ツイート本文フィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "twitter.com",
@@ -26,7 +26,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "P.tweet-text",
 		"hide_block_css" : "DIV.tweet"
 	}, {
-		"title" : "Trends Filter",
+		"title" : "トレンドフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "twitter.com",
@@ -39,7 +39,7 @@ var PRESET_RULES = [ {
 	url : "http://www.facebook.com",
 	// Content Filter
 	rules : [ {
-		"title" : "Comment Filter",
+		"title" : "コメントフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.facebook.com",
@@ -47,7 +47,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "",
 		"hide_block_css" : "LI.display"
 	}, {
-		"title" : "Comment Filter (by users)",
+		"title" : "コメントを投稿者でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.facebook.com",
@@ -59,7 +59,7 @@ var PRESET_RULES = [ {
 	name : "Google+",
 	url : "https://plus.google.com",
 	rules : [ {
-		"title" : "Content Filter",
+		"title" : "本文でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "plus.google.com",
@@ -68,10 +68,10 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.Sb"
 	} ]
 }, {
-	name : "Google Search",
+	name : "Google検索",
 	url : "https://www.google.com",
 	rules : [ {
-		"title" : "URL Filter",
+		"title" : "URLフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.google.co",
@@ -79,7 +79,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "CITE",
 		"hide_block_css" : "LI.g"
 	}, {
-		"title" : "Title Filter",
+		"title" : "タイトルでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.google.co",
@@ -87,9 +87,8 @@ var PRESET_RULES = [ {
 		"search_block_css" : "H3>A",
 		"hide_block_css" : "LI.g"
 	},
-
 	{
-		"title" : "Summary Filter",
+		"title" : "要約文でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.google.co",
@@ -98,108 +97,10 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "LI.g"
 	} ]
 }, {
-	name : "Baidu Search",
-	url : "http://www.baidu.com",
-	rules : [ {
-		"title" : "URL Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "www.baidu.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "#in SPAN",
-		"hide_block_css" : "TD.c-default"
-	}, {
-		"title" : "Title Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "www.baidu.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "h3.t",
-		"hide_block_css" : "TD.c-default"
-	}, {
-		"title" : "Summary Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "www.baidu.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.c-abstract",
-		"hide_block_css" : "TD.c-default"
-	} ]
-}, {
-	name : "Yahoo Answers",
-	url : "http://answers.yahoo.com/",
-	rules : [
-
-	{
-		"title" : "Summary Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "answers.yahoo.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "SPAN.question-description",
-		"hide_block_css" : "#ya-col-2 LI"
-	}, {
-		"title" : "Category Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "answers.yahoo.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.question-meta>A",
-		"hide_block_css" : "#ya-col-2 LI"
-	}, {
-		"title" : "Author Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "answers.yahoo.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.question-meta>A",
-		"hide_block_css" : "#ya-col-2 LI"
-	} ]
-}, {
-	name : "Github",
-	url : "https://github.com/",
-	rules : [ {
-		"title" : "News Feed & Public Activity Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "github.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.alert",
-		"hide_block_css" : "DIV.alert"
-	} ]
-}, {
-	name : "Digg",
-	url : "http://digg.com/",
-	rules : [ {
-		"title" : "Title Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "digg.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "ARTICLE A.story-link",
-		"hide_block_css" : "ARTICLE"
-	}, {
-		"title" : "Domain Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "digg.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.story-meta A",
-		"hide_block_css" : "ARTICLE"
-	}, {
-		"title" : "Content Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "digg.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "ARTICLE P",
-		"hide_block_css" : "ARTICLE"
-	} ]
-}, {
 	name : "Amazon.co*",
 	url : "http://www.amazon.com/",
 	rules : [{
-		"title" : "Review Filter",
+		"title" : "レビューフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.amazon.co",
@@ -207,7 +108,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "DIV.pc DIV.reviews",
 		"hide_block_css" : "DIV.pc DIV.reviews"
 	},{
-		"title" : "Item Search Filter",
+		"title" : "商品サーチフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.amazon.co",
@@ -219,7 +120,7 @@ var PRESET_RULES = [ {
 	name : "Slashdot",
 	url : "http://slashdot.org/",
 	rules : [ {
-		"title" : "Filter Stories by Titles",
+		"title" : "ストーリーをタイトルでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "slashdot.org",
@@ -227,26 +128,26 @@ var PRESET_RULES = [ {
 		"search_block_css" : "H2.story A",
 		"hide_block_css" : "ARTICLE"
 	}, {
-		"title" : "Filter Stories by Users",
+		"title" : "ストーリーをタレコミ人でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
-		"site_regexp" : "slashdot.org",
+		"site_regexp" : "slashdot.*",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.details>A",
 		"hide_block_css" : "ARTICLE"
 	}, {
-		"title" : "Filter Stories by Contents",
+		"title" : "ストーリーを内容でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
-		"site_regexp" : "slashdot.org",
+		"site_regexp" : "slashdot.*",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "SECTION I",
 		"hide_block_css" : "ARTICLE"
 	}, {
-		"title" : "Comment Filter",
+		"title" : "コメントフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
-		"site_regexp" : "slashdot.org",
+		"site_regexp" : "slashdot.*",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "LI.full DIV.commentBody",
 		"hide_block_css" : "LI.full DIV.commentBody"
@@ -255,7 +156,7 @@ var PRESET_RULES = [ {
 	name : "LinkedIn",
 	url : "http://www.linkedin.com/",
 	rules : [{
-		"title" : "Feed Filter",
+		"title" : "フィードを本文でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.linkedin.com",
@@ -267,7 +168,7 @@ var PRESET_RULES = [ {
 	name : "Foursquare",
 	url : "https://foursquare.com/activity",
 	rules : [ {
-		"title" : "Tips Filter",
+		"title" : "Tipsをフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "foursquare.com",
@@ -275,7 +176,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "DIV.tipsSections LI",
 		"hide_block_css" : "DIV.tipsSections LI"
 	}, {
-		"title" : "Venue Name Filter for Activity Page",
+		"title" : "べニューの名前でチェックイン情報をフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "foursquare.com",
@@ -284,10 +185,10 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.activity,DIV.tip,DIV.historyItem"
 	} ]
 }, {
-	name : "Google News",
+	name : "Googleニュース",
 	url : "https://news.google.com/",
 	rules : [ {
-		"title" : "Title Filter",
+		"title" : "ニュースをタイトルでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "news.google.co",
@@ -295,7 +196,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "H2 SPAN.titletext",
 		"hide_block_css" : "DIV.esc-body"
 	}, {
-		"title" : "Source Filter",
+		"title" : "ニュースを提供元でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "news.google.co",
@@ -304,81 +205,10 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.esc-body"
 	} ]
 }, {
-	name : "StackOverflow",
-	url : "http://stackoverflow.com/",
-	rules : [
-	{
-		"title" : "Tag Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "stackoverflow.com/questions",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.tags>A",
-		"hide_block_css" : "DIV.question-summary"
-	},
-	{
-		"title" : "Title Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "stackoverflow.com/questions",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "H3>A",
-		"hide_block_css" : "DIV.question-summary"
-	}, {
-		"title" : "Summary Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "stackoverflow.com/questions",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.excerpt",
-		"hide_block_css" : "DIV.question-summary"
-	},
-	{
-		"title" : "Author Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "stackoverflow.com/questions",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.user-details>A",
-		"hide_block_css" : "DIV.question-summary"
-	} ]
-}, {
-	name : "Reddit",
-	url : "http://www.reddit.com/",
-	rules : [ {
-		"title" : "Title Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "www.reddit.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "#siteTable A.title",
-		"hide_block_css" : "DIV.link"
-	},
-
-	{
-		"title" : "Domain Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "www.reddit.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "SPAN.domain>A",
-		"hide_block_css" : "DIV.link"
-	},
-
-	{
-		"title" : "Comment Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "www.reddit.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.comment P",
-		"hide_block_css" : "DIV.comment P"
-	} ]
-}, {
 	name : "YouTube",
 	url : "http://www.youtube.com/",
 	rules : [ {
-		"title" : "Title Filter",
+		"title" : "タイトルでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "youtube.com",
@@ -386,50 +216,20 @@ var PRESET_RULES = [ {
 		"search_block_css" : "H3 A,SPAN.title",
 		"hide_block_css" : "LI.clearfix,LI.video-list-item"
 	}, {
-		"title" : "Comment Filter",
+		"title" : "コメントフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "youtube.com",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "LI.comment",
 		"hide_block_css" : "LI.comment"
-	}, {
-		"title" : "Related Movies Filter",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "youtube.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "#content SPAN.title",
-		"hide_block_css" : "A.related-video"
-	} ]
-}, 
- {
-	name : "Rotten Tomatoes",
-	url : "http://www.rottentomatoes.com/",
-	rules : [ {
-		"title" : "Review Filter (by Contents)",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "www.rottentomatoes.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.user_review,DIV.review_quote",
-		"hide_block_css" : "DIV.quote_bubble,DIV.media_block"
-	},{
-		"title" : "Review Filter (by Users)",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "www.rottentomatoes.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.criticinfo A,DIV.bold>A",
-		"hide_block_css" : "DIV.quote_bubble,DIV.media_block"
 	} ]
 },
-/* Japan */
 {
-	name : "Hatena Bookmark",
+	name : "はてなブックマーク",
 	url : "http://b.hatena.ne.jp/",
 	rules : [{
-		"title" : "Domain Filter",
+		"title" : "エントリをドメインでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "b.hatena.ne.jp",
@@ -437,7 +237,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "A.domain>SPAN,CITE A",
 		"hide_block_css" : "LI.track-click-entry,LI.search-result,LI.entrylist-unit"
 	},{
-		"title" : "Entry Title Filter",
+		"title" : "エントリをタイトルでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "b.hatena.ne.jp",
@@ -445,7 +245,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "H3>A",
 		"hide_block_css" : "LI.track-click-entry,LI.search-result,LI.entrylist-unit"
 	},{
-		"title" : "Comment Filter (by Tags)",
+		"title" : "ブックマークをタグでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "b.hatena.ne.jp/entry",
@@ -453,7 +253,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "A.user-tag",
 		"hide_block_css" : "UL.bookmark-list>LI"
 	},{
-		"title" : "Comment Filter (by Contents)",
+		"title" : "ブックマークを本文でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "b.hatena.ne.jp/entry",
@@ -462,10 +262,10 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "UL.bookmark-list>LI"
 	}]
 }, {
-	name : "Nico Nico Douga",
+	name : "ニコニコ動画",
 	url : "http://www.nicovideo.jp/",
 	rules : [{
-		"title" : "Title Filter",
+		"title" : "動画をタイトルでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.nicovideo.jp",
@@ -474,10 +274,10 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "#mainContainer TR"
 	}]
 }, {
-	name : "2channel",
+	name : "2ちゃんねる",
 	url : "http://www.2ch.net/",
 	rules : [{
-		"title" : "Thread Title Filter",
+		"title" : "スレタイフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "2ch.net",
@@ -485,7 +285,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "A",
 		"hide_block_css" : "TD A,#trad>A"
 	},{
-		"title" : "Content Filter",
+		"title" : "書き込み本文をフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "2ch.net/test/read.cgi/",
@@ -497,7 +297,7 @@ var PRESET_RULES = [ {
 	name : "mixi",
 	url : "http://mixi.jp/",
 	rules : [{
-		"title" : "Timeline Filter (by Users)",
+		"title" : "タイムラインをユーザ名でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "mixi.jp",
@@ -505,7 +305,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "P.name>A",
 		"hide_block_css" : "UL.homeFeedList>LI"
 	},{
-		"title" : "Timeline Filter (by Contents)",
+		"title" : "タイムラインを本文でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "mixi.jp",
@@ -513,7 +313,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "LI.voice P.description",
 		"hide_block_css" : "UL.homeFeedList>LI"
 	},{
-		"title" : "Community Comment Filter (by Contents)",
+		"title" : "コミュニティ投稿を本文でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "http://mixi.jp/view_bbs.pl",
@@ -521,7 +321,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "DL.commentContent01>DD",
 		"hide_block_css" : "DL.commentList01 DL"
 	},{
-		"title" : "Community Comment Filter (by Users)",
+		"title" : "コミュニティ投稿を投稿者名でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "http://mixi.jp/view_bbs.pl",
@@ -530,10 +330,10 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DL.commentList01 DL"
 	}]
 }, {
-	name : "Tabelog",
+	name : "食べログ",
 	url : "http://tabelog.com/",
 	rules : [{
-		"title" : "Restaurant Name Filter",
+		"title" : "店名フィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "tabelog.com",
@@ -541,7 +341,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "DIV.mname A",
 		"hide_block_css" : "LI.clearfix"
 	},{
-		"title" : "Review Filter",
+		"title" : "レビューフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "tabelog.com",
@@ -553,7 +353,7 @@ var PRESET_RULES = [ {
 	name : "Cookpad",
 	url : "http://cookpad.com/",
 	rules : [ {
-		"title" : "Ingredients Filter",
+		"title" : "レシピを材料でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "http://cookpad.com/search/",
@@ -561,7 +361,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "DIV.material",
 		"hide_block_css" : "DIV.recipe-preview"
 	}, {
-		"title" : "Title Filter",
+		"title" : "レシピをタイトルでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "http://cookpad.com/search/",
@@ -569,7 +369,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "A.recipe-title",
 		"hide_block_css" : "DIV.recipe-preview"
 	}, {
-		"title" : "User Filter",
+		"title" : "レシピを投稿者名でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "http://cookpad.com/search/",
@@ -581,7 +381,7 @@ var PRESET_RULES = [ {
 	name : "Togetter",
 	url : "http://togetter.com/",
 	rules : [ {
-		"title" : "Title Filter",
+		"title" : "まとめをタイトルでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "togetter.com",
@@ -589,7 +389,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "H3>A",
 		"hide_block_css" : "DIV.contents LI"
 	},{
-		"title" : "Tag Filter",
+		"title" : "まとめをタグでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "togetter.com",
@@ -597,7 +397,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "A.category_link",
 		"hide_block_css" : "DIV.contents LI"
 	},{
-		"title" : "Tweet Filter (by Contents)",
+		"title" : "ツイートを本文でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "togetter.com",
@@ -605,7 +405,7 @@ var PRESET_RULES = [ {
 		"search_block_css" : "DIV.tweet",
 		"hide_block_css" : "DIV.type_tweet"
 	},{
-		"title" : "Tweet Filter (by Authors)",
+		"title" : "ツイートを投稿者でフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "togetter.com",
@@ -614,15 +414,94 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.type_tweet"
 	}]
 }, {
-	name : "Naver Matome",
+	name : "Naverまとめ",
 	url : "http://matome.naver.jp/",
 	rules : [ {
-		"title" : "Title Filter",
+		"title" : "まとめをタイトルでフィルタ",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "matome.naver.jp",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "H3>A",
 		"hide_block_css" : "LI"
+	} ]
+}, {
+	name : "Digg",
+	url : "http://digg.com/",
+	rules : [ {
+		"title" : "タイトルでフィルタ",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "digg.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "ARTICLE A.story-link",
+		"hide_block_css" : "ARTICLE"
+	}, {
+		"title" : "ドメインでフィルタ",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "digg.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.story-meta A",
+		"hide_block_css" : "ARTICLE"
+	}, {
+		"title" : "要約文でフィルタ",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "digg.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "ARTICLE P",
+		"hide_block_css" : "ARTICLE"
+	} ]
+}, {
+	name : "StackOverflow",
+	url : "http://stackoverflow.com/",
+	rules : [
+	{
+		"title" : "質問をタグでフィルタ",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "stackoverflow.com/questions",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.tags>A",
+		"hide_block_css" : "DIV.question-summary"
+	},
+	{
+		"title" : "質問をタイトルでフィルタ",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "stackoverflow.com/questions",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "H3>A",
+		"hide_block_css" : "DIV.question-summary"
+	}, {
+		"title" : "質問を要約文でフィルタ",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "stackoverflow.com/questions",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.excerpt",
+		"hide_block_css" : "DIV.question-summary"
+	},
+	{
+		"title" : "質問を投稿者名でフィルタ",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "stackoverflow.com/questions",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.user-details>A",
+		"hide_block_css" : "DIV.question-summary"
+	} ]
+}, {
+	name : "Github",
+	url : "https://github.com/",
+	rules : [ {
+		"title" : "News Feed & Public Activity フィルタ",
+		"search_block_by_css" : true,
+		"hide_block_by_css" : true,
+		"site_regexp" : "github.com",
+		"specify_url_by_regexp" : false,
+		"search_block_css" : "DIV.alert",
+		"hide_block_css" : "DIV.alert"
 	} ]
 } ];

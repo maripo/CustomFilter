@@ -32,7 +32,7 @@
 	"errorHideXpathInvalid":{"message":"ブロック対象XPathが不正です。"},
 	"errorSearchXpathInvalid":{"message":"検索対象XPathが不正です。"},
 	"saveDone":{"message":"セーブしました"},
-	"descriptionEmpty":{"message":"まだルールが1件もありません。<br/>お気に入りのサイトでルールを作りましょう。"},
+	"descriptionEmpty":{"message":"まだルールが1件もありません。<br/>お気に入りのサイトでルールを作るか、<a href=\"../welcome_install_ja.html\">フィルタリスト</a>からお好みのフィルタをインストールしてご利用ください。"},
 	"helpEmpty":{"message":"[ルールの作り方]"},
 	"import":{"message":"インポート"},
 	"export":{"message":"エクスポート"},
@@ -58,5 +58,6 @@
 	"filterWithKeywords":{"message":"キーワードを使ってフィルタ"},
 	"condition":{"message":"発動条件"},
 	"invalidRegEx":{"message":"正しい正規表現ではありません。"},
-	"errorExportNoRule":{"message":"ルールが選択されていません。"}
+	"errorExportNoRule":{"message":"ルールが選択されていません。"},
+	"welcomeDone":{"message":"フィルタをインストールしました。NGワードを追加して使ってみてください!"}
 }

@@ -4,13 +4,14 @@ ul.sites {
 	overflow-y:auto;
 	list-style-type: none;
 	padding-left:8px;
+	line-height:100%;
 }
 ul.sites > LI > ul {
 	list-style-type: none;
 	-webkit-transition: height .1s linear;
 	overflow-y: hidden;
 }
-ul.sites > LI > ul > li {
+ul.sites > li > ul > li {
 	height:18px;
 }
 ul.sites > LI > ul > li.done {

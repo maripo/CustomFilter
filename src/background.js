@@ -504,7 +504,7 @@ var menuIdAdd = chrome.contextMenus.create({"title": chrome.i18n.getMessage('men
 chrome.runtime.onInstalled.addListener(function(details) {
 	console.log("reason=" + details.reason);
 	console.log("previousVersion=" + details.previousVersion);
-	if ("install"==details.reason || true) { //TODO debug
+	if ("install"==details.reason) { //TODO debug
 		console.log("New install.");
 		window.open(chrome.extension.getURL('/welcome_install_'+chrome.i18n.getMessage("extLocale")+'.html'));
 	}

@@ -343,7 +343,6 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "DIV.question-summary"
 	} ]
 }, {
-	/* <- Test OK */
 	name : "Reddit",
 	url : "http://www.reddit.com/",
 	rules : [ {
@@ -384,8 +383,8 @@ var PRESET_RULES = [ {
 		"hide_block_by_css" : true,
 		"site_regexp" : "youtube.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "H3 SPAN",
-		"hide_block_css" : "LI.clearfix"
+		"search_block_css" : "H3 A,SPAN.title",
+		"hide_block_css" : "LI.clearfix,LI.video-list-item"
 	}, {
 		"title" : "Comment Filter",
 		"search_block_by_css" : true,
@@ -405,13 +404,14 @@ var PRESET_RULES = [ {
 	} ]
 }, 
  {
+	/* <- Test OK */
 	name : "Rotten Tomatoes",
 	url : "http://www.rottentomatoes.com/",
 	rules : [ {
 		"title" : "Review Filter (by Contents)",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
-		"site_regexp" : "news.google.co",
+		"site_regexp" : "www.rottentomatoes.com",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.user_review",
 		"hide_block_css" : "#content DIV.media_block"
@@ -419,7 +419,7 @@ var PRESET_RULES = [ {
 		"title" : "Review Filter (by Users)",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
-		"site_regexp" : "news.google.co",
+		"site_regexp" : "www.rottentomatoes.com",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.fl>A",
 		"hide_block_css" : "#content DIV.media_block"

@@ -626,4 +626,3 @@ var PRESET_RULES = [ {
 		"hide_block_css" : "LI"
 	} ]
 } ];
-// TODO yelp, ameba now, 4chan, last.fm, kakaku.com,  Yahoo Auction, Tumblr, MySpace, DeviantArt, Pixiv, Yahoo Chiebukuro, livedoor reader

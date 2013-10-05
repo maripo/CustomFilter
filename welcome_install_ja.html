@@ -6,56 +6,28 @@
 		<link rel="stylesheet" type="text/css" href="./css/rule_editor.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/pref/list_rules.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/pref/help.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/welcome_install.css"/>
+		<script type="text/javascript" src="src/welcome/welcome.js"></script>
+		<script type="text/javascript" src="src/welcome/preset_en.js"></script>
+		<script type="text/javascript" src="src/db/DbObj.js"></script>
+		<script type="text/javascript" src="src/db/DbInit.js"></script>
+		<script type="text/javascript" src="src/db/Rule.js"></script>
+		<script type="text/javascript" src="src/db/Word.js"></script>
 	</head>
 	<body>
 		<div id="header">
 			<h1><img src="img/top_title.png" alt="CustomBlocker for Google Chrome"/></h1>
-			<h2>What's New in CustomBlocker 2.4</h2>
-			<h3>Simplified Interfaces</h3>
+		</div>
+			<h2>Welcome to CustomBlocker!</h2>
 			<p>
-				The user interfaces of CustomBlocker 2.3.x was too complicated.
-				We simplified them by removing some rarely used fields and restructuring the form.
+				Would you like to install preset rules?
 			</p>
-			<table>
-				<tr>
-					<td>Old</td>
-					<td>New</td>
-				</tr>
-				<tr>
-					<td style="padding:4px">
-						<img src="img/help/old_ui.png"/>
-					</td>
-					<td style="padding:4px">
-						<img src="img/help/new_ui.png"/>
-					</td>
-				</tr>
-			</table>
-			<h3>Wildcards</h3>
-			<p>
-				Previous versions of CustomBlocker used regular expressions for URL matching.
-				Regular expressions are hard to read for people other than programmers and computer geeks.
-				Now, you can use wildcards to specify URLs.
-			</p>
-			<dl style="font-size:90%">
-				<dt style="font-weight:bold">Regular Expression</dt>
-				<dd>https:\/\/twitter\.com\/.*\/following</dd>
-				<dt style="font-weight:bold">Wildcard</dt>
-				<dd>https://twitter.com/*/following</dd>
-			</dl>
-			<h3>"Search Range" is Optional</h3>
-			<p>
-				Previous versions requires fields named "Elements to Hide" and "Search Range" when you create a rule.
-				The latter field is now optional.
-				If "Search Range" is empty, CustomBlocker will search for keywords from whole elements specified with "Elements to Hide"."
-			</p>
-			<h2>Future Plans</h2>
-			<h3>Cloud Sync</h3>
-			<p>
-				CustomBlocker has "Import" and "Export" features so that you can share rules and words on multiple devices.
-				However, it's a bit bothersome to export and import rules frequently.
-				We are now planning to add a new feature of cloud sync.
-				With this feature, rules can be automatically synchronized on multiple devices.
-			</p>
+			<input type="checkbox" id="checkAll"/><label for="checkAll">All</label>
+			<ul id="sites" class="sites">
+			</ul>
+			<div>
+				<input type="button" value="Use Checked Rules" id="buttonUse"/>
+			</div>
 		<script type="text/javascript" src="../src/analytics.js"></script>
 	</body>
 </html>

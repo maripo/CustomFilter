@@ -49,6 +49,7 @@ div.customblocker_rule_dialog {
 	font-size:11px!important;
 	color:black!important;
 	box-shadow:inset 1px 1px 1px rgba(0,0,0,0.3)!important;
+	padding-left:2px!important;
 }
 
 #smart_rule_editor_body input[type="button"],

@@ -49,7 +49,6 @@ var REGEX_WILDCARD_TO_REGEXP = new RegExp('([^A-Za-z0-9_\\*])', 'g');
 var REGEX_WILDCARD = new RegExp('\\*', 'g');
 CustomBlockerUtil.wildcardToRegExp = function (str) {
 	var result = ".*"+str.replace(REGEX_WILDCARD_TO_REGEXP, function(){return '\\' + RegExp.$1}).replace(REGEX_WILDCARD, '.*')+".*";
-	console.log(result);
 	return result;
 };
 var REGEX_DOUBLE_SLASH = new RegExp('//','g');

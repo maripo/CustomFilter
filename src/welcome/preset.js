@@ -404,7 +404,6 @@ var PRESET_RULES = [ {
 	} ]
 }, 
  {
-	/* <- Test OK */
 	name : "Rotten Tomatoes",
 	url : "http://www.rottentomatoes.com/",
 	rules : [ {
@@ -413,16 +412,16 @@ var PRESET_RULES = [ {
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.rottentomatoes.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.user_review",
-		"hide_block_css" : "#content DIV.media_block"
+		"search_block_css" : "DIV.user_review,DIV.review_quote",
+		"hide_block_css" : "DIV.quote_bubble,DIV.media_block"
 	},{
 		"title" : "Review Filter (by Users)",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.rottentomatoes.com",
 		"specify_url_by_regexp" : false,
-		"search_block_css" : "DIV.fl>A",
-		"hide_block_css" : "#content DIV.media_block"
+		"search_block_css" : "DIV.criticinfo A,DIV.bold>A",
+		"hide_block_css" : "DIV.quote_bubble,DIV.media_block"
 	} ]
 },
 /* Japan */
@@ -436,7 +435,7 @@ var PRESET_RULES = [ {
 		"site_regexp" : "b.hatena.ne.jp",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "A.domain>SPAN,CITE A",
-		"hide_block_css" : "LI.entry-unit,LI.search-result"
+		"hide_block_css" : "LI.track-click-entry,LI.search-result,LI.entrylist-unit"
 	},{
 		"title" : "Entry Title Filter",
 		"search_block_by_css" : true,
@@ -444,7 +443,7 @@ var PRESET_RULES = [ {
 		"site_regexp" : "b.hatena.ne.jp",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "H3>A",
-		"hide_block_css" : "LI.entry-unit,LI.search-result"
+		"hide_block_css" : "LI.track-click-entry,LI.search-result,LI.entrylist-unit"
 	},{
 		"title" : "Comment Filter (by Tags)",
 		"search_block_by_css" : true,
@@ -466,13 +465,13 @@ var PRESET_RULES = [ {
 	name : "Nico Nico Douga",
 	url : "http://www.nicovideo.jp/",
 	rules : [{
-		"title" : "Thread Title Filter",
+		"title" : "Title Filter",
 		"search_block_by_css" : true,
 		"hide_block_by_css" : true,
 		"site_regexp" : "www.nicovideo.jp",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "A.watch",
-		"hide_block_css" : "TR"
+		"hide_block_css" : "#mainContainer TR"
 	}]
 }, {
 	name : "2channel",
@@ -604,14 +603,6 @@ var PRESET_RULES = [ {
 		"site_regexp" : "togetter.com",
 		"specify_url_by_regexp" : false,
 		"search_block_css" : "DIV.tweet",
-		"hide_block_css" : "DIV.type_tweet"
-	},{
-		"title" : "Tweet Filter (by Authors)",
-		"search_block_by_css" : true,
-		"hide_block_by_css" : true,
-		"site_regexp" : "togetter.com",
-		"specify_url_by_regexp" : false,
-		"search_block_css" : "LI A.status_name",
 		"hide_block_css" : "DIV.type_tweet"
 	},{
 		"title" : "Tweet Filter (by Authors)",

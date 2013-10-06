@@ -32,7 +32,7 @@
 	"errorHideXpathInvalid":{"message":"ブロック対象XPathが不正です。"},
 	"errorSearchXpathInvalid":{"message":"検索対象XPathが不正です。"},
 	"saveDone":{"message":"セーブしました"},
-	"descriptionEmpty":{"message":"まだルールが1件もありません。<br/>お気に入りのサイトでルールを作るか、<a href=\"../welcome_install_ja.html\">フィルタリスト</a>からお好みのフィルタをインストールしてご利用ください。"},
+	"descriptionEmpty":{"message":"まだルールが1件もありません。<br/>お気に入りのサイトでルールを作るか、<a href=\"../welcome_install_ja.html?pref\">フィルタリスト</a>からお好みのフィルタをインストールしてご利用ください。"},
 	"helpEmpty":{"message":"[ルールの作り方]"},
 	"import":{"message":"インポート"},
 	"export":{"message":"エクスポート"},

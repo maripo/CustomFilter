@@ -6,15 +6,19 @@ ul.sites {
 	padding-left:8px;
 	line-height:100%;
 }
-ul.sites > LI > ul {
+ul.sites > li > ul {
 	list-style-type: none;
 	-webkit-transition: height .1s linear;
 	overflow-y: hidden;
 }
+ul.sites > li.duplicate {
+	color: #888;
+}
 ul.sites > li > ul > li {
 	height:18px;
 }
-ul.sites > LI > ul > li.done {
+ul.sites > li > ul > li.done,
+ul.sites > li > ul > li.duplicate {
 	color:#888;
 }
 input.openButton {

@@ -6,6 +6,42 @@ var Welcome = {
 		document.getElementById("buttonUse").addEventListener('click',Welcome.useChecked, false);
 		document.getElementById("checkAll").checked = true;
 		document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
+		Welcome.rulePeer.select('', Welcome.onRuleListLoaded, null);
+	},
+	onRuleListLoaded: function (rules) {
+		//Compare existing rules to preset rules for disabling duplicate rules.
+		for (var ruleIndex = 0; ruleIndex<rules.length; ruleIndex++) {
+			Welcome.disableDuplicateRules(rules[ruleIndex]);
+		}
+	},
+	disableDuplicateRules: function (existingRule) {
+		for (var siteIndex = 0; siteIndex < Welcome.siteWrappers.length; siteIndex++) {
+			var site = Welcome.siteWrappers[siteIndex];
+			var isNew = true;
+			for (var ruleIndex = 0; ruleIndex < site.ruleWrappers.length; ruleIndex++) {
+				var presetRule = site.ruleWrappers[ruleIndex];
+				//Compare
+				if (presetRule.rule.site_regexp == existingRule.site_regexp
+						&&
+					presetRule.rule.search_block_css == existingRule.search_block_css
+						&&
+					presetRule.rule.hide_block_css == existingRule.hide_block_css
+						&&
+					presetRule.rule.specify_url_by_regexp == existingRule.specify_url_by_regexp
+						&&
+					!presetRule.duplicate) {
+						presetRule.disable();
+				}
+				if (presetRule.duplicate) {
+					console.log("disable");
+					isNew = false;
+				}
+			}
+			if (!isNew && !site.duplicate) {
+				site.disable();
+			}
+		}
+		
 	},
 	renderPreset: function () {
 		var listElement = document.getElementById("sites");
@@ -79,7 +115,10 @@ Welcome.SiteWrapper.prototype.getElement = function () {
 	favicon.src = (this.site.url)?
 		'chrome://favicon/' + this.site.url:chrome.extension.getURL('img/world.png');
 	li.appendChild(favicon);
-	li.appendChild(document.createTextNode(this.site.name));
+	var titleLabel = document.createElement('SPAN');
+	titleLabel.appendChild(document.createTextNode(this.site.name));
+	li.appendChild(titleLabel);
+	this.titleLabel = titleLabel;
 	var ul = document.createElement("UL");
 	this.ul = ul;
 	for (var i=0; i<this.ruleWrappers.length; i++) {
@@ -89,6 +128,13 @@ Welcome.SiteWrapper.prototype.getElement = function () {
 	ul.style.height = "0px";
 	this.li = li;
 	return li;
+};
+Welcome.SiteWrapper.prototype.disable = function () {
+	this.li.className = 'duplicate';
+	this.checkbox.disabled = true;
+	this.checkbox.checked = false;
+	this.duplicate = true;
+	this.titleLabel.appendChild(document.createTextNode(chrome.i18n.getMessage('alreadyInstalled')));
 };
 Welcome.SiteWrapper.prototype.getOpenAction = function () {
 	var self = this;
@@ -106,8 +152,10 @@ Welcome.SiteWrapper.prototype.getOnClickAction = function () {
 	};
 };
 Welcome.SiteWrapper.prototype.setChecked = function (checked) {
-	this.checkbox.checked = checked;
-	this.toggleAllRules(checked);
+	if (!this.duplicate) {
+		this.checkbox.checked = checked;
+		this.toggleAllRules(checked);
+	}
 };
 Welcome.SiteWrapper.prototype.toggleAllRules = function (checked) {
 	for (var i=0; i<this.ruleWrappers.length; i++) {
@@ -151,8 +199,16 @@ Welcome.RuleWrapper.prototype.getElement = function () {
 	this.li = li;
 	return li;
 };
+Welcome.RuleWrapper.prototype.disable = function () {
+	this.checkbox.checked = false;
+	this.checkbox.disabled = true;
+	this.li.className = 'duplicate';
+	this.li.appendChild(document.createTextNode(chrome.i18n.getMessage('alreadyInstalled')));
+	this.duplicate = true;
+};
 Welcome.RuleWrapper.prototype.setChecked = function (checked) {
-	this.checkbox.checked = checked;
+	if (!this.duplicate)
+		this.checkbox.checked = checked;
 };
 Welcome.RuleWrapper.prototype.isChecked = function () {
 	return this.checkbox.checked;

@@ -59,6 +59,9 @@
 	"condition":{"message":"Condition"},
 	"invalidRegEx":{"message":"Invalid regular expression."},
 	"errorExportNoRule":{"message":"No rule is selected."},
-	"welcomeDone":{"message":"Filters are installed! Enjoy CustomBlocker by adding some keywords!"}
+	"welcomeDone":{"message":"Filters are installed! Enjoy CustomBlocker by adding some keywords!"},
+	"alreadyInstalled":{"message":" (Installed)"},
+	"installPreset":{"message":"<a href=\"../welcome_install_en.html?add=true\">Install preset rules</a>"}
+	
 	
 }

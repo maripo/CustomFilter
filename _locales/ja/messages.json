@@ -60,6 +60,6 @@
 	"invalidRegEx":{"message":"正しい正規表現ではありません。"},
 	"errorExportNoRule":{"message":"ルールが選択されていません。"},
 	"welcomeDone":{"message":"フィルタをインストールしました。NGワードを追加して使ってみてください!"},
-	"alreadyInstalled":{"message":" (インストール済)"},
+	"alreadyInstalled":{"message":"インストール済"},
 	"installPreset":{"message":"<a href=\"../welcome_install_ja.html?add=true\">おすすめルールをインストールする</a>"}
 }

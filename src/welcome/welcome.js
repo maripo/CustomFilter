@@ -17,7 +17,7 @@ var Welcome = {
 	disableDuplicateRules: function (existingRule) {
 		for (var siteIndex = 0; siteIndex < Welcome.siteWrappers.length; siteIndex++) {
 			var site = Welcome.siteWrappers[siteIndex];
-			var isNew = true;
+			var isNew = false;
 			for (var ruleIndex = 0; ruleIndex < site.ruleWrappers.length; ruleIndex++) {
 				var presetRule = site.ruleWrappers[ruleIndex];
 				//Compare
@@ -34,7 +34,9 @@ var Welcome = {
 				}
 				if (presetRule.duplicate) {
 					console.log("disable");
-					isNew = false;
+				} else {
+					// new
+					isNew = true;
 				}
 			}
 			if (!isNew && !site.duplicate) {
@@ -134,7 +136,7 @@ Welcome.SiteWrapper.prototype.disable = function () {
 	this.checkbox.disabled = true;
 	this.checkbox.checked = false;
 	this.duplicate = true;
-	this.titleLabel.appendChild(document.createTextNode(chrome.i18n.getMessage('alreadyInstalled')));
+	this.titleLabel.appendChild(Welcome.getAlreadyInstalledLabel());
 };
 Welcome.SiteWrapper.prototype.getOpenAction = function () {
 	var self = this;
@@ -203,7 +205,7 @@ Welcome.RuleWrapper.prototype.disable = function () {
 	this.checkbox.checked = false;
 	this.checkbox.disabled = true;
 	this.li.className = 'duplicate';
-	this.li.appendChild(document.createTextNode(chrome.i18n.getMessage('alreadyInstalled')));
+	this.li.appendChild(Welcome.getAlreadyInstalledLabel());
 	this.duplicate = true;
 };
 Welcome.RuleWrapper.prototype.setChecked = function (checked) {
@@ -213,5 +215,10 @@ Welcome.RuleWrapper.prototype.setChecked = function (checked) {
 Welcome.RuleWrapper.prototype.isChecked = function () {
 	return this.checkbox.checked;
 };
-
+Welcome.getAlreadyInstalledLabel = function () {
+	var span = document.createElement('SPAN');
+	span.appendChild(document.createTextNode(chrome.i18n.getMessage('alreadyInstalled')));
+	span.className = "installed";
+	return span;
+}
 window.onload = Welcome.init;

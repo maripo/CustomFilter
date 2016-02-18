@@ -21,6 +21,13 @@ ul.sites > li > ul > li.done,
 ul.sites > li > ul > li.duplicate {
 	color:#888;
 }
+ul.sites li span.installed{
+	background-color:#66f;
+	color:#fff;
+	margin-left:8px;
+	padding:1px;
+	font-size:60%;
+}
 input.openButton {
 	width:13px;
 	height:13px;

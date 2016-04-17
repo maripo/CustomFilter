@@ -169,6 +169,7 @@ function getDisableAction (rule, disableButton)
 window.onload = function ()
 {
 	getAppliedRules();
+	document.getElementById('versionLabel').innerHTML = chrome.app.getDetails().version;
 	document.getElementById('buttonOn').addEventListener ('click', 
 			function(){ setBlockOn(true); }, false);
 	document.getElementById('buttonOff').addEventListener ('click', 

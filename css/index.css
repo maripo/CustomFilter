@@ -131,6 +131,15 @@ h2 {
 	border: solid 1px #444;
 }
 
+#version {
+	color: #444;
+	text-align:right;
+	float:right;
+	width:100px;
+	font-size:80%;
+	line-height:150%;
+}
+
 .buttonContainer {
  	float:right;
  	width:120px;

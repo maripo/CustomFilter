@@ -62,6 +62,4 @@
 	"welcomeDone":{"message":"Filters are installed! Enjoy CustomBlocker by adding some keywords!"},
 	"alreadyInstalled":{"message":"INSTALLED"},
 	"installPreset":{"message":"<a href=\"../welcome_install_en.html?add=true\">Install preset rules</a>"}
-	
-	
 }

@@ -10,6 +10,7 @@ var wordPeer = WordPeer.getInstance();
 
 function onStart () 
 {
+	// Localize
 	document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
 	document.getElementById('help_link_empty').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
 	document.getElementById('search_box').addEventListener('change', search, false);
@@ -19,15 +20,32 @@ function onStart ()
 	document.getElementById('rule_editor_radio_search_css').addEventListener('change', refreshPathSections, false);
 	document.getElementById('rule_editor_radio_hide_xpath').addEventListener('change', refreshPathSections, false);
 	document.getElementById('rule_editor_radio_hide_css').addEventListener('change', refreshPathSections, false);
+
+	document.getElementById('buttonBadgeOn').addEventListener('change', refreshBadgeEnabled, false);
+	document.getElementById('buttonBadgeOff').addEventListener('change', refreshBadgeEnabled, false);
+	
+	if ("true"==localStorage.badgeDisabled) {
+		document.getElementById('buttonBadgeOff').checked = true;
+	} else {
+		document.getElementById('buttonBadgeOn').checked = true;
+		
+	}
 	
 	ruleEditor = new RuleEditor();
 	peer.createTable(createWordTable);
 	CustomBlockerUtil.localize();
 }
+
+function refreshBadgeEnabled () {
+	var isBadgeOn = document.getElementById('buttonBadgeOn').checked;
+    localStorage.badgeDisabled = (isBadgeOn)?"false":"true";
+}
+
 function createWordTable () 
 {
 	wordPeer.createTable(loadLists);
 }
+
 function loadLists () 
 {
 	peer.select('', onRuleListLoaded, null);

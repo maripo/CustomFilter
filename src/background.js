@@ -227,10 +227,12 @@ function execCallbackBadge (tabId, param)
 	try {
 		var badgeText = ''+count;
 		tabBadgeMap[tabId] = badgeText;
-		chrome.browserAction.setBadgeText({
-			text: badgeText,
-			tabId: tabId
-		});
+		if (localStorage.badgeDisabled!="true") {
+			chrome.browserAction.setBadgeText({
+				text: badgeText,
+				tabId: tabId
+			});
+		}
 		chrome.browserAction.setTitle({
 			title: getBadgeTooltipString(count),
 			tabId:tabId
@@ -423,10 +425,12 @@ if (!chrome.tabs.customBlockerOnUpdateSet)
 						}, getForegroundCallback(tabId));
 					if (tabBadgeMap[tabId])
 					{
-						chrome.browserAction.setBadgeText({
-							text: tabBadgeMap[tabId],
-							tabId: tabId
-						});
+						if (localStorage.badgeDisabled!="true") {
+							chrome.browserAction.setBadgeText({
+								text: tabBadgeMap[tabId],
+								tabId: tabId
+							});
+						}
 					}
 				}
 				catch (ex) {console.log(ex);}
@@ -441,10 +445,12 @@ function setIconDisabled (isDisabled)
 }
 function _setIconDisabled (isDisabled, tabId)
 {
-	chrome.browserAction.setBadgeText({
-		text:(isDisabled)?'OFF':'',
-		tabId: tabId
-	});
+	if (localStorage.badgeDisabled!="true") {
+		chrome.browserAction.setBadgeText({
+			text:(isDisabled)?'OFF':'',
+			tabId: tabId
+		});
+	}
 	chrome.browserAction.setIcon(
 	{
 		path:(isDisabled)?'icon_disabled.png':'icon.png',

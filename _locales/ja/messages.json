@@ -61,5 +61,6 @@
 	"errorExportNoRule":{"message":"ルールが選択されていません。"},
 	"welcomeDone":{"message":"フィルタをインストールしました。NGワードを追加して使ってみてください!"},
 	"alreadyInstalled":{"message":"インストール済"},
+	"showBadge":{"message":"ブロックした数をアイコンの上に表示する"},
 	"installPreset":{"message":"<a href=\"../welcome_install_ja.html?add=true\">おすすめルールをインストールする</a>"}
 }

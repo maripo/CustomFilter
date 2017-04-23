@@ -31,7 +31,7 @@ div.customblocker_rule_dialog {
 
 #smart_rule_editor_body  div.section div.label,
 #rule_editor_body  div.section div.label {
-	width:77px!important;
+	width:45px!important;
 	font-size:75%!important;
 	float:left!important;
 	text-align:right!important;
@@ -72,7 +72,7 @@ div.customblocker_rule_dialog {
 	height:17px!important;
 }
 #smart_rule_editor_keyword {
-	width:120px!important;
+	width:100px!important;
 }
 #smart_rule_editor_body span.word, #smart_rule_editor_preview span.word {
 	font-size:11px!important;

@@ -386,6 +386,7 @@ var RuleEditor = function ()
 	document.getElementById('rule_editor_keyword').addEventListener('keydown', this.getAddWordByEnterAction(), true);
 	this.alertDiv = document.getElementById('rule_editor_alert');
 	document.getElementById('rule_editor_keyword_regexp_checkbox').addEventListener('click',RuleEditor.changeKeywordColor, false);
+	document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click',RuleEditor.changeKeywordColor, false);
 	document.getElementById('rule_editor_block_anyway').addEventListener('change',RuleEditor.setVisibilityOfConditionDetail, false);
 	document.getElementById('rule_editor_block_anyway_false').addEventListener('change',RuleEditor.setVisibilityOfConditionDetail, false);
 	RuleEditor.changeKeywordColor(null);
@@ -558,8 +559,8 @@ RuleEditor.prototype.saveWord = function ()
 	}
 	var word = new Word();
 	word.word = str;
-	var checked = document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
-	word.is_regexp = checked;
+	word.is_regexp = document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
+	word.is_complete_matching = document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked;
 	word.rule_id = self.rule.rule_id;
 	wordPeer.saveObject(word, function () 
 	{

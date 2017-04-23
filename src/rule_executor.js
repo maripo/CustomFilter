@@ -19,8 +19,10 @@ RuleExecutor.checkRules = function (list)
 		try 
 		{
 			var regex;
-			if (rule.specify_url_by_regexp)
+			if (rule.specify_url_by_regexp) 
+			{
 				regex = new RegExp(rule.site_regexp);
+			}
 			else {
 				Log.v("Using wildcard...");
 				regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(rule.site_regexp));
@@ -66,9 +68,21 @@ RuleExecutor.startBlock = function()
 		for (var j=0; j< rule.words.length; j++) 
 		{
 			var word = rule.words[j];
-			if (word.is_regexp) {
+			if (word.is_regexp) 
+			{
 				try {
-					word.regExp = new RegExp(word.word, 'i')
+					if (word.is_complete_matching) {
+						console.log("DEBUG ???");
+						// Append "^" and "$"
+						var expression = (word.word.charAt(0)!='^')?"^":"";
+						expression += word.word;
+						expression += ((word.word.charAt(word.word.length-1)!='$')?'$':'');
+						word.regExp = new RegExp(expression, 'i');
+						console.log("DEBUG Expression=" + expression);
+					} else {
+						console.log("DEBUG Expression=" + word.word);
+						word.regExp = new RegExp(word.word, 'i')
+					}
 				} catch (ex) {
 					console.log("Invalid RegExp: " + word.word);
 				}
@@ -170,8 +184,9 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 			needRefreshBadge = true;
 			rule.hiddenCount = (rule.hiddenCount)?rule.hiddenCount+1:1;
 			// Exec callback
-			if (onHide)
+			if (onHide) {
 				onHide(node);
+			}
 		}
 		else if (isTesting && node.hideDone && !shouldBeHidden) 
 		{
@@ -242,11 +257,16 @@ RuleExecutor.nodeContains = function (node, words)
 		for (var i = 0, l = words.length; i < l; i++) 
 		{
 			var word = words[i];
-			if (word.deleted) continue;
-			if (word.is_regexp && word.regExp && word.regExp.test(text)) 
+			if (word.deleted) {
+				continue;
+			}
+			if (word.is_regexp && word.regExp && word.regExp.test(text)) { 
 				return true;
-			if (!word.is_regexp && text.indexOf(word.word)>-1)
-				return true;
+			}
+			if (!word.is_regexp) {
+				if (word.complete_matching) { return (text == word.word); } 
+				else{ return (text.indexOf(word.word)>-1);}
+			}
 		}
 		return false;
 	} catch (ex) {

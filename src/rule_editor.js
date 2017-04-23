@@ -202,8 +202,8 @@ RuleEditor.prototype.addWord = function(wordStr)
 	
 	word.word = wordStr;
 	word.isNew = 'true';
-	var checked = document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
-	word.is_regexp = checked;
+	word.is_regexp = document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
+	word.is_complete_matching = document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked;
 	if (word.is_regexp) {
 		// Check if received RegExp is valid
 		try {

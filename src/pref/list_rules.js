@@ -508,12 +508,9 @@ RuleEditor.prototype.getWordElement = function (word)
 {
 	var span = document.createElement('SPAN');
 	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
-	/*
-	var textSpan = document.createElement('SPAN');
-	textSpan.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
-	*/
-	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
-	//span.appendChild(textSpan);
+	span.className = 'word ' 
+		+ ((word.is_regexp)?'regexp ':'not_regexp ')
+		+ ((word.is_regexp)?'complete_matching':'not_complete_matching');
 	
 	var deleteButton = CustomBlockerUtil.createDeleteButton();
 	deleteButton.addEventListener('click', this.getDeleteWordAction(word, span), true);

@@ -16,6 +16,7 @@
 	"sectionHide":{"message":"Elements to Hide"},
 	"sectionWord":{"message":"Words"},
 	"regex":{"message":"RegEx"},
+	"complete_matching":{"message":"Complete Match"},
 	"exampleUrl":{"message":"Example URL"},
 	"description":{"message":"Description"},
 	"descriptionHide":{"message":"Matched elements will disappear if they meet the condition."},

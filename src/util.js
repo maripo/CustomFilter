@@ -363,7 +363,9 @@ CustomBlockerUtil.createSimpleWordElement = function (word)
 {
 	var span = document.createElement('SPAN');
 	span.innerHTML = word.word;
-	span.className = 'word ' + ((word.is_regexp)?'regexp':'not_regexp');
+	span.className = 'word ' 
+		+ ((word.is_regexp)?'regexp ':'not_regexp ')
+		+ ((word.is_regexp)?'complete_matching':'not_complete_matching');
 	span.avoidStyle = true;
 	return span;
 

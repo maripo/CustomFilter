@@ -6,9 +6,9 @@ var DbPeer = function ()
 	this.cols = new Array();
 };
 DbPeer.prototype = {
-	addColumn: function (name, type, version) 
+	addColumn: function (name, type, version, properties/* for BITFIELD */) 
 	{
-		this.cols.push(new DbColumn(name, type, version));
+		this.cols.push(new DbColumn(name, type, version, properties));
 	},
 	dropTable: function () 
 	{
@@ -88,6 +88,15 @@ DbPeer.prototype = {
 						{
 							obj[col.name] = (1==res.rows.item(i)[col.name]);
 						}
+						else if (col.type == DbColumn.TYPE_BITFIELD) 
+						{
+							var val = res.rows.item(i)[col.name];
+							for (var pIndex = 0; pIndex<col.properties.length; pIndex++) {
+								var propertyName = col.properties[pIndex];
+								var propertyValue = 0x01 & (val>>pIndex);
+								obj[propertyName] = (1==propertyValue);
+							}
+						}
 						else 
 						{
 							obj[col.name] = res.rows.item(i)[col.name];
@@ -127,6 +136,15 @@ DbPeer.prototype = {
 			else if (col.type==DbColumn.TYPE_BOOLEAN) 
 			{
 				valStr = (val) ?1:0;
+			}
+			else if (col.type==DbColumn.TYPE_BITFIELD) 
+			{
+				var fieldVal = 0
+				for (var pIndex = 0; pIndex<col.properties.length; pIndex++) {
+					var propertyName = col.properties[pIndex];
+					fieldVal += (((obj[propertyName])?1:0)<<pIndex);
+				}
+				valStr = fieldVal;
 			}
 			else 
 			{
@@ -188,6 +206,15 @@ DbPeer.prototype = {
 				else if (col.type==DbColumn.TYPE_BOOLEAN)
 				{
 					valStr = (val) ?1:0;
+				}
+				else if (col.type==DbColumn.TYPE_BITFIELD)
+				{
+					var fieldVal = 0
+					for (var pIndex = 0; pIndex<col.properties.length; pIndex++) {
+						var propertyName = col.properties[pIndex];
+						fieldVal += (((obj[propertyName])?1:0)<<pIndex);
+					}
+					valStr = fieldVal;
 				}
 				else 
 				{
@@ -282,11 +309,12 @@ DbPeer.prototype.getPkeyColName = function()
 /**
  * 
  */
-var DbColumn = function (name, type, version) 
+var DbColumn = function (name, type, version, properties) 
 {
 	this.name = name;
 	this.type = type;
 	this.version = version;
+	this.properties = properties;
 }
 DbColumn.TYPE_PKEY		 = 1;
 DbColumn.TYPE_INTEGER	 = 2;
@@ -294,6 +322,7 @@ DbColumn.TYPE_TEXT	 = 3;
 DbColumn.TYPE_BOOLEAN	 = 4;
 DbColumn.TYPE_TIMESTAMP	 = 5;
 DbColumn.TYPE_FLOAT	 = 6;
+DbColumn.TYPE_BITFIELD	 = 7;
 
 DbColumn.LABEL_PKEY = 'INTEGER PRIMARY KEY AUTOINCREMENT';
 DbColumn.LABEL_INTEGER = 'INTEGER';
@@ -301,6 +330,7 @@ DbColumn.LABEL_TEXT = 'TEXT';
 DbColumn.LABEL_BOOLEAN = 'INTEGER';
 DbColumn.LABEL_TIMESTAMP = 'TIMESTAMP';
 DbColumn.LABEL_FLOAT = 'FLOAT';
+DbColumn.LABEL_BITFIELD = 'INTEGER';
 
 DbColumn.prototype.getTypeString = function () 
 {
@@ -312,6 +342,7 @@ DbColumn.prototype.getTypeString = function ()
 		case DbColumn.TYPE_BOOLEAN: return DbColumn.LABEL_BOOLEAN;
 		case DbColumn.TYPE_TIMESTAMP: return DbColumn.LABEL_TIMESTAMP;
 		case DbColumn.TYPE_FLOAT: return DbColumn.LABEL_FLOAT;
+		case DbColumn.TYPE_BITFIELD: return DbColumn.LABEL_BITFIELD;
 		default : return '';
 	}
 };

@@ -3,6 +3,7 @@
  */
 var SmartRuleCreator = function (targetElement, appliedRuleList, selectionText, needSuggestion)
 {
+	CustomBlockerUtil.applyCss('/css/reset.css');
 	CustomBlockerUtil.applyCss('/css/smart_rule_editor.css');
 	CustomBlockerUtil.applyCss('/css/rule_editor_common.css');
 	CustomBlockerUtil.applyCss('/css/keywords.css');

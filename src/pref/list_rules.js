@@ -395,6 +395,7 @@ RuleEditor.changeKeywordColor = function (sender)
 {
 	document.getElementById('rule_editor_keyword').style.backgroundColor =
 		(document.getElementById('rule_editor_keyword_regexp_checkbox').checked)?'#fdd!important':'#def!important';
+	// TODO COMPLETE_MATCHING
 
 }
 

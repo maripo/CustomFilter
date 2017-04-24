@@ -267,7 +267,8 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	}
 	document.body.appendChild(this.div);
 	this.div.innerHTML = src;
-	
+
+	CustomBlockerUtil.applyCss('/css/reset.css');
 	CustomBlockerUtil.applyCss('/css/rule_editor.css');
 	CustomBlockerUtil.applyCss('/css/rule_editor_common.css');
 	CustomBlockerUtil.applyCss('/css/keywords.css');

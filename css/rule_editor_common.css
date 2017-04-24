@@ -83,7 +83,7 @@ div.customblocker_rule_dialog {
 	margin:6px 8px 2px!important;
 	padding:2px 6px!important;
 	border:1px solid #999;
-	border-radius:4px!important;
+	border-radius:0px!important;
 }
 #rule_editor_body div.section div.content,
 #smart_rule_editor_body div.section div.content {

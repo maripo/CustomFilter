@@ -654,8 +654,8 @@ SmartRuleCreatorDialog.prototype.addWord = function(wordStr)
 	
 	word.word = wordStr;
 	word.isNew = 'true';
-	var checked = document.getElementById('smart_rule_editor_keyword_regexp').checked;
-	word.is_regexp = checked;
+	word.is_regexp = document.getElementById('smart_rule_editor_keyword_regexp').checked;
+	word.is_complete_matching = document.getElementById('smart_rule_editor_keyword_complete_matching').checked;
 	
 	word.dirty = true;
 	
@@ -664,7 +664,7 @@ SmartRuleCreatorDialog.prototype.addWord = function(wordStr)
 	
 	this.rule.words.push(word);
 	
-	if (this.rule.rule_id>0) 
+	if (this.rule.rule_id > 0) 
 	{
 		word.rule_id = this.rule.rule_id;
 	}

@@ -15,6 +15,7 @@
       "page":"background_page.html"
   },
   "web_accessible_resources": [
+    "css/reset.css",
     "css/rule_editor_common.css",
     "css/rule_editor.css",
     "css/smart_rule_editor.css",

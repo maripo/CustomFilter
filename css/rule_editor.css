@@ -2,6 +2,7 @@
  * Rule Editor
  */
 
+
 #rule_editor_container {
 	background-color : white!important;
 	text-align : left!important;
@@ -133,9 +134,7 @@
 #rule_editor_keyword {
 	width:100px;
 }
-/**
- * XPath Picker
- */
+
 #xpath_picker_body {
 	font-family:sans-serif!important;
 	margin:0px!important;
@@ -192,10 +191,9 @@
 	background: -webkit-gradient(linear, center top, center bottom, from(#ff6666), to(#dd0000))!important;
 
 }
-/* Header */
 #rule_editor_body_drag {
 	height:22px!important;
-	margin-tobbom:8px!important;
+	margin-bottom:8px!important;
 	font-weight:normal!important;
 	background-color:white!important;
 	cursor:move!important;
@@ -225,7 +223,7 @@
 	float:right;
 	text-align:right;
 }
-/* Footer */
+
 #rule_editor_body  div.footer {
 	text-align:center!important;
 	padding:2px 0px 4px!important;
@@ -263,7 +261,6 @@ input.xpath_picker {
 	cursor: pointer!important;
 }
 
-/* Hit count */
 span.rule_editor_count {
 	border-width:1px;
 	border-style:solid;
@@ -281,7 +278,6 @@ span.rule_editor_count_search {
 	background-color:#00b!important;
 }
 
-/* Block Anyway */
 #rule_editor_container div.block_anyway div.rule_editor_keyword_section,
 #rule_editor_container div.block_anyway div.rule_editor_search_section {
 	background-color:#ddd!important;

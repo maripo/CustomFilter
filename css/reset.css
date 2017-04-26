@@ -1,0 +1,16 @@
+#smart_rule_editor_container, #rule_editor_container {
+  all: initial;
+  color: red!important;
+  * {
+  	all: initial;
+  	background-color: red!important;
+  }
+  
+  div {
+  	display: block;
+  }
+  
+}
+#rule_editor_container div {
+	color:red!improtant;
+}

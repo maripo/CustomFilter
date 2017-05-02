@@ -113,30 +113,33 @@
 			</div>
 			<!-- Radio Buttons -->
 			<div id="rule_editor_hide_detail">
+				<!-- Condition -->
 				<div id="rule_editor_keyword_section_wrapper" class="">
 					<div class="rule_editor_keyword_section">
+						<div id="rule_editor_keywords"></div>
 						<div>
 							<div class="label">キーワード</div>
 							<input type="text" class="rule_editor_textbox"
-								id="rule_editor_keyword"> <input type="checkbox"
-								id="rule_editor_keyword_regexp_checkbox"> <label
-								for="rule_editor_keyword_regexp_checkbox"> 正規表現
-							</label>  
-							<input type="checkbox"
-								id="rule_editor_keyword_complete_matching_checkbox"> <label
-								for="rule_editor_keyword_complete_matching_checkbox"> 完全一致
-							</label> <a
+								id="rule_editor_keyword">    <a
 								href="keywords.html" class="help"> ? </a>
 								<input class="uiButton" type="button"
 								id="rule_editor_add_keyword_button" value="Add">
 						</div>
-						<div id="rule_editor_keywords"></div>
+						<div>
+							<input type="checkbox"
+								id="rule_editor_keyword_complete_matching_checkbox"> <label
+								for="rule_editor_keyword_complete_matching_checkbox"> 完全一致
+							</label><input type="checkbox"
+								id="rule_editor_keyword_regexp_checkbox"> <label
+								for="rule_editor_keyword_regexp_checkbox"> 正規表現
+							</label>
+						</div>
 					</div>
 				</div>
-				<h4>検索範囲</h4>
 				<div id="rule_editor_search_section_wrapper" class="">
 					<div class="rule_editor_search_section">
 						<div class="content">
+							<h4>検索範囲</h4>
 							<div class="input_section" id="rule_editor_section_search_xpath"
 								style="display: none;">
 								<div class="label">

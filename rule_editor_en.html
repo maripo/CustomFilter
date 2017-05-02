@@ -114,32 +114,36 @@
 			</div>
 			<!-- Radio Buttons -->
 			<div id="rule_editor_hide_detail">
+				<!-- Condition -->
 				<div id="rule_editor_keyword_section_wrapper" class="">
 					<div class="rule_editor_keyword_section">
+						<!-- Keyword list -->
+						<div id="rule_editor_keywords"></div>
 						<div>
-							<div class="label">Words</div>
+							<div class="label">Word</div>
 							<input type="text" class="rule_editor_textbox"
 								id="rule_editor_keyword"> 
-							<input type="checkbox"
-								id="rule_editor_keyword_regexp_checkbox"> <label
-								for="rule_editor_keyword_regexp_checkbox"> RegEx
-							</label>   
-							<input type="checkbox"
-								id="rule_editor_keyword_complete_matching_checkbox"> <label
-								for="rule_editor_keyword_complete_matching_checkbox"> Complete match
-							</label>  
 							<a href="keywords.html" class="help"> ? </a>
 							
 							<input class="uiButton" type="button"
 								id="rule_editor_add_keyword_button" value="Add">
 						</div>
-						<div id="rule_editor_keywords"></div>
+						<div>
+							<input type="checkbox"
+								id="rule_editor_keyword_complete_matching_checkbox"> <label
+								for="rule_editor_keyword_complete_matching_checkbox"> Complete match
+							</label> 
+							<input type="checkbox"
+								id="rule_editor_keyword_regexp_checkbox"> <label
+								for="rule_editor_keyword_regexp_checkbox"> RegEx
+							</label> 
+						</div>
 					</div>
 				</div>
-				<h4>Search Range</h4>
 				<div id="rule_editor_search_section_wrapper" class="">
 					<div class="rule_editor_search_section">
 						<div class="content">
+						<h4>Search Range</h4>
 							<div class="input_section" id="rule_editor_section_search_xpath"
 								style="display: none;">
 								<div class="label">

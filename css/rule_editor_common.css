@@ -16,7 +16,7 @@
 	font-weight:bold!important;
 }
 #smart_rule_editor_body div.section h4,
-#rule_editor_body div.section h4 {
+/*#rule_editor_body div.section h4*/ {
 	font-size:12px!important;
 	font-weight:normal!important;
 	padding:0px 0px 0px 10px!important;
@@ -125,4 +125,9 @@ div.customblocker_rule_dialog {
 	background-image:url(../../img/wand.png)!important;
 	background-repeat:no-repeat!important;
 	padding:0px 3px 0px 18px!important;
+}
+#rule_editor_body .rule_editor_condition_section {
+	margin-left:16px!important;
+}
+#rule_editor_body .rule_editor_condition_section div {
 }

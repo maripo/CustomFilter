@@ -112,12 +112,82 @@
 						for="rule_editor_block_anyway_false"> Filter with Keywords </label>
 				</div>
 			</div>
-			<!-- Radio Buttons -->
+			<!-- Condition -->
+			<div id="rule_editor_hide_detail" class="rule_editor_condition_section">
+				<h4>Keywords</h4>
+				<div id="rule_editor_keywords" style="margin-left:0;"></div>
+				<!-- New word -->
+				<div>
+					<!-- <div class="label">Word</div> -->
+					<div class="rule_editor_content_for_label">
+						<input type="text" class="rule_editor_textbox"
+							id="rule_editor_keyword"> 
+						<a href="keywords.html" class="help"> ? </a>
+						
+						<input class="uiButton" type="button"
+							id="rule_editor_add_keyword_button" value="Add">
+						<br/>
+						<input type="checkbox"
+							id="rule_editor_keyword_complete_matching_checkbox"> <label
+							for="rule_editor_keyword_complete_matching_checkbox"> Complete match
+						</label> 
+						<input type="checkbox"
+							id="rule_editor_keyword_regexp_checkbox"> <label
+							for="rule_editor_keyword_regexp_checkbox"> RegEx
+						</label>
+					</div>
+				</div>
+				<h4>Search Range</h4>
+				<div class="input_section" id="rule_editor_section_search_xpath"
+					style="display: none;">
+					<div class="label">
+						<span class="rule_editor_count rule_editor_count_search"
+							id="rule_editor_count_search_block_xpath"></span> XPath
+					</div>
+					<input type="text" class="rule_editor_textbox"
+						id="rule_editor_search_block_xpath"> 
+					<input
+						class="uiButton xpath_picker" type="button"
+						value="Suggest"
+						id="rule_editor_button_search_block_xpath"> 
+					<a href="search.html" class="help"> ? </a>
+				</div>
+				<div class="input_section" id="rule_editor_section_search_css"
+					style="display: block;">
+					<div class="label">
+						<span class="rule_editor_count rule_editor_count_search"
+							id="rule_editor_count_search_block_css"> 83 </span> CSS
+					</div>
+					<input type="text" class="rule_editor_textbox"
+						id="rule_editor_search_block_css"> <input
+						class="uiButton xpath_picker" type="button"
+						value="Suggest"
+						id="rule_editor_button_search_block_css"> <a
+						href="search.html" class="help"> ? </a>
+				</div>
+				<div class="selector_radio_container">
+					<input type="radio" id="rule_editor_radio_search_xpath"
+						name="rule_editor_radio_search"> <label
+						for="rule_editor_radio_search_xpath"> XPath </label> <input
+						type="radio" id="rule_editor_radio_search_css"
+						name="rule_editor_radio_search" checked=""> <label
+						for="rule_editor_radio_search_css"> CSS </label>
+				</div>
+				<div class="section_alert" style="display: none;"
+					id="rule_editor_alert_search_block_xpath">Invalid XPath</div>
+				<div class="input_section" style="display: none">
+					<div class="label">Description</div>
+					<input type="text" class="rule_editor_textbox"
+						id="rule_editor_search_block_description">
+				</div>
+				<div class="description">
+					The filter works when these elements contain "Keywords".
+				</div>
+			</div>
+			<!-- 
 			<div id="rule_editor_hide_detail">
-				<!-- Condition -->
 				<div id="rule_editor_keyword_section_wrapper" class="">
 					<div class="rule_editor_keyword_section">
-						<!-- Keyword list -->
 						<div id="rule_editor_keywords"></div>
 						<div>
 							<div class="label">Word</div>
@@ -196,6 +266,7 @@
 					Input any keyword or check "Block Anyway"
 				</div>
 			</div>
+			 -->
 		</div>
 	</div>
 	<div class="footer">

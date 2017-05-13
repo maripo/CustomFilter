@@ -221,7 +221,7 @@ RuleEditor.prototype.addWord = function(wordStr)
 	
 	this.rule.words.push(word);
 	
-	if (this.rule.rule_id>0) 
+	if (this.rule.rule_id > 0) 
 	{
 		word.rule_id = this.rule.rule_id;
 	}
@@ -451,7 +451,7 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		link.href = 'javascript:void(0)';
 	}
 	console.log("Action added to checkbox.");
-	document.getElementById('rule_editor_keyword_regexp_checkbox').addEventListener('click',RuleEditorDialog.changeKeywordColor, false);
+	document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click',RuleEditorDialog.changeKeywordColor, false);
 	RuleEditorDialog.changeKeywordColor(null);
 	this.rule.changed = false;
 	this.title.addEventListener('change', this.getChangedAction(), false);
@@ -500,7 +500,7 @@ RuleEditorDialog.prototype.setBlockAnywayStyle = function (on)
 RuleEditorDialog.changeKeywordColor = function (sender)
 {
 	document.getElementById('rule_editor_keyword').style.backgroundColor =
-		(document.getElementById('rule_editor_keyword_regexp_checkbox').checked)?'#fdd':'#def';
+		(document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked)?'#fdd':'#def';
 }
 RuleEditorDialog.prototype.getRefreshPathSecionsAction = function ()
 {

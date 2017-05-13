@@ -29,12 +29,33 @@
 #rule_editor_keywords span.regexp,
 #smart_rule_editor_keywords span.regexp, 
 #smart_rule_editor_preview_keywords span.regexp {
+	/*
 	background-color:#fdd!important;
 	border: solid 1px #f77!important;
+	*/
+	padding-left:14px!important;
+	background-image:url(../img/icon_regexp.png)!important;
+	background-repeat:no-repeat;
+	background-size: 11px 11px;
+	background-position:1px 3px;
 }
 #rule_editor_keywords span.not_regexp,
 #smart_rule_editor_keywords span.not_regexp, 
 #smart_rule_editor_preview_keywords span.not_regexp {
+	/*
+	background-color:#def!important;
+	border: solid 1px #78f!important;
+	*/
+}
+#rule_editor_keywords span.complete_matching,
+#smart_rule_editor_keywords span.complete_matching, 
+#smart_rule_editor_preview_keywords span.complete_matching {
+	background-color:#fdd!important;
+	border: solid 1px #f77!important;
+}
+#rule_editor_keywords span.not_complete_matching,
+#smart_rule_editor_keywords span.not_complete_matching, 
+#smart_rule_editor_preview_keywords span.not_complete_matching {
 	background-color:#def!important;
 	border: solid 1px #78f!important;
 }

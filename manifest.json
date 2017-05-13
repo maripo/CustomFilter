@@ -27,7 +27,8 @@
     "img/word_delete_hover.png",
     "img/rule_editor_close.png",
     "img/wand.png",
-    "img/help_icon.png"
+    "img/help_icon.png",
+    "img/icon_regexp.png"
   ],
   "content_scripts" : [
     {

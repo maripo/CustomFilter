@@ -385,7 +385,7 @@ var RuleEditor = function ()
 	this.addWordButton.addEventListener('click', this.getAddWordAction(), true);
 	document.getElementById('rule_editor_keyword').addEventListener('keydown', this.getAddWordByEnterAction(), true);
 	this.alertDiv = document.getElementById('rule_editor_alert');
-	document.getElementById('rule_editor_keyword_regexp_checkbox').addEventListener('click',RuleEditor.changeKeywordColor, false);
+	//document.getElementById('rule_editor_keyword_regexp_checkbox').addEventListener('click',RuleEditor.changeKeywordColor, false);
 	document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click',RuleEditor.changeKeywordColor, false);
 	document.getElementById('rule_editor_block_anyway').addEventListener('change',RuleEditor.setVisibilityOfConditionDetail, false);
 	document.getElementById('rule_editor_block_anyway_false').addEventListener('change',RuleEditor.setVisibilityOfConditionDetail, false);
@@ -394,8 +394,7 @@ var RuleEditor = function ()
 RuleEditor.changeKeywordColor = function (sender)
 {
 	document.getElementById('rule_editor_keyword').style.backgroundColor =
-		(document.getElementById('rule_editor_keyword_regexp_checkbox').checked)?'#fdd!important':'#def!important';
-	// TODO COMPLETE_MATCHING
+		(document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked)?'#fdd!important':'#def!important';
 
 }
 
@@ -512,7 +511,7 @@ RuleEditor.prototype.getWordElement = function (word)
 	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
 	span.className = 'word ' 
 		+ ((word.is_regexp)?'regexp ':'not_regexp ')
-		+ ((word.is_regexp)?'complete_matching':'not_complete_matching');
+		+ ((word.is_complete_matching)?'complete_matching':'not_complete_matching');
 	
 	var deleteButton = CustomBlockerUtil.createDeleteButton();
 	deleteButton.addEventListener('click', this.getDeleteWordAction(word, span), true);

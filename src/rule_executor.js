@@ -72,15 +72,12 @@ RuleExecutor.startBlock = function()
 			{
 				try {
 					if (word.is_complete_matching) {
-						console.log("DEBUG ???");
 						// Append "^" and "$"
 						var expression = (word.word.charAt(0)!='^')?"^":"";
 						expression += word.word;
 						expression += ((word.word.charAt(word.word.length-1)!='$')?'$':'');
 						word.regExp = new RegExp(expression, 'i');
-						console.log("DEBUG Expression=" + expression);
 					} else {
-						console.log("DEBUG Expression=" + word.word);
 						word.regExp = new RegExp(word.word, 'i')
 					}
 				} catch (ex) {

@@ -7,7 +7,6 @@ var RuleExecutor =
 	blockedCount: 0
 };
 
-
 var rules;
 var hiddenNodes = new Array();
 
@@ -39,6 +38,7 @@ RuleExecutor.checkRules = function (list)
 		} 
 		catch (e) 
 		{
+			console.log("RuleExecutor.checkRules ERROR");
 			console.log(e);
 		}
 	}
@@ -56,7 +56,6 @@ RuleExecutor.startBlock = function()
 		var rule = rules[i];
 		if (rule.block_anyway && !rule.is_disabled)
 		{
-			Log.d("RuleExecutor BLOCK_ANYWAY " + rule.title);
 			var cssSelector = (rule.hide_block_by_css)?
 				rule.hide_block_css:CustomBlockerUtil.xpathToCss(rule.hide_block_xpath);
 			if (cssSelector!=null)
@@ -249,27 +248,41 @@ RuleExecutor.nodeContains = function (node, words)
 {
 	try {
 		var text = node.textContent;
-		if (!(text.length>0)) 
+		if (!(text.length>0)) {
 			return false;
+		}
 		for (var i = 0, l = words.length; i < l; i++) 
 		{
 			var word = words[i];
 			if (word.deleted) {
 				continue;
 			}
-			if (word.is_regexp && word.regExp && word.regExp.test(text)) { 
-				return true;
+			if (word.is_regexp) {
+				if (word.regExp && word.regExp.test(text)) {
+					return true;
+				}
 			}
-			if (!word.is_regexp) {
-				if (word.complete_matching) { return (text == word.word); } 
-				else{ return (text.indexOf(word.word)>-1);}
+			else {
+				if (word.is_complete_matching) 
+				{ 
+					if (text == word.word) {
+						return true;
+					} 
+				} 
+				else
+				{ 
+					if (text.indexOf(word.word)>-1) {
+						return true;
+					}
+				}
 			}
 		}
-		return false;
 	} catch (ex) {
+		console.log("RuleEx ERROR");
 		console.log(ex);
 		return false;
 	}
+	return false;
 };
 
 /*

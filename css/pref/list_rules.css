@@ -23,12 +23,11 @@ h2 {
 }
 #ruleListContainer {
 	width:auto;
-	height:480px;
-	-webkit-box-shadow: inset 0px 0px 2px #888!important;
+	height:457px;
+	/*-webkit-box-shadow: inset 0px 0px 2px #888!important;*/
 	padding:0px;
 	margin: 0px;
 	overflow-y:scroll;
-	border:solid #bbb 1px;
 }
 #ruleList {
 	padding:0px;
@@ -49,32 +48,20 @@ h2 {
 	cursor:pointer;
 	overflow:hidden;
 	color:#444;
+	border-bottom:1px solid #ddd;
 }
- #ruleList li.odd {
- 	background-color:#f0f0f0;
-	border-top:solid #ffffff 1px;
-	border-bottom:solid #ddd 1px;
- }
- #ruleList li.even {
- 	background-color:#f8f8f8;
-	border-top:solid #ffffff 1px;
-	border-bottom:solid #ddd 1px;
- }
  #ruleList li.filtered {
  	display:none;
  }
  #ruleList li:hover {
  	background-color:#ffffc0;
-	border-top:solid #ffffe0 1px;
-	border-bottom:solid #ddddaa 1px;
  }
  #ruleList li.selected {
  	background-color:#fff080;
-	border-top:solid #ffffd0 1px;
-	border-bottom:solid #dddd88 1px;
  }
  #ruleList li div.buttonContainer {
- 	width:180px;
+ 	width:175px;
+ 	margin-top:2px;
 	float:right;
 	height:inherit;
 	line-height:17px;
@@ -87,48 +74,42 @@ h2 {
 	height:inherit;
  }
 .buttonContainer input.uiButton  {
-	border-radius:0px;
-	display: inline-block;
-	border:1px solid #888;
-	border-image:initial;
+	color:#fff;
+	border:none;
+	box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
 	width:40px;
 	margin-right:2px;
 	text-align:center;
 	height:20px;
-	vertical-align:middle;
+	margin-top:auto;
+	margin-bottom:auto;
 }
 /*
 	List Buttons
 */
-.buttonContainer input.buttonOn{
-	background: -webkit-gradient(linear, center top, center bottom, from(#99bbff), to(#2266dd))!important;
-	color:white;
+.buttonContainer input.buttonOn {
+	background-color:#44ce60;
 }
-.buttonContainer input.buttonOn:active{
-	background: -webkit-gradient(linear, center top, center bottom, from(#2266dd), to(#99bbff))!important;
-	color:white;
+.buttonContainer input.buttonOn:active {
+	background-color:#37b74d;
 }
-.buttonContainer input.buttonOff{
-	background: -webkit-gradient(linear, center top, center bottom, from(#aaaaaa), to(#666666))!important;
-	color:white;
+.buttonContainer input.buttonOff {
+	background-color:#959595;
 }
-.buttonContainer input.buttonOff:active{
-	background: -webkit-gradient(linear, center top, center bottom, from(#666666), to(#aaaaaa))!important;
-	color:white;
+.buttonContainer input.buttonOff:active {
+	background-color:#727272;
 }
-.buttonContainer input.buttonEdit{
-	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
+.buttonContainer input.buttonEdit {
+	background-color:#2bcbe9;
 }
-.buttonContainer input.buttonEdit:active{
-	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
+.buttonContainer input.buttonEdit:active {
+	background-color:#23b4e8;	
 }
-.buttonContainer input.buttonDelete{
-	background: -webkit-gradient(linear, center top, center bottom, from(#ff99bb), to(#dd2266))!important;
-	color:white;
+.buttonContainer input.buttonDelete {
+	background-color:#ff4a90;
 }
-.buttonContainer input.buttonDelete:active{
-	background: -webkit-gradient(linear, center top, center bottom, from(#dd2266), to(#ff99bb))!important;
-	color:white;
+.buttonContainer input.buttonDelete:active {
+	background-color:#fe376c;
 }
 #ruleList li div.information img.favicon {
  	position:absolute;

@@ -147,32 +147,30 @@ h2 {
 	box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
 }
 .buttonContainer input.buttonOn {
+	background-color:#44ce60;
 	width:40px;
-	background-color:#2bcbe9;
-	border: none;
 }
 .buttonContainer input.buttonOn:active {
-	background-color:#23b4e8;
+	background-color:#37b74d;
 }
 .buttonContainer input.buttonOff {
 	width:40px;
 	background-color:#959595;
-	border: none;
 }
 .buttonContainer input.buttonOff:active {
 	background-color:#727272;
 }
 .buttonContainer input.buttonEdit {
 	width:40px;
-	background-color:#44ce60;
+	background-color:#2bcbe9;
 }
 .buttonContainer input.buttonEdit:active {
-	background-color:#37b74d;	
+	background-color:#23b4e8;	
 }
 #buttonCreateRule {
-	background-color:#44ce60;
+	background-color:#2bcbe9;
 	width:240px;
 }
 #buttonCreateRule:active {
-	background-color:#37b74d;	
+	background-color:#23b4e8;
 }

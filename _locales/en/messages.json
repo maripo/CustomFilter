@@ -7,7 +7,7 @@
 	},
 	"newRuleForThisSite": {"message":"New Rule for this Site"},
 	"preference": {"message":"Preferences"},
-	"activeRules": {"message":"Applied Rules"},
+	"activeRules": {"message":"Rules for this Site"},
 	"help":{"message":"Help"},
 	"sectionRuleTitle":{"message":"Name"},
 	"url":{"message":"URL"},

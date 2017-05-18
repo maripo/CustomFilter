@@ -78,7 +78,10 @@ function renderApplierRules(list)
 		{
 			var rule = list[i];
 			var li = document.createElement('LI');
-			li.title = CustomBlockerUtil.getRuleDetailTip(rule);
+			var tip = CustomBlockerUtil.getRuleDetailTip(rule);
+			if (tip) {
+				li.title = tip;
+			}
 			li.addEventListener ('mouseover',
 					getLiMouseoverAction(rule),
 					true);

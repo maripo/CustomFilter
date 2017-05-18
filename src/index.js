@@ -177,9 +177,6 @@ window.onload = function ()
 			function(){ setBlockOn(true); }, false);
 	document.getElementById('buttonOff').addEventListener ('click', 
 			function(){ setBlockOn(false); }, false);
-	document.getElementById('buttonOpenPreference').addEventListener('click', 
-			function openPreference (){window.open('pref/index.html?p=i1');}, 
-			false);
 	document.getElementById('buttonOpenPreferenceTop').addEventListener('click', 
 			function openPreference (){window.open('pref/index.html?p=i1');}, 
 			false);

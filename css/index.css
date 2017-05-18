@@ -6,6 +6,8 @@ body {
 #header {
 	height:30px;
 	line-height:30px;
+	padding-top:7px;
+	padding-right:6px;
 }
 #header .menu {
 	width:280px;

@@ -45,7 +45,6 @@ h2 {
 	Applied Rules
 */
 #ruleSection {
-	border:1px solid #bbb;
 	border-radius:0px!important;
 	background-color:#ddd;
 	margin-bottom:2px;
@@ -60,7 +59,7 @@ h2 {
 #ruleSectionFooter {
 	text-align:right;
 }
-#ruleSectionFooter a{
+#ruleSectionFooter a {
 	color:#666;
 	font-size:80%;
 	padding-right:6px;
@@ -79,12 +78,13 @@ h2 {
 	clear:both;
 }
 #activeRules li {
-	height:24px;
+	height:27px;
+	line-height:27px;
 	list-style-type:none;
 	clear:both;
-	border-top:1px solid white;
-	border-bottom:1px solid #ddd;
 	font-size:90%;
+	background-color:#fff;
+	border-bottom: 1px solid #ddd;
 }
 #activeRules li.empty {
 	line-height:24px;
@@ -92,43 +92,30 @@ h2 {
 	text-indent:4px;
 	color: #444;
 }
-#activeRules li:nth-child(odd) {
- 	background-color:#f0f0f0;
-}
-#activeRules li:nth-child(even) {
- 	background-color:#f8f8f8;
-}
-#activeRules li:hover {
- 	background-color:#ffffdd;
-}
 #activeRules li div.title {
-	margin-left:22px;
+	margin-left:25px;
 	margin-right:122px;
-	color: #222;
-	line-height:22px;
 	vertical-align:middle;
 	height: inherit;
 	color:#222;
 }
 #activeRules li div.count {
 	height:14px;
-	margin-top:5px;
+	margin-top:6px;
+	line-height:14px;
 	margin-left:2px;
 	margin-right:2px;
 	width:18px;
 	text-align:center;
 	color:white;
 	font-size:10px;
-	border-radius:0px!important;
 	float:left;
 }
 #activeRules li div.hit {
-	background-color:#f00;
-	border: solid 1px #d00;
+	background-color:#fe4e91;
 }
 #activeRules li div.noHit {
 	background-color:#888;
-	border: solid 1px #444;
 }
 
 #version {
@@ -149,42 +136,43 @@ h2 {
  	margin:0px;
  	padding:0px;
 }
-.buttonContainer input,#buttonCreateRule {
-	border-radius:0px;
+.buttonContainer input, #buttonCreateRule {
+	border:none;
 	display: inline-block;
-	border:1px solid #888;
 	border-image:initial;
 	margin-right:2px;
 	text-align:center;
 	height:20px;
+	color: #fff;
+	box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
 }
-.buttonContainer input.buttonOn{
+.buttonContainer input.buttonOn {
 	width:40px;
-	background: -webkit-gradient(linear, center top, center bottom, from(#99bbff), to(#2266dd))!important;
-	color:white;
+	background-color:#2bcbe9;
+	border: none;
 }
-.buttonContainer input.buttonOn:active{
-	background: -webkit-gradient(linear, center top, center bottom, from(#2266dd), to(#99bbff))!important;
+.buttonContainer input.buttonOn:active {
+	background-color:#23b4e8;
 }
-.buttonContainer input.buttonOff{
+.buttonContainer input.buttonOff {
 	width:40px;
-	background: -webkit-gradient(linear, center top, center bottom, from(#bbbbbb), to(#444444))!important;
-	color:white;
+	background-color:#959595;
+	border: none;
 }
-.buttonContainer input.buttonOff:active{
-	background: -webkit-gradient(linear, center top, center bottom, from(#444444), to(#bbbbbb))!important;
+.buttonContainer input.buttonOff:active {
+	background-color:#727272;
 }
-.buttonContainer input.buttonEdit{
+.buttonContainer input.buttonEdit {
 	width:40px;
-	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
+	background-color:#44ce60;
 }
-.buttonContainer input.buttonEdit:active{
-	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;	
+.buttonContainer input.buttonEdit:active {
+	background-color:#37b74d;	
 }
 #buttonCreateRule {
-	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
+	background-color:#44ce60;
 	width:240px;
 }
 #buttonCreateRule:active {
-	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
+	background-color:#37b74d;	
 }

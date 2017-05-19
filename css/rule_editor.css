@@ -83,6 +83,7 @@
 	padding-left:2px!important;
 	margin-left:2px!important;
 	vertical-align:middle!important;
+	box-shadow: 0px 1px 1px rgba(0,0,0,0.5)!important;
 }
 #rule_editor_body input.uiButton:active {
 	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;

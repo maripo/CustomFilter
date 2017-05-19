@@ -15,8 +15,7 @@
 	font-size:13px!important;
 	font-weight:bold!important;
 }
-#smart_rule_editor_body div.section h4,
-/*#rule_editor_body div.section h4*/ {
+#smart_rule_editor_body div.section h4 {
 	font-size:12px!important;
 	font-weight:normal!important;
 	padding:0px 0px 0px 10px!important;
@@ -25,6 +24,7 @@
 #rule_editor_body div.section h2 span.text{
 	background-color:white!important;
 }
+
 div.customblocker_rule_dialog {
 	font-size : small!important;
 }
@@ -71,9 +71,11 @@ div.customblocker_rule_dialog {
 	width:17px!important;
 	height:17px!important;
 }
+
 #smart_rule_editor_keyword {
 	width:100px!important;
 }
+
 #smart_rule_editor_body span.word, #smart_rule_editor_preview span.word {
 	font-size:11px!important;
 }
@@ -85,12 +87,14 @@ div.customblocker_rule_dialog {
 	border:1px solid #999;
 	border-radius:0px!important;
 }
+
 #rule_editor_body div.section div.content,
 #smart_rule_editor_body div.section div.content {
 	clear:left;
 	margin:0px!important;
 	padding:4px!important;
 }
+
 #rule_editor_body div.selector_radio_container,
 #smart_rule_editor_body div.selector_radio_container
 {
@@ -137,6 +141,4 @@ div.customblocker_rule_dialog {
 }
 #rule_editor_body .rule_editor_condition_section {
 	margin-left:16px!important;
-}
-#rule_editor_body .rule_editor_condition_section div {
 }

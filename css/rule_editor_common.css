@@ -68,6 +68,7 @@ div.customblocker_rule_dialog {
 	display:block!important;
 	float:right;
 	background-image:url(../img/help_icon.png)!important;
+	background-size:17px 17px!important;
 	width:17px!important;
 	height:17px!important;
 }

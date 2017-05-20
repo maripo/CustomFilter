@@ -1,11 +1,10 @@
 #wrapper {	
 }
 h2 {
-	font-size:110%;
-	border-top:solid 1px #888;
-	background-color:#eee;
+	font-size:130%;
 	font-weight:normal;
 	padding-left:4px;
+	padding-top:10px;
 }
 p {
 	font-size:90%;

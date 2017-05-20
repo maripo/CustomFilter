@@ -444,13 +444,14 @@ SmartRuleCreatorDialog.prototype.createLiElement = function (title, hideCount, s
 	
 	var button = document.createElement('INPUT');
 	button.type = 'button';
+	button.className = "uiButton";
 	button.value = buttonTitle;
 		
 	li.appendChild(spanHideCount);
 	li.appendChild(spanSearchCount);
 	li.appendChild(spanTitle);
 	li.appendChild(button);
-	
+
 	li.className = 'option';
 	return li;
 };

@@ -149,12 +149,12 @@ h2 {
 	
 }
 #ruleList div.keywords span.regex {
-	background-color:#fdd!important;
-	border: solid 1px #f77!important;
+	background-color:#fed3de!important;
+	border: solid 1px #fb5c86!important;
 }
 #ruleList div.keywords span.normal {
-	background-color:#def!important;
-	border: solid 1px #78f!important;
+	background-color:#cdedf8!important;
+	border: solid 1px #249bc3!important;
 }
 #ruleList li div.information a.exampleUrl {
 	position:absolute;

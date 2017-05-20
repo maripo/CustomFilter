@@ -164,8 +164,8 @@ ElementHighlighter.unselectForSearch = function (element)
 };
 
 ElementHighlighter.STYLE_FOCUS_FOR_HIDE = 'solid 2px black';
-ElementHighlighter.STYLE_FOCUS_FOR_SEARCH = 'solid 2px blue';
+ElementHighlighter.STYLE_FOCUS_FOR_SEARCH = 'solid 2px #0db3ea';
 ElementHighlighter.STYLE_TMP_SELECT_FOR_HIDE = 'dotted 2px black';
-ElementHighlighter.STYLE_TMP_SELECT_FOR_SEARCH = 'dotted 2px blue';
+ElementHighlighter.STYLE_TMP_SELECT_FOR_SEARCH = 'dotted 2px #0db3ea';
 ElementHighlighter.STYLE_SELECT_FOR_HIDE = 'solid 1px black';
-ElementHighlighter.STYLE_SELECT_FOR_SEARCH = 'solid 1px blue';
+ElementHighlighter.STYLE_SELECT_FOR_SEARCH = 'solid 1px #0db3ea';

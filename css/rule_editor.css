@@ -76,18 +76,36 @@
 	border:initial!important;
 }
 #rule_editor_body input.uiButton {
-	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
 	border-radius:0px!important;
-	border:1px solid #888!important;
-	padding-right:2px!important;
-	padding-left:2px!important;
 	margin-left:2px!important;
 	vertical-align:middle!important;
 	box-shadow: 0px 1px 1px rgba(0,0,0,0.5)!important;
+	color:#fff!important;
 }
-#rule_editor_body input.uiButton:active {
-	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
+#rule_editor_body .footer input.uiButton {
+	padding:3px 6px!important;
 }
+
+#rule_editor_save_button, #rule_editor_add_keyword_button {
+	background-color:#0db3ea!important;
+}
+#rule_editor_save_button:active, #rule_editor_add_keyword_button:active {
+	background-color:#0d9fd1!important;
+	
+}
+#rule_editor_test_button {
+	background-color:#2fb947!important;
+}
+#rule_editor_test_button:active {
+	background-color:#2aa440!important;
+}
+#rule_editor_close_button {
+	background-color:#959595!important;
+}
+#rule_editor_close_button:active {
+	background-color:#858585!important;
+}
+
 #rule_editor_body input[type="text"] {
 	border:solid 1px #888!important;
 	float:none!important;
@@ -102,6 +120,7 @@
 	font-size:10px!important;
 	color: #444!important;
 }
+
 #rule_editor_title {
 	width:210px;
 }
@@ -261,21 +280,21 @@ input.xpath_picker {
 	cursor: pointer!important;
 }
 
-span.rule_editor_count {
+#rule_editor_body span.rule_editor_count {
 	border-width:1px;
 	border-style:solid;
 	font-size:11px;
 	color:white!important;
-	font-weight:bold;
+	font-weight:bold!important;
 	border-radius:0px!important;
 }
-span.rule_editor_count_hide {
-	border-color:black!important;
-	background-color:#888!important;
+#rule_editor_body span.rule_editor_count_hide {
+	background-color:#959595!important;
+	padding:1px 2px!important;
 }
-span.rule_editor_count_search {
-	border-color:#00f!important;
-	background-color:#00b!important;
+#rule_editor_body span.rule_editor_count_search {
+	background-color:#0db3ea!important;
+	padding:1px 2px!important;
 }
 
 #rule_editor_container div.block_anyway div.rule_editor_keyword_section,

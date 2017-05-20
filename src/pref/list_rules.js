@@ -394,7 +394,7 @@ var RuleEditor = function ()
 RuleEditor.changeKeywordColor = function (sender)
 {
 	document.getElementById('rule_editor_keyword').style.backgroundColor =
-		(document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked)?'#fdd!important':'#def!important';
+		(document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked)?'#fed3de!important':'#cdedf8!important';
 
 }
 

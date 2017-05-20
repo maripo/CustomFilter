@@ -38,10 +38,8 @@
 	text-indent:2px!important;
 	cursor:default!important;
 	padding-top:1px!important;
-	border-top:1px solid white;
-	border-bottom:1px solid #ddd;
-	border-right:1px solid #ddd;
-	border-left:1px solid #ddd;
+	border-bottom:solid 1px #bbb!important;
+	background-color:#fff;
 }
 #smart_rule_creator_dialog li.option input[type="button"]{
 	display:none;
@@ -54,17 +52,11 @@
 #smart_rule_creator_dialog li.option:hover input{
 	display:inline;
 }
-#smart_rule_creator_dialog li.option:nth-child(odd) {
-	background-color:#f0f0f0;
-}
-#smart_rule_creator_dialog li.option:nth-child(even) {
-	background-color:#f8f8f8;
-}
 #smart_rule_creator_dialog ul.active li.option:hover {
-	background-color:#ffc!important;
+	background-color:#fbe496!important;
 }
 #smart_rule_creator_dialog li.selected {
-	background-color:#feb!important;
+	background-color:#fbe496!important;
 }
 #smart_rule_creator_dialog li {
 	height:18px;
@@ -74,31 +66,31 @@
 }
 /* Count badge */
 #smart_rule_creator_dialog li.option span.searchCount {
-	background-color:#00f;
-	border:solid 1px #00a;
-	color:white;
-	font-size:9px;
+	background-color:#0db3ea!important;
+	color:#fff!important;
+	font-size:9px!important;
 	border-radius:0px!important;
 	margin-right:2px!important;
+	padding:1px 2px!important;
 }
 #smart_rule_creator_dialog li.option  span.hideCount {
-	background-color:#888;
-	border:solid 1px #444;
+	background-color:#959595;
 	color:white;
 	font-size:9px;
 	height:11px;
 	border-radius:0px!important;
 	margin-right:2px!important;
+	padding:1px 2px!important;
 }
 #smart_rule_creator_dialog li.smartEditorSectionTitle {
 	outline-top: solid 1px #ffffff!important;
-	border-bottom:solid 1px #004488!important;
+	border-bottom:solid 1px #959595!important;
 	text-indent:4px!important;
 	line-height:18px;
 	height:18px;
-	background: -webkit-gradient(linear, center top, center bottom, from(#6699ff), to(#4477dd))!important;
+	background-color: #fff!important;
 	cursor:move!important;
-	color:white;
+	color:#000;
 	padding-top:1px!important;
 }
 #smart_rule_creator_dialog_edit {
@@ -122,21 +114,39 @@
 }
 #smart_rule_editor_body div.advanced {
 }
-#smart_rule_editor_body input[type="button"], #smart_rule_creator_dialog input[type="button"] {
-	background: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#dddddd))!important;
-	border-radius:4px!important;
-	border:1px solid #888!important;
+#smart_rule_creator_dialog input.uiButton, #smart_rule_editor_body input.uiButton {
+	border:none!important;
 	padding-right:2px!important;
 	padding-left:2px!important;
 	margin-left:2px!important;
 	height:initial!important;
 	text-align:center!important;
 	font-size:11px!important;
+	color:#fff;
+	box-shadow: 0px 1px 1px rgba(0,0,0,0.5)!important;
+}
+/* List buttons */
+#smart_rule_creator_dialog li input.uiButton {
+	background-color: #0db3ea!important;
+	
 }
 #smart_rule_editor_body input[type="button"]:active, #smart_rule_creator_dialog input[type="button"]:active {
-	background: -webkit-gradient(linear, center top, center bottom, from(#dddddd), to(#ffffff))!important;
+	background-color: #0d9fd1!important;
 }
 
+#smart_rule_editor_save {
+	background-color:#0db3ea!important;
+}
+#smart_rule_editor_cancel {
+	background-color:#959595!important;
+	
+}
+#smart_rule_editor_close {
+	background-color:#959595!important;
+}
+#smart_rule_editor_keyword_add {
+	background-color:#0db3ea!important;
+}
 
 #smart_rule_editor_alert {
 	background-color:#fea!important;
@@ -201,16 +211,14 @@
 	color:white;
 	font-size:9px;
 	line-height:12px;
-	border-radius:6px!important;
+	border-radius:0px!important;
 	font-weight:bold;
 }
 #smart_rule_editor_preview_hide_count {
-	background-color:#aaa;
-	border: solid 1px #444;
+	background-color:#959595;
 }
 #smart_rule_editor_preview_search_count {
-	background-color:#00f;
-	border: solid 1px #00d;
+	background-color:#0db3ea;
 }
 /* Path expression */
 #smart_rule_editor_preview div.detail div.path {
@@ -241,5 +249,5 @@ div.section_detail_link {
 }
 #smart_rule_editor_preview_suggested {
 	font-size:11px!important;
-	color:blue;
+	color:#0db3ea;
 }

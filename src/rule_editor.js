@@ -500,7 +500,7 @@ RuleEditorDialog.prototype.setBlockAnywayStyle = function (on)
 RuleEditorDialog.changeKeywordColor = function (sender)
 {
 	document.getElementById('rule_editor_keyword').style.backgroundColor =
-		(document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked)?'#fdd':'#def';
+		(document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked)?'#fed3de':'#cdedf8';
 }
 RuleEditorDialog.prototype.getRefreshPathSecionsAction = function ()
 {

@@ -45,7 +45,7 @@
 		</div>
 	</div>
 	<div class="section">
-		<h2>Site</h2>
+		<h2><span class="text">Site</span></h2>
 		<div class="content">
 			<div class="label">URL</div>
 			<div class="input"><input type="text" id="smart_rule_editor_url"/></div>
@@ -72,7 +72,7 @@
 		</div>
 		<!-- Path Expression -->
 		<div class="section" style="position:relative!important;">
-			<h2>Search Region</h2>
+			<h2><span class="text">Search Region</span></h2>
 		</div>
 		<div class="section">
 			<div class="content">
@@ -95,7 +95,7 @@
 			<div class="input"><input type="text" id="smart_rule_editor_search_block_description"/></div>
 		</div>
 		<div class="section" style="position:relative!important;">
-			<h2>Elements to Hide</h2>
+			<h2><span class="text">Elements to Hide</span></h2>
 		</div>
 		<div class="section">
 			<div class="content">
@@ -121,14 +121,13 @@
 		</div>
 	</div>
 	<div class="section">
-		<h2>Words</h2>
+		<h2><span class="text">Words</span></h2>
 		<div class="content">
-			<div class="label">&nbsp;</div>
 			<div class="input">
 				<input type="text" id="smart_rule_editor_keyword"/>
 				<input type="checkbox" id="smart_rule_editor_keyword_regexp"/><label for="smart_rule_editor_keyword_regexp">RegExp</label>
 				<input type="checkbox" id="smart_rule_editor_keyword_complete_matching"/><label for="smart_rule_editor_keyword_complete_matching">Complete match</label>
-				<input type="button" value="Add" id="smart_rule_editor_keyword_add"/>
+				<input type="button" value="Add" id="smart_rule_editor_keyword_add" class="uiButton"/>
 			</div>
 			<div id="smart_rule_editor_keywords" class="smart_rule_editor_keywords"></div>
 		</div>
@@ -137,9 +136,9 @@
 		<!-- Alert Message -->
 	</div>
 	<div class="bottom_button_container">
-		<input type="button" value="Save" id="smart_rule_editor_save"/>
-		<input type="button" value="Select Another Rule" id="smart_rule_editor_cancel"/>
-		<input type="button" value="Close" id="smart_rule_editor_close"/>
+		<input type="button" value="Save" id="smart_rule_editor_save" class="uiButton"/>
+		<input type="button" value="Select Another Rule" id="smart_rule_editor_cancel" class="uiButton"/>
+		<input type="button" value="Close" id="smart_rule_editor_close" class="uiButton"/>
 	</div>
 </div>
 <!--

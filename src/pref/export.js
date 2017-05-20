@@ -10,6 +10,7 @@ var Export =
 		Export.ruleWrapperList = new Array();
 		Export.loadLists();
 		document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
+		document.getElementById('donate_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate';
 
 		document.getElementById('checkboxToggleAll').addEventListener('change', Export.toggleAllCheckboxes,null);
 				document.getElementById('buttonExportSelected').addEventListener('click', Export.exportSelected,null);

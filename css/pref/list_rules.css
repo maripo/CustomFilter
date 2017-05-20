@@ -18,6 +18,11 @@ h2 {
 	top:0px;
 	right:0px;
 }
+.donate  a {
+	text-decoration:none;
+	color:#0db3ea;
+	font-size:120%;
+}
 #prefMain {
 	width:910px;	
 }

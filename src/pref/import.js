@@ -15,7 +15,8 @@ var Import =
 		Import.wordPeer = WordPeer.getInstance();
 		Import.rulePeer.select('', Import.onRuleListLoaded, null);
 		document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
-		document.getElementById('help_link_empty').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html'; 
+		document.getElementById('donate_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate';
+		document.getElementById('help_link_empty').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
 		CustomBlockerUtil.localize();
 	},
 	onRuleListLoaded: function(list) 

@@ -2,7 +2,7 @@
  2011 Maripo GODA
 
  */
-var bgCallback = null;
+var customBlockerBgCallback = null;
 window.ruleEditor = null;
 
 var BgProcessor = function ()
@@ -14,11 +14,15 @@ var BgProcessor = function ()
  */
 BgProcessor.prototype.sendRequest = function (command, param, nextAction)
 {
-	Log.d("BgProcessor.sendRequest command=" + command);
 	param.command = command;
 	param.nextAction = nextAction;
-	bgCallback(param);
-	bgCallback = null;
+	try {
+		customBlockerBgCallback(param);
+		customBlockerBgCallback = null;
+	} catch (ex) {
+		console.log(new Date().getTime())
+		console.log(ex);
+	}
 }
 
 /**
@@ -26,8 +30,8 @@ BgProcessor.prototype.sendRequest = function (command, param, nextAction)
  */
 BgProcessor.prototype.processBackgroundRequest = function (request, sender, sendResponse)
 {
-	Log.d("BgProcessor.processBackgroundRequest command=" + request.command);
-	bgCallback = sendResponse;
+	customBlockerBgCallback = sendResponse;
+	//console.log("BgProcessor.processBackgroundRequest command=" + request.command + ",customBlockerBgCallback=" + typeof(customBlockerBgCallback));
 	switch (request.command)
 	{
 		case 'init':

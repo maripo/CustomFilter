@@ -223,8 +223,13 @@ function execCallbackSetApplied (tabId, param)
 };
 function execCallbackBadge (tabId, param)
 {
+
 	var count = param.count;
 	try {
+	    chrome.tabs.sendRequest(tabId, 
+	    	    {
+	    	        command: (param.nextAction)
+	    	    }, getForegroundCallback (tabId));
 		var badgeText = ''+count;
 		tabBadgeMap[tabId] = badgeText;
 		if (localStorage.badgeDisabled!="true") {

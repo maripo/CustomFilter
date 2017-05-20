@@ -183,10 +183,10 @@ RuleContainer.prototype.getLiElement = function ()
 	var buttonContainer = document.createElement('DIV');
 	buttonContainer.className = 'buttonContainer';
 	buttonContainer.appendChild(this.createSelectButton());
-	buttonContainer.appendChild(this.createDeleteButton());
-	
 	this.disableBox = this.createDisableBox();
 	buttonContainer.appendChild(this.disableBox);
+	buttonContainer.appendChild(this.createDeleteButton());
+	
 	
 	this.liElement.appendChild(buttonContainer);
 	

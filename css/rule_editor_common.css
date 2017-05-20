@@ -128,7 +128,6 @@ div.customblocker_rule_dialog {
 #rule_editor_body input.xpath_picker {
 	background-image:url(../../img/wand_transparent.png)!important;
 	background-size: 14px 14px!important;
-	/*background-color: #3cd05a!important;*/
 	background-color: #2fb947!important;
 	background-repeat:no-repeat!important;
 	padding:3px 3px 3px 18px!important;
@@ -137,7 +136,7 @@ div.customblocker_rule_dialog {
 	background-position: 2px 2px !important;	
 }
 #rule_editor_body input.xpath_picker:active {
-	background-color: #2fb947!important;
+	background-color: #2aa440!important;
 }
 #rule_editor_body .rule_editor_condition_section {
 	margin-left:16px!important;

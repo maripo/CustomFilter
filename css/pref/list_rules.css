@@ -24,7 +24,6 @@ h2 {
 #ruleListContainer {
 	width:auto;
 	height:457px;
-	/*-webkit-box-shadow: inset 0px 0px 2px #888!important;*/
 	padding:0px;
 	margin: 0px;
 	overflow-y:scroll;
@@ -33,7 +32,6 @@ h2 {
 	padding:0px;
 	margin:0px;
 	font-size:12px;
-	-webkit-box-shadow: 0px 0px 2px #888!important;
 }
 #rule_editor_body {
 	width:340px;
@@ -88,10 +86,10 @@ h2 {
 	List Buttons
 */
 .buttonContainer input.buttonOn {
-	background-color:#44ce60;
+	background-color:#2fb947;
 }
 .buttonContainer input.buttonOn:active {
-	background-color:#37b74d;
+	background-color:#2aa440;
 }
 .buttonContainer input.buttonOff {
 	background-color:#959595;
@@ -100,16 +98,16 @@ h2 {
 	background-color:#727272;
 }
 .buttonContainer input.buttonEdit {
-	background-color:#2bcbe9;
+	background-color:#0db3ea;
 }
 .buttonContainer input.buttonEdit:active {
-	background-color:#23b4e8;	
+	background-color:#0d9fd1;	
 }
 .buttonContainer input.buttonDelete {
-	background-color:#ff4a90;
+	background-color:#fe376c;
 }
 .buttonContainer input.buttonDelete:active {
-	background-color:#fe376c;
+	background-color:#e13160;
 }
 #ruleList li div.information img.favicon {
  	position:absolute;

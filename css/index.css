@@ -114,10 +114,10 @@ h2 {
 	float:left;
 }
 #activeRules li div.hit {
-	background-color:#fe4e91;
+	background-color:#fe376c;
 }
 #activeRules li div.noHit {
-	background-color:#888;
+	background-color:#959595;
 }
 
 #version {
@@ -149,30 +149,30 @@ h2 {
 	box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
 }
 .buttonContainer input.buttonOn {
-	background-color:#44ce60;
+	background-color:#2fb947;
 	width:40px;
 }
 .buttonContainer input.buttonOn:active {
-	background-color:#37b74d;
+	background-color:#2aa440;
 }
 .buttonContainer input.buttonOff {
 	width:40px;
 	background-color:#959595;
 }
 .buttonContainer input.buttonOff:active {
-	background-color:#727272;
+	background-color:#858585;
 }
 .buttonContainer input.buttonEdit {
 	width:40px;
-	background-color:#2bcbe9;
+	background-color:#0db3ea;
 }
 .buttonContainer input.buttonEdit:active {
-	background-color:#23b4e8;	
+	background-color:#0d9fd1;	
 }
 #buttonCreateRule {
-	background-color:#2bcbe9;
+	background-color:#0db3ea;
 	width:240px;
 }
 #buttonCreateRule:active {
-	background-color:#23b4e8;
+	background-color:#0d9fd1;
 }

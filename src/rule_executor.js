@@ -157,15 +157,32 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 	for (var i = 0, l = searchNodes.length; i < l; i++) 
 	{
 		var node = searchNodes[i];
-		if (RuleExecutor.nodeContains(node, rule.words)) 
-		{
+		// Check keywords
+		if (node.getAttribute("containsNgWord")) {
+			continue;
+		}
+		var foundWord = RuleExecutor.nodeContains(node, rule.words);
+		if (foundWord != null) {
 			node.containsNgWord = true;
+			node.setAttribute("containsNgWord", true);
+			node.setAttribute("foundWord", foundWord.word_id);
 		}
 	}
 	for (var i = 0, l = hideNodes.length; i < l; i++) 
 	{
 		var node = hideNodes[i];
-		var shouldBeHidden = rule.block_anyway || RuleExecutor.containsChildFlagged(node, searchNodes);
+		if (node.style.display=="none") {
+			continue;
+		}
+		var shouldBeHidden = rule.block_anyway;
+		var foundChild = null;
+		if (!shouldBeHidden) {
+			foundChild = RuleExecutor.findFlaggedChild(node, searchNodes);
+			if (foundChild) {
+				shouldBeHidden = true;
+				//console.log(foundChild)
+			}
+		}
 		if ((ignoreHidden||!node.hideDone) && shouldBeHidden) 
 		{
 			if (!node.defaultStyles) 
@@ -179,6 +196,13 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 			node.hideDone = true;
 			needRefreshBadge = true;
 			rule.hiddenCount = (rule.hiddenCount)?rule.hiddenCount+1:1;
+			if (foundChild) {
+				if (!rule.appliedWords) {
+					rule.appliedWords = [];
+				}
+				var wordId = parseInt(foundChild.getAttribute("foundWord"));
+				rule.appliedWords[wordId] = (rule.appliedWords[wordId]>0)?rule.appliedWords[wordId]+1:1;
+			}
 			// Exec callback
 			if (onHide) {
 				onHide(node);
@@ -223,14 +247,18 @@ function addToHiddenNodes(node)
 }
 
 
-RuleExecutor.containsChildFlagged = function (node, list) 
+RuleExecutor.findFlaggedChild = function (hideNode, list) 
 {
 	for (var i=0, l=list.length; i<l; i++) 
 	{
-		if (!list[i].containsNgWord) continue;
-		if (RuleExecutor.containsAsChild(node, list[i])) return true;
+		if (!list[i].getAttribute("containsNgWord")) {
+			continue;
+		}
+		if (RuleExecutor.containsAsChild(hideNode, list[i])) {
+			return list[i];
+		}
 	}
-	return false;
+	return null;
 };
 
 RuleExecutor.containsAsChild = function(rootNode, _node) 
@@ -249,7 +277,7 @@ RuleExecutor.nodeContains = function (node, words)
 	try {
 		var text = node.textContent;
 		if (!(text.length>0)) {
-			return false;
+			return null;
 		}
 		for (var i = 0, l = words.length; i < l; i++) 
 		{
@@ -259,20 +287,20 @@ RuleExecutor.nodeContains = function (node, words)
 			}
 			if (word.is_regexp) {
 				if (word.regExp && word.regExp.test(text)) {
-					return true;
+					return word;
 				}
 			}
 			else {
 				if (word.is_complete_matching) 
 				{ 
 					if (text == word.word) {
-						return true;
+						return word;
 					} 
 				} 
 				else
 				{ 
 					if (text.indexOf(word.word)>-1) {
-						return true;
+						return word;
 					}
 				}
 			}
@@ -280,9 +308,9 @@ RuleExecutor.nodeContains = function (node, words)
 	} catch (ex) {
 		console.log("RuleEx ERROR");
 		console.log(ex);
-		return false;
+		return null;
 	}
-	return false;
+	return null;
 };
 
 /*

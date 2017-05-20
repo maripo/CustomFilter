@@ -124,9 +124,23 @@ CustomBlockerUtil.getRuleDetailTip = function (rule)
 	if (null==rule.words || 0==rule.words.length)
 		return null;
 	var wordStrings = new Array();
+	
+
 	for (var i=0, l=rule.words.length; i<l; i++)
 	{
-		wordStrings.push(rule.words[i].word);
+		var word = rule.words[i];
+		var token = word.word;
+		// Map of found keywords
+		try {
+			if (rule.appliedWords && rule.appliedWords[word.word_id] > 0) {
+				console.log("Word=" + word.word + ", hit=" + rule.appliedWords[word.word_id]);
+				token += ("("+rule.appliedWords[word.word_id]+")")
+			}
+			
+		} catch (e) {
+			console.log(e);
+		}
+		wordStrings.push(token); 
 	}
 	return wordStrings.join(', ');
 };

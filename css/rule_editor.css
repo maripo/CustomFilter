@@ -91,7 +91,9 @@
 }
 #rule_editor_save_button:active, #rule_editor_add_keyword_button:active {
 	background-color:#0d9fd1!important;
-	
+}
+#rule_editor_add_keyword_button {
+	padding:2px 4px!important;
 }
 #rule_editor_test_button {
 	background-color:#2fb947!important;
@@ -270,13 +272,14 @@ input.xpath_picker {
 }
 
 #rule_editor_closer {
-	background-image:url(../img/rule_editor_close.png);
-	background-repeat:no-repeat;
-	background-position:2px 2px;
+	background-image:url(../img/rule_editor_close.png)!important;
+	background-repeat:no-repeat!important;
+	background-position:2px 2px!important;
+	background-size: 14px 14px!important;
 	display:block!important;
 	width:22px!important;
 	height:18px!important;
-	margin-top:2px!important;
+	margin-top:4px!important;
 	cursor: pointer!important;
 }
 

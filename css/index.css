@@ -9,6 +9,11 @@ body {
 	padding-top:7px;
 	padding-right:6px;
 }
+a {
+	text-decoration:none;
+	color:#0db3ea;
+	font-size:120%;
+}
 #header .menu {
 	width:280px;
 	height:inherit;

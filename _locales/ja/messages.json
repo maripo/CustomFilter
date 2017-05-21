@@ -17,6 +17,8 @@
 	"sectionWord":{"message":"キーワード"},
 	"regex":{"message":"正規表現"},
 	"complete_matching":{"message":"完全一致"},
+	"ignore_case":{"message":"大文字小文字を区別しない"},
+	"include_href":{"message":"リンクURLも検索"},
 	"exampleUrl":{"message":"URL例"},
 	"description":{"message":"説明"},
 	"descriptionHide":{"message":"「検索範囲」にキーワードが含まれていると、ここで指定した要素を非表示にします"},

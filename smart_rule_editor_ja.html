@@ -117,8 +117,17 @@
 		<div class="content">
 			<div class="input">
 				<input type="text" id="smart_rule_editor_keyword"/>
+				<!-- RegExp -->
 				<input type="checkbox" id="smart_rule_editor_keyword_regexp"/><label for="smart_rule_editor_keyword_regexp">正規表現</label>
+				<!-- Complete Matching -->
 				<input type="checkbox" id="smart_rule_editor_keyword_complete_matching"/><label for="smart_rule_editor_keyword_complete_matching">完全一致</label>
+				<!-- Ignore Case -->
+				<input type="checkbox" id="smart_rule_editor_keyword_ignore_case"/>
+				<label for="smart_rule_editor_keyword_ignore_case">大文字小文字を区別しない</label>
+				<!-- Include Link URL -->
+				<input type="checkbox" id="smart_rule_editor_keyword_include_href"/>
+				<label for="smart_rule_editor_keyword_include_href">リンクURLも検索</label>
+				
 				<input type="button" value="Add" id="smart_rule_editor_keyword_add" class="uiButton"/>
 			</div>
 			<div id="smart_rule_editor_keywords" class="smart_rule_editor_keywords"></div>

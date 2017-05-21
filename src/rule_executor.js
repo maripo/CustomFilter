@@ -163,6 +163,7 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 		}
 		var foundWord = RuleExecutor.nodeContains(node, rule.words);
 		if (foundWord != null) {
+			console.log(foundWord)
 			node.containsNgWord = true;
 			node.setAttribute("containsNgWord", true);
 			node.setAttribute("foundWord", foundWord.word_id);

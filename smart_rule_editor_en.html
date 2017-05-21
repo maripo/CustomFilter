@@ -125,8 +125,19 @@
 		<div class="content">
 			<div class="input">
 				<input type="text" id="smart_rule_editor_keyword"/>
-				<input type="checkbox" id="smart_rule_editor_keyword_regexp"/><label for="smart_rule_editor_keyword_regexp">RegExp</label>
-				<input type="checkbox" id="smart_rule_editor_keyword_complete_matching"/><label for="smart_rule_editor_keyword_complete_matching">Complete match</label>
+				<!-- RegExp -->
+				<input type="checkbox" id="smart_rule_editor_keyword_regexp"/>
+				<label for="smart_rule_editor_keyword_regexp">RegExp</label>
+				<!-- Complete Matching -->
+				<input type="checkbox" id="smart_rule_editor_keyword_complete_matching"/>
+				<label for="smart_rule_editor_keyword_complete_matching">Complete Match</label>
+				<!-- Ignore Case -->
+				<input type="checkbox" id="smart_rule_editor_keyword_ignore_case"/>
+				<label for="smart_rule_editor_keyword_ignore_case">Ignore case</label>
+				<!-- Include Link URL -->
+				<input type="checkbox" id="smart_rule_editor_keyword_include_href"/>
+				<label for="smart_rule_editor_keyword_include_href">Include link URL</label>
+				
 				<input type="button" value="Add" id="smart_rule_editor_keyword_add" class="uiButton"/>
 			</div>
 			<div id="smart_rule_editor_keywords" class="smart_rule_editor_keywords"></div>

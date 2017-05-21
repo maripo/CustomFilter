@@ -17,7 +17,7 @@
 	"sectionWord":{"message":"キーワード"},
 	"regex":{"message":"正規表現"},
 	"complete_matching":{"message":"完全一致"},
-	"case_seneitive":{"message":"大文字小文字を区別"},
+	"case_sensitive":{"message":"大文字小文字を区別"},
 	"include_href":{"message":"リンクURLも検索"},
 	"exampleUrl":{"message":"URL例"},
 	"description":{"message":"説明"},

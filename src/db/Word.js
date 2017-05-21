@@ -19,7 +19,7 @@ WordPeer.getInstance = function ()
 	
 	instance.addColumn('word', DbColumn.TYPE_TEXT, 1.0);
 	instance.addColumn('is_regexp', DbColumn.TYPE_BITFIELD, 1.0, 
-			['is_regexp', 'is_complete_matching','is_case_seneitive', 'is_include_href']);
+			['is_regexp', 'is_complete_matching','is_case_sensitive', 'is_include_href']);
 	
 	instance.addColumn('insert_date', DbColumn.TYPE_TIMESTAMP, 1.0);
 	instance.addColumn('update_date', DbColumn.TYPE_TIMESTAMP, 1.0);

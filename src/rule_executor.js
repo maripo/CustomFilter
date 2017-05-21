@@ -75,9 +75,9 @@ RuleExecutor.startBlock = function()
 						var expression = (word.word.charAt(0)!='^')?"^":"";
 						expression += word.word;
 						expression += ((word.word.charAt(word.word.length-1)!='$')?'$':'');
-						word.regExp = new RegExp(expression, 'i');
+						word.regExp = new RegExp(expression);
 					} else {
-						word.regExp = new RegExp(word.word, 'i')
+						word.regExp = new RegExp(word.word)
 					}
 				} catch (ex) {
 					console.log("Invalid RegExp: " + word.word);
@@ -163,7 +163,6 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 		}
 		var foundWord = RuleExecutor.nodeContains(node, rule.words);
 		if (foundWord != null) {
-			console.log(foundWord)
 			node.containsNgWord = true;
 			node.setAttribute("containsNgWord", true);
 			node.setAttribute("foundWord", foundWord.word_id);
@@ -277,6 +276,7 @@ RuleExecutor.nodeContains = function (node, words)
 {
 	try {
 		var text = node.textContent;
+		console.log(node.textContent)
 		if (!(text.length>0)) {
 			return null;
 		}

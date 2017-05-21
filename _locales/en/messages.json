@@ -18,7 +18,7 @@
 	
 	"regex":{"message":"RegEx"},
 	"complete_matching":{"message":"Complete Match"},
-	"ignore_case":{"message":"Ignore Case"},
+	"case_seneitive":{"message":"Case Sensitive"},
 	"include_href":{"message":"Include Link URL"},
 	
 	"exampleUrl":{"message":"Example URL"},

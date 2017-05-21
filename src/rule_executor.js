@@ -20,11 +20,11 @@ RuleExecutor.checkRules = function (list)
 			var regex;
 			if (rule.specify_url_by_regexp) 
 			{
-				regex = new RegExp(rule.site_regexp);
+				regex = new RegExp(rule.site_regexp, 'i');
 			}
 			else {
 				Log.v("Using wildcard...");
-				regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(rule.site_regexp));
+				regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(rule.site_regexp), 'i');
 			}
 			if (regex.test(location.href)) 
 			{
@@ -75,9 +75,9 @@ RuleExecutor.startBlock = function()
 						var expression = (word.word.charAt(0)!='^')?"^":"";
 						expression += word.word;
 						expression += ((word.word.charAt(word.word.length-1)!='$')?'$':'');
-						word.regExp = new RegExp(expression);
+						word.regExp = new RegExp(expression, (word.is_case_sensitive)?null:'i');
 					} else {
-						word.regExp = new RegExp(word.word)
+						word.regExp = new RegExp(word.word, (word.is_case_sensitive)?null:'i')
 					}
 				} catch (ex) {
 					console.log("Invalid RegExp: " + word.word);
@@ -271,18 +271,47 @@ RuleExecutor.containsAsChild = function(rootNode, _node)
 	}
 	return false;
 };
-
+function arrayContainsObject (array, obj) {
+	for (var i=0; i<array.length; i++) {
+		if (array[i]==obj) return true;
+	}
+	return false;
+}
 RuleExecutor.nodeContains = function (node, words)
 {
 	try {
-		var text = node.textContent;
-		console.log(node.textContent)
-		if (!(text.length>0)) {
+		var _text = node.textContent;
+		if (!(_text.length>0)) {
 			return null;
 		}
 		for (var i = 0, l = words.length; i < l; i++) 
 		{
 			var word = words[i];
+			if (!word.checkedNodes) {
+				word.checkedNodes = new Array();
+			}
+			if (arrayContainsObject(word.checkedNodes, node)) {
+				continue;
+			}
+			word.checkedNodes.push(node);
+			if (word.is_include_href) {
+				var links = new Array();
+				if(node.tagName=='A') {
+					links.push(node);
+				}
+				var innerLinks = node.getElementsByTagName("A");
+				for (var j=0; j<innerLinks.length; j++) {
+					links.push(innerLinks[j]);
+				}
+				for (var j=0; j<links.length; j++) {
+					var url = links[j].href;
+					if (url) {
+						_text += (" " + url);
+					}
+				}
+			}
+			var text = (word.is_case_sensitive)?_text:_text.toLowerCase();
+			var w = (word.is_case_sensitive)?word.word:word.word.toLowerCase();
 			if (word.deleted) {
 				continue;
 			}
@@ -294,13 +323,13 @@ RuleExecutor.nodeContains = function (node, words)
 			else {
 				if (word.is_complete_matching) 
 				{ 
-					if (text == word.word) {
+					if (text == w) {
 						return word;
 					} 
 				} 
 				else
 				{ 
-					if (text.indexOf(word.word)>-1) {
+					if (text.indexOf(w)>-1) {
 						return word;
 					}
 				}

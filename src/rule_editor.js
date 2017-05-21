@@ -202,8 +202,17 @@ RuleEditor.prototype.addWord = function(wordStr)
 	
 	word.word = wordStr;
 	word.isNew = 'true';
-	word.is_regexp = document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
-	word.is_complete_matching = document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked;
+	
+	// Apply options
+	word.is_regexp = 
+		document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
+	word.is_complete_matching = 
+		document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked;
+	word.is_case_sensitive = 
+		document.getElementById('rule_editor_keyword_case_sensitive_checkbox').checked;
+	word.is_include_href = 
+		document.getElementById('rule_editor_keyword_include_href_checkbox').checked;
+	
 	if (word.is_regexp) {
 		// Check if received RegExp is valid
 		try {

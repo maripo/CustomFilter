@@ -512,7 +512,9 @@ RuleEditor.prototype.getWordElement = function (word)
 	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
 	span.className = 'word ' 
 		+ ((word.is_regexp)?'regexp ':'not_regexp ')
-		+ ((word.is_complete_matching)?'complete_matching':'not_complete_matching');
+		+ ((word.is_complete_matching)?'complete_matching':'not_complete_matching')
+		+ ((word.is_case_sensitive)?'case_sensitive ':'not_case_sensitive ')
+		+ ((word.is_include_href)?'include_href':'not_include_href');
 	
 	var deleteButton = CustomBlockerUtil.createDeleteButton();
 	deleteButton.addEventListener('click', this.getDeleteWordAction(word, span), true);
@@ -560,8 +562,14 @@ RuleEditor.prototype.saveWord = function ()
 	}
 	var word = new Word();
 	word.word = str;
-	word.is_regexp = document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
-	word.is_complete_matching = document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked;
+	word.is_regexp = 
+		document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
+	word.is_complete_matching = 
+		document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked;
+	word.is_case_sensitive = 
+		document.getElementById('rule_editor_keyword_case_sensitive_checkbox').checked;
+	word.is_include_href = 
+		document.getElementById('rule_editor_keyword_include_href_checkbox').checked;
 	word.rule_id = self.rule.rule_id;
 	wordPeer.saveObject(word, function () 
 	{

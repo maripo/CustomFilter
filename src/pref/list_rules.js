@@ -509,13 +509,19 @@ RuleEditor.prototype.saveRule = function ()
 RuleEditor.prototype.getWordElement = function (word) 
 {
 	var span = document.createElement('SPAN');
-	span.innerHTML = CustomBlockerUtil.escapeHTML(word.word);
+	var suffix = word.is_complete_matching? 'red':'blue';
+	if (word.is_regexp) {
+		span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_regexp",suffix,"regex"));
+	}
+	if (word.is_case_sensitive) {
+		span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_case_sensitive",suffix,"case_sensitive"));
+	}
+	if (word.is_include_href) {
+		span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_include_href",suffix,"include_href"));
+	}
+	span.innerHTML += CustomBlockerUtil.escapeHTML(word.word);
 	span.className = 'word ' 
-		+ ((word.is_regexp)?'regexp ':'not_regexp ')
-		+ ((word.is_complete_matching)?'complete_matching':'not_complete_matching')
-		+ ((word.is_case_sensitive)?'case_sensitive ':'not_case_sensitive ')
-		+ ((word.is_include_href)?'include_href':'not_include_href');
-	
+		+ ((word.is_complete_matching)?'complete_matching':'not_complete_matching');
 	var deleteButton = CustomBlockerUtil.createDeleteButton();
 	deleteButton.addEventListener('click', this.getDeleteWordAction(word, span), true);
 	

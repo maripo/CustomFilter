@@ -29,7 +29,14 @@
     "img/wand.png",
     "img/wand_transparent.png",
     "img/help_icon.png",
-    "img/icon_regexp.png"
+    "img/icon_regexp.png",
+    "img/keyword_delete.png",
+    "img/keyword_case_sensitive_red.png",
+    "img/keyword_include_href_red.png",
+    "img/keyword_regexp_red.png",
+    "img/keyword_case_sensitive_blue.png",
+    "img/keyword_include_href_blue.png",
+    "img/keyword_regexp_blue.png"
   ],
   "content_scripts" : [
     {

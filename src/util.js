@@ -256,6 +256,13 @@ CustomBlockerUtil.applyCss = function (path)
 	cssNode.href = chrome.extension.getURL(path);
 	document.getElementsByTagName('HEAD')[0].appendChild(cssNode);
 };
+CustomBlockerUtil.createKeywordOptionIcon = function (fileName, suffix, tip) {
+	var img = document.createElement("IMG");
+	img.title = chrome.i18n.getMessage(tip);
+	img.src = chrome.extension.getURL("img/" + fileName + "_" + suffix + ".png");
+	img.className = "option";
+	return img;
+}
 
 CustomBlockerUtil.removeCss = function (path) 
 {
@@ -376,9 +383,18 @@ CustomBlockerUtil.createDeleteButton = function () {
 CustomBlockerUtil.createSimpleWordElement = function (word)
 {
 	var span = document.createElement('SPAN');
-	span.innerHTML = word.word;
-	span.className = 'word ' 
-		+ ((word.is_regexp)?'regexp ':'not_regexp ')
+	var suffix = word.is_complete_matching? 'red':'blue';
+	if (word.is_regexp) {
+		span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_regexp",suffix,"regex"));
+	}
+	if (word.is_case_sensitive) {
+		span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_case_sensitive",suffix,"case_sensitive"));
+	}
+	if (word.is_include_href) {
+		span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_include_href",suffix,"include_href"));
+	}
+	span.innerHTML += word.word;
+	span.className = 'word '
 		+ ((word.is_complete_matching)?'complete_matching':'not_complete_matching');
 	span.avoidStyle = true;
 	return span;

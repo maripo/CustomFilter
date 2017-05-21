@@ -12,29 +12,25 @@
 #smart_rule_editor_keywords span.word, 
 #smart_rule_editor_preview_keywords span.word {
 	margin:0px 2px 2px 0px!important;
-	padding-left:5px!important;
-	padding-right:2px!important;
+	padding-left:4px!important;
+	padding-right:0px!important;
 	padding-top:0px!important;
 	padding-bottom:0px!important;
 	border-radius:4px!important;
-	font-size:11px!important;
+	font-size:12px!important;
 	display:inline-block!important;
 	height:16px!important;
 	line-height:16px!important;
 }
-
-/**
-	RegEx & Non-RegEx
-*/
-#rule_editor_keywords span.regexp,
-#smart_rule_editor_keywords span.regexp, 
-#smart_rule_editor_preview_keywords span.regexp {
-	padding-left:14px!important;
-	background-image:url(../img/icon_regexp.png)!important;
-	background-repeat:no-repeat;
-	background-size: 11px 11px;
-	background-position:1px 3px;
+#rule_editor_keywords span.word img.option,
+#smart_rule_editor_keywords span.word img.option,
+#smart_rule_editor_preview_keywords span.word img.option {
+	width:13px!important;
+	height:13px!important;
+	vertical-align:middle!important;
+	margin:0px 3px 0px 0px!important;
 }
+
 #rule_editor_keywords span.complete_matching,
 #smart_rule_editor_keywords span.complete_matching, 
 #smart_rule_editor_preview_keywords span.complete_matching {
@@ -70,14 +66,9 @@
 	width:16px!important;
 	height:16px!important;
 	border:none!important;
-	background-image:url(../img/word_delete.png)!important;
+	background-image:url(../img/keyword_delete.png)!important;
 	background-repeat:no-repeat;
-	background-position:0 0;
+	background-position:4px 4px;
+	background-size:7px 7px!important;
 	vertical-align:middle;
-}
-
-#rule_editor_keywords span.word .deleteButton:hover,
-#smart_rule_editor_keywords span.word .deleteButton:hover, 
-#smart_rule_editor_preview_keywords span.word .deleteButton:hover {
-	background-image:url(../img/word_delete_hover.png)!important;
 }

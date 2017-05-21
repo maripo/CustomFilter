@@ -75,12 +75,23 @@ RuleExecutor.startBlock = function()
 						var expression = (word.word.charAt(0)!='^')?"^":"";
 						expression += word.word;
 						expression += ((word.word.charAt(word.word.length-1)!='$')?'$':'');
-						word.regExp = new RegExp(expression, (word.is_case_sensitive)?null:'i');
+						if (word.is_case_sensitive) {
+							word.regExp = new RegExp(expression);
+							
+						} else {
+							word.regExp = new RegExp(expression, 'i');
+							
+						}
 					} else {
-						word.regExp = new RegExp(word.word, (word.is_case_sensitive)?null:'i')
+						if (word.is_case_sensitive) {
+							word.regExp = new RegExp(word.word);
+						} else {
+							word.regExp = new RegExp(word.word, 'i');
+						}
+						
 					}
 				} catch (ex) {
-					console.log("Invalid RegExp: " + word.word);
+					console.log("Invalid RegExp: \"" + word.word+"\"");
 				}
 			}
 		}
@@ -330,6 +341,7 @@ RuleExecutor.nodeContains = function (node, words)
 				else
 				{ 
 					if (text.indexOf(w)>-1) {
+						console.log("HIT! " + w + " | " + text);
 						return word;
 					}
 				}

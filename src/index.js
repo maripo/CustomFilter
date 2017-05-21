@@ -92,19 +92,6 @@ function renderApplierRules(list)
 			var divCount = document.createElement('DIV');
 			divCount.className = 'count ' + ((rule.hiddenCount && rule.hiddenCount>0)?'hit':'noHit');
 			divCount.innerHTML = (rule.hiddenCount)?rule.hiddenCount:0;
-			// Map of found keywords
-			try {
-				if (rule.appliedWords && rule.words) {
-					for (var j=0; j<rule.words.length; j++) {
-						var word = rule.words[j];
-						if (rule.appliedWords[word.word_id] > 0) {
-							console.log("Word=" + word.word + ", hit=" + rule.appliedWords[word.word_id]);
-						}
-					}
-				}
-			} catch (e) {
-				console.log(e)
-			}
 			
 			var buttonContainer = document.createElement('SPAN');
 			buttonContainer.className = 'buttonContainer';

@@ -9,7 +9,7 @@
 	"preference": {"message":"設定・ルール一覧"},
 	"activeRules": {"message":"適用中のルール"},
 	"help":{"message":"ヘルプ"},
-	"sectionRuleTitle":{"message":"ルールの名前"},
+	"sectionRuleTitle":{"message":"ルール名"},
 	"url":{"message":"URL"},
 	"sectionSite":{"message":"サイト"},
 	"sectionSearch":{"message":"検索範囲"},

@@ -341,7 +341,7 @@ RuleExecutor.nodeContains = function (node, words)
 				else
 				{ 
 					if (text.indexOf(w)>-1) {
-						console.log("HIT! " + w + " | " + text);
+						//console.log("HIT! " + w + " | " + text);
 						return word;
 					}
 				}

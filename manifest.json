@@ -36,7 +36,9 @@
     "img/keyword_regexp_red.png",
     "img/keyword_case_sensitive_blue.png",
     "img/keyword_include_href_blue.png",
-    "img/keyword_regexp_blue.png"
+    "img/keyword_regexp_blue.png",
+    "rule_editor_frame_ja.html",
+    "rule_editor_frame_en.html"
   ],
   "content_scripts" : [
     {

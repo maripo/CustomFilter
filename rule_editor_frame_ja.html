@@ -6,12 +6,10 @@
 <link rel="stylesheet" type="text/css" href="./css/rule_editor_common.css" />
 <link rel="stylesheet" type="text/css" href="./css/rule_editor.css" />
 <link rel="stylesheet" type="text/css" href="./css/keywords.css" />
-<!-- 
-<script type="text/javascript" src="src/uuid.js"></script>
- -->
+
 <title>CustomBlocker Rule Editor</title>
 </head>
-<body style="width: 480px;">
+<body style="width: 480px;" onload="">
 	<div id="rule_editor_body" class="customblocker_rule_dialog">
 		<div id="rule_editor_body_drag" class="header">
 			<a id="rule_editor_closer" class="close" href="javascript:void(0)">
@@ -210,5 +208,10 @@
 
 		<div id="rule_editor_alert"></div>
 	</div>
+	<script type="text/javascript" src="src/util.js"></script>
+	<script type="text/javascript" src="src/rule_editor/rule_editor_frame.js"></script>
+	<script type="text/javascript" src="src/db/DbObj.js"></script>
+	<script type="text/javascript" src="src/db/Rule.js"></script>
+	<script type="text/javascript" src="src/db/Word.js"></script>
 </body>
 </html>

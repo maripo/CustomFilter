@@ -32,6 +32,53 @@ RuleEditor.prototype.initialize = function ()
 	this.ruleEditorDialog.refreshXPathSelectedStyles();
 	this.ruleEditorDialog.refreshPathSections();
 	CustomBlockerUtil.enableFlashZIndex();
+	
+	// TODO frame
+	this.addEditorFrame();
+};
+RuleEditor.prototype.handleReceivedMessage = function (data) {
+	console.log("handleReceivedMessage")
+	console.log(data)
+	switch (data.command) {
+	case "customblocker_frame_ready": {
+		this.iframe.contentWindow.postMessage({command:'customblocker_init',rule:this.rule},"*");
+		break;
+	}
+	case "customblocker_pick_path": {
+		window.elementHighlighter.highlightHideElements (null);
+		/*
+		 self.hideCover();
+		 self.pathPickerTarget = PathPickerDialog.targetSearchXpath/targetSearchCss/targetHideXpath/targetHideCss;
+		 */
+		console.log("Pick path target=" + data.target);
+	}
+	}
+};
+RuleEditor.prototype.getReceiveMessageFunc = function () {
+	var self = this;
+	return function (event) {
+		if (!(event.origin.indexOf(chrome.runtime.id)>=0)) {
+			return;
+		}
+		self.handleReceivedMessage(event.data);
+	}
+};
+RuleEditor.prototype.addEditorFrame = function () {
+	var iframe = document.createElement("IFRAME");
+	iframe.src = chrome.extension.getURL('/rule_editor_frame_'+ chrome.i18n.getMessage('extLocale') + '.html');
+	with (iframe.style) {
+		position = "absolute";
+		zIndex = this.maxZIndex + 1;
+		left = 0;
+		top = 0;
+		width = '480px';
+		height = '640px'; // TODO resize height
+		backgroundColor = '#fff';
+	}
+	document.body.appendChild(iframe);
+	this.iframe = iframe;
+	window.addEventListener("message", this.getReceiveMessageFunc(), false);
+	
 };
 
 RuleEditor.prototype.getOnMouseoverAction = function (node) 

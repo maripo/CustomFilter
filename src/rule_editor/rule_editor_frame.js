@@ -180,8 +180,50 @@ RuleEditorFrame.prototype.refreshPathSections = function () {
 	document.getElementById('rule_editor_section_search_css').style.display = (searchByXPath)?'none':'block';
 };
 RuleEditorFrame.prototype.refreshXPathSelectedStyles = function () {
-	// TODO
+	var options = {
+			command:"customblocker_validate_selectors"
+		};
+
+	if (document.getElementById('rule_editor_radio_hide_xpath').checked) {
+		options.hide_type = "xpath";
+		options.hide_selector = document.getElementById('rule_editor_hide_block_xpath').value;
+	} else {
+		options.hide_type = "css"; 
+		options.hide_selector = document.getElementById('rule_editor_hide_block_css').value;
+	}
+	if (document.getElementById('rule_editor_radio_search_xpath').checked) {
+		options.search_type = "xpath";
+		options.search_selector = document.getElementById('rule_editor_search_block_xpath').value;
+	} else {
+		options.search_type = "css"; 
+		options.search_selector = document.getElementById('rule_editor_search_block_css').value;
+	}
+	postMessageToParent(options);
 };
+RuleEditorFrame.prototype.showSelectorValidationResult = function (data) {
+	var searchCountLabel = data.searchType=="xpath" ? 
+			document.getElementById('rule_editor_count_search_block_xpath'):document.getElementById('rule_editor_count_search_block_css');
+	if (data.hideValid) {
+		document.getElementById('rule_editor_alert_search_block_xpath').display = "none";
+		searchCountLabel.innerHTML = data.searchCount;
+	} else {
+		searchCountLabel.innerHTML = "-";
+		document.getElementById('rule_editor_alert_search_block_xpath').display = "block";
+		document.getElementById('rule_editor_alert_search_block_xpath').innerHTML = 
+			"Invalid " + (data.searchType=="xpath" ? "XPath":"CSS selector");
+	}
+	var hideCountLabel = data.hideType=="xpath" ? 
+			document.getElementById('rule_editor_count_hide_block_xpath'):document.getElementById('rule_editor_count_hide_block_css');
+	if (data.hideValid) {
+		document.getElementById('rule_editor_alert_hide_block_xpath').display = "none";
+		hideCountLabel.innerHTML = data.hideCount;
+	} else {
+		hideCountLabel.innerHTML = "-";
+		document.getElementById('rule_editor_alert_hide_block_xpath').display = "block";
+		document.getElementById('rule_editor_alert_hide_block_xpath').innerHTML = 
+			"Invalid " + (data.hideType=="xpath" ? "XPath":"CSS selector");
+	}
+}
 RuleEditorFrame.prototype.getCloseAction = function () {
 	// TODO close (call function in parent window)
 	return function () {
@@ -189,10 +231,13 @@ RuleEditorFrame.prototype.getCloseAction = function () {
 	}
 };
 RuleEditorFrame.prototype.getWordDeleteAction = function (word) {
-	// TODO delete word
-	return function () {
-		
-	}
+
+	var self = this;
+	return function (span) {
+		span.parentNode.removeChild(span);
+		word.deleted = true;
+		word.dirty = true;
+	};
 }
 RuleEditorFrame.prototype.getChangedAction = function () {
 	// TODO
@@ -263,6 +308,18 @@ window.addEventListener("message", receiveMessage, false);
 
 function receiveMessage(event) {
 	console.log(event);
+	switch (event.data.command) {
+	case "customblocker_init": {
+		if (event.data.rule) {
+			editor.renderRule(event.data.rule);
+		}
+		break;
+	}
+	case "customblocker_validate_selectors_result": {
+		editor.showSelectorValidationResult(event.data);
+		break;
+	}
+	}
 	if (event.data.command="customblocker_init" && event.data.rule) {
 		editor.renderRule(event.data.rule);
 	}

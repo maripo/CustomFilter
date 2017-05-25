@@ -52,7 +52,44 @@ RuleEditor.prototype.handleReceivedMessage = function (data) {
 		 */
 		console.log("Pick path target=" + data.target);
 	}
+	case "customblocker_validate_selectors": {
+		this.validateSelectors(data);
 	}
+	}
+};
+RuleEditor.prototype.validateSelector = function (selectorType, isSearch, selector) {
+	try {
+		var pathNodes;
+		if (selectorType=="css") {
+			pathNodes = (selector!='')?CustomBlockerUtil.getElementsByCssSelector(selector):[];
+		}
+		else {
+			pathNodes = (selector!='')?CustomBlockerUtil.getElementsByXPath(selector):[];
+		}
+		return {isValid:true, nodes:pathNodes};
+	} catch (e) {
+		console.log(e);
+		return {valid:false, nodes:[]};
+	}
+}
+RuleEditor.prototype.validateSelectors = function (data) {
+	var hideResult = this.validateSelector(data.hide_type, false, data.hide_selector);
+	if (hideResult.isValid) {
+		window.elementHighlighter.highlightHideElements(hideResult.nodes);
+	}
+	var searchResult = this.validateSelector(data.search_type, false, data.search_selector);
+	if (searchResult.isValid) {
+		window.elementHighlighter.highlightSearchElements(searchResult.nodes);
+	}
+	var options = {command:'customblocker_validate_selectors_result',
+			hideType: data.hide_type,
+			hideValid: hideResult.isValid,
+			hideCount: hideResult.nodes.length, 
+			searchType: data.search_type,
+			searchValid: searchResult.isValid,
+			searchCount: searchResult.nodes.length
+			};
+	this.iframe.contentWindow.postMessage(options, "*");
 };
 RuleEditor.prototype.getReceiveMessageFunc = function () {
 	var self = this;
@@ -63,6 +100,7 @@ RuleEditor.prototype.getReceiveMessageFunc = function () {
 		self.handleReceivedMessage(event.data);
 	}
 };
+
 RuleEditor.prototype.addEditorFrame = function () {
 	var iframe = document.createElement("IFRAME");
 	iframe.src = chrome.extension.getURL('/rule_editor_frame_'+ chrome.i18n.getMessage('extLocale') + '.html');

@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="./css/reset.css" />
+<link rel="stylesheet" type="text/css" href="./css/rule_editor_common.css" />
+<link rel="stylesheet" type="text/css" href="./css/rule_editor.css" />
+<link rel="stylesheet" type="text/css" href="./css/keywords.css" />
+<!-- 
+<script type="text/javascript" src="src/uuid.js"></script>
+ -->
+<title>CustomBlocker Rule Editor</title>
+</head>
+<body style="width: 480px;">
+	<div id="rule_editor_body" class="customblocker_rule_dialog">
+		<div id="rule_editor_body_drag" class="header">
+			<a id="rule_editor_closer" class="close" href="javascript:void(0)">
+			</a>
+			<h1>ルールの作成</h1>
+		</div>
+		<div class="section">
+			<div class="sectionBody">
+				<div class="input_section">
+					<div class="label">ルール名</div>
+					<div class="sectionBody">
+						<input type="text" class="rule_editor_textbox"
+							id="rule_editor_title">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section">
+			<h2>
+				<span class="text">対象サイト</span>
+			</h2>
+			<div class="sectionBody">
+				<div class="input_section">
+					<div class="label">URL</div>
+					<input type="text" class="rule_editor_textbox"
+						id="rule_editor_site_regexp"> <a href="site.html"
+						class="help"> ? </a>
+				</div>
+				<div style="padding-left: 49px !important">
+					<input type="checkbox" id="specify_url_by_regexp_checkbox">
+					<label for="specify_url_by_regexp_checkbox">正規表現で指定</label>
+				</div>
+				<div class="section_alert" id="rule_editor_alert_site_regexp">
+					このサイトのURLとマッチしません。</div>
+				<div class="input_section" style="display: none">
+					<div class="label">Example URL</div>
+					<input type="text" class="rule_editor_textbox"
+						id="rule_editor_example_url">
+				</div>
+				<div class="input_section" style="display: none">
+					<div class="label">Description</div>
+					<input type="text" class="rule_editor_textbox"
+						id="rule_editor_site_description">
+				</div>
+				<div class="description">「*」は全ての文字列とマッチします。</div>
+			</div>
+		</div>
+		<div class="section">
+			<h2>
+				<span class="text">隠す要素</span>
+			</h2>
+			<div class="sectionBody">
+				<div class="content">
+					<div class="input_section" id="rule_editor_section_hide_xpath"
+						style="display: none;">
+						<div class="label">
+							<span class="rule_editor_count rule_editor_count_hide"
+								id="rule_editor_count_hide_block_xpath"> </span> XPath
+						</div>
+						<input type="text" class="rule_editor_textbox"
+							id="rule_editor_hide_block_xpath"> <input
+							class="uiButton xpath_picker" type="button" value="候補を表示"
+							id="rule_editor_button_hide_block_xpath"> <a
+							href="hide.html" class="help"> ? </a>
+					</div>
+					<div class="input_section" id="rule_editor_section_hide_css"
+						style="display: block;">
+						<div class="label">
+							<span class="rule_editor_count rule_editor_count_hide"
+								id="rule_editor_count_hide_block_css"> 51 </span> CSS
+						</div>
+						<input type="text" class="rule_editor_textbox"
+							id="rule_editor_hide_block_css"> <input
+							class="uiButton xpath_picker" type="button" value="候補を表示"
+							id="rule_editor_button_hide_block_css"> <a
+							href="hide.html" class="help"> ? </a>
+					</div>
+					<div class="selector_radio_container">
+						<input type="radio" id="rule_editor_radio_hide_xpath"
+							name="rule_editor_radio_hide"> <label
+							for="rule_editor_radio_hide_xpath"> XPath </label> <input
+							type="radio" id="rule_editor_radio_hide_css"
+							name="rule_editor_radio_hide" checked=""> <label
+							for="rule_editor_radio_hide_css"> CSS </label>
+					</div>
+					<div class="section_alert" style="display: none;"
+						id="rule_editor_alert_hide_block_xpath">XPathが無効です</div>
+					<div class="input_section" style="display: none">
+						<div class="label">Description</div>
+						<input type="text" class="rule_editor_textbox"
+							id="rule_editor_hide_block_description">
+					</div>
+					<div class="description">ここで指定した単位で要素を隠します。</div>
+				</div>
+			</div>
+		</div>
+		<div class="section">
+			<h2>
+				<span class="text">条件</span>
+			</h2>
+			<div class="sectionBody">
+				<!-- Radio Buttons -->
+				<div>
+					<div>
+						<input type="radio" id="rule_editor_block_anyway"
+							name="rule_editor_block_anyway" /> <label
+							for="rule_editor_block_anyway"> 無条件で隠す </label> <a
+							href="block_anyway.html" class="help"> ? </a>
+					</div>
+					<div>
+						<input type="radio" id="rule_editor_block_anyway_false"
+							name="rule_editor_block_anyway" /> <label
+							for="rule_editor_block_anyway_false"> キーワードを使ってフィルタ </label>
+					</div>
+				</div>
+				<!-- Condition -->
+				<div id="rule_editor_hide_detail"
+					class="rule_editor_condition_section">
+					<h4>キーワード</h4>
+					<div id="rule_editor_keywords" style="margin-left: 0;"></div>
+					<!-- New word -->
+					<div>
+						<!-- <div class="label">キーワード</div> -->
+						<div>
+							<input type="text" class="rule_editor_textbox"
+								id="rule_editor_keyword"> <a href="keywords.html"
+								class="help"> ? </a> <input class="uiButton" type="button"
+								id="rule_editor_add_keyword_button" value="Add"> <br />
+							<input type="checkbox"
+								id="rule_editor_keyword_complete_matching_checkbox"> <label
+								for="rule_editor_keyword_complete_matching_checkbox">
+								完全一致 </label><input type="checkbox"
+								id="rule_editor_keyword_regexp_checkbox"> <label
+								for="rule_editor_keyword_regexp_checkbox"> 正規表現 </label>
+							<!-- Ignore Case -->
+							<input type="checkbox"
+								id="rule_editor_keyword_case_sensitive_checkbox"> <label
+								for="rule_editor_keyword_case_sensitive_checkbox">大文字小文字を区別</label>
+							<!-- Include link URL -->
+							<input type="checkbox"
+								id="rule_editor_keyword_include_href_checkbox"> <label
+								for="rule_editor_keyword_include_href_checkbox">リンクURLも検索</label>
+						</div>
+					</div>
+					<h4>検索範囲</h4>
+					<div class="input_section" id="rule_editor_section_search_xpath"
+						style="display: none;">
+						<div class="label">
+							<span class="rule_editor_count rule_editor_count_search"
+								id="rule_editor_count_search_block_xpath"></span> XPath
+						</div>
+						<input type="text" class="rule_editor_textbox"
+							id="rule_editor_search_block_xpath"> <input
+							class="uiButton xpath_picker" type="button" value="候補を表示"
+							id="rule_editor_button_search_block_xpath"> <a
+							href="search.html" class="help"> ? </a>
+					</div>
+					<div class="input_section" id="rule_editor_section_search_css"
+						style="display: block;">
+						<div class="label">
+							<span class="rule_editor_count rule_editor_count_search"
+								id="rule_editor_count_search_block_css"> 83 </span> CSS
+						</div>
+						<input type="text" class="rule_editor_textbox"
+							id="rule_editor_search_block_css"> <input
+							class="uiButton xpath_picker" type="button" value="候補を表示"
+							id="rule_editor_button_search_block_css"> <a
+							href="search.html" class="help"> ? </a>
+					</div>
+					<div class="selector_radio_container">
+						<input type="radio" id="rule_editor_radio_search_xpath"
+							name="rule_editor_radio_search"> <label
+							for="rule_editor_radio_search_xpath"> XPath </label> <input
+							type="radio" id="rule_editor_radio_search_css"
+							name="rule_editor_radio_search" checked=""> <label
+							for="rule_editor_radio_search_css"> CSS </label>
+					</div>
+					<div class="section_alert" style="display: none;"
+						id="rule_editor_alert_search_block_xpath">Invalid XPath</div>
+					<div class="input_section" style="display: none">
+						<div class="label">Description</div>
+						<input type="text" class="rule_editor_textbox"
+							id="rule_editor_search_block_description">
+					</div>
+					<div class="description">この範囲にNGワードが含まれていたときのみルールが発動します。</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<input type="button" class="uiButton" value="Save"
+				id="rule_editor_save_button" /> <input type="button"
+				class="uiButton" value="Test Rule" id="rule_editor_test_button" />
+			<input type="button" class="uiButton" value="Close"
+				id="rule_editor_close_button" />
+		</div>
+
+		<div id="rule_editor_alert"></div>
+	</div>
+</body>
+</html>

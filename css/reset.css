@@ -4,10 +4,9 @@
   	all: initial;
   }
   
-  div {
-  	display: block;
-  }
-  
 }
-#rule_editor_container div {
+
+#smart_rule_editor_container div, 
+#rule_editor_container div{
+	display: block;
 }

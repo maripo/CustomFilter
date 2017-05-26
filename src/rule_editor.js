@@ -38,6 +38,12 @@ RuleEditor.prototype.initialize = function (rule, src, appliedRuleList)
 		);
 		RuleElement.appendFunctions(node);
 	}
+	CustomBlockerUtil.applyCss('/css/reset.css');
+	CustomBlockerUtil.applyCss('/css/rule_editor.css');
+	CustomBlockerUtil.applyCss('/css/rule_editor_common.css');
+	CustomBlockerUtil.applyCss('/css/keywords.css');
+	CustomBlockerUtil.applyCss('/css/rule_editor_cursor.css');	
+	
 	if (!this.pathPickerDialog) {
 		this.pathPickerDialog = new PathPickerDialog(this.maxZIndex + 2, this);
 	}

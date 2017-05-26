@@ -75,14 +75,11 @@ BgProcessor.prototype.execHighlight = function (request)
 };
 BgProcessor.prototype.execRuleEditor = function (request)
 {
-	if (!window.ruleEditor) 
-	{
+	if (!window.ruleEditor) {
 		console.log("window.ruleEditor not found.");
-		window.ruleEditor = new RuleEditor(request.rule, request.src, request.appliedRuleList);
-		window.ruleEditor.initialize();
-	} else {
-		console.log("window.ruleEditor exists. Reopen (TODO)");
+		window.ruleEditor = new RuleEditor();
 	}
+	window.ruleEditor.initialize(request.rule, request.src, request.appliedRuleList);
 };
 
 BgProcessor.prototype.execRuleSaveDoneRuleEditorFrame = function (request)
@@ -120,7 +117,6 @@ BgProcessor.prototype.execQuickRuleCreation = function (request)
 	var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText, request.needSuggestion);
 };
 
-
 if (!window.elementHighlighter)
 	window.elementHighlighter = new ElementHighlighter();
 if (!window.bgProcessor)
@@ -133,7 +129,6 @@ chrome.extension.onRequest.addListener
 		window.bgProcessor.processBackgroundRequest(request, sender, sendResponse)
 	}
 );
-
 
 //Memorize right-clicked event source
 var lastRightClickedElement = null;

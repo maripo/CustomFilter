@@ -44,13 +44,11 @@ RuleExecutor.checkRules = function (list)
 	}
 	window.bgProcessor.sendRequest('setApplied', {list:rules}, 'badge');
 	if (rules.length > 0) 
-		RuleExecutor.startBlock();
+		RuleExecutor.startBlocking();
 };
 
-
-
-RuleExecutor.startBlock = function()
-{
+RuleExecutor.startBlocking = function() {
+	console.log("RuleExecutor.startBlocking");
 	for (var i=0, l=rules.length; i<l; i++) 
 	{
 		var rule = rules[i];
@@ -108,9 +106,14 @@ RuleExecutor.startBlock = function()
 	}
 };
 
-
-RuleExecutor.execBlock = function ()
+RuleExecutor.stopBlocking = function () 
 {
+	if (RuleExecutor.blockTimeout) clearTimeout(RuleExecutor.blockTimeout);
+	if (RuleExecutor.blockInterval) clearInterval(RuleExecutor.blockInterval);
+}
+
+RuleExecutor.execBlock = function () {
+	console.log("RuleExecutor.execBlock");
 	if (!rules) return;
 	for (var i = 0; i < rules.length; i++)
 	{
@@ -240,13 +243,6 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 		);
 	}	
 };
-
-
-RuleExecutor.stopBlockAction = function () 
-{
-	if (RuleExecutor.blockTimeout) clearTimeout(RuleExecutor.blockTimeout);
-	if (RuleExecutor.blockInterval) clearInterval(RuleExecutor.blockInterval);
-}
 
 function addToHiddenNodes(node)
 {

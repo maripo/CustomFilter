@@ -5,42 +5,61 @@ var origHref = null;
 /**
  * RuleEditor
  */
-var RuleEditor = function (rule, src, appliedRuleList) 
+var RuleEditor = function () 
 {
+};
+RuleEditor.prototype.initialize = function (rule, src, appliedRuleList) 
+{
+	this.pathPickerEventHandlers = new Array();
 	this.rule = (rule)?rule:Rule.createInstance();
 	this.src = src;
 	this.appliedRuleList = appliedRuleList;
-};
-
-RuleEditor.prototype.initialize = function () 
-{
+	
 	var nodes = document.body.getElementsByTagName('*');
 	this.maxZIndex = RuleEditor.getMaxZIndex();
-	RuleExecutor.stopBlockAction();
+	RuleExecutor.stopBlocking();
 	
 	// For path picker
-	for (var i=0; i<nodes.length;  i++) 
-	{		
+	for (var i=0; i<nodes.length; i++) {		
 		var node = nodes[i];
-		// For iframe
-		node.addEventListener('mouseover', this.getOnMouseoverActionForFrame(node), false);
-		node.addEventListener('mouseout', this.getOnMouseoutActionForFrame(node), false);
-		node.addEventListener('click', this.getOnClickActionForFrame(node), false);
+		var mouseoverHandler = this.getOnMouseoverActionForFrame(node);
+		var mouseoutHandler = this.getOnMouseoutActionForFrame(node);
+		var clickHandler = this.getOnClickActionForFrame(node);
+		node.addEventListener('mouseover', mouseoverHandler, false);
+		node.addEventListener('mouseout', mouseoutHandler, false);
+		node.addEventListener('click', clickHandler, false);
+		this.pathPickerEventHandlers.push(
+			{
+				node:node,
+				mouseoverHandler:mouseoverHandler, 
+				mouseoutHandler:mouseoutHandler,
+				clickHandler:clickHandler
+			}
+		);
 		RuleElement.appendFunctions(node);
 	}
-	
-	this.pathPickerDialog = new PathPickerDialog(this.maxZIndex + 2, this);
+	if (!this.pathPickerDialog) {
+		this.pathPickerDialog = new PathPickerDialog(this.maxZIndex + 2, this);
+	}
 	CustomBlockerUtil.enableFlashZIndex();
 	console.log("RuleEditor.initialize");
-	
 	this.openFrame();
 };
 RuleEditor.prototype.hideCover = function () {
 	window.elementHighlighter.highlightHideElements (null);
 }
+RuleEditor.prototype.removePathPickerEventHandlers = function () {
+	if (!this.pathPickerEventHandlers) return;
+	console.log("removePathPickerEventHandlers");
+	for (var i=0; i<this.pathPickerEventHandlers.length; i++) {
+		var obj = this.pathPickerEventHandlers[i];
+		obj.node.removeEventListener('mouseover', obj.mouseoverHandler);
+		obj.node.removeEventListener('mouseout', obj.mouseoutHandler);
+		obj.node.removeEventListener('click', obj.clickHandler);
+	}
+};
 RuleEditor.prototype.pickPath = function (data) {
 	window.elementHighlighter.highlightHideElements (null);
-	console.log("Pick path target=" + data.target);
 	this.hideCover();
 
 	//search_xpath, search_css, hide_xpath, hide_css
@@ -67,8 +86,6 @@ RuleEditor.prototype.sendRuleToFrame = function () {
 	
 };
 RuleEditor.prototype.handleReceivedMessage = function (data) {
-	console.log("handleReceivedMessage")
-	console.log(data)
 	switch (data.command) {
 	case "customblocker_frame_ready": {
 		this.sendRuleToFrame();
@@ -111,6 +128,20 @@ RuleEditor.prototype.handleReceivedMessage = function (data) {
 };
 RuleEditor.prototype.closeFrame = function () {
 	this.frameContainer.style.display = 'none';
+	/*
+	 * TODO
+	if (self.rule.changed)
+	{
+		if (!window.confirm(chrome.i18n.getMessage('unsavedDialog')))
+			return;
+	}
+	*/
+	this.removePathPickerEventHandlers();
+	window.elementHighlighter.highlightRule(null);
+	CustomBlockerUtil.removeCss('/css/rule_editor_cursor.css');
+	RuleExecutor.reloadRules();
+	// Resume filter
+	//RuleExecutor.startBlocking();
 };
 RuleEditor.prototype.validateSelector = function (selectorType, isSearch, selector) {
 	try {

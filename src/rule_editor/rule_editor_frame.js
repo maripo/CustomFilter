@@ -67,8 +67,7 @@ var RuleEditorFrame = function () {
 	document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click',RuleEditorFrame.changeKeywordColor, false);
 	RuleEditorFrame.changeKeywordColor();
 	var helpLinks = CustomBlockerUtil.getElementsByXPath('id("rule_editor_body")//a[@class="help"]');
-	for (var i=0, l=helpLinks.length; i<l; i++) 
-	{
+	for (var i=0, l=helpLinks.length; i<l; i++) {
 		var link = helpLinks[i];
 		link.addEventListener('click',CustomBlockerUtil.getShowHelpAction(link.href),false);
 		link.href = 'javascript:void(0)';
@@ -88,6 +87,85 @@ var RuleEditorFrame = function () {
 		true);
 	document.getElementById('rule_editor_site_regexp')
 		.addEventListener('keyup', this.displaySiteExpressionMatchResult(), false);
+
+	document.getElementById('rule_editor_save_button').addEventListener('click',
+			function() {
+				self.saveRule();
+			}, 
+		true);
+	document.getElementById('rule_editor_test_button').addEventListener('click', 
+			function () {
+				self.testRule();
+			}, false);
+};
+RuleEditorFrame.prototype.showMessage = function (message) {
+	var div = document.getElementById('rule_editor_alert');
+	div.style.display = 'block';
+	div.innerHTML = message;
+	
+}
+RuleEditorFrame.prototype.validateInput = function () {
+	return Rule.Validator.validate({
+		title : this.title.value,
+		site_regexp : this.site_regexp.value,
+		example_url : this.example_url.value,
+		site_description : this.site_description.value,
+		search_block_xpath : this.search_block_xpath.value,
+		search_block_css : this.search_block_css.value,
+		search_block_description : this.search_block_description.value,
+		hide_block_xpath : this.hide_block_xpath.value,
+		hide_block_css : this.hide_block_css.value,
+		hide_block_description : this.hide_block_description.value
+	});
+}
+// TODO save (call parent window)
+RuleEditorFrame.prototype.saveRule = function () {
+	var dialog = this;
+	var validateErrors = this.validateInput();
+	if (validateErrors.length>0) {
+		this.showMessage(validateErrors.join('<br/>'));
+		return;
+	}
+	// set UUIDs
+	if (CustomBlockerUtil.isEmpty(this.rule.user_identifier))
+	{
+		this.rule.user_identifier = UUID.generate();
+	}
+	if (CustomBlockerUtil.isEmpty(this.rule.global_identifier))
+	{
+		this.rule.global_identifier = UUID.generate();
+	}
+	this.applyInput();
+	this.rule.changed = false;
+	console.log(this.rule);
+	postMessageToParent({command:"customblocker_save_rule", rule:this.rule});
+};
+RuleEditorFrame.prototype.applyInput = function () {
+	var dialog = this.ruleEditorDialog;
+	this.rule.title = this.title.value;
+	this.rule.site_regexp = this.site_regexp.value;
+	this.rule.example_url = this.example_url.value;
+	this.rule.site_description = this.site_description.value;
+	this.rule.search_block_xpath = this.search_block_xpath.value;
+	this.rule.search_block_css = this.search_block_css.value;
+	this.rule.search_block_by_css = this.radio_search_css.checked;
+	this.rule.search_block_description = this.search_block_description.value;
+	this.rule.hide_block_xpath = this.hide_block_xpath.value;
+	this.rule.hide_block_css = this.hide_block_css.value;
+	this.rule.hide_block_by_css = this.radio_hide_css.checked;
+	this.rule.hide_block_description = this.hide_block_description.value;
+	this.rule.block_anyway = this.block_anyway.checked;
+	this.rule.specify_url_by_regexp = this.specify_url_by_regexp_checkbox.checked;
+	
+}
+RuleEditorFrame.prototype.testRule = function () {
+	var validateErrors = this.validateInput();
+	if (validateErrors.length>0) {
+		this.showMessage(validateErrors.join('<br/>'));
+		return;
+	}
+	this.applyInput();
+	postMessageToParent({command:"customblocker_test_rule", rule:this.rule});
 };
 RuleEditorFrame.prototype.displaySiteExpressionMatchResult = function () {
 	var self = this;
@@ -99,8 +177,6 @@ RuleEditorFrame.prototype.displaySiteExpressionMatchResult = function () {
 		} else {
 			regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(document.getElementById('rule_editor_site_regexp').value));
 		}
-		console.log(regex)
-		console.log(self.url)
 		var matched = regex.test(self.url);
 		document.getElementById('rule_editor_alert_site_regexp').style.display = (matched)?'none':'block';
 	}
@@ -330,7 +406,6 @@ var editor = new RuleEditorFrame();
 window.addEventListener("message", receiveMessage, false);
 
 function receiveMessage(event) {
-	console.log(event);
 	switch (event.data.command) {
 	case "customblocker_init": {
 		if (event.data.rule) {
@@ -344,6 +419,10 @@ function receiveMessage(event) {
 	}
 	case "customblocker_path_picked": {
 		editor.onPathPick(event.data);
+		break;
+	}
+	case "customblocker_rule_saved" : {
+		editor.showMessage(chrome.i18n.getMessage('saveDone'));
 		break;
 	}
 	}

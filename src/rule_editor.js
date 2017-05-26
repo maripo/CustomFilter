@@ -79,6 +79,27 @@ RuleEditor.prototype.handleReceivedMessage = function (data) {
 				"*");
 		break;
 	}
+	case "customblocker_save_rule": {
+		console.log("Save rule");
+		console.log(data.rule);
+		window.bgProcessor.sendRequest('db', {dbCommand:'save', type:'rule', obj: data.rule}, 'ruleSaveDoneRuleEditorFrame');
+		break;
+	}
+	case "customblocker_test_rule": {
+		var rule = data.rule;
+		for (var i=0, l=hiddenNodes.length; i<l; i++) {
+			hiddenNodes[i].style.display = 'block';
+		}
+		if (RuleExecutor.styleTag) {
+			RuleExecutor.styleTag.parentNode.removeChild(RuleExecutor.styleTag);
+		}
+		RuleExecutor.applyRule(rule, true,
+			function (node) {
+				addToHiddenNodes(node);
+				node.style.backgroundColor = '#ccc';
+			}, true);
+		break;
+	}
 	case "customblocker_pick_path": {
 		this.pickPath(data);
 		break;
@@ -150,7 +171,7 @@ RuleEditor.prototype.addEditorFrame = function () {
 	window.addEventListener("message", this.getReceiveMessageFunc(), false);
 };
 
-
+// TODO remove
 RuleEditor.prototype.onSaveDone = function (rule)
 {
 	this.rule.rule_id = rule.rule_id;
@@ -159,7 +180,19 @@ RuleEditor.prototype.onSaveDone = function (rule)
 		this.rule.words[i].word_id = rule.words[i].word_id;
 	}
 	this.ruleEditorDialog.showMessage(chrome.i18n.getMessage('saveDone'));
-}
+};
+RuleEditor.prototype.onSaveDoneFrame = function (rule)
+{
+	this.rule.rule_id = rule.rule_id;
+	for (var i=0, l=this.rule.words.length; i<l; i++)
+	{
+		this.rule.words[i].word_id = rule.words[i].word_id;
+	}
+	var options = {command:'customblocker_rule_saved',
+			rule:rule
+			};
+	this.iframe.contentWindow.postMessage(options, "*");
+};
 /* Event handlers for path picker */
 RuleEditor.prototype.getOnClickActionForFrame = function (node) 
 {
@@ -230,6 +263,7 @@ RuleEditor.prototype.getOnMouseoutActionForFrame = function (node)
 	}
 };
 // TODO remove
+/*
 RuleEditor.prototype.getOnMouseoverAction = function (node) 
 {
 	var self = this;
@@ -290,7 +324,7 @@ RuleEditor.prototype.getOnMouseoutAction = function (node)
 		selectedNode = null;
 	}
 };
-
+*/
 RuleEditor.getMaxZIndex = function () 
 {
 	var max = 1;

@@ -44,6 +44,8 @@ BgProcessor.prototype.processBackgroundRequest = function (request, sender, send
 			this.execRuleEditor(request); break;
 		case 'ruleSaveDoneRuleEditor':
 			this.execRuleSaveDoneRuleEditor(request); break;
+		case 'ruleSaveDoneRuleEditorFrame':
+			this.execRuleSaveDoneRuleEditorFrame(request); break;
 		case 'ruleSaveDoneRuleSmart':
 			this.execRuleSaveDoneSmartEditor(request); break;
 		case 'stop':
@@ -85,6 +87,11 @@ BgProcessor.prototype.execRuleEditor = function (request)
 BgProcessor.prototype.execRuleSaveDoneRuleEditor = function (request)
 {
 	window.ruleEditor.onSaveDone(request.rule);
+};
+
+BgProcessor.prototype.execRuleSaveDoneRuleEditorFrame = function (request)
+{
+	window.ruleEditor.onSaveDoneFrame(request.rule);
 };
 
 BgProcessor.prototype.execRuleSaveDoneSmartEditor = function (request)

@@ -130,6 +130,10 @@ RuleEditor.prototype.handleReceivedMessage = function (data) {
 		this.closeFrame();
 		break;
 	}
+	case "customblocker_resize": {
+		this.iframe.style.height = data.height + "px";
+		break;
+	}
 	}
 };
 RuleEditor.prototype.closeFrame = function () {

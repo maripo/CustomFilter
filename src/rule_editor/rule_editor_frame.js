@@ -7,6 +7,7 @@ var pathInputFields = [
 var RuleEditorFrame = function () {
 	this.url = null;
 	this.rule = null;
+	this.height = 0;
 	var self = this;
 	
 	// Init UI widgets
@@ -142,8 +143,8 @@ RuleEditorFrame.prototype.renderRule = function (data) {
 		this.block_anyway_false.checked = true;
 		console.log("title=" + data.title);
 	}
-	this.refreshXPathSelectedStyles();
 	this.refreshPathSections();
+	this.refreshXPathSelectedStyles();
 };
 
 RuleEditorFrame.prototype.saveRule = function () {
@@ -176,6 +177,7 @@ RuleEditorFrame.prototype.showAlertMessage = function (message) {
 	var div = document.getElementById('rule_editor_alert');
 	div.style.display = 'block';
 	div.innerHTML = message;
+	this.resize();
 };
 
 RuleEditorFrame.prototype.validateInput = function () {
@@ -194,7 +196,6 @@ RuleEditorFrame.prototype.validateInput = function () {
 };
 
 RuleEditorFrame.prototype.applyInput = function () {
-	var dialog = this.ruleEditorDialog;
 	this.rule.title = this.title.value;
 	this.rule.site_regexp = this.site_regexp.value;
 	this.rule.example_url = this.example_url.value;
@@ -234,6 +235,7 @@ RuleEditorFrame.prototype.displaySiteExpressionMatchResult = function () {
 		}
 		var matched = regex.test(self.url);
 		document.getElementById('rule_editor_alert_site_regexp').style.display = (matched)?'none':'block';
+		self.resize();
 	}
 };
 
@@ -281,6 +283,7 @@ RuleEditorFrame.prototype.addWord = function () {
 	word.dirty = true;
 	var span = this.getWordElement(word)
 	document.getElementById('rule_editor_keywords').appendChild(span);
+	this.resize();
 	
 	this.rule.words.push(word);
 	
@@ -307,6 +310,7 @@ RuleEditorFrame.changeKeywordColor = function () {
 
 RuleEditorFrame.prototype.setBlockAnywayStyle = function (on) {
 	this.hide_detail.style.display = (on)?'none':'block';
+	this.resize();
 };
 
 RuleEditorFrame.prototype.getWordDeleteAction = function (word) {
@@ -315,6 +319,7 @@ RuleEditorFrame.prototype.getWordDeleteAction = function (word) {
 		span.parentNode.removeChild(span);
 		word.deleted = true;
 		word.dirty = true;
+		self.resize();
 	};
 };
 
@@ -384,6 +389,7 @@ RuleEditorFrame.prototype.refreshXPathSelectedStyles = function () {
 		options.search_type = "css"; 
 		options.search_selector = document.getElementById('rule_editor_search_block_css').value;
 	}
+	this.resize();
 	postMessageToParent(options);
 };
 
@@ -410,7 +416,15 @@ RuleEditorFrame.prototype.showSelectorValidationResult = function (data) {
 		document.getElementById('rule_editor_alert_hide_block_xpath').innerHTML = 
 			"Invalid " + (data.hideType=="xpath" ? "XPath":"CSS selector");
 	}
+	this.resize();
 };
+RuleEditorFrame.prototype.resize = function () {
+	var currentHeight = document.getElementById("rule_editor_outline").clientHeight;
+	if (this.height != currentHeight) {
+		this.height = currentHeight;
+		postMessageToParent({command:"customblocker_resize", height:currentHeight});
+	}
+}
 
 var editor = new RuleEditorFrame();
 window.addEventListener("message", handleReceivedMessage, false);

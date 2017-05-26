@@ -42,8 +42,6 @@ BgProcessor.prototype.processBackgroundRequest = function (request, sender, send
 		case 'ruleEditor':
 			this.execRuleEditor(request); break;
 		case 'ruleSaveDoneRuleEditor':
-			this.execRuleSaveDoneRuleEditor(request); break;
-		case 'ruleSaveDoneRuleEditorFrame':
 			this.execRuleSaveDoneRuleEditorFrame(request); break;
 		case 'ruleSaveDoneRuleSmart':
 			this.execRuleSaveDoneSmartEditor(request); break;
@@ -82,16 +80,14 @@ BgProcessor.prototype.execRuleEditor = function (request)
 		console.log("window.ruleEditor not found.");
 		window.ruleEditor = new RuleEditor(request.rule, request.src, request.appliedRuleList);
 		window.ruleEditor.initialize();
-	} 
-};
-BgProcessor.prototype.execRuleSaveDoneRuleEditor = function (request)
-{
-	window.ruleEditor.onSaveDone(request.rule);
+	} else {
+		console.log("window.ruleEditor exists. Reopen (TODO)");
+	}
 };
 
 BgProcessor.prototype.execRuleSaveDoneRuleEditorFrame = function (request)
 {
-	window.ruleEditor.onSaveDoneFrame(request.rule);
+	window.ruleEditor.onSaveDone(request.rule);
 };
 
 BgProcessor.prototype.execRuleSaveDoneSmartEditor = function (request)

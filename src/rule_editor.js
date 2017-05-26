@@ -62,7 +62,7 @@ RuleEditor.prototype.pickPath = function (data) {
 RuleEditor.prototype.sendRuleToFrame = function () {
 	this.iframe.contentWindow.postMessage(
 			{
-				command:'customblocker_init',
+				command:'customblocker_set_rule',
 				url:location.href,
 				rule:this.rule},
 			"*");
@@ -106,10 +106,13 @@ RuleEditor.prototype.handleReceivedMessage = function (data) {
 		break;
 	}
 	case "customblocker_close": {
-		this.frameContainer.style.display = 'none';
+		this.closeFrame();
 		break;
 	}
 	}
+};
+RuleEditor.prototype.closeFrame = function () {
+	this.frameContainer.style.display = 'none';
 };
 RuleEditor.prototype.validateSelector = function (selectorType, isSearch, selector) {
 	try {
@@ -155,6 +158,53 @@ RuleEditor.prototype.getReceiveMessageFunc = function () {
 	}
 };
 
+// Drag rule editor dialog (with top bar)
+RuleEditor.prototype.getOnMousedownAction = function () 
+{
+	var self = this;
+	return function (event) 
+	{
+		self.moving = true;
+		self.origEventX = event.pageX;
+		self.origEventY = event.pageY;
+		self.origDivX = parseInt(self.frameContainer.style.right.replace('px',''));
+		self.origDivY = parseInt(self.frameContainer.style.top.replace('px',''));
+	}
+};
+RuleEditor.prototype.getOnMousemoveAction = function ()
+ {
+	var self = this;
+	return function (event) 
+	{
+		if (!self.moving) return;
+		//self.frameContainer.style.position = 'absolute';
+		self.frameContainer.style.right = (self.origDivX-(event.pageX - self.origEventX)) + 'px';
+		self.frameContainer.style.top = (self.origDivY+(event.pageY - self.origEventY)) + 'px';
+		
+	}
+};
+RuleEditor.prototype.getOnMouseupAction = function () 
+{
+	var self = this;
+	return function (event) 
+	{
+		if (self.moving)
+			self.moving = false;
+		else
+		{
+			self.processSelection(event);
+		}
+	}
+};
+// ?
+RuleEditor.prototype.processSelection = function (event)
+{
+	if (null==document.getSelection()) 
+		return;
+	if (document.getElementById('rule_editor_keyword') == event.srcElement)
+		return;
+};
+
 RuleEditor.prototype.openFrame = function () {
 	console.log("RuleEditor.prototype.openFrame");
 	if (this.frameContainer) {
@@ -163,20 +213,59 @@ RuleEditor.prototype.openFrame = function () {
 		this.sendRuleToFrame();
 		return;
 	}
+	// Create and show new frame (div > [div.dragger, iframe])
 	var frameContainer = document.createElement("DIV");
 	var iframe = document.createElement("IFRAME");
 	iframe.src = chrome.extension.getURL('/rule_editor_frame_'+ chrome.i18n.getMessage('extLocale') + '.html');
 	with (iframe.style) {
-		width = '480px';
+		width = '400px';
 		height = '640px'; // TODO resize height
 	}
 	with (frameContainer.style) {
-		position = "absolute";
-		zIndex = this.maxZIndex + 1;
-		left = 0;
-		top = 0;
+		position = "fixed";
+		zIndex = this.maxZIndex + 2;
+		width = '400px';
+		top = '10px';
+		right = '10px';
 		backgroundColor = '#fff';
 	}
+	var dragger = document.createElement("DIV");
+	dragger.addEventListener('mousedown', this.getOnMousedownAction(), false);
+	document.body.addEventListener('mousemove', this.getOnMousemoveAction(), false);
+	document.body.addEventListener('mouseup', this.getOnMouseupAction(), false);
+	
+	with (dragger.style) {
+		backgroundColor = "#fff";
+		height = "18px";
+		width = "100%";
+		display = "block";
+		textAlign = "right";
+		cursor = "move";
+	}
+	
+	var scope = this;
+	var closeIcon = document.createElement("A");
+	console.log(chrome.extension.getURL("/img/rule_editor_close.png"))
+	with (closeIcon.style) {
+		backgroundImage = "url(" + chrome.extension.getURL("/img/rule_editor_close.png") + ")";
+		backgroundRepeat = "no-repeat";
+		backgroundPosition = "2px 2px";
+		backgroundSize = "14px 14px";
+		display = "block";
+		width = "22px";
+		height = "18px";
+		marginTop = "4px";
+		float = "right";
+	}
+	closeIcon.href = "javascript:void(0)";
+	closeIcon.addEventListener("click",function(){scope.closeFrame()}, false);
+	dragger.appendChild(closeIcon);
+	
+	dragger.avoidStyle = true;
+	frameContainer.avoidStyle = true;
+	iframe.avoidStyle = true;
+	
+	frameContainer.appendChild(dragger);
 	frameContainer.appendChild(iframe);
 	document.body.appendChild(frameContainer);
 	this.iframe = iframe;
@@ -579,10 +668,12 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 		this.example_url.value = location.href;
 		this.block_anyway_false.checked = true;
 	}
+	/*
 	var dragger = document.getElementById('rule_editor_body_drag');
 	dragger.addEventListener('mousedown', this.getOnMousedownAction(), false);
 	document.body.addEventListener('mousemove', this.getOnMousemoveAction(), false);
 	document.body.addEventListener('mouseup', this.getOnMouseupAction(), false);
+	*/
 	
 	document.getElementById('rule_editor_closer').addEventListener('click', this.getCloseAction(), false);
 	document.getElementById('rule_editor_close_button').addEventListener('click', this.getCloseAction(), false);
@@ -912,7 +1003,6 @@ RuleEditorDialog.prototype.processSelection = function (event)
 		return;
 	if (document.getElementById('rule_editor_keyword') == event.srcElement)
 		return;
-	//document.getElementById('rule_editor_keyword').value = document.getSelection().toString();
 };
 /**
  * PathPickerDialog

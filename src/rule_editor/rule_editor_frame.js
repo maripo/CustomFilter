@@ -406,7 +406,7 @@ window.addEventListener("message", receiveMessage, false);
 
 function receiveMessage(event) {
 	switch (event.data.command) {
-	case "customblocker_init": {
+	case "customblocker_set_rule": {
 		if (event.data.rule) {
 			editor.renderRule(event.data);
 		}

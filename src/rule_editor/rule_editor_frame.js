@@ -89,14 +89,11 @@ var RuleEditorFrame = function () {
 		.addEventListener('keyup', this.displaySiteExpressionMatchResult(), false);
 
 	document.getElementById('rule_editor_save_button').addEventListener('click',
-			function() {
-				self.saveRule();
-			}, 
-		true);
+			function() { self.saveRule(); }, true);
 	document.getElementById('rule_editor_test_button').addEventListener('click', 
-			function () {
-				self.testRule();
-			}, false);
+			function () { self.testRule(); }, false);
+	document.getElementById('rule_editor_close_button').addEventListener('click', 
+			function() { self.close() }, false);
 };
 RuleEditorFrame.prototype.showMessage = function (message) {
 	var div = document.getElementById('rule_editor_alert');
@@ -104,6 +101,9 @@ RuleEditorFrame.prototype.showMessage = function (message) {
 	div.innerHTML = message;
 	
 }
+RuleEditorFrame.prototype.close = function () {
+	postMessageToParent({command:"customblocker_close"});
+};
 RuleEditorFrame.prototype.validateInput = function () {
 	return Rule.Validator.validate({
 		title : this.title.value,
@@ -117,8 +117,7 @@ RuleEditorFrame.prototype.validateInput = function () {
 		hide_block_css : this.hide_block_css.value,
 		hide_block_description : this.hide_block_description.value
 	});
-}
-// TODO save (call parent window)
+};
 RuleEditorFrame.prototype.saveRule = function () {
 	var dialog = this;
 	var validateErrors = this.validateInput();

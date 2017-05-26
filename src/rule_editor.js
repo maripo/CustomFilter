@@ -22,12 +22,6 @@ RuleEditor.prototype.initialize = function ()
 	for (var i=0; i<nodes.length;  i++) 
 	{		
 		var node = nodes[i];
-		// Legacy
-		/*
-		node.addEventListener('mouseover', this.getOnMouseoverAction(node), false);
-		node.addEventListener('mouseout', this.getOnMouseoutAction(node), false);
-		node.addEventListener('click', this.getOnClickAction(node), false);
-		*/
 		// For iframe
 		node.addEventListener('mouseover', this.getOnMouseoverActionForFrame(node), false);
 		node.addEventListener('mouseout', this.getOnMouseoutActionForFrame(node), false);
@@ -42,7 +36,7 @@ RuleEditor.prototype.initialize = function ()
 	CustomBlockerUtil.enableFlashZIndex();
 	
 	// TODO frame
-	this.addEditorFrame();
+	this.openFrame();
 };
 RuleEditor.prototype.hideCover = function () {
 	window.elementHighlighter.highlightHideElements (null);
@@ -65,18 +59,21 @@ RuleEditor.prototype.pickPath = function (data) {
 	}
 	this.pathPickerTarget.label = data.target;
 }
-
+RuleEditor.prototype.sendRuleToFrame = function () {
+	this.iframe.contentWindow.postMessage(
+			{
+				command:'customblocker_init',
+				url:location.href,
+				rule:this.rule},
+			"*");
+	
+};
 RuleEditor.prototype.handleReceivedMessage = function (data) {
 	console.log("handleReceivedMessage")
 	console.log(data)
 	switch (data.command) {
 	case "customblocker_frame_ready": {
-		this.iframe.contentWindow.postMessage(
-				{
-					command:'customblocker_init',
-					url:location.href,
-					rule:this.rule},
-				"*");
+		this.sendRuleToFrame();
 		break;
 	}
 	case "customblocker_save_rule": {
@@ -106,6 +103,10 @@ RuleEditor.prototype.handleReceivedMessage = function (data) {
 	}
 	case "customblocker_validate_selectors": {
 		this.validateSelectors(data);
+		break;
+	}
+	case "customblocker_close": {
+		this.frameContainer.style.display = 'none';
 		break;
 	}
 	}
@@ -154,20 +155,33 @@ RuleEditor.prototype.getReceiveMessageFunc = function () {
 	}
 };
 
-RuleEditor.prototype.addEditorFrame = function () {
+RuleEditor.prototype.openFrame = function () {
+	console.log("RuleEditor.prototype.openFrame");
+	if (this.frameContainer) {
+		// Existing and hidden. Send rule immediately.
+		this.frameContainer.style.display = "block";
+		this.sendRuleToFrame();
+		return;
+	}
+	var frameContainer = document.createElement("DIV");
 	var iframe = document.createElement("IFRAME");
 	iframe.src = chrome.extension.getURL('/rule_editor_frame_'+ chrome.i18n.getMessage('extLocale') + '.html');
 	with (iframe.style) {
+		width = '480px';
+		height = '640px'; // TODO resize height
+	}
+	with (frameContainer.style) {
 		position = "absolute";
 		zIndex = this.maxZIndex + 1;
 		left = 0;
 		top = 0;
-		width = '480px';
-		height = '640px'; // TODO resize height
 		backgroundColor = '#fff';
 	}
-	document.body.appendChild(iframe);
+	frameContainer.appendChild(iframe);
+	document.body.appendChild(frameContainer);
 	this.iframe = iframe;
+	this.frameContainer = frameContainer;
+	// Add listener and wait for ready message
 	window.addEventListener("message", this.getReceiveMessageFunc(), false);
 };
 
@@ -700,6 +714,10 @@ var RuleEditorDialog = function(rule, src, _zIndex, ruleEditor)
 	this.block_anyway.addEventListener('change', this.getChangedAction(), false);
 	this.block_anyway_false.addEventListener('change', this.getChangedAction(), false);
 	this.specify_url_by_regexp_checkbox.addEventListener('change', this.getChangedAction(), false);
+
+};
+RuleEditorDialog.prototype.close = function () {
+	
 };
 RuleEditorDialog.prototype.hideCover = function ()
 {
@@ -719,12 +737,6 @@ RuleEditorDialog.prototype.getChangedAction = function ()
 RuleEditorDialog.prototype.setBlockAnywayStyle = function (on)
 {
 	this.hide_detail.style.display = (on)?'none':'block';
-	/*
-	document.getElementById('rule_editor_keyword_section_wrapper').className 
-		= (on)?'block_anyway':'';
-	document.getElementById('rule_editor_search_section_wrapper').className 
-		= (on)?'block_anyway':'';
-	*/
 };
 RuleEditorDialog.changeKeywordColor = function (sender)
 {

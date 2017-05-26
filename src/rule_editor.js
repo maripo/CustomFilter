@@ -18,12 +18,20 @@ RuleEditor.prototype.initialize = function ()
 	this.maxZIndex = RuleEditor.getMaxZIndex();
 	RuleExecutor.stopBlockAction();
 	
+	// For path picker
 	for (var i=0; i<nodes.length;  i++) 
 	{		
 		var node = nodes[i];
+		// Legacy
+		/*
 		node.addEventListener('mouseover', this.getOnMouseoverAction(node), false);
 		node.addEventListener('mouseout', this.getOnMouseoutAction(node), false);
 		node.addEventListener('click', this.getOnClickAction(node), false);
+		*/
+		// For iframe
+		node.addEventListener('mouseover', this.getOnMouseoverActionForFrame(node), false);
+		node.addEventListener('mouseout', this.getOnMouseoutActionForFrame(node), false);
+		node.addEventListener('click', this.getOnClickActionForFrame(node), false);
 		RuleElement.appendFunctions(node);
 	}
 	
@@ -36,24 +44,48 @@ RuleEditor.prototype.initialize = function ()
 	// TODO frame
 	this.addEditorFrame();
 };
+RuleEditor.prototype.hideCover = function () {
+	window.elementHighlighter.highlightHideElements (null);
+}
+RuleEditor.prototype.pickPath = function (data) {
+	window.elementHighlighter.highlightHideElements (null);
+	console.log("Pick path target=" + data.target);
+	this.hideCover();
+
+	//search_xpath, search_css, hide_xpath, hide_css
+	switch (data.target) {
+	case "search_xpath":
+		this.pathPickerTarget = PathPickerDialog.targetSearchXpath; break;
+	case "search_css":
+		this.pathPickerTarget = PathPickerDialog.targetSearchCss; break;
+	case "hide_xpath":
+		this.pathPickerTarget = PathPickerDialog.targetHideXpath; break;
+	case "hide_css":
+		this.pathPickerTarget = PathPickerDialog.targetHideCss; break;
+	}
+	this.pathPickerTarget.label = data.target;
+}
+
 RuleEditor.prototype.handleReceivedMessage = function (data) {
 	console.log("handleReceivedMessage")
 	console.log(data)
 	switch (data.command) {
 	case "customblocker_frame_ready": {
-		this.iframe.contentWindow.postMessage({command:'customblocker_init',rule:this.rule},"*");
+		this.iframe.contentWindow.postMessage(
+				{
+					command:'customblocker_init',
+					url:location.href,
+					rule:this.rule},
+				"*");
 		break;
 	}
 	case "customblocker_pick_path": {
-		window.elementHighlighter.highlightHideElements (null);
-		/*
-		 self.hideCover();
-		 self.pathPickerTarget = PathPickerDialog.targetSearchXpath/targetSearchCss/targetHideXpath/targetHideCss;
-		 */
-		console.log("Pick path target=" + data.target);
+		this.pickPath(data);
+		break;
 	}
 	case "customblocker_validate_selectors": {
 		this.validateSelectors(data);
+		break;
 	}
 	}
 };
@@ -61,10 +93,10 @@ RuleEditor.prototype.validateSelector = function (selectorType, isSearch, select
 	try {
 		var pathNodes;
 		if (selectorType=="css") {
-			pathNodes = (selector!='')?CustomBlockerUtil.getElementsByCssSelector(selector):[];
+			pathNodes = (selector!='')? CustomBlockerUtil.getElementsByCssSelector(selector):[];
 		}
 		else {
-			pathNodes = (selector!='')?CustomBlockerUtil.getElementsByXPath(selector):[];
+			pathNodes = (selector!='')? CustomBlockerUtil.getElementsByXPath(selector):[];
 		}
 		return {isValid:true, nodes:pathNodes};
 	} catch (e) {
@@ -116,9 +148,88 @@ RuleEditor.prototype.addEditorFrame = function () {
 	document.body.appendChild(iframe);
 	this.iframe = iframe;
 	window.addEventListener("message", this.getReceiveMessageFunc(), false);
-	
 };
 
+
+RuleEditor.prototype.onSaveDone = function (rule)
+{
+	this.rule.rule_id = rule.rule_id;
+	for (var i=0, l=this.rule.words.length; i<l; i++)
+	{
+		this.rule.words[i].word_id = rule.words[i].word_id;
+	}
+	this.ruleEditorDialog.showMessage(chrome.i18n.getMessage('saveDone'));
+}
+/* Event handlers for path picker */
+RuleEditor.prototype.getOnClickActionForFrame = function (node) 
+{
+	var self = this;
+	return function (event) 
+	{
+		if (!window.ruleEditor || !self.pathPickerTarget || self.pathPickerTarget.none) {
+			return;
+		}
+		if (selectedNode ==node) 
+		{
+			var analyzer = new PathAnalyzer(node, self.pathPickerTarget.getPathBuilder());
+			var list = analyzer.createPathList();
+			self.pathPickerDialog.show(event, list, self.pathPickerTarget, function (target, path) {
+				console.log(target + "->" + path)
+				var options = {
+					command: "customblocker_path_picked",
+					target: target,
+					path: path
+				};
+				self.iframe.contentWindow.postMessage(options, "*");
+			});
+		}
+		event.stopPropagation();
+		event.preventDefault();
+	}
+};
+RuleEditor.prototype.getOnMouseoverActionForFrame = function (node) 
+{
+	var self = this;
+	return function (event)
+	{
+		if (window.ruleEditor && selectedNode == null && self.pathPickerTarget) 
+		{
+			selectedNode = node;
+			origStyle = selectedNode.style.outline;
+			origHref = selectedNode.href;
+			selectedNode.href = 'javascript:void(0)'
+			if (self.pathPickerTarget.none && selectedNode.unfocus) 
+			{
+				selectedNode.unfocus();
+			}
+			else if (self.pathPickerTarget.isToHide && selectedNode.focusForSearch) 
+			{
+				selectedNode.focusForHide();
+			}
+			else if (self.pathPickerTarget.isToSearch && selectedNode.focusForHide) 
+			{
+				selectedNode.focusForSearch();
+			}
+			return;
+		}
+		event.stopPropagation();
+		event.preventDefault();
+	}
+};
+
+RuleEditor.prototype.getOnMouseoutActionForFrame = function (node) 
+{
+	return function (event) 
+	{
+		if (window.ruleEditor && selectedNode) 
+		{
+			selectedNode.style.outline = origStyle;
+			selectedNode.href = origHref;
+		}
+		selectedNode = null;
+	}
+};
+// TODO remove
 RuleEditor.prototype.getOnMouseoverAction = function (node) 
 {
 	var self = this;
@@ -148,17 +259,7 @@ RuleEditor.prototype.getOnMouseoverAction = function (node)
 		event.preventDefault();
 	}
 };
-
-RuleEditor.prototype.onSaveDone = function (rule)
-{
-	this.rule.rule_id = rule.rule_id;
-	for (var i=0, l=this.rule.words.length; i<l; i++)
-	{
-		this.rule.words[i].word_id = rule.words[i].word_id;
-	}
-	this.ruleEditorDialog.showMessage(chrome.i18n.getMessage('saveDone'));
-}
-
+// TODO remove
 RuleEditor.prototype.getOnClickAction = function (node) 
 {
 	var self = this;
@@ -176,7 +277,7 @@ RuleEditor.prototype.getOnClickAction = function (node)
 		event.preventDefault();
 	}
 };
-
+// TODO remove
 RuleEditor.prototype.getOnMouseoutAction = function (node) 
 {
 	return function (event) 
@@ -796,7 +897,7 @@ var PathPickerDialog = function (_zIndex, ruleEditor)
 	this.currentFilter = null;
 };
 
-PathPickerDialog.prototype.show = function (event, list, /* PathPickerDialog.target... */target) 
+PathPickerDialog.prototype.show = function (event, list, /* PathPickerDialog.target... */target, onSelect) 
 {
 	this.ul.innerHTML = '';
 	
@@ -818,7 +919,7 @@ PathPickerDialog.prototype.show = function (event, list, /* PathPickerDialog.tar
 		a.appendChild(badge);
 		a.appendChild(span);
 		
-		a.addEventListener('click', this.getOnclickAction(list[i], target), false);
+		a.addEventListener('click', this.getOnclickAction(list[i], target, onSelect), false);
 		a.addEventListener('mouseover', this.getOnmouseoverAction(list[i], target), false);
 		li.appendChild(a);
 		this.ul.appendChild(li);
@@ -890,21 +991,28 @@ PathPickerDialog.prototype.getOnmouseoverAction = function (filter, /*PathPicker
 		self.currentFilter = filter;
 	}
 }
-PathPickerDialog.prototype.getOnclickAction = function (filter, /*PathPickerDialog.target...*/target) 
+PathPickerDialog.prototype.getOnclickAction = function (filter, /*PathPickerDialog.target...*/target, onSelect) 
 {
 	var self = this;
 	return function()
 	{
 		var currentFilter = (target.isToHide)?self.currentHideFilter:self.currentHideFilter;
-		
-		document.getElementById(target.textboxId).value = CustomBlockerUtil.trim(filter.path);
-		self.ruleEditor.ruleEditorDialog.refreshXPathSelectedStyles();
+		var path = CustomBlockerUtil.trim(filter.path);
+
+		if (onSelect) {
+			onSelect(target.label, path);
+		} else {
+			// TODO Legacy (remove it)
+			document.getElementById(target.textboxId).value = path;
+			self.ruleEditor.ruleEditorDialog.refreshXPathSelectedStyles();
+		}
 		
 		if (target.isToHide) self.currentHideFilter = filter;
 		else self.currentSearchFilter = filter;
 		
 		self.currentFilter = filter;
 		self.div.style.display = 'none';
+		
 	}
 }
 

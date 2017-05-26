@@ -1,3 +1,9 @@
+var pathInputFields = [
+                       {pickButton:"rule_editor_button_search_block_xpath", field:"rule_editor_search_block_xpath", type:"search_xpath"},
+                       {pickButton:"rule_editor_button_search_block_css", field:"rule_editor_search_block_css", type:"search_css"},
+                       {pickButton:"rule_editor_button_hide_block_xpath", field:"rule_editor_hide_block_xpath", type:"hide_xpath"},
+                       {pickButton:"rule_editor_button_hide_block_css", field:"rule_editor_hide_block_css", type:"hide_css"}
+                       ];
 var RuleEditorFrame = function () {
 	// Init UI widgets
 	this.title = document.getElementById('rule_editor_title');
@@ -53,14 +59,10 @@ var RuleEditorFrame = function () {
 	this.block_anyway_false.addEventListener('change', this.getChangedAction(), false);
 	this.specify_url_by_regexp_checkbox.addEventListener('change', this.getChangedAction(), false);
 
-	document.getElementById('rule_editor_button_search_block_xpath').addEventListener('click',
-			this.getPickPathAction("search_xpath"), false);
-	document.getElementById('rule_editor_button_search_block_css').addEventListener('click',
-			this.getPickPathAction("search_css"), false);
-	document.getElementById('rule_editor_button_hide_block_xpath').addEventListener('click',
-			this.getPickPathAction("hide_xpath"), false);
-	document.getElementById('rule_editor_button_hide_block_css').addEventListener('click',
-			this.getPickPathAction("hide_css"), false);
+	for (var i=0; i<pathInputFields.length; i++) {
+		document.getElementById(pathInputFields[i].pickButton).addEventListener('click',
+				this.getPickPathAction(pathInputFields[i].type), false);
+	}
 
 	document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click',RuleEditorFrame.changeKeywordColor, false);
 	RuleEditorFrame.changeKeywordColor();
@@ -76,24 +78,25 @@ var RuleEditorFrame = function () {
 		function(e) {
 			if (KEY_CODE_RETURN==e.keyCode)  {
 				self.addWord();
-				/*
-				if (window.ruleEditor.addWord(document.getElementById('rule_editor_keyword').value)) {
-					document.getElementById('rule_editor_keyword').value = '';
-				}
-				*/
 			}
 		}, 
 		true);
 	document.getElementById('rule_editor_add_keyword_button').addEventListener ('click',
 		function() {
 			self.addWord();
-			/*
-			if (window.ruleEditor.addWord(document.getElementById('rule_editor_keyword').value)) {
-				document.getElementById('rule_editor_keyword').value = '';
-			}
-			*/
 		}, 
 		true);
+};
+RuleEditorFrame.prototype.onPathPick = function (data) {
+	console.log("onPathPick");
+	console.log(data)
+	for (var i=0; i<pathInputFields.length; i++) {
+		if (pathInputFields[i].type==data.target) {
+			document.getElementById(pathInputFields[i].field).value = data.path;
+			break;
+		}
+	}
+	this.refreshXPathSelectedStyles();
 };
 RuleEditorFrame.prototype.addWord = function () {
 	var wordStr = document.getElementById('rule_editor_keyword').value;
@@ -158,7 +161,6 @@ RuleEditorFrame.prototype.setBlockAnywayStyle = function (on)
 	this.hide_detail.style.display = (on)?'none':'block';
 };
 RuleEditorFrame.prototype.getPickPathAction = function (target) {
-	//search_xpath, search_css, hide_xpath, hide_css
 	return function () {
 		postMessageToParent({command:"customblocker_pick_path", target:target});
 	}
@@ -317,6 +319,10 @@ function receiveMessage(event) {
 	}
 	case "customblocker_validate_selectors_result": {
 		editor.showSelectorValidationResult(event.data);
+		break;
+	}
+	case "customblocker_path_picked": {
+		editor.onPathPick(event.data);
 		break;
 	}
 	}

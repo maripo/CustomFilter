@@ -31,7 +31,6 @@ BgProcessor.prototype.sendRequest = function (command, param, nextAction)
 BgProcessor.prototype.processBackgroundRequest = function (request, sender, sendResponse)
 {
 	customBlockerBgCallback = sendResponse;
-	//console.log("BgProcessor.processBackgroundRequest command=" + request.command + ",customBlockerBgCallback=" + typeof(customBlockerBgCallback));
 	switch (request.command)
 	{
 		case 'init':
@@ -80,6 +79,7 @@ BgProcessor.prototype.execRuleEditor = function (request)
 {
 	if (!window.ruleEditor) 
 	{
+		console.log("window.ruleEditor not found.");
 		window.ruleEditor = new RuleEditor(request.rule, request.src, request.appliedRuleList);
 		window.ruleEditor.initialize();
 	} 

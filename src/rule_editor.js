@@ -34,6 +34,7 @@ RuleEditor.prototype.initialize = function ()
 	this.ruleEditorDialog.refreshXPathSelectedStyles();
 	this.ruleEditorDialog.refreshPathSections();
 	CustomBlockerUtil.enableFlashZIndex();
+	console.log("RuleEditor.initialize");
 	
 	// TODO frame
 	this.openFrame();
@@ -220,6 +221,7 @@ RuleEditor.prototype.openFrame = function () {
 	with (iframe.style) {
 		width = '400px';
 		height = '640px'; // TODO resize height
+		border = 'none';
 	}
 	with (frameContainer.style) {
 		position = "fixed";

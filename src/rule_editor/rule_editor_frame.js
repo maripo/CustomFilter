@@ -86,6 +86,24 @@ var RuleEditorFrame = function () {
 			self.addWord();
 		}, 
 		true);
+	document.getElementById('rule_editor_site_regexp')
+		.addEventListener('keyup', this.displaySiteExpressionMatchResult(), false);
+};
+RuleEditorFrame.prototype.displaySiteExpressionMatchResult = function () {
+	var self = this;
+	return function () {
+		var regex;
+		if (document.getElementById('specify_url_by_regexp_checkbox').checked) {
+			// Use RegExp
+			regex = new RegExp(document.getElementById('rule_editor_site_regexp').value);
+		} else {
+			regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(document.getElementById('rule_editor_site_regexp').value));
+		}
+		console.log(regex)
+		console.log(self.url)
+		var matched = regex.test(self.url);
+		document.getElementById('rule_editor_alert_site_regexp').style.display = (matched)?'none':'block';
+	}
 };
 RuleEditorFrame.prototype.onPathPick = function (data) {
 	console.log("onPathPick");
@@ -259,13 +277,16 @@ RuleEditorFrame.prototype.getRefreshSearchBlockXPathAction = function () {
 		self.refreshXPathSelectedStyles();
 	}
 };
-RuleEditorFrame.prototype.renderRule = function (rule) {
+RuleEditorFrame.prototype.renderRule = function (data) {
+	var rule = data.rule;
+	this.url = data.url;
 	console.log("Rule=");
 	this.rule = rule;
+	console.log("URL=" + this.url);
 	this.rule.changed = false;
 	console.log(rule);
 	document.getElementById('rule_editor_title').value = rule.title;
-
+	document.getElementById('rule_editor_keywords').innerHTML = '';
 	for (var i = 0, l = rule.words.length; i < l; i++) 
 	{
 		var word = rule.words[i];
@@ -313,7 +334,7 @@ function receiveMessage(event) {
 	switch (event.data.command) {
 	case "customblocker_init": {
 		if (event.data.rule) {
-			editor.renderRule(event.data.rule);
+			editor.renderRule(event.data);
 		}
 		break;
 	}
@@ -325,9 +346,6 @@ function receiveMessage(event) {
 		editor.onPathPick(event.data);
 		break;
 	}
-	}
-	if (event.data.command="customblocker_init" && event.data.rule) {
-		editor.renderRule(event.data.rule);
 	}
 }
 

@@ -113,7 +113,6 @@ RuleExecutor.stopBlocking = function ()
 }
 
 RuleExecutor.execBlock = function () {
-	console.log("RuleExecutor.execBlock");
 	if (!rules) return;
 	for (var i = 0; i < rules.length; i++)
 	{
@@ -123,12 +122,12 @@ RuleExecutor.execBlock = function () {
 			RuleExecutor.applyRule(rules[i], false, 
 				function (node) 
 				{
+					addToHiddenNodes(node);	
+					RuleExecutor.blockedCount++;
 					if (!rule.staticXpath)
 					{
 						node.style.display = 'none';
 					}
-					addToHiddenNodes(node);	
-					RuleExecutor.blockedCount++;
 				}
 			);
 		}
@@ -243,14 +242,21 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 		);
 	}	
 };
-
-function addToHiddenNodes(node)
-{
-	for (var i=0, l=hiddenNodes.length; i<l; i++) 
-	{
+// TODO
+function showHiddenNodes () {
+	for (var i=0, l=hiddenNodes.length; i<l; i++) {
+		console.log("original="+hiddenNodes[i].display)
+		hiddenNodes[i].node.style.display = hiddenNodes[i].display;
+	}
+}
+function addToHiddenNodes (node) {
+	// Ignore duplicate node
+	for (var i=0, l=hiddenNodes.length; i<l; i++) {
 		if (hiddenNodes[i] == node) return;	
 	}
-	hiddenNodes.push(node);
+	var display = getComputedStyle(node, null).getPropertyValue("display");
+	console.log("display=" + display);
+	hiddenNodes.push({node:node, display:display});
 }
 
 

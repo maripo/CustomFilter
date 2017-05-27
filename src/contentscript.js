@@ -79,7 +79,7 @@ BgProcessor.prototype.execRuleEditor = function (request)
 		console.log("window.ruleEditor not found.");
 		window.ruleEditor = new RuleEditor();
 	}
-	window.ruleEditor.initialize(request.rule, request.src, request.appliedRuleList);
+	window.ruleEditor.initialize(request.rule, request.appliedRuleList);
 };
 
 BgProcessor.prototype.execRuleSaveDoneRuleEditorFrame = function (request)

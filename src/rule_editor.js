@@ -8,11 +8,10 @@ var origHref = null;
 var RuleEditor = function () 
 {
 };
-RuleEditor.prototype.initialize = function (rule, src, appliedRuleList) 
+RuleEditor.prototype.initialize = function (rule, appliedRuleList) 
 {
 	this.pathPickerEventHandlers = new Array();
 	this.rule = (rule)?rule:Rule.createInstance();
-	this.src = src;
 	this.appliedRuleList = appliedRuleList;
 	
 	var nodes = document.body.getElementsByTagName('*');
@@ -105,9 +104,8 @@ RuleEditor.prototype.handleReceivedMessage = function (data) {
 	}
 	case "customblocker_test_rule": {
 		var rule = data.rule;
-		for (var i=0, l=hiddenNodes.length; i<l; i++) {
-			hiddenNodes[i].style.display = 'block';
-		}
+		// TODO hidden nodes
+		showHiddenNodes();
 		if (RuleExecutor.styleTag) {
 			RuleExecutor.styleTag.parentNode.removeChild(RuleExecutor.styleTag);
 		}

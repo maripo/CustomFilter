@@ -118,13 +118,11 @@ RuleExecutor.execBlock = function () {
 		if (!rules[i].is_disabled) 
 		{
 			RuleExecutor.applyRule(rules[i], false, 
-				function (node) 
-				{
-				hiddenNodeList.add(node);	
+				function (node) {
+					hiddenNodeList.add(node);	
 					RuleExecutor.blockedCount++;
-					if (!rule.staticXpath)
-					{
-						node.style.display = 'none';
+					if (!rule.staticXpath) {
+						hiddenNodeList.apply(node);
 					}
 				}
 			);
@@ -350,28 +348,29 @@ StyleProcessor.prototype.add = function (node) {
 	for (var i=0, l=this.nodes.length; i<l; i++) {
 		if (this.nodes[i] == node) return;	
 	}
-	var display = getComputedStyle(node, null).getPropertyValue("display");
-	console.log("display=" + display);
-	this.nodes.push({node:node, display:display});
+	var origValue = getComputedStyle(node, null).getPropertyValue(this.attribute);
+	console.log(this.attribute + "=" + origValue);
+	this.nodes.push({node:node, origValue:origValue});
 };
 StyleProcessor.prototype.apply = function (node) {
-	node.style.display = 'none';
+	node.style[this.attributeJs] = this.value;
 };
 StyleProcessor.prototype.applyStyles = function () {
 	for (var i=0, l=this.nodes.length; i<l; i++) {
-		console.log("original="+this.nodes[i].display)
-		this.nodes[i].node.style.display = 'none';
+		console.log("original="+this.nodes[i].origValue)
+		this.nodes[i].node.style[this.attributeJs] = this.value;
 	}
 };
 StyleProcessor.prototype.restoreStyles = function () {
 	console.log("restoreStyles length=" + this.nodes.length);
 	for (var i=0, l=this.nodes.length; i<l; i++) {
-		console.log("original="+this.nodes[i].display)
-		this.nodes[i].node.style.display = this.nodes[i].display;
+		console.log("original="+this.nodes[i].origValue)
+		this.nodes[i].node.style[this.attributeJs] = this.nodes[i].origValue;
 	}
 };
+
 var hiddenNodeList = new StyleProcessor("display", "display", "none");
-var testNodeList = new StyleProcessor("background-color", "backgroundColor", "none");
+var testNodeList = new StyleProcessor("background-color", "backgroundColor", "pink");
 
 /*
 	Convert XPath to CSS and add <style> tag in the header

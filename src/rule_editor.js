@@ -104,15 +104,14 @@ RuleEditor.prototype.handleReceivedMessage = function (data) {
 	}
 	case "customblocker_test_rule": {
 		var rule = data.rule;
-		// TODO hidden nodes
 		hiddenNodeList.restoreStyles();
 		if (RuleExecutor.styleTag) {
 			RuleExecutor.styleTag.parentNode.removeChild(RuleExecutor.styleTag);
 		}
 		RuleExecutor.applyRule(rule, true,
 			function (node) {
-			hiddenNodeList.add(node);
-				node.style.backgroundColor = '#ccc';
+			testNodeList.add(node);
+			testNodeList.apply(node);
 			}, true);
 		break;
 	}
@@ -147,9 +146,9 @@ RuleEditor.prototype.closeFrame = function () {
 	this.removePathPickerEventHandlers();
 	window.elementHighlighter.highlightRule(null);
 	CustomBlockerUtil.removeCss('/css/rule_editor_cursor.css');
+	testNodeList.restoreStyles();
+	hiddenNodeList.applyStyles();
 	RuleExecutor.reloadRules();
-	// Resume filter
-	//RuleExecutor.startBlocking();
 };
 RuleEditor.prototype.validateSelector = function (selectorType, isSearch, selector) {
 	try {

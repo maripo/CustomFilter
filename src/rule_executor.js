@@ -8,7 +8,6 @@ var RuleExecutor =
 };
 
 var rules;
-var hiddenNodes = new Array();
 
 RuleExecutor.checkRules = function (list)
 {
@@ -121,7 +120,7 @@ RuleExecutor.execBlock = function () {
 			RuleExecutor.applyRule(rules[i], false, 
 				function (node) 
 				{
-					addToHiddenNodes(node);	
+				hiddenNodeList.add(node);	
 					RuleExecutor.blockedCount++;
 					if (!rule.staticXpath)
 					{
@@ -240,22 +239,7 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 		);
 	}	
 };
-// TODO
-function showHiddenNodes () {
-	for (var i=0, l=hiddenNodes.length; i<l; i++) {
-		console.log("original="+hiddenNodes[i].display)
-		hiddenNodes[i].node.style.display = hiddenNodes[i].display;
-	}
-}
-function addToHiddenNodes (node) {
-	// Ignore duplicate node
-	for (var i=0, l=hiddenNodes.length; i<l; i++) {
-		if (hiddenNodes[i] == node) return;	
-	}
-	var display = getComputedStyle(node, null).getPropertyValue("display");
-	console.log("display=" + display);
-	hiddenNodes.push({node:node, display:display});
-}
+
 
 
 RuleExecutor.findFlaggedChild = function (hideNode, list) 
@@ -354,6 +338,40 @@ RuleExecutor.nodeContains = function (node, words)
 	}
 	return null;
 };
+
+var StyleProcessor = function (attribute, attributeJs, value) {
+	this.attribute = attribute;
+	this.attributeJs = attributeJs;
+	this.value = value;
+	this.nodes = new Array();
+};
+StyleProcessor.prototype.add = function (node) {
+	// Ignore duplicate node
+	for (var i=0, l=this.nodes.length; i<l; i++) {
+		if (this.nodes[i] == node) return;	
+	}
+	var display = getComputedStyle(node, null).getPropertyValue("display");
+	console.log("display=" + display);
+	this.nodes.push({node:node, display:display});
+};
+StyleProcessor.prototype.apply = function (node) {
+	node.style.display = 'none';
+};
+StyleProcessor.prototype.applyStyles = function () {
+	for (var i=0, l=this.nodes.length; i<l; i++) {
+		console.log("original="+this.nodes[i].display)
+		this.nodes[i].node.style.display = 'none';
+	}
+};
+StyleProcessor.prototype.restoreStyles = function () {
+	console.log("restoreStyles length=" + this.nodes.length);
+	for (var i=0, l=this.nodes.length; i<l; i++) {
+		console.log("original="+this.nodes[i].display)
+		this.nodes[i].node.style.display = this.nodes[i].display;
+	}
+};
+var hiddenNodeList = new StyleProcessor("display", "display", "none");
+var testNodeList = new StyleProcessor("background-color", "backgroundColor", "none");
 
 /*
 	Convert XPath to CSS and add <style> tag in the header

@@ -105,13 +105,13 @@ RuleEditor.prototype.handleReceivedMessage = function (data) {
 	case "customblocker_test_rule": {
 		var rule = data.rule;
 		// TODO hidden nodes
-		showHiddenNodes();
+		hiddenNodeList.restoreStyles();
 		if (RuleExecutor.styleTag) {
 			RuleExecutor.styleTag.parentNode.removeChild(RuleExecutor.styleTag);
 		}
 		RuleExecutor.applyRule(rule, true,
 			function (node) {
-				addToHiddenNodes(node);
+			hiddenNodeList.add(node);
 				node.style.backgroundColor = '#ccc';
 			}, true);
 		break;

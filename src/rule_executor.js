@@ -48,7 +48,6 @@ RuleExecutor.checkRules = function (list)
 };
 
 RuleExecutor.startBlocking = function() {
-	console.log("RuleExecutor.startBlocking");
 	for (var i=0, l=rules.length; i<l; i++) 
 	{
 		var rule = rules[i];
@@ -136,7 +135,6 @@ RuleExecutor.execBlock = function () {
 
 RuleExecutor.reloadRules = function ()
 {
-	console.log("RuleExecutor.reloadRules")
 	window.bgProcessor.sendRequest(
 		'reload', 
 		{}, 

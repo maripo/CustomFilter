@@ -569,13 +569,10 @@ SmartRuleCreatorDialog.prototype.getSuggestedPathClickAction = function (path, l
 };
 SmartRuleCreatorDialog.prototype.createRuleByPath = function (path)
 {
-	var rule = Rule.createInstance();
+	var rule = Rule.createInstance(location.href, document.title);
 	rule.search_block_by_css = true;
 	rule.hide_block_by_css = true;
 	rule.title = path.title;
-	rule.example_url = location.href;
-	rule.site_description = document.title;
-	rule.site_regexp = location.href;
 	rule.search_block_css = path.searchPath.path;
 	rule.search_block_xpath = null;
 	rule.search_block_description = null;

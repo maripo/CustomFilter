@@ -63,12 +63,26 @@ var Rule = function()
 {
 	this.words = [];
 };
-Rule.createInstance = function () 
+Rule.createInstance = function (url, title) 
 {
 	var rule = new Rule();
-	// Default Values (CSS on)
+	rule.title = title;
+	rule.site_regexp = url;
+	rule.example_url = url;
+	rule.site_description = title;
+
+	rule.search_block_css = "";
+	rule.search_block_xpath = "";
 	rule.search_block_by_css = true;
+	rule.search_block_description = "";
+
+	rule.hide_block_css = "";
+	rule.hide_block_xpath = "";
 	rule.hide_block_by_css = true;
+	rule.hide_block_description = "";
+	
+	rule.block_anyway = false;
+	rule.specify_url_by_regexp = false;
 	return rule;
 };
 Rule.prototype.addWord = function(word)

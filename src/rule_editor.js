@@ -11,7 +11,7 @@ var RuleEditor = function ()
 RuleEditor.prototype.initialize = function (rule, appliedRuleList) 
 {
 	this.pathPickerEventHandlers = new Array();
-	this.rule = (rule)?rule:Rule.createInstance();
+	this.rule = (rule)?rule:Rule.createInstance(location.href, document.title);
 	this.appliedRuleList = appliedRuleList;
 	
 	var nodes = document.body.getElementsByTagName('*');

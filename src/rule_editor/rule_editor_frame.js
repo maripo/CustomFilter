@@ -30,37 +30,41 @@ var RuleEditorFrame = function () {
 	this.block_anyway_false = document.getElementById('rule_editor_block_anyway_false');
 	this.hide_detail = document.getElementById('rule_editor_hide_detail');
 	
-	this.radio_hide_xpath.addEventListener('change', this.getRefreshPathSecionsAction(), false);
-	this.radio_hide_css.addEventListener('change', this.getRefreshPathSecionsAction(), false);
-	this.radio_search_xpath.addEventListener('change', this.getRefreshPathSecionsAction(), false);
-	this.radio_search_css.addEventListener('change', this.getRefreshPathSecionsAction(), false);
+	var pathTextChangeHandler = this.getRefreshPathSecionsAction();
+	this.radio_hide_xpath.addEventListener('change', pathTextChangeHandler, false);
+	this.radio_hide_css.addEventListener('change', pathTextChangeHandler, false);
+	this.radio_search_xpath.addEventListener('change', pathTextChangeHandler, false);
+	this.radio_search_css.addEventListener('change', pathTextChangeHandler, false);
 
-	this.hide_block_xpath.addEventListener ('keyup',this.getRefreshHideBlockXPathAction(), false);
-	this.search_block_xpath.addEventListener ('keyup',this.getRefreshSearchBlockXPathAction(), false);
-	this.hide_block_xpath.addEventListener ('change',this.getRefreshHideBlockXPathAction(), false);
-	this.search_block_xpath.addEventListener ('change',this.getRefreshSearchBlockXPathAction(), false);
-	this.hide_block_css.addEventListener ('keyup',this.getRefreshHideBlockXPathAction(), false);
-	this.search_block_css.addEventListener ('keyup',this.getRefreshSearchBlockXPathAction(), false);
-	this.hide_block_css.addEventListener ('change',this.getRefreshHideBlockXPathAction(), false);
-	this.search_block_css.addEventListener ('change',this.getRefreshSearchBlockXPathAction(), false);
+	var refreshHideBlockFunc = this.getRefreshHideBlockXPathAction();
+	var refreshSearchBlockFunc = this.getRefreshSearchBlockXPathAction();
+	this.hide_block_xpath.addEventListener ('keyup',refreshHideBlockFunc, false);
+	this.search_block_xpath.addEventListener ('keyup',refreshSearchBlockFunc, false);
+	this.hide_block_xpath.addEventListener ('change',refreshHideBlockFunc, false);
+	this.search_block_xpath.addEventListener ('change',refreshSearchBlockFunc, false);
+	this.hide_block_css.addEventListener ('keyup',refreshHideBlockFunc, false);
+	this.search_block_css.addEventListener ('keyup',refreshSearchBlockFunc, false);
+	this.hide_block_css.addEventListener ('change',refreshHideBlockFunc, false);
+	this.search_block_css.addEventListener ('change',refreshSearchBlockFunc, false);
 	
-	this.title.addEventListener('change', this.getChangedAction(), false);
-	this.site_regexp.addEventListener('change', this.getChangedAction(), false);
-	this.example_url.addEventListener('change', this.getChangedAction(), false);
-	this.site_description.addEventListener('change', this.getChangedAction(), false);
-	this.search_block_xpath.addEventListener('change', this.getChangedAction(), false);
-	this.search_block_css.addEventListener('change', this.getChangedAction(), false);
-	this.radio_search_css.addEventListener('change', this.getChangedAction(), false);
-	this.radio_search_xpath.addEventListener('change', this.getChangedAction(), false);
-	this.search_block_description.addEventListener('change', this.getChangedAction(), false);
-	this.hide_block_xpath.addEventListener('change', this.getChangedAction(), false);
-	this.hide_block_css.addEventListener('change', this.getChangedAction(), false);
-	this.radio_hide_css.addEventListener('change', this.getChangedAction(), false);
-	this.radio_hide_xpath.addEventListener('change', this.getChangedAction(), false);
-	this.hide_block_description.addEventListener('change', this.getChangedAction(), false);
-	this.block_anyway.addEventListener('change', this.getChangedAction(), false);
-	this.block_anyway_false.addEventListener('change', this.getChangedAction(), false);
-	this.specify_url_by_regexp_checkbox.addEventListener('change', this.getChangedAction(), false);
+	var changeHandler = this.getChangedAction()
+	this.title.addEventListener('change', changeHandler, false);
+	this.site_regexp.addEventListener('change', changeHandler, false);
+	this.example_url.addEventListener('change', changeHandler, false);
+	this.site_description.addEventListener('change', changeHandler, false);
+	this.search_block_xpath.addEventListener('change', changeHandler, false);
+	this.search_block_css.addEventListener('change', changeHandler, false);
+	this.radio_search_css.addEventListener('change', changeHandler, false);
+	this.radio_search_xpath.addEventListener('change', changeHandler, false);
+	this.search_block_description.addEventListener('change', changeHandler, false);
+	this.hide_block_xpath.addEventListener('change', changeHandler, false);
+	this.hide_block_css.addEventListener('change', changeHandler, false);
+	this.radio_hide_css.addEventListener('change', changeHandler, false);
+	this.radio_hide_xpath.addEventListener('change', changeHandler, false);
+	this.hide_block_description.addEventListener('change', changeHandler, false);
+	this.block_anyway.addEventListener('change', changeHandler, false);
+	this.block_anyway_false.addEventListener('change', changeHandler, false);
+	this.specify_url_by_regexp_checkbox.addEventListener('change', changeHandler, false);
 
 	for (var i=0; i<pathInputFields.length; i++) {
 		document.getElementById(pathInputFields[i].pickButton).addEventListener('click',
@@ -114,35 +118,26 @@ RuleEditorFrame.prototype.renderRule = function (data) {
 		var span = CustomBlockerUtil.createWordElement(word, this.getWordDeleteAction(word));
 		document.getElementById('rule_editor_keywords').appendChild(span);
 	}
-
-	if (rule.rule_id && rule.rule_id > 0) {
-		this.title.value = rule.title;
-		this.site_regexp.value = rule.site_regexp;
-		this.example_url.value = rule.example_url;
-		this.site_description.value = rule.site_description;
-		this.search_block_xpath.value = rule.search_block_xpath;
-		this.search_block_css.value = rule.search_block_css;
-		((rule.search_block_by_css)?this.radio_search_css:this.radio_search_xpath).checked = true;
-		this.search_block_description.value  = rule.search_block_description;
-		this.hide_block_xpath.value = rule.hide_block_xpath;
-		this.hide_block_css.value = rule.hide_block_css;
-		((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath).checked = true;
-		this.hide_block_description.value = rule.hide_block_description;
-		((rule.block_anyway)?this.block_anyway:this.block_anyway_false).checked = true;
-		this.specify_url_by_regexp_checkbox.checked = rule.specify_url_by_regexp;
-
-		this.setBlockAnywayStyle(this.block_anyway.checked);
-		document.getElementById('rule_editor_keyword').focus();
-	}
-	else {
-		console.log(data)
-		this.site_regexp.value = data.url;
-		this.site_description.value = data.title;
-		this.title.value = data.title;
-		this.example_url.value = data.url;
-		this.block_anyway_false.checked = true;
-		console.log("title=" + data.title);
-	}
+	// Populate form
+	this.title.value = rule.title;
+	this.site_regexp.value = rule.site_regexp;
+	this.example_url.value = rule.example_url;
+	this.site_description.value = rule.site_description;
+	
+	this.search_block_xpath.value = rule.search_block_xpath;
+	this.search_block_css.value = rule.search_block_css;
+	((rule.search_block_by_css)?this.radio_search_css:this.radio_search_xpath).checked = true;
+	this.search_block_description.value  = rule.search_block_description;
+	this.hide_block_xpath.value = rule.hide_block_xpath;
+	this.hide_block_css.value = rule.hide_block_css;
+	((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath).checked = true;
+	this.hide_block_description.value = rule.hide_block_description;
+	((rule.block_anyway)?this.block_anyway:this.block_anyway_false).checked = true;
+	this.specify_url_by_regexp_checkbox.checked = rule.specify_url_by_regexp;
+	
+	// Set visibility
+	this.setBlockAnywayStyle(this.block_anyway.checked);
+	document.getElementById('rule_editor_keyword').focus();
 	this.refreshPathSections();
 	this.refreshXPathSelectedStyles();
 };
@@ -155,12 +150,10 @@ RuleEditorFrame.prototype.saveRule = function () {
 		return;
 	}
 	// set UUIDs
-	if (CustomBlockerUtil.isEmpty(this.rule.user_identifier))
-	{
+	if (CustomBlockerUtil.isEmpty(this.rule.user_identifier)) {
 		this.rule.user_identifier = UUID.generate();
 	}
-	if (CustomBlockerUtil.isEmpty(this.rule.global_identifier))
-	{
+	if (CustomBlockerUtil.isEmpty(this.rule.global_identifier)) {
 		this.rule.global_identifier = UUID.generate();
 	}
 	this.applyInput();

@@ -370,7 +370,7 @@ StyleProcessor.prototype.restoreStyles = function () {
 };
 
 var hiddenNodeList = new StyleProcessor("display", "display", "none");
-var testNodeList = new StyleProcessor("background-color", "backgroundColor", "pink");
+var testNodeList = new StyleProcessor("background-color", "backgroundColor", "#888");
 
 /*
 	Convert XPath to CSS and add <style> tag in the header

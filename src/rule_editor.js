@@ -21,6 +21,9 @@ RuleEditor.prototype.initialize = function (rule, appliedRuleList)
 	// For path picker
 	for (var i=0; i<nodes.length; i++) {		
 		var node = nodes[i];
+		if (node.avoidStyle) {
+			continue;
+		}
 		var mouseoverHandler = this.getOnMouseoverActionForFrame(node);
 		var mouseoutHandler = this.getOnMouseoutActionForFrame(node);
 		var clickHandler = this.getOnClickActionForFrame(node);
@@ -263,6 +266,8 @@ RuleEditor.prototype.openFrame = function () {
 	}
 	var iframe = document.createElement("IFRAME");
 	iframe.src = chrome.extension.getURL('/rule_editor_frame_'+ chrome.i18n.getMessage('extLocale') + '.html');
+	iframe.scrolling = "no";
+	iframe.frameborder = "0";
 	with (iframe.style) {
 		width = '400px';
 		height = '640px'; // TODO resize height
@@ -303,6 +308,7 @@ RuleEditor.prototype.openFrame = function () {
 	dragger.avoidStyle = true;
 	frameContainer.avoidStyle = true;
 	iframe.avoidStyle = true;
+	closeIcon.avoidStyle = true;
 	
 	frameContainer.appendChild(dragger);
 	frameContainer.appendChild(iframe);

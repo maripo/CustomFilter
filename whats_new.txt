@@ -1,0 +1,4 @@
+2.5.0	Added "complete matching" feature
+2.5.1-4	Bug fix and trivial improvements
+2.6.0	Added "case sensitive/ignore" and "include link URL" option
+2.6.1	Better layout

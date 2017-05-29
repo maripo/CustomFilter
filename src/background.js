@@ -59,7 +59,7 @@ function onWordListLoaded (wordList)
 			rule.words.push(wordList[i]);
 		}
 	}
-	loadRulePickerSrc();
+	loadSmartRuleEditorSrc();
 	saveUuidIfNotSet();
 }
 
@@ -105,7 +105,6 @@ function openRulePicker (selectedRule)
 			chrome.tabs.sendRequest(tab.id, 
 			{
 				command: 'ruleEditor',
-				src: rulePickerSrc,
 				rule: selectedRule,
 				appliedRuleList: appliedRuleMap[tab.id]
 			}, getForegroundCallback(tab.id));
@@ -226,10 +225,10 @@ function execCallbackBadge (tabId, param)
 
 	var count = param.count;
 	try {
-	    chrome.tabs.sendRequest(tabId, 
-	    	    {
-	    	        command: (param.nextAction)
-	    	    }, getForegroundCallback (tabId));
+		chrome.tabs.sendRequest(tabId, 
+				{
+					command: (param.nextAction)
+				}, getForegroundCallback (tabId));
 		var badgeText = ''+count;
 		tabBadgeMap[tabId] = badgeText;
 		if (localStorage.badgeDisabled!="true") {
@@ -261,25 +260,7 @@ function getAppliedRules (callback)
 	});
 	
 }
-var rulePickerSrc = '';
 var smartRuleEditorSrc = '';
-function loadRulePickerSrc()
-{
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function()
-	{
-		if (xhr.readyState==4) 
-		{
-			if (xhr.status==0 || xhr.status==200) 
-			{
-				rulePickerSrc = xhr.responseText;
-				loadSmartRuleEditorSrc();
-			}
-		}
-	}
-	xhr.open("GET", chrome.extension.getURL('/rule_editor_'+chrome.i18n.getMessage("extLocale")+'.html'), true);
-	xhr.send();
-}
 function loadSmartRuleEditorSrc()
 {
 	var xhr = new XMLHttpRequest();

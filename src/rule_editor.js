@@ -50,7 +50,6 @@ RuleEditor.prototype.initialize = function (rule, appliedRuleList)
 		this.pathPickerDialog = new PathPickerDialog(this.maxZIndex + 2, this);
 	}
 	CustomBlockerUtil.enableFlashZIndex();
-	console.log("RuleEditor.initialize");
 	this.openFrame();
 };
 RuleEditor.prototype.hideCover = function () {
@@ -58,7 +57,6 @@ RuleEditor.prototype.hideCover = function () {
 }
 RuleEditor.prototype.removePathPickerEventHandlers = function () {
 	if (!this.pathPickerEventHandlers) return;
-	console.log("removePathPickerEventHandlers");
 	for (var i=0; i<this.pathPickerEventHandlers.length; i++) {
 		var obj = this.pathPickerEventHandlers[i];
 		obj.node.removeEventListener('mouseover', obj.mouseoverHandler);
@@ -100,8 +98,6 @@ RuleEditor.prototype.handleReceivedMessage = function (data) {
 		break;
 	}
 	case "customblocker_save_rule": {
-		console.log("Save rule");
-		console.log(data.rule);
 		window.bgProcessor.sendRequest('db', {dbCommand:'save', type:'rule', obj: data.rule}, 'ruleSaveDoneRuleEditor');
 		break;
 	}
@@ -245,7 +241,6 @@ RuleEditor.prototype.processSelection = function (event)
 };
 
 RuleEditor.prototype.openFrame = function () {
-	console.log("RuleEditor.prototype.openFrame");
 	if (this.frameContainer) {
 		// Existing and hidden. Send rule immediately.
 		this.frameContainer.style.display = "block";
@@ -289,7 +284,6 @@ RuleEditor.prototype.openFrame = function () {
 	
 	var scope = this;
 	var closeIcon = document.createElement("A");
-	console.log(chrome.extension.getURL("/img/rule_editor_close.png"))
 	with (closeIcon.style) {
 		backgroundImage = "url(" + chrome.extension.getURL("/img/rule_editor_close.png") + ")";
 		backgroundRepeat = "no-repeat";
@@ -345,7 +339,6 @@ RuleEditor.prototype.getOnClickActionForFrame = function (node)
 			var analyzer = new PathAnalyzer(node, self.pathPickerTarget.getPathBuilder());
 			var list = analyzer.createPathList();
 			self.pathPickerDialog.show(event, list, self.pathPickerTarget, function (target, path) {
-				console.log(target + "->" + path)
 				var options = {
 					command: "customblocker_path_picked",
 					target: target,

@@ -133,7 +133,6 @@ CustomBlockerUtil.getRuleDetailTip = function (rule)
 		// Map of found keywords
 		try {
 			if (rule.appliedWords && rule.appliedWords[word.word_id] > 0) {
-				console.log("Word=" + word.word + ", hit=" + rule.appliedWords[word.word_id]);
 				token += ("("+rule.appliedWords[word.word_id]+")")
 			}
 			
@@ -229,7 +228,6 @@ CustomBlockerUtil.getShowHelpAction = function (_fileName)
 }
 CustomBlockerUtil.showHelp = function (fileName)
 {
-	console.log("CustomBlockerUtil.showHelp fileName=" + fileName);
 	window.open(chrome.extension.getURL('/help/'+ chrome.i18n.getMessage('extLocale') + '/' +fileName),
 			"help","top=10,left=10,width=480 height=500 resizable=yes menubar=no, toolbar=no");
 };

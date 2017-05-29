@@ -20,7 +20,6 @@ BgProcessor.prototype.sendRequest = function (command, param, nextAction)
 		customBlockerBgCallback(param);
 		customBlockerBgCallback = null;
 	} catch (ex) {
-		console.log(new Date().getTime())
 		console.log(ex);
 	}
 }

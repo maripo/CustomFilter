@@ -188,7 +188,6 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 			foundChild = RuleExecutor.findFlaggedChild(node, searchNodes);
 			if (foundChild) {
 				shouldBeHidden = true;
-				//console.log(foundChild)
 			}
 		}
 		if ((ignoreHidden||!node.hideDone) && shouldBeHidden) 
@@ -323,7 +322,6 @@ RuleExecutor.nodeContains = function (node, words)
 				else
 				{ 
 					if (text.indexOf(w)>-1) {
-						//console.log("HIT! " + w + " | " + text);
 						return word;
 					}
 				}
@@ -349,7 +347,6 @@ StyleProcessor.prototype.add = function (node) {
 		if (this.nodes[i] == node) return;	
 	}
 	var origValue = getComputedStyle(node, null).getPropertyValue(this.attribute);
-	console.log(this.attribute + "=" + origValue);
 	this.nodes.push({node:node, origValue:origValue});
 };
 StyleProcessor.prototype.apply = function (node) {
@@ -357,14 +354,11 @@ StyleProcessor.prototype.apply = function (node) {
 };
 StyleProcessor.prototype.applyStyles = function () {
 	for (var i=0, l=this.nodes.length; i<l; i++) {
-		console.log("original="+this.nodes[i].origValue)
 		this.nodes[i].node.style[this.attributeJs] = this.value;
 	}
 };
 StyleProcessor.prototype.restoreStyles = function () {
-	console.log("restoreStyles length=" + this.nodes.length);
 	for (var i=0, l=this.nodes.length; i<l; i++) {
-		console.log("original="+this.nodes[i].origValue)
 		this.nodes[i].node.style[this.attributeJs] = this.nodes[i].origValue;
 	}
 };

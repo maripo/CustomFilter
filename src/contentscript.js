@@ -54,6 +54,7 @@ BgProcessor.prototype.processBackgroundRequest = function (request, sender, send
 			this.execQuickRuleCreation(request); break;
 	}
 };
+chrome.extension.sendRequest({command:"requestRules"});
 BgProcessor.prototype.execInit = function (request)
 {
 	if (request.rules)

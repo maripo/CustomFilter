@@ -4,6 +4,7 @@ var wordPeer = WordPeer.getInstance();
 var existingTabs = new Array();
 var tabBadgeMap = new Array(); /* tabId, badgeCount */
 
+
 /**
  * Initialization
  */
@@ -112,6 +113,11 @@ function openRulePicker (selectedRule)
 	} 
 	catch (ex) {console.log(ex)}
 }
+chrome.extension.onRequest.addListener(function(request, sender) {
+	if (request.command == "requestRules") {
+		tabOnUpdate(sender.tab.id, null, sender.tab);
+	}
+});
 var tabOnUpdate = function(tabId, changeInfo, tab)
 {
 	addToExistingTabList(tabId);
@@ -122,7 +128,7 @@ var tabOnUpdate = function(tabId, changeInfo, tab)
 		return;
 	}
 	var url = tab.url;
-	if (isValidURL(url) && changeInfo.status == "complete") 
+	if (isValidURL(url)/* && changeInfo.status == "complete"*/) 
 	{
 		chrome.tabs.sendRequest(tabId,
 		{
@@ -368,7 +374,7 @@ var ruleList = new Array();
 var appliedRuleMap = new Array();
 if (!chrome.tabs.customBlockerOnUpdateSet)
 {
-	chrome.tabs.onUpdated.addListener(tabOnUpdate);
+	//chrome.tabs.onUpdated.addListener(tabOnUpdate);
 	chrome.tabs.onRemoved.addListener
 		(function(tabId, removeInfo) 
 			{

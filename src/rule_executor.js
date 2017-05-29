@@ -42,10 +42,10 @@ RuleExecutor.checkRules = function (list)
 		}
 	}
 	window.bgProcessor.sendRequest('setApplied', {list:rules}, 'badge');
-	if (rules.length > 0) 
+	if (rules.length > 0) {
 		RuleExecutor.startBlocking();
+	}
 };
-
 RuleExecutor.startBlocking = function() {
 	for (var i=0, l=rules.length; i<l; i++) 
 	{
@@ -99,8 +99,12 @@ RuleExecutor.startBlocking = function() {
 	}
 	if (needBlocking)
 	{
-		RuleExecutor.blockTimeout = setTimeout(RuleExecutor.execBlock, 50);
-		RuleExecutor.blockInterval = setInterval(RuleExecutor.execBlock, 2000);
+		for (var after=100; after<500; after+=100) {
+			setTimeout(RuleExecutor.execBlock, after);
+			
+		}
+		RuleExecutor.blockInterval = setInterval(RuleExecutor.execBlock, 500);
+		RuleExecutor.execBlock();
 	}
 };
 

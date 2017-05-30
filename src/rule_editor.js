@@ -89,7 +89,6 @@ RuleEditor.prototype.sendRuleToFrame = function () {
 				title:document.title,
 				rule:this.rule},
 			"*");
-	
 };
 RuleEditor.prototype.handleReceivedMessage = function (data) {
 	switch (data.command) {
@@ -143,6 +142,7 @@ RuleEditor.prototype.closeFrame = function () {
 	}
 	*/
 	this.pathPickerDialog.close();
+	this.pathPickerDialog.deselectAllTargets();
 	this.removePathPickerEventHandlers();
 	window.elementHighlighter.highlightRule(null);
 	CustomBlockerUtil.removeCss('/css/rule_editor_cursor.css');
@@ -350,13 +350,11 @@ RuleEditor.prototype.getOnClickActionForFrame = function (node)
 		event.preventDefault();
 	}
 };
-RuleEditor.prototype.getOnMouseoverActionForFrame = function (node) 
-{
+
+RuleEditor.prototype.getOnMouseoverActionForFrame = function (node) {
 	var self = this;
-	return function (event)
-	{
-		if (window.ruleEditor && selectedNode == null && self.pathPickerTarget) 
-		{
+	return function (event) {
+		if (window.ruleEditor && selectedNode == null && self.pathPickerTarget) {
 			selectedNode = node;
 			origStyle = selectedNode.style.outline;
 			origHref = selectedNode.href;
@@ -382,10 +380,8 @@ RuleEditor.prototype.getOnMouseoverActionForFrame = function (node)
 
 RuleEditor.prototype.getOnMouseoutActionForFrame = function (node) 
 {
-	return function (event) 
-	{
-		if (window.ruleEditor && selectedNode) 
-		{
+	return function (event) {
+		if (window.ruleEditor && selectedNode) {
 			selectedNode.style.outline = origStyle;
 			selectedNode.href = origHref;
 		}
@@ -493,36 +489,40 @@ PathPickerDialog.prototype.show = function (event, paths,
 		}
 	}
 };
-PathPickerDialog.prototype.getOnmouseoverAction = function (filter, /*PathPickerDialog.target...*/target) 
-{
-	var self = this;
-	return function()
-	{
-		var currentFilter = (target.isToHide)?self.currentHideFilter:self.currentSearchFilter;
-		
-		if (currentFilter) 
-		{
-			var elements = currentFilter.elements;
-			for (var i=0, l=elements.length; i<l; i++) 
-			{
-				if (!elements[i].avoidStyle)
-				elements[i].style.outline = '';
-			}
+
+//Remove outline from selecor's target
+PathPickerDialog.prototype.deselectFilterTargets = function (filter) {
+	if (!filter) return;
+	var elements = filter.elements;
+	for (var i=0, l=elements.length; i<l; i++) {
+		if (!elements[i].avoidStyle) {
+			elements[i].style.outline = '';
 		}
-		try 
-		{
+	}
+	
+};
+PathPickerDialog.prototype.deselectAllTargets = function (filter) {
+	this.deselectFilterTargets(this.currentHideFilter);
+	this.deselectFilterTargets(this.currentSearchFilter);
+};
+PathPickerDialog.prototype.getOnmouseoverAction = function (filter, 
+		/*PathPickerDialog.target...*/target) {
+	var self = this;
+	return function() {
+		var currentFilter = (target.isToHide)? self.currentHideFilter:self.currentSearchFilter;
+		if (currentFilter) {
+			self.deselectFilterTargets(currentFilter);
+		}
+		try {
 			var pathNodes = target.getPathNodes(filter.path);
-			for (var i = 0; i < pathNodes.length; i++) 
-			{
-				if (pathNodes[i] != selectedNode && !pathNodes[i].avoidStyle && pathNodes[i].tmpSelectForHide) 
-				{
+			for (var i = 0; i < pathNodes.length; i++) {
+				if (pathNodes[i] != selectedNode && !pathNodes[i].avoidStyle && pathNodes[i].tmpSelectForHide) {
 					if (target.isToHide) pathNodes[i].tmpSelectForHide();
 					else  pathNodes[i].tmpSelectForSearch();
 				}
 			}
 		} 
-		catch (e) 
-		{
+		catch (e) {
 			console.log(e)
 		}
 		if (target.isToHide) self.currentHideFilter = filter;

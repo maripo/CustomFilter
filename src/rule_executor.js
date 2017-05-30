@@ -99,11 +99,10 @@ RuleExecutor.startBlocking = function() {
 	}
 	if (needBlocking)
 	{
-		for (var after=100; after<500; after+=100) {
+		for (var after=50; after<250; after+=50) {
 			setTimeout(RuleExecutor.execBlock, after);
-			
 		}
-		RuleExecutor.blockInterval = setInterval(RuleExecutor.execBlock, 500);
+		RuleExecutor.blockInterval = setInterval(RuleExecutor.execBlock, 250);
 		RuleExecutor.execBlock();
 	}
 };
@@ -113,7 +112,6 @@ RuleExecutor.stopBlocking = function ()
 	if (RuleExecutor.blockTimeout) clearTimeout(RuleExecutor.blockTimeout);
 	if (RuleExecutor.blockInterval) clearInterval(RuleExecutor.blockInterval);
 }
-
 RuleExecutor.execBlock = function () {
 	if (!rules) return;
 	for (var i = 0; i < rules.length; i++)
@@ -198,8 +196,7 @@ RuleExecutor.applyRule = function (rule, /* boolean */ ignoreHidden, /*function(
 		{
 			if (!node.defaultStyles) 
 			{
-				node.defaultStyles =
-				{
+				node.defaultStyles = {
 					backgroundColor : node.style.backgroundColor,
 					display : node.style.display
 				};

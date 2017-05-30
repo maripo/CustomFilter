@@ -2,6 +2,10 @@
  2011 Maripo GODA
 
  */
+var timeZero = new Date().getTime();
+function elapsed () {
+	return new Date().getTime() - timeZero;
+}
 var customBlockerBgCallback = null;
 window.ruleEditor = null;
 

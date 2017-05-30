@@ -142,6 +142,7 @@ RuleEditor.prototype.closeFrame = function () {
 			return;
 	}
 	*/
+	this.pathPickerDialog.close();
 	this.removePathPickerEventHandlers();
 	window.elementHighlighter.highlightRule(null);
 	CustomBlockerUtil.removeCss('/css/rule_editor_cursor.css');
@@ -251,7 +252,7 @@ RuleEditor.prototype.openFrame = function () {
 	var frameContainer = document.createElement("DIV");
 	with (frameContainer.style) {
 		position = "fixed";
-		zIndex = this.maxZIndex + 2;
+		zIndex = this.maxZIndex + 1;
 		width = '400px';
 		top = '10px';
 		right = '10px';
@@ -329,16 +330,14 @@ RuleEditor.prototype.onSaveDone = function (rule)
 RuleEditor.prototype.getOnClickActionForFrame = function (node) 
 {
 	var self = this;
-	return function (event) 
-	{
+	return function (event) {
 		if (!window.ruleEditor || !self.pathPickerTarget || self.pathPickerTarget.none) {
 			return;
 		}
-		if (selectedNode ==node) 
-		{
+		if (selectedNode ==node) {
 			var analyzer = new PathAnalyzer(node, self.pathPickerTarget.getPathBuilder());
-			var list = analyzer.createPathList();
-			self.pathPickerDialog.show(event, list, self.pathPickerTarget, function (target, path) {
+			var paths = analyzer.createPathList();
+			self.pathPickerDialog.show(event, paths, self.pathPickerTarget, function (target, path) {
 				var options = {
 					command: "customblocker_path_picked",
 					target: target,
@@ -440,30 +439,31 @@ var PathPickerDialog = function (_zIndex, ruleEditor)
 	this.currentFilter = null;
 };
 
-PathPickerDialog.prototype.show = function (event, list, /* PathPickerDialog.target... */target, onSelect) 
-{
+PathPickerDialog.prototype.show = function (event, paths, 
+		/* PathPickerDialog.target... */target, onSelect) {
 	this.ul.innerHTML = '';
 	
-	for (var i=0, l=list.length; i<l; i++) 
-	{
+	for (var i=0, l=paths.length; i<l; i++) {
 		var li = document.createElement('LI');
 		li.avoidStyle = true;
+		
 		var a = document.createElement('A');
 		a.avoidStyle = true;
 		a.href = 'javascript:void(0)';
+		
 		var span = document.createElement('SPAN');
 		span.className = 'xpath';
-		span.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.trim(list[i].path)); 
+		span.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.trim(paths[i].path));
+		
 		var badge = document.createElement('SPAN');
 		badge.className = 'badge';
-
-		badge.innerHTML = list[i].elements.length;
+		badge.innerHTML = paths[i].elements.length;
 		
 		a.appendChild(badge);
 		a.appendChild(span);
 		
-		a.addEventListener('click', this.getOnclickAction(list[i], target, onSelect), false);
-		a.addEventListener('mouseover', this.getOnmouseoverAction(list[i], target), false);
+		a.addEventListener('click', this.getOnclickAction(paths[i], target, onSelect), false);
+		a.addEventListener('mouseover', this.getOnmouseoverAction(paths[i], target), false);
 		li.appendChild(a);
 		this.ul.appendChild(li);
 	}
@@ -485,11 +485,9 @@ PathPickerDialog.prototype.show = function (event, list, /* PathPickerDialog.tar
 	this.div.style.top = _top + 'px';
 
 	var currentFilter = (target.isToHide)?self.currentHideFilter:self.currentSearchFilter;
-	if (this.currentFilter!=currentFilter) 
-	{
+	if (this.currentFilter!=currentFilter) {
 		var elements = this.currentFilter.elements;
-		for (var i=0, l=elements.length; i<l; i++) 
-		{
+		for (var i=0, l=elements.length; i<l; i++) {
 			if (elements[i].tmpUnselect)
 				elements[i].tmpUnselect();
 		}
@@ -532,12 +530,17 @@ PathPickerDialog.prototype.getOnmouseoverAction = function (filter, /*PathPicker
 		self.currentFilter = filter;
 	}
 }
+PathPickerDialog.prototype.close = function () {
+	if (this.div) {
+		this.div.style.display = 'none';
+	}
+};
 PathPickerDialog.prototype.getOnclickAction = function (filter, /*PathPickerDialog.target...*/target, onSelect) 
 {
 	var self = this;
 	return function()
 	{
-		var currentFilter = (target.isToHide)?self.currentHideFilter:self.currentHideFilter;
+		var currentFilter = (target.isToHide)? self.currentHideFilter:self.currentHideFilter;
 		var path = CustomBlockerUtil.trim(filter.path);
 
 		if (onSelect) {
@@ -548,11 +551,9 @@ PathPickerDialog.prototype.getOnclickAction = function (filter, /*PathPickerDial
 		else self.currentSearchFilter = filter;
 		
 		self.currentFilter = filter;
-		self.div.style.display = 'none';
-		
+		self.close();
 	}
-}
-
+};
 
 var RuleElement = 
 {

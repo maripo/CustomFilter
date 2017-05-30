@@ -4,3 +4,5 @@
 2.6.1	Better layout (The rule editor dialog is no longer affected by sites' styles)
 2.6.2	Faster loading
 2.6.3	layout fix
+2.6.3.1	Remove tool tip from smart rule editor
+2.6.3.2	Close path picker if open when closing rule editor (bug fix)

@@ -39,7 +39,7 @@
 	cursor:default!important;
 	padding-top:1px!important;
 	border-bottom:solid 1px #bbb!important;
-	background-color:#fff;
+	background-color:#fff!important;
 }
 #smart_rule_creator_dialog li.option input[type="button"]{
 	display:none;
@@ -59,10 +59,10 @@
 	background-color:#fbe496!important;
 }
 #smart_rule_creator_dialog li {
-	height:18px;
-	font-size:12px;
+	height:18px!important;
+	font-size:12px!important;
 	list-style-type:none!important;
-	list-style-image:none;
+	list-style-image:none!important;
 }
 /* Count badge */
 #smart_rule_creator_dialog li.option span.searchCount {
@@ -73,7 +73,7 @@
 	margin-right:2px!important;
 	padding:1px 2px!important;
 }
-#smart_rule_creator_dialog li.option  span.hideCount {
+#smart_rule_creator_dialog li.option span.hideCount {
 	background-color:#959595;
 	color:white;
 	font-size:9px;

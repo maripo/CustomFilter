@@ -3,3 +3,4 @@
 2.6.0	Added "case sensitive/ignore" and "include link URL" option
 2.6.1	Better layout (The rule editor dialog is no longer affected by sites' styles)
 2.6.2	Faster loading
+2.6.3	layout fix

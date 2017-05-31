@@ -219,8 +219,7 @@ RuleEditor.prototype.getOnMousemoveAction = function ()
 		
 	}
 };
-RuleEditor.prototype.getOnMouseupAction = function () 
-{
+RuleEditor.prototype.getOnMouseupAction = function () {
 	var self = this;
 	return function (event) 
 	{
@@ -233,8 +232,7 @@ RuleEditor.prototype.getOnMouseupAction = function ()
 	}
 };
 // ?
-RuleEditor.prototype.processSelection = function (event)
-{
+RuleEditor.prototype.processSelection = function (event) {
 	if (null==document.getSelection()) 
 		return;
 	if (document.getElementById('rule_editor_keyword') == event.srcElement)
@@ -327,28 +325,30 @@ RuleEditor.prototype.onSaveDone = function (rule)
 	this.iframe.contentWindow.postMessage(options, "*");
 };
 /* Event handlers for path picker */
-RuleEditor.prototype.getOnClickActionForFrame = function (node) 
-{
+RuleEditor.prototype.getOnClickActionForFrame = function (node) {
 	var self = this;
 	return function (event) {
-		if (!window.ruleEditor || !self.pathPickerTarget || self.pathPickerTarget.none) {
-			return;
-		}
-		if (selectedNode ==node) {
-			var analyzer = new PathAnalyzer(node, self.pathPickerTarget.getPathBuilder());
-			var paths = analyzer.createPathList();
-			self.pathPickerDialog.show(event, paths, self.pathPickerTarget, function (target, path) {
-				var options = {
-					command: "customblocker_path_picked",
-					target: target,
-					path: path
-				};
-				self.iframe.contentWindow.postMessage(options, "*");
-			});
-		}
-		event.stopPropagation();
-		event.preventDefault();
+		self.openPathPicker(event, node);
 	}
+};
+RuleEditor.prototype.openPathPicker = function (event, node) {
+	if (!window.ruleEditor || !this.pathPickerTarget || this.pathPickerTarget.none) {
+		return;
+	}
+	if (selectedNode == node) {
+		var analyzer = new PathAnalyzer(node, this.pathPickerTarget.getPathBuilder());
+		var paths = analyzer.createPathList();
+		this.pathPickerDialog.show(event, node, paths, this.pathPickerTarget, function (target, path) {
+			var options = {
+				command: "customblocker_path_picked",
+				target: target,
+				path: path
+			};
+			this.iframe.contentWindow.postMessage(options, "*");
+		});
+	}
+	event.stopPropagation();
+	event.preventDefault();
 };
 
 RuleEditor.prototype.getOnMouseoverActionForFrame = function (node) {
@@ -430,14 +430,23 @@ var PathPickerDialog = function (_zIndex, ruleEditor)
 	this.ul.avoidStyle = true;
 	this.div.appendChild(this.ul);
 	document.body.appendChild(this.div);
+	// No filter selected
 	this.currentSearchFilter = null;
 	this.currentHideFilter = null;
 	this.currentFilter = null;
 };
 
-PathPickerDialog.prototype.show = function (event, paths, 
+PathPickerDialog.prototype.show = function (event, originNode, paths, 
 		/* PathPickerDialog.target... */target, onSelect) {
+	console.log("originNode=")
+	console.log(originNode)
 	this.ul.innerHTML = '';
+	if (originNode.parentNode && originNode.parentNode!=document.body) {
+		var li = document.createElement('LI');
+		li.innerHTML = "Upper Element";
+		// TODO
+		// this.ul.appendChild(li);
+	}
 	
 	for (var i=0, l=paths.length; i<l; i++) {
 		var li = document.createElement('LI');

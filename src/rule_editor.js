@@ -339,13 +339,15 @@ RuleEditor.prototype.openPathPicker = function (event, node) {
 	if (selectedNode == node) {
 		var analyzer = new PathAnalyzer(node, this.pathPickerTarget.getPathBuilder());
 		var paths = analyzer.createPathList();
+		var upper = node.parentNode;
+		var uppseNodeHandlers = {
+			mouseover:this.getOnMouseoverActionForFrame(upper),
+			mouseout:this.getOnMouseoutActionForFrame(upper),
+			click:this.getOnClickActionForFrame(upper)
+		};
+		
 		this.pathPickerDialog.show(event, node, paths, this.pathPickerTarget, 
-			function (e) {
-				scope.unfocusNode(node);
-				console.log(node.parentNode)
-				scope.focusNode(node.parentNode);
-				scope.openPathPicker(event, node.parentNode);
-			},
+			uppseNodeHandlers,
 			function (target, path) {
 				var options = {
 					command: "customblocker_path_picked",
@@ -448,14 +450,16 @@ var PathPickerDialog = function (_zIndex, ruleEditor)
 };
 
 PathPickerDialog.prototype.show = function (event, originNode, paths, 
-		/* PathPickerDialog.target... */target, onSelectUpperNode, onSelect) {
+		/* PathPickerDialog.target... */target, uppseNodeHandlers, onSelect) {
 	console.log("originNode=")
 	console.log(originNode)
 	this.ul.innerHTML = '';
 	if (originNode.parentNode && originNode.parentNode!=document.body) {
 		var li = document.createElement('LI');
-		li.innerHTML = "Upper Element";
-		li.addEventListener('click', onSelectUpperNode, false);
+		li.innerHTML = "Outer Element";
+		li.addEventListener('click', uppseNodeHandlers.click, false);
+		li.addEventListener('mouseover', uppseNodeHandlers.mouseover, false);
+		li.addEventListener('mouseout', uppseNodeHandlers.mouseout, false);
 		this.ul.appendChild(li);
 	}
 	

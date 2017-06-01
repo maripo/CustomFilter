@@ -335,43 +335,50 @@ RuleEditor.prototype.openPathPicker = function (event, node) {
 	if (!window.ruleEditor || !this.pathPickerTarget || this.pathPickerTarget.none) {
 		return;
 	}
+	var scope = this;
 	if (selectedNode == node) {
 		var analyzer = new PathAnalyzer(node, this.pathPickerTarget.getPathBuilder());
 		var paths = analyzer.createPathList();
-		this.pathPickerDialog.show(event, node, paths, this.pathPickerTarget, function (target, path) {
-			var options = {
-				command: "customblocker_path_picked",
-				target: target,
-				path: path
-			};
-			this.iframe.contentWindow.postMessage(options, "*");
-		});
+		this.pathPickerDialog.show(event, node, paths, this.pathPickerTarget, 
+			function (e) {
+				// TODO remove highlight of currently selected node
+				console.log(node.parentNode)
+				scope.highlightNode(node.parentNode);
+				scope.openPathPicker(event, node.parentNode);
+			},
+			function (target, path) {
+				var options = {
+					command: "customblocker_path_picked",
+					target: target,
+					path: path
+				};
+				scope.iframe.contentWindow.postMessage(options, "*");
+			});
 	}
 	event.stopPropagation();
 	event.preventDefault();
 };
-
+RuleEditor.prototype.highlightNode = function (node) {
+	var self = this;
+	selectedNode = node;
+	origStyle = selectedNode.style.outline;
+	origHref = selectedNode.href;
+	selectedNode.href = 'javascript:void(0)'
+	if (self.pathPickerTarget.none && selectedNode.unfocus) {
+		selectedNode.unfocus();
+	}
+	else if (self.pathPickerTarget.isToHide && selectedNode.focusForSearch) {
+		selectedNode.focusForHide();
+	}
+	else if (self.pathPickerTarget.isToSearch && selectedNode.focusForHide) {
+		selectedNode.focusForSearch();
+	}
+};
 RuleEditor.prototype.getOnMouseoverActionForFrame = function (node) {
 	var self = this;
 	return function (event) {
 		if (window.ruleEditor && selectedNode == null && self.pathPickerTarget) {
-			selectedNode = node;
-			origStyle = selectedNode.style.outline;
-			origHref = selectedNode.href;
-			selectedNode.href = 'javascript:void(0)'
-			if (self.pathPickerTarget.none && selectedNode.unfocus) 
-			{
-				selectedNode.unfocus();
-			}
-			else if (self.pathPickerTarget.isToHide && selectedNode.focusForSearch) 
-			{
-				selectedNode.focusForHide();
-			}
-			else if (self.pathPickerTarget.isToSearch && selectedNode.focusForHide) 
-			{
-				selectedNode.focusForSearch();
-			}
-			return;
+			self.highlightNode(node);
 		}
 		event.stopPropagation();
 		event.preventDefault();
@@ -437,15 +444,15 @@ var PathPickerDialog = function (_zIndex, ruleEditor)
 };
 
 PathPickerDialog.prototype.show = function (event, originNode, paths, 
-		/* PathPickerDialog.target... */target, onSelect) {
+		/* PathPickerDialog.target... */target, onSelectUpperNode, onSelect) {
 	console.log("originNode=")
 	console.log(originNode)
 	this.ul.innerHTML = '';
 	if (originNode.parentNode && originNode.parentNode!=document.body) {
 		var li = document.createElement('LI');
 		li.innerHTML = "Upper Element";
-		// TODO
-		// this.ul.appendChild(li);
+		li.addEventListener('click', onSelectUpperNode, false);
+		this.ul.appendChild(li);
 	}
 	
 	for (var i=0, l=paths.length; i<l; i++) {

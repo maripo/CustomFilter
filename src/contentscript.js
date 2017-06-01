@@ -20,6 +20,10 @@ BgProcessor.prototype.sendRequest = function (command, param, nextAction)
 {
 	param.command = command;
 	param.nextAction = nextAction;
+	if (!customBlockerBgCallback) {
+		console.log("bgCallback not found. command:" + command);
+		return;
+	}
 	try {
 		customBlockerBgCallback(param);
 		customBlockerBgCallback = null;

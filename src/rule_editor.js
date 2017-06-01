@@ -341,9 +341,9 @@ RuleEditor.prototype.openPathPicker = function (event, node) {
 		var paths = analyzer.createPathList();
 		this.pathPickerDialog.show(event, node, paths, this.pathPickerTarget, 
 			function (e) {
-				// TODO remove highlight of currently selected node
+				scope.unfocusNode(node);
 				console.log(node.parentNode)
-				scope.highlightNode(node.parentNode);
+				scope.focusNode(node.parentNode);
 				scope.openPathPicker(event, node.parentNode);
 			},
 			function (target, path) {
@@ -358,7 +358,7 @@ RuleEditor.prototype.openPathPicker = function (event, node) {
 	event.stopPropagation();
 	event.preventDefault();
 };
-RuleEditor.prototype.highlightNode = function (node) {
+RuleEditor.prototype.focusNode = function (node) {
 	var self = this;
 	selectedNode = node;
 	origStyle = selectedNode.style.outline;
@@ -378,21 +378,25 @@ RuleEditor.prototype.getOnMouseoverActionForFrame = function (node) {
 	var self = this;
 	return function (event) {
 		if (window.ruleEditor && selectedNode == null && self.pathPickerTarget) {
-			self.highlightNode(node);
+			self.focusNode(node);
 		}
 		event.stopPropagation();
 		event.preventDefault();
 	}
 };
 
-RuleEditor.prototype.getOnMouseoutActionForFrame = function (node) 
-{
+RuleEditor.prototype.unfocusNode = function (node) {
+
+	if (window.ruleEditor && selectedNode) {
+		selectedNode.style.outline = origStyle;
+		selectedNode.href = origHref;
+	}
+	selectedNode = null;	
+}
+RuleEditor.prototype.getOnMouseoutActionForFrame = function (node) {
+	var scope = this;
 	return function (event) {
-		if (window.ruleEditor && selectedNode) {
-			selectedNode.style.outline = origStyle;
-			selectedNode.href = origHref;
-		}
-		selectedNode = null;
+		scope.unfocusNode(node);
 	}
 };
 

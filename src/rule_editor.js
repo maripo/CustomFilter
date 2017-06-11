@@ -325,14 +325,16 @@ RuleEditor.prototype.onSaveDone = function (rule)
 	this.iframe.contentWindow.postMessage(options, "*");
 };
 /* Event handlers for path picker */
-RuleEditor.prototype.getOnClickActionForFrame = function (node) {
+RuleEditor.prototype.getOnClickActionForFrame = function (node, origEvent) {
 	var self = this;
 	return function (event) {
-		self.openPathPicker(event, node);
+		self.openPathPicker(origEvent || event, node);
 	}
 };
 RuleEditor.prototype.openPathPicker = function (event, node) {
 	if (!window.ruleEditor || !this.pathPickerTarget || this.pathPickerTarget.none) {
+		console.log("openPathPicker return. ruleEditor=" + window.ruleEditor 
+				+ ", pathPickerTarget=" + this.pathPickerTarget);
 		return;
 	}
 	var scope = this;
@@ -340,14 +342,14 @@ RuleEditor.prototype.openPathPicker = function (event, node) {
 		var analyzer = new PathAnalyzer(node, this.pathPickerTarget.getPathBuilder());
 		var paths = analyzer.createPathList();
 		var upper = node.parentNode;
-		var uppseNodeHandlers = {
+		var upperNodeHandlers = {
 			mouseover:this.getOnMouseoverActionForFrame(upper),
 			mouseout:this.getOnMouseoutActionForFrame(upper),
-			click:this.getOnClickActionForFrame(upper)
+			click:this.getOnClickActionForFrame(upper, event)
 		};
 		
 		this.pathPickerDialog.show(event, node, paths, this.pathPickerTarget, 
-			uppseNodeHandlers,
+				upperNodeHandlers,
 			function (target, path) {
 				var options = {
 					command: "customblocker_path_picked",
@@ -379,7 +381,10 @@ RuleEditor.prototype.focusNode = function (node) {
 RuleEditor.prototype.getOnMouseoverActionForFrame = function (node) {
 	var self = this;
 	return function (event) {
-		if (window.ruleEditor && selectedNode == null && self.pathPickerTarget) {
+		if (selectedNode) {
+			self.unfocusNode(selectedNode);
+		}
+		if (window.ruleEditor && self.pathPickerTarget) {
 			self.focusNode(node);
 		}
 		event.stopPropagation();
@@ -451,15 +456,16 @@ var PathPickerDialog = function (_zIndex, ruleEditor)
 
 PathPickerDialog.prototype.show = function (event, originNode, paths, 
 		/* PathPickerDialog.target... */target, uppseNodeHandlers, onSelect) {
-	console.log("originNode=")
-	console.log(originNode)
 	this.ul.innerHTML = '';
 	if (originNode.parentNode && originNode.parentNode!=document.body) {
-		var li = document.createElement('LI');
-		li.innerHTML = "Outer Element";
-		li.addEventListener('click', uppseNodeHandlers.click, false);
-		li.addEventListener('mouseover', uppseNodeHandlers.mouseover, false);
-		li.addEventListener('mouseout', uppseNodeHandlers.mouseout, false);
+		var li = document.createElement("LI");
+		li.className = "upper";
+		var a = document.createElement("A");
+		a.innerHTML = chrome.i18n.getMessage('selectOuterElement');
+		a.addEventListener('click', uppseNodeHandlers.click, false);
+		a.addEventListener('mouseover', uppseNodeHandlers.mouseover, false);
+		a.addEventListener('mouseout', uppseNodeHandlers.mouseout, false);
+		li.appendChild(a);
 		this.ul.appendChild(li);
 	}
 	
@@ -581,7 +587,6 @@ PathPickerDialog.prototype.getOnclickAction = function (filter, /*PathPickerDial
 
 var RuleElement = 
 {
-	
 };
 
 RuleElement.appendFunctions = function (element)

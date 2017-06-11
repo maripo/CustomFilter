@@ -185,6 +185,13 @@
 	border-bottom:solid 1px #bbb!important;
 	background-color:#fff!important;
 }
+#xpath_picker_body li.upper a {
+	background-size:8px 8px!important;
+	background-image:url(../img/icon_upper.png)!important;
+	background-position: 2px 7px!important;
+	background-repeat:no-repeat!important;
+	text-indent:12px!important;
+}
 
 #xpath_picker_body ul a:hover {
 	background-color:#ffc;

@@ -145,7 +145,7 @@ PathAnalyzer.cloneArray = function (orig)
 /**
  * PathElement
  */
-var splitSpacesRegExp = new RegExp(' +', 'g');
+var splitSpacesRegExp = new RegExp('[ \\n]+', 'g');
 var PathElement = function (node, index, builder) 
 {
 	this.node = node;

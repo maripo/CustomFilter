@@ -16,6 +16,7 @@
 	"sectionHide":{"message":"Elements to Hide"},
 	"sectionWord":{"message":"Words"},
 	
+	"selectOuterElement":{"message": "Select parent element"},
 	"regex":{"message":"RegEx"},
 	"complete_matching":{"message":"Complete Match"},
 	"case_sensitive":{"message":"Case Sensitive"},

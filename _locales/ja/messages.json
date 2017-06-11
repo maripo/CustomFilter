@@ -15,6 +15,8 @@
 	"sectionSearch":{"message":"検索範囲"},
 	"sectionHide":{"message":"隠す要素"},
 	"sectionWord":{"message":"キーワード"},
+	
+	"selectOuterElement":{"message": "外側の要素を選択"},
 	"regex":{"message":"正規表現"},
 	"complete_matching":{"message":"完全一致"},
 	"case_sensitive":{"message":"大文字小文字を区別"},

@@ -6,3 +6,4 @@
 2.6.3	layout fix
 2.6.3.1	Remove tool tip from smart rule editor
 2.6.3.2	Close path picker if open when closing rule editor (bug fix)
+2.6.4	"Select upper element" functionality / Minor bug fix

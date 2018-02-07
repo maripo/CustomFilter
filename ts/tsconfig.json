@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "allowJs": true,
+        "target": "es5",
+		"lib": ["es2016","dom"],
+    	"outDir": "../extension/src"
+    },
+    	"include": [	"src/uuid.js"],
+    "files": [
+        "src/util.ts",
+        "src/analytics.ts",
+        "src/background.ts",
+        "src/xpath_builder.ts",
+        "src/css_builder.ts",
+        "src/path_analyzer.ts",
+        "src/smart_path_analyzer.ts",
+        "src/smart_rule_editor.ts",
+        "src/db/DbObj.ts",
+        "src/db/DbInit.ts",
+        "src/db/Rule.ts",
+        "src/db/Word.ts"
+    ]
+}

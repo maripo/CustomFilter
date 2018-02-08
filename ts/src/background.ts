@@ -55,6 +55,9 @@ function onWordListLoaded (wordList:Word[]) {
 }
 interface Window {
 	reloadLists: ()=>void;
+	elementHighlighter: any;
+	smartRuleCreatorDialog: any;
+	bgProcessor: any;
 }
 function saveUuidIfNotSet () {
 	for (let i=0; i<ruleList.length; i++) {

@@ -12,6 +12,7 @@
     },
     	"include": [	"src/uuid.js"],
     "files": [
+        "src/contentscript.ts",
         "src/util.ts",
         "src/analytics.ts",
         "src/background.ts",
@@ -20,6 +21,7 @@
         "src/path_analyzer.ts",
         "src/smart_path_analyzer.ts",
         "src/smart_rule_editor.ts",
+        "src/rule_executor.ts",
         "src/db/DbObj.ts",
         "src/db/DbInit.ts",
         "src/db/Rule.ts",

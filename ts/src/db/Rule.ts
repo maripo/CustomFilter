@@ -56,8 +56,15 @@ class RulePeer extends DbPeer {
  * Object
  */
  class Rule extends DbObject {
- 	words:Word[]
- 	appliedWords:object; // TODO Move to wrapper class
+ 	words:Word[];
+ 	
+ 	// TODO move to wrapper class!
+ 	hideNodes: HTMLElement[];
+ 	searchNodes: HTMLElement[];
+ 	hiddenCount:number;
+ 	
+ 	appliedWords:object; 
+ 	is_disabled:boolean;
  	
  	rule_id:number; // Primary key
  	user_identifier:string;
@@ -121,31 +128,40 @@ class RulePeer extends DbPeer {
 	public getPeer (): DbPeer {
 		return RulePeer.getInstance();
 	}
-	public static validate (params:{title:string, site_regexp:string, search_block_xpath:string, hide_block_xpath:string}) {
-		var errors = new Array();
+	public static validate (params:RuleValidation):string[] {
+		var errors:string[] = [];
 		if (''==params.title) errors.push(chrome.i18n.getMessage('errorTitleEmpty'));
 		if (''==params.site_regexp) errors.push(chrome.i18n.getMessage('errorSiteRegexEmpty'));
 		if (''!=params.search_block_xpath) {
-			try
-			{
+			try {
 				CustomBlockerUtil.getElementsByXPath(params.search_block_xpath);
 			}
-			catch (e)
-			{
+			catch (e) {
 				errors.push(chrome.i18n.getMessage('errorHideXpathInvalid'));
 			}
 		}
 		if (''!=params.hide_block_xpath) {
-			try
-			{
+			try {
 				CustomBlockerUtil.getElementsByXPath(params.hide_block_xpath);
 			}
-			catch (e)
-			{
+			catch (e) {
 				errors.push(chrome.i18n.getMessage('errorSearchXpathInvalid'));
 			}
 		}
 		return errors;
 	}
+}
+interface RuleValidation {
+	title:string, 
+	site_regexp:string, 
+	search_block_xpath:string, 
+	hide_block_xpath:string,
+	
+	example_url?:string;
+	site_description?:string;
+	search_block_css?:string;
+	search_block_description?:string;
+	hide_block_css?:string;
+	hide_block_description?:string;
 }
 // Rule.Validator was moved into Rule (static)

@@ -142,20 +142,18 @@ class CustomBlockerUtil {
 		return wordStrings.join(', ');
 	}
 	public static arrayEquals (array0:any[], array1:any[]): boolean {
-		if (!array0 || !array1 || array0.length!=array1.length) 
-		{
+		if (!array0 || !array1 || array0.length!=array1.length) {
 			return false;
 		}
-		for (var i=0, l=array0.length; i<l; i++)
-		{
+		for (var i=0, l=array0.length; i<l; i++) {
 			if (array0[i] != array1[i])
 				return false;
 		}
 		return true;
 	}
-	public static arrayContains (array:string[], str:string) {
-		for (var i=0, l=array.length; i<l; i++) {
-			if (str==array[i]) return true;
+	public static arrayContains (array:any[], obj:any):boolean {
+		for (let objInArray of array) {
+			if (obj==objInArray) return true;
 		}
 		return false;
 	}

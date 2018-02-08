@@ -53,11 +53,11 @@ class PathAnalyzer {
 	targetNode:any;
 	rootNode:any;
 	basePath:any;
-	pathList:any;
+	pathList:PathFilter[];
 	ancestors:PathElement[];
 	seqList;
 	static SEQ_LIMIT:number;
-	uniqPathList;
+	uniqPathList:string[];
 	
 	constructor (targetNode, builder, rootNode, basePath) {
 		this.builder = builder;
@@ -67,7 +67,7 @@ class PathAnalyzer {
 		this.pathList = null;
 		this.ancestors = []; /*<PathElement>*/
 	}
-	public createPathList (): any[] {
+	public createPathList (): PathFilter[] {
 		{
 			let node = this.targetNode;
 			let index = 0;
@@ -90,12 +90,11 @@ class PathAnalyzer {
 		if (this.ancestors.length>0)
 			this.scan(0, new Array());
 		if (this.basePath.length>0) {
-			var path = this.builder.createPathFilter(this.basePath);
-			this.pathList.push(path);
+			this.pathList.push(this.builder.createPathFilter(this.basePath));
 		}
 		for (let i=0, l=this.uniqPathList.length; i<l; i++) {
 			try {
-				var path = this.builder.createPathFilter(this.basePath + this.uniqPathList[i]);		
+				let path = this.builder.createPathFilter(this.basePath + this.uniqPathList[i]);		
 				//Exclude nested elements
 				var nested = false;
 				for (var elementIndex=0; elementIndex<path.elements.length; elementIndex++)
@@ -116,18 +115,16 @@ class PathAnalyzer {
 			}
 		}
 		this.pathList.sort(
-				function(a, b)
-				{
+				function(a:PathFilter, b:PathFilter) {
 						return (a.elements.length==b.elements.length)?
 								(a.path.length-b.path.length):(a.elements.length - b.elements.length);
 				});
-		let list = [];
+		let list:PathFilter[] = [];
 		let prevPath = null;
 		for (let i=0, l=this.pathList.length; i<l; i++)
 		{
 			var path = this.pathList[i];
-			if (!prevPath || prevPath.elements.length!=path.elements.length)
-			{
+			if (!prevPath || prevPath.elements.length!=path.elements.length) {
 				list.push(path);
 			}
 			prevPath = path;

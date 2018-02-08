@@ -1,4 +1,4 @@
-class XpathBuilder {
+class XpathBuilder implements PathBuilder {
 	getIdExpression (elementId: string): string {
 		return 'id("' + elementId + '")';
 	}
@@ -14,21 +14,19 @@ class XpathBuilder {
 		+ className
 		+'")]';
 	}
-	getSingleTagNameAndClassNameExpression (tagName:string, className:string)
-	{
+	getSingleTagNameAndClassNameExpression (tagName:string, className:string) {
 		return tagName + '[@class="' + className + '"]';
 	}
-	createPathFilter (_path): XpathPathFilter {
+	createPathFilter (_path): PathFilter {
 		let path = CustomBlockerUtil.trim(_path);
 		return new XpathPathFilter(path);
 	}
 }
 
-class XpathPathFilter {
+class XpathPathFilter implements PathFilter {
 	path:string;
 	elements:HTMLElement[];
-	constructor (path:string) 
-	{
+	constructor (path:string) {
 		this.path = path;
 		this.elements = CustomBlockerUtil.getElementsByXPath(path);
 	}

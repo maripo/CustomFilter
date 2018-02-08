@@ -40,6 +40,18 @@ class Word extends DbObject {
 	rule_id:number;
 	word:string;
 	is_regexp:boolean;
+	
+	// Saved as bitfields
+	is_complete_matching:boolean;
+	is_case_sensitive:boolean;
+	is_include_href:boolean;
+	
+	// Compiled and cached
+ 	regExp:RegExp; 
+ 	
+ 	// TODO move to wrapper
+ 	checkedNodes:HTMLElement[];
+	
 	getPeer (): DbPeer {
 		return WordPeer.getInstance();
 	}

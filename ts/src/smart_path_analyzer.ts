@@ -7,34 +7,34 @@
 			var list = analyzer.createPathList();
  */
  class SmartPathAnalyzer {
- 	_node;
- 	builder;
+ 	_node:HTMLElement;
+ 	builder:PathBuilder;
  	appliedRuleList:Rule[];
- 	constructor (_node, builder, appliedRuleList:Rule[]) {
+ 	addedHidePaths:string[];
+ 	addedSearchPaths:string[];
+ 	constructor (_node:HTMLElement, builder:PathBuilder, appliedRuleList:Rule[]) {
 		this._node = _node;
 		this.builder = builder;
 		this.appliedRuleList = appliedRuleList;
 	}
-	createPathList (): any [] {
+	createPathList (): SmartPath[] {
 		// Added paths (avoid adding duplicated paths)
-		this.addedHidePaths = new Array();
-		this.addedSearchPaths = new Array();
+		this.addedHidePaths = [];
+		this.addedSearchPaths = [];
 		
 		var hideOriginalNode = this._node;
-		var pathList = new Array();
-		while (hideOriginalNode)
-		{
+		let pathList:SmartPath[] = [];
+		while (hideOriginalNode) {
 			var siblings = CustomBlockerUtil.getSimilarSiblings(hideOriginalNode);
-			if (siblings.length>0)
-			{
+			if (siblings.length>0) {
 				this.analyzerHideNode(hideOriginalNode, this._node, pathList);
 			}
-			hideOriginalNode = hideOriginalNode.parentNode;
+			hideOriginalNode = <HTMLElement>hideOriginalNode.parentNode;
 		}
 		return pathList;
 	}
-	analyzerHideNode (hideOriginalNode:HTMLElement, originalNode:HTMLElement, pathList:any[]) {
-		let hidePathSelectors = new PathAnalyzer(hideOriginalNode, this.builder).createPathList();
+	analyzerHideNode (hideOriginalNode:HTMLElement, originalNode:HTMLElement, pathList:SmartPath[]):void {
+		let hidePathSelectors = new PathAnalyzer(hideOriginalNode, this.builder, null, null).createPathList();
 		for (let i=hidePathSelectors.length-1; i>=0; i--) {
 			var hidePathSelector = hidePathSelectors[i];
 			if (CustomBlockerUtil.arrayContains(this.addedHidePaths, hidePathSelector.path)) {
@@ -71,17 +71,16 @@
 							pathList.push(new SmartPath(hidePathSelector, searchPathSelector));
 						}
 					}
-					searchOriginalNode = searchOriginalNode.parentNode;
+					searchOriginalNode = <HTMLElement>searchOriginalNode.parentNode;
 				}
 			}		
 		}
 	}
-	isIncludedInAppliedRules (hidePathSelector:string, searchPathSelector:string) {
+	isIncludedInAppliedRules (hidePathSelector:PathFilter, searchPathSelector:PathFilter): boolean {
 		if (!this.appliedRuleList) {
 			return false;
 		}
-		for (var i=0; i<this.appliedRuleList.length; i++) {
-			var rule = this.appliedRuleList[i];
+		for (let rule of this.appliedRuleList) {
 			if (
 				CustomBlockerUtil.arrayEquals(hidePathSelector.elements, rule.hideNodes) && 
 				CustomBlockerUtil.arrayEquals(searchPathSelector.elements, rule.searchNodes)
@@ -94,9 +93,10 @@
  }
 var pathCount  = 0;
 class SmartPath {
-	hidePath;
-	searchPath;
-	constructor (hidePath, searchPath) {
+	hidePath:PathFilter;
+	searchPath:PathFilter;
+	title:string;
+	constructor (hidePath:PathFilter, searchPath:PathFilter) {
 		this.hidePath = hidePath;
 		this.searchPath = searchPath;
 	}

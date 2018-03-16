@@ -59,22 +59,21 @@ var PathAnalyzer = (function () {
         if (this.ancestors.length > 0)
             this.scan(0, new Array());
         if (this.basePath.length > 0) {
-            var path = this.builder.createPathFilter(this.basePath);
-            this.pathList.push(path);
+            this.pathList.push(this.builder.createPathFilter(this.basePath));
         }
         for (var i = 0, l = this.uniqPathList.length; i < l; i++) {
             try {
-                var path = this.builder.createPathFilter(this.basePath + this.uniqPathList[i]);
+                var path_1 = this.builder.createPathFilter(this.basePath + this.uniqPathList[i]);
                 var nested = false;
-                for (var elementIndex = 0; elementIndex < path.elements.length; elementIndex++) {
-                    var element = path.elements[elementIndex];
+                for (var elementIndex = 0; elementIndex < path_1.elements.length; elementIndex++) {
+                    var element = path_1.elements[elementIndex];
                     if (element != this.targetNode &&
                         (CustomBlockerUtil.isContained(this.targetNode, element) || CustomBlockerUtil.isContained(element, this.targetNode))) {
                         nested = true;
                     }
                 }
                 if (!nested)
-                    this.pathList.push(path);
+                    this.pathList.push(path_1);
             }
             catch (ex) {
                 console.log(ex);

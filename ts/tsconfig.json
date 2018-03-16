@@ -10,7 +10,7 @@
 		"lib": ["es2016","dom"],
     	"outDir": "../extension/src"
     },
-    	"include": [	"src/uuid.js"],
+    	"include": [	"src/uuid.js", "src/element_highlighter.js"],
     "files": [
         "src/contentscript.ts",
         "src/util.ts",
@@ -20,6 +20,7 @@
         "src/css_builder.ts",
         "src/path_analyzer.ts",
         "src/smart_path_analyzer.ts",
+        "src/rule_editor.ts",
         "src/smart_rule_editor.ts",
         "src/rule_executor.ts",
         "src/db/DbObj.ts",

@@ -36,11 +36,10 @@ var RulePeer = (function (_super) {
         _this.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
         return _this;
     }
-    RulePeer.prototype.getInstance = function () {
-        if (RulePeer.instance) {
-            return RulePeer.instance;
+    RulePeer.getInstance = function () {
+        if (!RulePeer.instance) {
+            RulePeer.instance = new RulePeer();
         }
-        RulePeer.instance = new RulePeer();
         return RulePeer.instance;
     };
     RulePeer.prototype.createObject = function () {
@@ -88,7 +87,7 @@ var Rule = (function (_super) {
         return RulePeer.getInstance();
     };
     Rule.validate = function (params) {
-        var errors = new Array();
+        var errors = [];
         if ('' == params.title)
             errors.push(chrome.i18n.getMessage('errorTitleEmpty'));
         if ('' == params.site_regexp)

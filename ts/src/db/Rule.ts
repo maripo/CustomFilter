@@ -2,7 +2,7 @@
  * Peer
  */
 class RulePeer extends DbPeer {
-	private static instance:RulePeer
+	private static instance:RulePeer;
 	constructor () {
 		super();
 		this.tableName = 'rule';
@@ -37,11 +37,10 @@ class RulePeer extends DbPeer {
 		this.addColumn('update_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
 		this.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
 	}
-	getInstance () : DbPeer {
-		if (RulePeer.instance) {
-			return RulePeer.instance;
+	public static getInstance () : DbPeer {
+		if (!RulePeer.instance) {
+			RulePeer.instance =  new RulePeer();
 		}
-		RulePeer.instance =  new RulePeer();
 		return RulePeer.instance;
 	}
 	createObject() : DbObject {
@@ -62,6 +61,7 @@ class RulePeer extends DbPeer {
  	hideNodes: HTMLElement[];
  	searchNodes: HTMLElement[];
  	hiddenCount:number;
+ 	staticXpath:any; // TODO What's this?
  	
  	appliedWords:object; 
  	is_disabled:boolean;

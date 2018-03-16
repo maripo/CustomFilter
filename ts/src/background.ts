@@ -53,11 +53,31 @@ function onWordListLoaded (wordList:Word[]) {
 	loadSmartRuleEditorSrc();
 	saveUuidIfNotSet();
 }
+interface ElementHighlighter {
+	// TODO replace.
+}
 interface Window {
 	reloadLists: ()=>void;
 	elementHighlighter: any;
 	smartRuleCreatorDialog: any;
 	bgProcessor: any;
+	ruleEditor: RuleEditor;
+	customBlockerInitDone: any;
+	currentHideFilter: any;
+	currentSearchFilter: any;
+}
+interface HTMLElement {
+	isTmpSelectedForHide: boolean;
+	isTmpSelectedForSearch: boolean;
+	isSelectedForHide: boolean;
+	isSelectedForSearch: boolean;
+	originalStyle: any;
+	tmpSelectForHide: any;
+	tmpSelectForSearch: any;
+	focusForHide: (Event)=>void;
+	focusForSearch: (Event)=>void;
+	unfocus: (Event)=>void;
+	tmpUnselect: (Event)=>void;
 }
 function saveUuidIfNotSet () {
 	for (let i=0; i<ruleList.length; i++) {

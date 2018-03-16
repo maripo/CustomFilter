@@ -1,7 +1,7 @@
 
 class RuleExecutor {
-	static blockTimeout: ()=>void;
-	static blockInterval: ()=>void;
+	static blockTimeout:any;
+	static blockInterval:any;
 	static styleTag;
 	static blockedCount:number;
 	static initialize():void {
@@ -104,6 +104,7 @@ class RuleExecutor {
 		if (!rules) return;
 		for (let rule of rules) {
 			if (!rule.is_disabled) {
+				
 				RuleExecutor.applyRule(rule, false, 
 					function (node:HTMLElement) {
 						hiddenNodeList.add(node);	
@@ -111,7 +112,8 @@ class RuleExecutor {
 						if (!rule.staticXpath) {
 							hiddenNodeList.apply(node);
 						}
-					}
+					},
+					false
 				);
 			}
 		}
@@ -193,16 +195,15 @@ class RuleExecutor {
 					onHide(node);
 				}
 			}
-			else if (isTesting && node.hideDone && !shouldBeHidden) 
-			{
+			else if (isTesting && node.hideDone && !shouldBeHidden) {
 				if (node.defaultStyles) {
 					node.style.backgroundColor = node.defaultStyles.backgroundColor;
 					node.style.display = node.defaultStyles.display;
 				}
 			}
 		}
-		for (var i = 0, l = searchNodes.length; i < l; i++) {
-			searchNodes[i].containsNgWord = false;
+		for (node of searchNodes) {
+			node.containsNgWord = false;
 		}
 		if (needRefreshBadge && RuleExecutor.blockedCount > 0) {
 			window.bgProcessor.sendRequest(
@@ -227,7 +228,7 @@ class RuleExecutor {
 		let node = _node;
 		while (node) {
 			if (node == rootNode) return true;
-			node = node.parentNode;
+			node = <HTMLElement>node.parentNode;
 		}
 		return false;
 	}
@@ -315,7 +316,8 @@ let rules:Rule[];
 
 interface NodeContainer {
 	node:HTMLElement;
-	originalValue:string;
+	origValue:string;
+	
 }
 class StyleProcessor {
 	attribute:string;

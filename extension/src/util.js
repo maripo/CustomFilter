@@ -129,9 +129,10 @@ var CustomBlockerUtil = (function () {
         }
         return true;
     };
-    CustomBlockerUtil.arrayContains = function (array, str) {
-        for (var i = 0, l = array.length; i < l; i++) {
-            if (str == array[i])
+    CustomBlockerUtil.arrayContains = function (array, obj) {
+        for (var _i = 0, array_1 = array; _i < array_1.length; _i++) {
+            var objInArray = array_1[_i];
+            if (obj == objInArray)
                 return true;
         }
         return false;

@@ -5,10 +5,10 @@ var SmartPathAnalyzer = (function () {
         this.appliedRuleList = appliedRuleList;
     }
     SmartPathAnalyzer.prototype.createPathList = function () {
-        this.addedHidePaths = new Array();
-        this.addedSearchPaths = new Array();
+        this.addedHidePaths = [];
+        this.addedSearchPaths = [];
         var hideOriginalNode = this._node;
-        var pathList = new Array();
+        var pathList = [];
         while (hideOriginalNode) {
             var siblings = CustomBlockerUtil.getSimilarSiblings(hideOriginalNode);
             if (siblings.length > 0) {
@@ -19,7 +19,7 @@ var SmartPathAnalyzer = (function () {
         return pathList;
     };
     SmartPathAnalyzer.prototype.analyzerHideNode = function (hideOriginalNode, originalNode, pathList) {
-        var hidePathSelectors = new PathAnalyzer(hideOriginalNode, this.builder).createPathList();
+        var hidePathSelectors = new PathAnalyzer(hideOriginalNode, this.builder, null, null).createPathList();
         for (var i = hidePathSelectors.length - 1; i >= 0; i--) {
             var hidePathSelector = hidePathSelectors[i];
             if (CustomBlockerUtil.arrayContains(this.addedHidePaths, hidePathSelector.path)) {
@@ -62,8 +62,8 @@ var SmartPathAnalyzer = (function () {
         if (!this.appliedRuleList) {
             return false;
         }
-        for (var i = 0; i < this.appliedRuleList.length; i++) {
-            var rule = this.appliedRuleList[i];
+        for (var _i = 0, _a = this.appliedRuleList; _i < _a.length; _i++) {
+            var rule = _a[_i];
             if (CustomBlockerUtil.arrayEquals(hidePathSelector.elements, rule.hideNodes) &&
                 CustomBlockerUtil.arrayEquals(searchPathSelector.elements, rule.searchNodes)) {
                 return true;

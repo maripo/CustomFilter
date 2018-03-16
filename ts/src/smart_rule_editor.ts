@@ -12,8 +12,7 @@
  	
  	loadingImageDiv:HTMLElement;
  	
- 	constructor (targetElement:HTMLElement, appliedRuleList:Rule[], selectionText:string, needSuggestion:boolean)
-	{
+ 	constructor (targetElement:HTMLElement, appliedRuleList:Rule[], selectionText:string, needSuggestion:boolean) {
 		CustomBlockerUtil.applyCss('/css/reset.css');
 		CustomBlockerUtil.applyCss('/css/smart_rule_editor.css');
 		CustomBlockerUtil.applyCss('/css/rule_editor_common.css');
@@ -36,7 +35,7 @@
 			window.smartRuleCreatorDialog.show(self, lastRightClickedElement, lastRightClickEvent);
 		};
 	}
-	createNewRules ():void {
+	createNewRules (): void {
 		if (!this.matchedRules)
 			this.matchedRules = new Array();
 		for (var i=0; i<this.matchedRules.length; i++)
@@ -62,7 +61,7 @@
 	showLoadingIcon ():void {
 		this.loadingImageDiv = document.createElement('DIV');
 		
-		this.loadingImageDiv.style.zIndex = RuleEditor.getMaxZIndex() + 1;
+		this.loadingImageDiv.style.zIndex = String(RuleEditor.getMaxZIndex() + 1);
 		this.loadingImageDiv.style.padding = '8px';
 		this.loadingImageDiv.style.borderRadius = '4px';
 		this.loadingImageDiv.style.border = '1px solid #888';
@@ -226,7 +225,7 @@ class SmartRuleCreatorDialog {
 	}
 	getOnMouseupAction ():(any)=>void {
 		var self = this;
-		return function (event) {
+		return function (event:Event) {
 			self.moving = false;
 		};
 	}
@@ -237,7 +236,7 @@ class SmartRuleCreatorDialog {
 			if (!self.moving) return;
 			self.div.style.left = (self.origDivX + (event.pageX - self.origEventX)) + 'px';
 			self.div.style.top = (self.origDivY + (event.pageY - self.origEventY)) + 'px';
-			self.adjustEditDivPosition();
+			self.adjustEditDivPosition(event);
 		};
 	}
 	/* Start dragging */
@@ -276,9 +275,9 @@ class SmartRuleCreatorDialog {
 		document.getElementById('smart_rule_editor_preview').style.display = 'block';
 		document.getElementById('smart_rule_editor_body').style.display = 'none';
 	}
-	getAddWordAction ():(KeyEvent)=>void {
+	getAddWordAction ():(KeyboardEvent)=>void {
 		var self = this;
-		return function(event:KeyEvent) {
+		return function(event:KeyboardEvent) {
 			if (KEY_CODE_RETURN==event.keyCode) {
 				self.addWord(self.input_keyword.value);
 				self.input_keyword.value = '';
@@ -465,12 +464,12 @@ class SmartRuleCreatorDialog {
 		li.className = 'option';
 		return li;
 	}
-	showEdit (liElement:HTMLElement):void {
+	showEdit (event:MouseEvent, liElement:HTMLElement):void {
 		this.editDiv.style.top = (liElement.offsetTop - 20) + 'px';
 		this.editDiv.style.display = 'block';
-		this.adjustEditDivPosition();
+		this.adjustEditDivPosition(event);
 	}
-	adjustEditDivPosition (): void {
+	adjustEditDivPosition (event:MouseEvent): void {
 		let centerX = this.div.clientLeft + 90;
 		let shouldShowDialogRight = event.clientX < document.body.clientWidth/2;
 		this.editDiv.style.left = 
@@ -479,10 +478,10 @@ class SmartRuleCreatorDialog {
 	}
 	getExistingRuleHoverAction (rule:Rule, liElement:HTMLElement):(Event)=>void {
 		var self = this;
-		return function (event:Event) {
+		return function (event:MouseEvent) {
 			if (self.isRuleSelected)
 				return;
-			self.showEdit(liElement);
+			self.showEdit(event, liElement);
 			self.previewExistingRule(rule);
 		}
 	}
@@ -508,27 +507,27 @@ class SmartRuleCreatorDialog {
 	}
 	getExistingRuleClickAction (rule:Rule, li:HTMLElement): (any)=>void {
 		var self = this;
-		return function (event) {
+		return function (event:MouseEvent) {
 			if (self.isEditing)
 				return;
 			self.isEditing = true;
 			self.activeLiElement = li;
 			li.className = 'option selected';
 			self.rule = rule;
-			self.showEdit(li);
+			self.showEdit(event, li);
 			self.showRule(rule);
 		}	
 	}
 	getSuggestedPathHoverAction (path:SmartPath, liElement:HTMLElement): (any)=>void
 	{
 		var self = this;
-		return function (event)
+		return function (event:MouseEvent)
 		{
 			if (self.isRuleSelected)
 				return;
 			window.elementHighlighter.highlightHideElements(path.hidePath.elements);
 			window.elementHighlighter.highlightSearchElements(path.searchPath.elements);
-			self.showEdit(liElement);
+			self.showEdit(event, liElement);
 			self.previewSuggestedPath(path);
 		}	
 	}
@@ -549,14 +548,14 @@ class SmartRuleCreatorDialog {
 	getSuggestedPathClickAction (path:SmartPath, li:HTMLElement): (any)=>void
 	{
 		var self = this;
-		return function (event) {
+		return function (event:MouseEvent) {
 			if (self.isEditing)
 				return;
 			self.isEditing = true;
 			self.activeLiElement = li;
 			li.className = 'option selected';
 			self.rule = self.createRuleByPath(path);
-			self.showEdit(li);
+			self.showEdit(event, li);
 			self.showRule(self.rule);
 		}	
 	}

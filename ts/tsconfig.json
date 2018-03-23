@@ -12,6 +12,7 @@
     },
     	"include": [	"src/uuid.js"],
     "files": [
+        "src/index.ts",
         "src/contentscript.ts",
         "src/util.ts",
         "src/analytics.ts",

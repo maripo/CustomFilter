@@ -65,6 +65,10 @@ interface Window {
 	customBlockerInitDone: any;
 	currentHideFilter: any;
 	currentSearchFilter: any;
+	openRulePicker: (Rule)=>void;
+	getAppliedRules: (any)=>void;
+	highlightRuleElements: (Rule)=>void;
+	setIconDisabled: (boolean)=>void;
 }
 interface HTMLElement {
 	isTmpSelectedForHide: boolean;

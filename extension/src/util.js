@@ -341,6 +341,7 @@ var CustomBlockerUtil = (function () {
     };
     return CustomBlockerUtil;
 }());
+CustomBlockerUtil.initialize();
 var Log = (function () {
     function Log() {
     }

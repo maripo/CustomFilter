@@ -8,8 +8,6 @@ function onStart() {
     updateDbIfNeeded(createRuleTable);
 }
 function createRuleTable() {
-    console.log("peer=" + peer);
-    console.log("wordPeer=" + wordPeer);
     console.log("createRuleTable");
     peer.createTable(createWordTable);
 }

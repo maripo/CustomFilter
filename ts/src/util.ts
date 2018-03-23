@@ -390,7 +390,7 @@ class CustomBlockerUtil {
 		}
 	}
 }
-
+CustomBlockerUtil.initialize();
 // TODO reove
 class Log {
 	// TODO replace with enum

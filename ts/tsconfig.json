@@ -10,12 +10,13 @@
 		"lib": ["es2016","dom"],
     	"outDir": "../extension/src"
     },
-    	"include": [	"src/uuid.js", "src/element_highlighter.js"],
+    	"include": [	"src/uuid.js"],
     "files": [
         "src/contentscript.ts",
         "src/util.ts",
         "src/analytics.ts",
         "src/background.ts",
+        "src/element_highlighter.ts",
         "src/xpath_builder.ts",
         "src/css_builder.ts",
         "src/path_analyzer.ts",
@@ -26,6 +27,7 @@
         "src/db/DbObj.ts",
         "src/db/DbInit.ts",
         "src/db/Rule.ts",
-        "src/db/Word.ts"
+        "src/db/Word.ts",
+        "src/rule_editor/rule_editor_frame.ts"
     ]
 }

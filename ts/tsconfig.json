@@ -7,10 +7,14 @@
         "sourceMap": true,
         "allowJs": true,
         "target": "es5",
-		"lib": ["es2016","dom"],
-    	"outDir": "../extension/src"
+        "lib": ["es2016","dom"],
+        "outDir": "../extension/src"
     },
-    	"include": [	"src/uuid.js"],
+    "include": ["src/uuid.js", 
+        "src/welcome/welcome.js",
+        "src/welcome/preset_en.js",
+        "src/welcome/preset_ja.js"
+    ],
     "files": [
         "src/index.ts",
         "src/contentscript.ts",

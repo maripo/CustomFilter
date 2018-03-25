@@ -1,27 +1,25 @@
 var initDone = false;
-var peer = RulePeer.getInstance();
-var wordPeer = WordPeer.getInstance();
 var existingTabs = new Array();
 var tabBadgeMap = new Array();
 var ruleList = [];
-function onStart() {
+function onStartBackground() {
     updateDbIfNeeded(createRuleTable);
 }
 function createRuleTable() {
     console.log("createRuleTable");
-    peer.createTable(createWordTable);
+    RulePeer.getInstance().createTable(createWordTable);
 }
 function createWordTable() {
-    wordPeer.createTable(loadLists);
+    WordPeer.getInstance().createTable(loadLists);
 }
 function loadLists() {
-    peer.select('', onRuleListLoaded, null);
+    RulePeer.getInstance().select('', onRuleListLoaded, null);
 }
 function onRuleListLoaded(list) {
     var count = '' + list.length;
     Analytics.trackEvent('loadRuleList', count);
     ruleList = list;
-    wordPeer.select('', onWordListLoaded, null);
+    WordPeer.getInstance().select('', onWordListLoaded, null);
 }
 function removeFromExistingTabList(tabIdToRemove) {
     for (var id in existingTabs) {
@@ -61,7 +59,7 @@ function saveUuidIfNotSet() {
             rule.global_identifier = UUID.generate();
         }
         if (needSave) {
-            peer.saveObject(rule, function (obj) {
+            RulePeer.getInstance().saveObject(rule, function (obj) {
                 var bgWindow = chrome.extension.getBackgroundPage();
                 bgWindow.reloadLists();
             }, function () { });
@@ -242,19 +240,19 @@ var SaveRuleTask = (function () {
         this.reloadLists = reloadLists;
     }
     SaveRuleTask.prototype.exec = function (nextAction) {
-        peer.saveObject(this.rule, this.getNextTask(nextAction), function () { });
+        RulePeer.getInstance().saveObject(this.rule, this.getNextTask(nextAction), function () { });
     };
     SaveRuleTask.prototype.getNextTask = function (nextAction) {
         var self = this;
         return function () {
             var nextSaveWord = self.getNextSaveWord();
             if (nextSaveWord) {
-                wordPeer.saveObject(nextSaveWord, self.getNextTask(nextAction), function () { });
+                WordPeer.getInstance().saveObject(nextSaveWord, self.getNextTask(nextAction), function () { });
                 return;
             }
             var nextDeleteWord = self.getNextDeleteWord();
             if (nextDeleteWord) {
-                wordPeer.deleteObject(nextDeleteWord, self.getNextTask(nextAction), function () { });
+                WordPeer.getInstance().deleteObject(nextDeleteWord, self.getNextTask(nextAction), function () { });
                 return;
             }
             chrome.tabs.sendRequest(self.tabId, {
@@ -362,7 +360,7 @@ function getBadgeTooltipString(count) {
     else
         return chrome.i18n.getMessage("tooltipCountSingle");
 }
-onStart();
+onStartBackground();
 function menuCreateOnRightClick(clicked, tab) {
     sendQuickRuleCreationRequest(clicked, tab, true);
     Analytics.trackEvent('contextMenu', 'create');

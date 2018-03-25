@@ -49,6 +49,7 @@ abstract class DbObject {
 	deleted:boolean;
 	insert_date:number;
 	update_date:number;
+	delete_date:number;
 	constructor () {
 	}
 	public abstract getPeer (): DbPeer; 

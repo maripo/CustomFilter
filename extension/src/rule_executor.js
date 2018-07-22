@@ -13,19 +13,16 @@ var RuleExecutor = (function () {
                     regex = new RegExp(rule.site_regexp, 'i');
                 }
                 else {
-                    Log.v("Using wildcard...");
                     regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(rule.site_regexp), 'i');
                 }
                 if (regex.test(location.href)) {
-                    Log.v("Rule is applied." + location.href + "<=>" + rule.site_regexp);
                     rules.push(rule);
                 }
                 else {
-                    Log.v("Rule is NOT applied." + location.href + "<=>" + rule.site_regexp);
+                    console.info("Rule is NOT applied." + location.href + "<=>" + rule.site_regexp);
                 }
             }
             catch (e) {
-                console.log("RuleExecutor.checkRules ERROR");
                 console.log(e);
             }
         }
@@ -291,6 +288,7 @@ var RuleExecutor = (function () {
     };
     return RuleExecutor;
 }());
+RuleExecutor.initialize();
 var rules;
 var StyleProcessor = (function () {
     function StyleProcessor(attribute, attributeJs, value) {

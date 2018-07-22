@@ -11,7 +11,6 @@ var origHref = null;
 	mouseoverHandler: (Event)=>void;
 	mouseoutHandler:  (Event)=>void;
 	clickHandler:  (Event)=>void;
- 
  }
 class RuleEditor {
 	pathPickerTarget:PathPickerTarget;

@@ -4,7 +4,7 @@ class RuleExecutor {
 	static blockInterval:any;
 	static styleTag;
 	static blockedCount:number;
-	static initialize():void {
+	static initialize(): void {
 		RuleExecutor.blockedCount = 0;
 	}
 	static checkRules (list:Rule[]) {
@@ -16,19 +16,17 @@ class RuleExecutor {
 					regex = new RegExp(rule.site_regexp, 'i');
 				}
 				else {
-					Log.v("Using wildcard...");
 					regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(rule.site_regexp), 'i');
 				}
 				if (regex.test(location.href))  {
-					Log.v("Rule is applied." + location.href + "<=>" + rule.site_regexp);
+					//console.info("Rule is applied." + location.href + "<=>" + rule.site_regexp);
 					rules.push(rule);
 				}
 				else {
-					Log.v("Rule is NOT applied." + location.href + "<=>" + rule.site_regexp);
+					console.info("Rule is NOT applied." + location.href + "<=>" + rule.site_regexp);
 				}
 			} 
 			catch (e)  {
-				console.log("RuleExecutor.checkRules ERROR");
 				console.log(e);
 			}
 		}
@@ -307,6 +305,8 @@ class RuleExecutor {
 		RuleExecutor.styleTag.innerHTML = RuleExecutor.styleTag.innerHTML + (xpath + '{display:none;}');
 	}
 }
+
+RuleExecutor.initialize();
 /*
 	Convert XPath to CSS and add <style> tag in the header
  */

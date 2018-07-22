@@ -159,6 +159,8 @@ function getForegroundCallback (tabId)
 {
 	return function(param)
 	{
+	 console.log("Foreground message received.");
+	 console.log(param);
 		if (!param) return;
 		var useCallback = false;
 		switch (param.command)
@@ -237,14 +239,15 @@ function execCallbackSetApplied (tabId, param)
 };
 function execCallbackBadge (tabId, param)
 {
-
+  console.log("execCallbackBadge param=");
+  console.log(param);
 	var count = param.count;
 	try {
 		chrome.tabs.sendRequest(tabId, 
 				{
 					command: (param.nextAction)
 				}, getForegroundCallback (tabId));
-		var badgeText = ''+count;
+		var badgeText = '' + count;
 		tabBadgeMap[tabId] = badgeText;
 		if (localStorage.badgeDisabled!="true") {
 			chrome.browserAction.setBadgeText({
@@ -453,6 +456,7 @@ function highlightRuleElements (rule)
 {
 	chrome.tabs.getSelected(null,function(tab)
 		{
+		  // TODO Error occurs when pointing on popup list on background window.
 			chrome.tabs.sendRequest(tab.id, 
 				{
 					command: 'highlight',

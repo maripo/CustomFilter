@@ -112,6 +112,8 @@ function isValidURL(url) {
 }
 function getForegroundCallback(tabId) {
     return function (param) {
+        console.log("Foreground message received.");
+        console.log(param);
         if (!param)
             return;
         var useCallback = false;
@@ -174,6 +176,8 @@ function execCallbackSetApplied(tabId, param) {
 }
 ;
 function execCallbackBadge(tabId, param) {
+    console.log("execCallbackBadge param=");
+    console.log(param);
     var count = param.count;
     try {
         chrome.tabs.sendRequest(tabId, {

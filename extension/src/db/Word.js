@@ -23,11 +23,9 @@ var WordPeer = (function (_super) {
         return _this;
     }
     WordPeer.getInstance = function () {
-        if (WordPeer.instance) {
-            return instance;
+        if (!WordPeer.instance) {
+            WordPeer.instance = new WordPeer();
         }
-        var instance = new WordPeer();
-        WordPeer.instance = instance;
         return WordPeer.instance;
     };
     WordPeer.prototype.createObject = function () {

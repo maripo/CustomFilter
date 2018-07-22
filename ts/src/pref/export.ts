@@ -1,7 +1,7 @@
-var Export = (function () {
-    function Export() {
-    }
-    Export.onStart = function () {
+class Export {
+    static ruleWrapperList: PrefRuleWrapper[]
+    static ruleList: Rule[]
+    static onStart () {
         Export.ruleWrapperList = new Array();
         Export.loadLists();
         document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
@@ -9,8 +9,8 @@ var Export = (function () {
         document.getElementById('checkboxToggleAll').addEventListener('change', Export.toggleAllCheckboxes, null);
         document.getElementById('buttonExportSelected').addEventListener('click', Export.exportSelected, null);
         CustomBlockerUtil.localize();
-    };
-    Export.exportSelected = function () {
+    }
+    static exportSelected () {
         var ruleList = new Array();
         for (var i = 0, l = Export.ruleWrapperList.length; i < l; i++) {
             var ruleWrapper = Export.ruleWrapperList[i];
@@ -25,27 +25,27 @@ var Export = (function () {
         console.log(JSON.stringify(ruleList));
         var url = "data:application/octet-stream," + encodeURIComponent(JSON.stringify(ruleList));
         window.open(url);
-    };
-    Export.toggleAllCheckboxes = function () {
+    }
+    static toggleAllCheckboxes () {
         PrefRuleWrapper.toggleAllCheckboxes(document.getElementById('checkboxToggleAll'), Export.ruleWrapperList);
-    };
-    Export.loadLists = function () {
+    }
+    static loadLists () {
         RulePeer.getInstance().select('', Export.onRuleListLoaded, null);
-    };
-    Export.onRuleListLoaded = function (list) {
+    }
+    static onRuleListLoaded (list) {
         Export.ruleList = list;
         WordPeer.getInstance().select('', Export.onWordListLoaded, null);
-    };
-    Export.onWordListLoaded = function (wordList) {
-        var ruleMap = new Array();
+    }
+    static onWordListLoaded (wordList) {
+        let ruleMap = new Array();
         for (var i = 0, l = Export.ruleList.length; i < l; i++) {
             var rule = Export.ruleList[i];
             ruleMap[rule.rule_id] = rule;
         }
-        for (var i = 0; i < wordList.length; i++) {
-            var rule_1 = ruleMap[wordList[i].rule_id];
-            if (rule_1) {
-                rule_1.words.push(wordList[i]);
+        for (var i = 0; i <  wordList.length; i++) {
+            let rule = ruleMap[wordList[i].rule_id];
+            if (rule) {
+                rule.words.push(wordList[i]);
             }
         }
         for (var i = 0; i < Export.ruleList.length; i++) {
@@ -55,9 +55,8 @@ var Export = (function () {
             wrapper.liElement.className = (i % 2 == 0) ? 'odd' : 'even';
             document.getElementById('ruleList').appendChild(wrapper.liElement);
         }
-    };
-    return Export;
-}());
+    }
+}
 PrefRuleWrapper.getSubDivClassName = function () {
     return "sub_export";
 };

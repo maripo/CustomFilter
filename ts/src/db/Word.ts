@@ -2,7 +2,7 @@
  * Peer
  */
 class WordPeer extends DbPeer {
-	static instance:WordPeer
+	static instance:WordPeer;
 	private constructor () {
 		super();
 		this.tableName = 'word';
@@ -19,12 +19,9 @@ class WordPeer extends DbPeer {
 		this.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
 	}
 	public static getInstance () : DbPeer {
-		if (WordPeer.instance) {
-			return instance;
+		if (!WordPeer.instance) {
+      WordPeer.instance = new WordPeer();
 		}
-		var instance = new WordPeer();
-		
-		WordPeer.instance = instance;
 		return WordPeer.instance;
 	}
 	createObject () : DbObject {

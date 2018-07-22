@@ -1,22 +1,22 @@
-var Import = {
-    onStart: function () {
+var Import = (function () {
+    function Import() {
+    }
+    Import.onStart = function () {
         var fileSelector = document.getElementById('fileSelector');
         document.getElementById('button_import').addEventListener('click', Import.saveSelected, false);
         fileSelector.addEventListener('change', Import.readFile);
         document.getElementById('checkboxToggleAll').addEventListener('change', Import.toggleAllCheckboxes, false);
-        Import.rulePeer = RulePeer.getInstance();
-        Import.wordPeer = WordPeer.getInstance();
-        Import.rulePeer.select('', Import.onRuleListLoaded, null);
-        document.getElementById('help_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
-        document.getElementById('donate_link').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate';
-        document.getElementById('help_link_empty').href = 'help_' + chrome.i18n.getMessage('extLocale') + '.html';
+        RulePeer.getInstance().select('', Import.onRuleListLoaded, null);
+        document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
+        document.getElementById('donate_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate');
+        document.getElementById('help_link_empty').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
         CustomBlockerUtil.localize();
-    },
-    onRuleListLoaded: function (list) {
+    };
+    Import.onRuleListLoaded = function (list) {
         Import.ruleList = list;
-        Import.wordPeer.select('', Import.onWordListLoaded, null);
-    },
-    onWordListLoaded: function (wordList) {
+        WordPeer.getInstance().select('', Import.onWordListLoaded, null);
+    };
+    Import.onWordListLoaded = function (wordList) {
         var ruleMap = new Array();
         for (var i = 0, l = Import.ruleList.length; i < l; i++) {
             ruleMap[Import.ruleList[i].rule_id] = Import.ruleList[i];
@@ -27,8 +27,8 @@ var Import = {
                 rule.words.push(wordList[i]);
             }
         }
-    },
-    readFile: function (event) {
+    };
+    Import.readFile = function (event) {
         console.log('Import.readFile');
         var file = event.target.files[0];
         console.log('file.name=' + file.name);
@@ -36,11 +36,11 @@ var Import = {
         var reader = new FileReader();
         reader.readAsText(file, 'utf8');
         reader.onload = Import.readContent;
-    },
-    toggleAllCheckboxes: function (sender) {
-        RuleWrapper.toggleAllCheckboxes(document.getElementById('checkboxToggleAll'), Import.list);
-    },
-    relateWithExistingRule: function (rule) {
+    };
+    Import.toggleAllCheckboxes = function (sender) {
+        PrefRuleWrapper.toggleAllCheckboxes(document.getElementById('checkboxToggleAll'), Import.list);
+    };
+    Import.relateWithExistingRule = function (rule) {
         rule.existing = false;
         rule.rule_id = 0;
         for (var i = 0; i < Import.ruleList.length; i++) {
@@ -57,8 +57,8 @@ var Import = {
             }
         }
         return rule;
-    },
-    relateWithExistingWord: function (rule, existingRule) {
+    };
+    Import.relateWithExistingWord = function (rule, existingRule) {
         if (!existingRule.words || !rule.words)
             return null;
         for (var i = 0; i < existingRule.words.length; i++) {
@@ -75,22 +75,23 @@ var Import = {
                 rule.words.push(existingWord);
             }
         }
-    },
-    readContent: function (event) {
+    };
+    Import.readContent = function (event) {
+        var importedList = [];
         console.log(event.target.result);
         try {
-            var importedList = JSON.parse(event.target.result);
+            importedList = JSON.parse(event.target.result);
         }
         catch (ex) {
             console.log(ex);
             alert(chrome.i18n.getMessage('importErrorInvalidFormat'));
         }
-        Import.list = new Array();
+        Import.list = [];
         for (var i = 0; i < importedList.length; i++) {
             var rule = Import.relateWithExistingRule(importedList[i]);
-            var listElement = new RuleWrapper(rule);
+            var listElement = new PrefRuleWrapper(rule);
             var importIcon = document.createElement('IMG');
-            importIcon.src = (rule.existing) ? '../img/import_update.png' : '../img/import_add.png';
+            importIcon.setAttribute("src", (rule.existing) ? '../img/import_update.png' : '../img/import_add.png');
             importIcon.className = 'importIcon';
             importIcon.title = (rule.existing) ? 'UPDATE' : 'NEW';
             listElement.liElement.appendChild(importIcon);
@@ -99,17 +100,14 @@ var Import = {
             document.getElementById('ruleList').appendChild(listElement.liElement);
         }
         document.getElementById('imported').style.display = 'block';
-    },
-    saveSelected: function (event) {
+    };
+    Import.saveSelected = function (event) {
         document.getElementById('button_import').disabled = true;
-        for (var i = 0; i < Import.list.length; i++) {
-            var element = Import.list[i];
-        }
         Import.savingRuleIndex = 0;
         Import.savingWordIndex = 0;
         Import.saveRule();
-    },
-    saveRule: function () {
+    };
+    Import.saveRule = function () {
         var rule = null;
         while (rule == null && Import.savingRuleIndex < Import.list.length) {
             var _rule = Import.list[Import.savingRuleIndex];
@@ -131,15 +129,15 @@ var Import = {
             }
             return;
         }
-        Import.rulePeer.saveObject(rule.rule, function (insertedRule) {
+        RulePeer.getInstance().saveObject(rule.rule, function (insertedRule) {
             Import.savingWordIndex = 0;
             Import.currentRule = insertedRule;
             Import.saveWord();
         }, function () {
             alert("Error.");
         });
-    },
-    saveWord: function () {
+    };
+    Import.saveWord = function () {
         var word = null;
         var rule = Import.currentRule;
         while (word == null && Import.savingWordIndex < rule.words.length) {
@@ -155,14 +153,15 @@ var Import = {
             return;
         }
         word.rule_id = rule.rule_id;
-        Import.wordPeer.saveObject(word, function (insertedWord) {
+        WordPeer.getInstance().saveObject(word, function (insertedWord) {
             Import.saveWord();
         }, function () {
             alert("Error.");
         });
-    },
-};
-RuleWrapper.getSubDivClassName = function () {
+    };
+    return Import;
+}());
+PrefRuleWrapper.getSubDivClassName = function () {
     return "sub_import";
 };
 window.onload = Import.onStart;

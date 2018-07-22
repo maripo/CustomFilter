@@ -87,6 +87,8 @@ class RulePeer extends DbPeer {
  	block_anyway:boolean;
  	specify_url_by_regexp:boolean;
  	
+ 	existing: boolean; // TODO for import/export
+ 	
  	public addWord (word:Word) {
 		this.words.push(word);	
 	}

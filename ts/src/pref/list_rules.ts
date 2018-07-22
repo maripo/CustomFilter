@@ -201,7 +201,6 @@ class RuleContainer {
   applyClassName (index)
   {
     if (this.filtered) this.liElement.className = 'filtered';
-    else this.liElement.className = (this.selected)?'selected':((index%2==0)?'odd':'even');
   }
   
   getLiElement () 

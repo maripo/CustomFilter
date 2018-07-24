@@ -36,7 +36,7 @@ class Export {
         Export.ruleList = list;
         WordPeer.getInstance().select('', Export.onWordListLoaded, null);
     }
-    static onWordListLoaded (wordList): void {
+    static onWordListLoaded (wordList:[Word]): void {
         let ruleMap = new Array();
         for (var i = 0, l = Export.ruleList.length; i < l; i++) {
             var rule = Export.ruleList[i];

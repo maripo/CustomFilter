@@ -27,7 +27,7 @@ class Import
 		Import.ruleList = list;
 		WordPeer.getInstance().select('', Import.onWordListLoaded, null);
 	}
-	static onWordListLoaded (wordList)
+	static onWordListLoaded (wordList:[Word])
 	{
 		let ruleMap = new Array();
 		for (let i=0, l=Import.ruleList.length; i<l; i++) 
@@ -179,36 +179,31 @@ class Import
 				alert("Error.");
 			});
 	}
-	static saveWord ()
-	{
-		let word = null;
+	static saveWord (): void {
+		let word: Word;
 		let rule = Import.currentRule;
-		while (word==null && Import.savingWordIndex < rule.words.length)
-		{
+		while (word==null && Import.savingWordIndex < rule.words.length) {
 			let _word = rule.words[Import.savingWordIndex];
 			if (_word) word = _word;
 			else Import.savingWordIndex ++;
 		}
 		Import.savingWordIndex ++;
-		if (!word) 
-		{
+		if (!word) {
 			// Word list save done.
 			Import.saveRule();
 			return;
 		}
 		word.rule_id = rule.rule_id;
 		WordPeer.getInstance().saveObject (word, 
-			function (insertedWord) 
-			{
+			function (insertedWord:Word):void {
 				Import.saveWord();
 			},
-			function () 
-			{
+			function ():void {
 				alert("Error.");
 			});
 	}
 }
-PrefRuleWrapper.getSubDivClassName = function () {
+PrefRuleWrapper.getSubDivClassName = function ():string {
 	return "sub_import";
 };
 window.onload = Import.onStart;

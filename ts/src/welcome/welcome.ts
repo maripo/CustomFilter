@@ -10,13 +10,13 @@ class Welcome {
 		document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
 		Welcome.rulePeer.select('', Welcome.onRuleListLoaded, null);
 	}
-	static onRuleListLoaded (rules) {
+	static onRuleListLoaded (rules:[Rule]): void {
 		//Compare existing rules to preset rules for disabling duplicate rules.
 		for (let ruleIndex = 0; ruleIndex<rules.length; ruleIndex++) {
 			Welcome.disableDuplicateRules(rules[ruleIndex]);
 		}
 	}
-	static disableDuplicateRules (existingRule) {
+	static disableDuplicateRules (existingRule:Rule): void {
 		for (let siteIndex = 0; siteIndex < Welcome.siteWrappers.length; siteIndex++) {
 			let site = Welcome.siteWrappers[siteIndex];
 			let isNew = false;
@@ -47,7 +47,7 @@ class Welcome {
 		}
 		
 	}
-	static renderPreset () {
+	static renderPreset (): void {
 		let listElement = document.getElementById("sites");
 		for (let i=0; i<PRESET_RULES.length; i++) {
 			let wrapper = new SiteWrapper(PRESET_RULES[i]);
@@ -55,14 +55,14 @@ class Welcome {
 			listElement.appendChild(wrapper.getElement());
 		}
 	}
-	static toggleAll (sender) {
+	static toggleAll (sender): void {
 		for (let i=0; i<Welcome.siteWrappers.length; i++) {
 			let siteWrapper = Welcome.siteWrappers[i];
 			siteWrapper.setChecked(sender.srcElement.checked);
 		}
 	}
-	static useChecked () {
-		let rulesToUse = [];
+	static useChecked (): void {
+		let rulesToUse = [] as [RuleWrapper];
 		for (let i=0; i<Welcome.siteWrappers.length; i++) {
 			let siteWrapper = Welcome.siteWrappers[i];
 			for (let j=0; j<siteWrapper.ruleWrappers.length; j++) {
@@ -78,19 +78,17 @@ class Welcome {
 		for (let i=0; i<rulesToUse.length; i++) {
 			Welcome.rulePeer.saveObject(rulesToUse[i].rule, null, null);
 		}
-		alert(chrome.i18n.getMessage('welcomeDone'));
 		// Reload imported rules
 		try {
 			let bgWindow = chrome.extension.getBackgroundPage();
 			bgWindow.reloadLists();
 		}
-		catch (ex)
-		{
+		catch (ex) {
 			alert(ex)
 		}
 		Analytics.trackEvent('contextMenu', 'count' + rulesToUse.length);
 	}
-	static getAlreadyInstalledLabel () {
+	static getAlreadyInstalledLabel (): HTMLElement {
 		let span = document.createElement('SPAN');
 		span.appendChild(document.createTextNode(chrome.i18n.getMessage('alreadyInstalled')));
 		span.className = "installed";
@@ -116,7 +114,7 @@ class SiteWrapper {
 			this.ruleWrappers.push(new RuleWrapper(site, site.rules[i]));
 		}
 	}
-	getElement () {
+	getElement ():HTMLElement {
 		if (this.li) return this.li;
 		let li = document.createElement("LI");
 		let openButton = document.createElement("INPUT") as HTMLInputElement;

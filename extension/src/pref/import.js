@@ -137,7 +137,7 @@ var Import = (function () {
         });
     };
     Import.saveWord = function () {
-        var word = null;
+        var word;
         var rule = Import.currentRule;
         while (word == null && Import.savingWordIndex < rule.words.length) {
             var _word = rule.words[Import.savingWordIndex];

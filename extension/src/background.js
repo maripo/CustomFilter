@@ -108,7 +108,7 @@ var tabOnUpdate = function (tabId, changeInfo, tab) {
 };
 var VALID_URL_REGEX = new RegExp('^https?:');
 function isValidURL(url) {
-    return url && url.match(VALID_URL_REGEX);
+    return url != null && VALID_URL_REGEX.test(url);
 }
 function getForegroundCallback(tabId) {
     return function (param) {

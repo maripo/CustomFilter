@@ -66,8 +66,7 @@ function _onRuleListLoaded (list)
 	WordPeer.getInstance().select('', _onWordListLoaded, null);
 }
 
-function _onWordListLoaded (wordList) 
-{
+function _onWordListLoaded (wordList:[Word]):void {
 	console.log("_onWordListLoaded");
 	let ruleMap = new Array();
 	for (let i=0; i<allRules.length; i++) 
@@ -88,10 +87,8 @@ function _onWordListLoaded (wordList)
 	showCount();
 }
 let prevFilterString = null;
-function renderRules ()
-{
-	for (let i = 0, l = ruleContainerList.length; i < l; i++) 
-	{
+function renderRules (): void {
+	for (let i = 0, l = ruleContainerList.length; i < l; i++) {
 		let container = ruleContainerList[i];
 		let element = container.getLiElement();
 		container.applyClassName(i);
@@ -99,13 +96,11 @@ function renderRules ()
 	}
 }
 
-function search ()
-{
+function search () {
 	applyFilter((document.getElementById('search_box')as HTMLInputElement).value);
 }
 
-function applyFilter (filterString)
-{
+function applyFilter (filterString: string) {
 	if (prevFilterString == filterString) return;
 	prevFilterString = filterString;
 	let visibleIndex = 0;
@@ -119,8 +114,7 @@ function applyFilter (filterString)
 	}
 	showCount();
 }
-function showCount ()
-{
+function showCount ():void {
 	let visibleCount = 0;
 	for (let i = 0, l = ruleContainerList.length; i < l; i++)
 	{
@@ -129,24 +123,21 @@ function showCount ()
 	document.getElementById('activeRuleCount').innerHTML = String(visibleCount);
 	document.getElementById('totalRuleCount').innerHTML = String(ruleContainerList.length);
 }
-function isMatched (rule, filterString)
-{
+function isMatched (rule:Rule, filterString:string) {
 	if (null==filterString || ''==filterString) return true;
 	filterString = filterString.toLowerCase();
 	return (isMatchedByRule(rule, filterString) || isMatchedByWords(rule, filterString));
 }
 
-function isMatchedByRule (rule, filterString)
-{
+function isMatchedByRule (rule:Rule, filterString:string) {
 	return (
 			rule.title.toLowerCase().indexOf(filterString)>=0 ||
 			rule.site_regexp.toLowerCase().indexOf(filterString)>=0 ||
 			rule.example_url.toLowerCase().indexOf(filterString)>=0
 			);
-
 }
-function isMatchedByWords (rule:Rule, filterString)
-{
+
+function isMatchedByWords (rule:Rule, filterString:string) {
 	if (!rule.words) return false;
 	for (let i=0; i<rule.words.length; i++)
 	{
@@ -157,7 +148,7 @@ function isMatchedByWords (rule:Rule, filterString)
 }
 
 
-function deselectAll () 
+function deselectAll ():void
 {
   let visibleIndex = 0;
   for (let i=0, l=ruleContainerList.length; i<l; i++)
@@ -169,11 +160,8 @@ function deselectAll ()
 }
 
 
-function removeElement (element)
-{
-
-  for (let i=0; i<ruleContainerList.length; i++)
-  {
+function removeElement (element):void {
+  for (let i=0; i<ruleContainerList.length; i++) {
     if (ruleContainerList[i]==element)
     {
       ruleContainerList.splice(i, 1);
@@ -194,17 +182,15 @@ class RuleContainer {
     this.liElement = null;
     this.filtered = false;
   }
-  deselect ()
+  deselect ():void
   {
     this.selected = false;
   }
-  applyClassName (index)
-  {
-    if (this.filtered) this.liElement.className = 'filtered';
+  applyClassName () {
+    if (this.filtered) { this.liElement.className = 'filtered'; }
   }
   
-  getLiElement () 
-  {
+  getLiElement (): HTMLElement {
     if (this.liElement) return this.liElement;
     this.liElement = document.createElement('LI');
     
@@ -307,8 +293,7 @@ class RuleContainer {
     return button;
   }
   
-  getDisableAction (inputButton: HTMLInputElement)
-  {
+  getDisableAction (inputButton: HTMLInputElement) {
     let rule = this.rule;
     return function (event)
     {
@@ -328,8 +313,7 @@ class RuleContainer {
       reloadBackground();
     }
   }
-  getSelectAction () 
-  {
+  getSelectAction () {
     let self = this;
     return function () 
     {
@@ -337,14 +321,12 @@ class RuleContainer {
       ruleEditor.selectRule(self.rule);
       deselectAll();
       self.selected = true;
-      self.applyClassName(0); // TODO index?
+      self.applyClassName();
     };
   }
-  getDeleteAction () 
-  {
+  getDeleteAction () {
     let self = this;
-    return function () 
-    {
+    return function () {
       if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
         RulePeer.getInstance().deleteObject(self.rule, function(){}, function(){});
         self.liElement.parentNode.removeChild(self.liElement);
@@ -356,8 +338,7 @@ class RuleContainer {
   }
 }
 
-function refreshPathSections ()
-{
+function refreshPathSections (): void{
 	let hideByXPath = (document.getElementById('rule_editor_radio_hide_xpath') as HTMLInputElement).checked;
 	let searchByXPath = (document.getElementById('rule_editor_radio_search_xpath') as HTMLInputElement).checked;
 	document.getElementById('rule_editor_section_hide_xpath').style.display = (hideByXPath)?'block':'none';
@@ -449,14 +430,12 @@ class PrefRuleEditor {
       document.getElementById('rule_editor_keywords').appendChild(this.getWordElement(word));
     }
   }
-  showMessage (str: string)
-  {
+  showMessage (str: string): void {
     this.alertDiv.style.display = 'block';
     this.alertDiv.innerHTML = str;
   }
   
-  hideMessage ()
-  {
+  hideMessage (): void{
     this.alertDiv.style.display = 'none';
   }
   
@@ -533,8 +512,7 @@ class PrefRuleEditor {
     
     return span;
   }
-  getDeleteWordAction (word:Word, span:HTMLElement) 
-  {
+  getDeleteWordAction (word:Word, span:HTMLElement) {
     let self = this;
     return function () 
     {
@@ -542,8 +520,7 @@ class PrefRuleEditor {
       WordPeer.getInstance().deleteObject(word, function(){}, function(){});
     }
   }
-  getAddWordByEnterAction () 
-  {
+  getAddWordByEnterAction () {
     let self = this;
     return function (event) 
     {
@@ -554,8 +531,7 @@ class PrefRuleEditor {
     }
   }
   
-  getAddWordAction () 
-  {
+  getAddWordAction () {
     let self = this;
     return function () 
     {
@@ -563,8 +539,7 @@ class PrefRuleEditor {
     }
   }
   
-  saveWord ()
-  {
+  saveWord () {
     let self = this;
     let str = (document.getElementById('rule_editor_keyword') as HTMLInputElement).value;
     if (!str || ''==str)
@@ -588,8 +563,7 @@ class PrefRuleEditor {
       document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
       (document.getElementById('rule_editor_keyword') as HTMLInputElement).value = '';
     }, 
-    function ()
-    {
+    function () {
       alert("save failed")
       });
   }

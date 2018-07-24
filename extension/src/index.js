@@ -115,7 +115,6 @@ var Popup = (function () {
     };
     Popup.prototype.getDisableAction = function (rule, disableButton) {
         return function (event) {
-            var peer = RulePeer.getInstance();
             rule.is_disabled = !rule.is_disabled;
             disableButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
             disableButton.className = (rule.is_disabled) ? 'buttonOff' : 'buttonOn';
@@ -126,7 +125,7 @@ var Popup = (function () {
                 if (CustomBlockerUtil.isEmpty(rule.global_identifier)) {
                     rule.global_identifier = UUID.generate();
                 }
-                peer.saveObject(rule, function () {
+                RulePeer.getInstance().saveObject(rule, function () {
                     var bgWindow = chrome.extension.getBackgroundPage();
                     bgWindow.reloadLists();
                 }, function () { });

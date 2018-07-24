@@ -7,35 +7,40 @@ let ruleList:Rule[] = [];
 /**
  * Initialization
  */
-function onStartBackground() {
+function onStartBackground(): void {
 	updateDbIfNeeded(createRuleTable);
 }
-function createRuleTable () {
+
+function createRuleTable (): void {
 	console.log("createRuleTable");
 	RulePeer.getInstance().createTable(createWordTable);
 }
-function createWordTable () {
+
+function createWordTable (): void {
 	WordPeer.getInstance().createTable(loadLists);
 }
-function loadLists () {
+
+function loadLists (): void {
 	RulePeer.getInstance().select('', onRuleListLoaded, null);
 }
-function onRuleListLoaded (list:Rule[]) {
+
+function onRuleListLoaded (list:Rule[]): void {
 	let count = '' + list.length;
 	Analytics.trackEvent('loadRuleList', count);
 	ruleList = list;
 	WordPeer.getInstance().select('', onWordListLoaded, null);
 }
-function removeFromExistingTabList (tabIdToRemove) {
-	for (var id in existingTabs)
-	{
+
+function removeFromExistingTabList (tabIdToRemove): void {
+	for (var id in existingTabs) {
 		if (tabIdToRemove==id) existingTabs[id] = null;
 	}
 }
-function addToExistingTabList (tabIdToAdd:number) {
+function addToExistingTabList (tabIdToAdd:number): void {
 	existingTabs[tabIdToAdd] = true;
 }
-function onWordListLoaded (wordList:Word[]) {
+
+function onWordListLoaded (wordList:Word[]): void {
 	var count = '' + wordList.length;
 	Analytics.trackEvent('loadWordList', count);
 	var ruleMap = new Array();
@@ -81,7 +86,7 @@ interface HTMLElement {
 	unfocus: (Event)=>void;
 	tmpUnselect: (Event)=>void;
 }
-function saveUuidIfNotSet () {
+function saveUuidIfNotSet (): void {
 	for (let i=0; i<ruleList.length; i++) {
 		let rule = ruleList[i];
 		let needSave = false;
@@ -104,10 +109,10 @@ function saveUuidIfNotSet () {
 	}
 }
 
-function reloadLists () {
+function reloadLists (): void {
 	loadLists();
 }
-function openRulePicker (selectedRule) {
+function openRulePicker (selectedRule:Rule): void {
 	let status = (selectedRule)?'edit':'create';
 	Analytics.trackEvent('openRulePicker', status);
 	try {
@@ -127,8 +132,7 @@ chrome.extension.onRequest.addListener(function(request, sender) {
 		tabOnUpdate(sender.tab.id, null, sender.tab);
 	}
 });
-var tabOnUpdate = function(tabId:number, changeInfo, tab)
-{
+var tabOnUpdate = function(tabId:number, changeInfo, tab): void {
 	addToExistingTabList(tabId);
 	// ON/OFF
 	var isDisabled = ('true' == localStorage.blockDisabled);
@@ -150,15 +154,12 @@ var tabOnUpdate = function(tabId:number, changeInfo, tab)
 	}
 }
 var VALID_URL_REGEX = new RegExp('^https?:');
-function isValidURL (url) 
-{
-	return  url && url.match(VALID_URL_REGEX);
+function isValidURL (url: string) : boolean {
+	return  url!=null && VALID_URL_REGEX.test(url);
 }
 
-function getForegroundCallback (tabId)
-{
-	return function(param)
-	{
+function getForegroundCallback (tabId) {
+	return function(param) {
 	 console.log("Foreground message received.");
 	 console.log(param);
 		if (!param) return;
@@ -192,8 +193,7 @@ function getForegroundCallback (tabId)
 	};
 
 };
-function execCallbackReload (tabId, param)
-{
+function execCallbackReload (tabId, param): void {
 	chrome.tabs.sendRequest(tabId, 
 	{
 		command: (param.nextAction),
@@ -201,10 +201,8 @@ function execCallbackReload (tabId, param)
 	}, getForegroundCallback (tabId));
 
 }
-function execCallbackDb (tabId, param)
-{
-	try 
-	{
+function execCallbackDb (tabId:string, param): void {
+	try {
 		var exPeer;
 		if ('save' == param.dbCommand) 
 		{
@@ -219,7 +217,8 @@ function execCallbackDb (tabId, param)
 		console.log(e)
 	}
 }
-function execCallbackSetApplied (tabId, param)
+
+function execCallbackSetApplied (tabId, param): void
 {
 	var list = param.list || new Array();
 	try
@@ -237,7 +236,7 @@ function execCallbackSetApplied (tabId, param)
 	appliedRuleMap[tabId] = list;
 
 };
-function execCallbackBadge (tabId, param)
+function execCallbackBadge (tabId, param): void
 {
   console.log("execCallbackBadge param=");
   console.log(param);
@@ -266,7 +265,7 @@ function execCallbackBadge (tabId, param)
 	}
 
 }
-function getAppliedRules (callback) 
+function getAppliedRules (callback): void
 {
 	chrome.tabs.getSelected(null,function(tab)
 	{
@@ -430,14 +429,14 @@ var appliedRuleMap = new Array();
 				catch (ex) {console.log(ex);}
 			});
 }
-function setIconDisabled (isDisabled) 
+function setIconDisabled (isDisabled): void
 {
 	chrome.tabs.getSelected(null,function(tab)
 	{
 		_setIconDisabled(isDisabled,tab.id);
 	});
 }
-function _setIconDisabled (isDisabled, tabId)
+function _setIconDisabled (isDisabled, tabId): void
 {
 	if (localStorage.badgeDisabled!="true") {
 		chrome.browserAction.setBadgeText({
@@ -452,7 +451,7 @@ function _setIconDisabled (isDisabled, tabId)
 	});	
 	
 }
-function highlightRuleElements (rule)
+function highlightRuleElements (rule: Rule): void
 {
 	chrome.tabs.getSelected(null,function(tab)
 		{
@@ -464,7 +463,7 @@ function highlightRuleElements (rule)
 				}, getForegroundCallback(tab.id));
 		});
 }
-function getBadgeTooltipString (count) {
+function getBadgeTooltipString (count): string {
 	if (count > 1)
 		return chrome.i18n.getMessage("tooltipCount").replace("__count__",count);
 	else
@@ -473,17 +472,17 @@ function getBadgeTooltipString (count) {
 // chrome.tabs.customBlockerOnUpdateSet = true;
 onStartBackground();
 
-function menuCreateOnRightClick(clicked, tab) {
+function menuCreateOnRightClick(clicked, tab): void {
 	sendQuickRuleCreationRequest(clicked, tab, true);
 	Analytics.trackEvent('contextMenu', 'create');
 };
 
-function menuAddOnRightClick(clicked, tab) {
+function menuAddOnRightClick(clicked, tab): void {
 	sendQuickRuleCreationRequest(clicked, tab, false);
 	Analytics.trackEvent('contextMenu', 'add');
 };
 
-function sendQuickRuleCreationRequest (clicked, tab, needSuggestion) {
+function sendQuickRuleCreationRequest (clicked, tab, needSuggestion:boolean): void {
 	chrome.tabs.sendRequest(
 			tab.id, 
 			{

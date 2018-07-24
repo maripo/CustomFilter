@@ -75,7 +75,6 @@ var Welcome = (function () {
         for (var i = 0; i < rulesToUse.length; i++) {
             Welcome.rulePeer.saveObject(rulesToUse[i].rule, null, null);
         }
-        alert(chrome.i18n.getMessage('welcomeDone'));
         try {
             var bgWindow = chrome.extension.getBackgroundPage();
             bgWindow.reloadLists();

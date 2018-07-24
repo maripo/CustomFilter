@@ -3,7 +3,7 @@ class PrefRuleWrapper {
   liElement: HTMLElement;
   subLiElement: HTMLElement;
   checkbox: HTMLInputElement;
-  constructor (rule) {
+  constructor (rule:Rule) {
     this.rule = rule;
     this.liElement = document.createElement('LI');
     this.subLiElement = document.createElement('DIV');

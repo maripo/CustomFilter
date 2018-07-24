@@ -146,9 +146,10 @@ var RuleContainer = (function () {
     RuleContainer.prototype.deselect = function () {
         this.selected = false;
     };
-    RuleContainer.prototype.applyClassName = function (index) {
-        if (this.filtered)
+    RuleContainer.prototype.applyClassName = function () {
+        if (this.filtered) {
             this.liElement.className = 'filtered';
+        }
     };
     RuleContainer.prototype.getLiElement = function () {
         if (this.liElement)
@@ -252,7 +253,7 @@ var RuleContainer = (function () {
             ruleEditor.selectRule(self.rule);
             deselectAll();
             self.selected = true;
-            self.applyClassName(0);
+            self.applyClassName();
         };
     };
     RuleContainer.prototype.getDeleteAction = function () {

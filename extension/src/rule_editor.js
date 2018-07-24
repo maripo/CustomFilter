@@ -296,7 +296,7 @@ var RuleEditor = (function () {
     RuleEditor.prototype.getOnClickActionForFrame = function (node, origEvent) {
         var self = this;
         return function (event) {
-            self.openPathPicker(origEvent || event, node);
+            self.openPathPicker((origEvent || event), node);
         };
     };
     RuleEditor.prototype.openPathPicker = function (event, node) {
@@ -315,6 +315,7 @@ var RuleEditor = (function () {
                 mouseout: this.getOnMouseoutActionForFrame(upper),
                 click: this.getOnClickActionForFrame(upper, event)
             };
+            console.log("Calling this.pathPickerDialog.show()");
             this.pathPickerDialog.show(event, node, paths, this.pathPickerTarget, upperNodeHandlers, function (target, path) {
                 var options = {
                     command: "customblocker_path_picked",
@@ -426,16 +427,20 @@ var PathPickerDialog = (function () {
             this.ul.appendChild(li);
         }
         this.div.style.display = 'block';
-        var _left = event.clientX + document.body.scrollLeft;
-        var _top = event.clientY + document.body.scrollTop;
-        if (_left + this.div.clientWidth > document.body.scrollLeft + window.innerWidth) {
-            _left = document.body.scrollLeft + window.innerWidth - this.div.clientWidth;
+        console.log("PathPicker content = " + this.div.innerHTML);
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+        var _left = event.clientX + scrollLeft;
+        var _top = event.clientY + scrollTop;
+        if (_left + this.div.clientWidth > scrollLeft + window.innerWidth) {
+            _left = scrollLeft + window.innerWidth - this.div.clientWidth;
         }
-        if (_top + this.div.clientHeight > document.body.scrollTop + window.innerHeight) {
-            _top = document.body.scrollTop + window.innerHeight - this.div.clientHeight;
+        if (_top + this.div.clientHeight > scrollTop + window.innerHeight) {
+            _top = scrollTop + window.innerHeight - this.div.clientHeight;
         }
         this.div.style.left = _left + 'px';
         this.div.style.top = _top + 'px';
+        console.log("top=" + _top + ", clientY=" + event.clientY + ", scrollTop=" + scrollTop);
         var currentFilter = (target.isToHide) ? self.currentHideFilter : self.currentSearchFilter;
         if (this.currentFilter != currentFilter) {
             var elements = this.currentFilter.elements;

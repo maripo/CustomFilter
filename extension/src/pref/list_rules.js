@@ -149,8 +149,6 @@ var RuleContainer = (function () {
     RuleContainer.prototype.applyClassName = function (index) {
         if (this.filtered)
             this.liElement.className = 'filtered';
-        else
-            this.liElement.className = (this.selected) ? 'selected' : ((index % 2 == 0) ? 'odd' : 'even');
     };
     RuleContainer.prototype.getLiElement = function () {
         if (this.liElement)

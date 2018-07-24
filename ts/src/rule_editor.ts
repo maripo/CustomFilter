@@ -338,7 +338,7 @@ class RuleEditor {
 	getOnClickActionForFrame (node:HTMLElement, origEvent:Event) {
 		var self = this;
 		return function (event:Event) {
-			self.openPathPicker(origEvent || event, node);
+			self.openPathPicker((origEvent || event), node);
 		}
 	}
 	openPathPicker (event:Event, node:HTMLElement) {
@@ -357,7 +357,7 @@ class RuleEditor {
 				mouseout:this.getOnMouseoutActionForFrame(upper as HTMLElement),
 				click:this.getOnClickActionForFrame(upper as HTMLElement, event as MouseEvent)
 			};
-			
+			console.log("Calling this.pathPickerDialog.show()");
 			this.pathPickerDialog.show(event as MouseEvent, node, paths, this.pathPickerTarget, 
 					upperNodeHandlers,
 				function (target, path) {
@@ -491,16 +491,19 @@ class PathPickerDialog {
 		}
 		
 		this.div.style.display = 'block';
+		console.log("PathPicker content = " + this.div.innerHTML);
 		
-		var _left = event.clientX + document.body.scrollLeft;
-		var _top = event.clientY + document.body.scrollTop;
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+		var _left = event.clientX + scrollLeft;
+		var _top = event.clientY + scrollTop;
 		
-		if (_left + this.div.clientWidth > document.body.scrollLeft + window.innerWidth) {
-			_left = document.body.scrollLeft + window.innerWidth - this.div.clientWidth;
+		if (_left + this.div.clientWidth > scrollLeft + window.innerWidth) {
+			_left = scrollLeft + window.innerWidth - this.div.clientWidth;
 		}
 		
-		if (_top + this.div.clientHeight > document.body.scrollTop + window.innerHeight)  {
-			_top = document.body.scrollTop + window.innerHeight - this.div.clientHeight;
+		if (_top + this.div.clientHeight > scrollTop + window.innerHeight)  {
+			_top = scrollTop + window.innerHeight - this.div.clientHeight;
 		}
 		
 		this.div.style.left = _left + 'px';

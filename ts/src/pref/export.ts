@@ -1,7 +1,7 @@
 class Export {
     static ruleWrapperList: PrefRuleWrapper[]
     static ruleList: Rule[]
-    static onStart () {
+    static onStart (): void {
         Export.ruleWrapperList = new Array();
         Export.loadLists();
         document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
@@ -10,7 +10,7 @@ class Export {
         document.getElementById('buttonExportSelected').addEventListener('click', Export.exportSelected, null);
         CustomBlockerUtil.localize();
     }
-    static exportSelected () {
+    static exportSelected (): void {
         var ruleList = new Array();
         for (var i = 0, l = Export.ruleWrapperList.length; i < l; i++) {
             var ruleWrapper = Export.ruleWrapperList[i];
@@ -26,17 +26,17 @@ class Export {
         var url = "data:application/octet-stream," + encodeURIComponent(JSON.stringify(ruleList));
         window.open(url);
     }
-    static toggleAllCheckboxes () {
+    static toggleAllCheckboxes (): void {
         PrefRuleWrapper.toggleAllCheckboxes(document.getElementById('checkboxToggleAll'), Export.ruleWrapperList);
     }
-    static loadLists () {
+    static loadLists (): void {
         RulePeer.getInstance().select('', Export.onRuleListLoaded, null);
     }
-    static onRuleListLoaded (list) {
+    static onRuleListLoaded (list): void {
         Export.ruleList = list;
         WordPeer.getInstance().select('', Export.onWordListLoaded, null);
     }
-    static onWordListLoaded (wordList) {
+    static onWordListLoaded (wordList): void {
         let ruleMap = new Array();
         for (var i = 0, l = Export.ruleList.length; i < l; i++) {
             var rule = Export.ruleList[i];

@@ -126,10 +126,12 @@ var DbPeer = (function () {
         if (!obj.insert_date)
             obj.insert_date = new Date().getTime();
         obj.update_date = new Date().getTime();
-        if (obj[this.getPkeyColName()] > 0)
+        if (obj[this.getPkeyColName()] > 0) {
             this.updateObject(obj, onSuccessCallback, onFailureCallback);
-        else
+        }
+        else {
             this.insertObject(obj, onSuccessCallback, onFailureCallback);
+        }
     };
     DbPeer.prototype.insertObject = function (obj, onSuccessCallback, onFailureCallback) {
         var sql = 'INSERT INTO ' + this.tableName + ' (';
@@ -191,7 +193,7 @@ var DbPeer = (function () {
     };
     DbPeer.prototype.updateObject = function (obj, onSuccessCallback, onFailureCallback) {
         try {
-            var sql = 'UPDATE ' + this.tableName + ' SET ';
+            var sql_1 = 'UPDATE ' + this.tableName + ' SET ';
             var exps = new Array();
             for (var i = 0, l = this.cols.length; i < l; i++) {
                 var col = this.cols[i];
@@ -218,14 +220,14 @@ var DbPeer = (function () {
                 }
                 exps.push(col.name + '=' + valStr);
             }
-            sql += exps.join(',');
-            sql += ' WHERE ';
-            sql += this.getPkeyColName();
-            sql += '=';
-            sql += obj[this.getPkeyColName()];
-            console.log(sql);
+            sql_1 += exps.join(',');
+            sql_1 += ' WHERE ';
+            sql_1 += this.getPkeyColName();
+            sql_1 += '=';
+            sql_1 += obj[this.getPkeyColName()];
+            console.log(sql_1);
             db.transaction(function (tx) {
-                tx.executeSql(sql, [], function () {
+                tx.executeSql(sql_1, [], function () {
                     console.log("Update Success");
                     obj.dirty = false;
                     if (onSuccessCallback) {
@@ -244,13 +246,13 @@ var DbPeer = (function () {
     };
     DbPeer.prototype.deleteObject = function (obj, onSuccessCallback, onFailureCallback) {
         try {
-            var sql = 'DELETE FROM ' + this.tableName;
-            sql += ' WHERE ';
-            sql += this.getPkeyColName();
-            sql += '=';
-            sql += obj[this.getPkeyColName()];
+            var sql_2 = 'DELETE FROM ' + this.tableName;
+            sql_2 += ' WHERE ';
+            sql_2 += this.getPkeyColName();
+            sql_2 += '=';
+            sql_2 += obj[this.getPkeyColName()];
             db.transaction(function (tx) {
-                tx.executeSql(sql, [], function () {
+                tx.executeSql(sql_2, [], function () {
                     console.log("Delete Success");
                     obj.dirty = false;
                     if (onSuccessCallback) {

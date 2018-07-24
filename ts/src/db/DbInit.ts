@@ -1,9 +1,7 @@
-var db = null;
-var needDbUpdate = false;
-var LATEST_DB_VERSION = "4.0";
-var DB_SIZE = 1024 * 1024 * 5;
-
-
+let db = null;
+let needDbUpdate = false;
+let LATEST_DB_VERSION = "4.0";
+let DB_SIZE = 1024 * 1024 * 5;
 
 try
 {
@@ -50,12 +48,12 @@ catch (ex)
 	}
 }
 
-function updateDbIfNeeded (callback)
-{
+function updateDbIfNeeded (callback): void {
 	console.log("updateDbIfNeeded needDbUpdate");
-	if (!db)
+	if (!db) {
 		db = window.openDatabase("customblocker","","customblocker extension", DB_SIZE);
-	var currentDbVersion = db.version;
+	}
+	let currentDbVersion = db.version;
 	if (LATEST_DB_VERSION!=currentDbVersion)
 	{
 		console.log("Database Update "+currentDbVersion+"->"+LATEST_DB_VERSION);

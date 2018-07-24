@@ -44,7 +44,7 @@ class RulePeer extends DbPeer {
 		return RulePeer.instance;
 	}
 	createObject() : DbObject {
-		var rule = new Rule();
+		let rule = new Rule();
 		// Default Values (CSS on)
 		rule.search_block_by_css = true;
 		rule.hide_block_by_css = true;
@@ -130,8 +130,8 @@ class RulePeer extends DbPeer {
 	public getPeer (): DbPeer {
 		return RulePeer.getInstance();
 	}
-	public static validate (params:RuleValidation):string[] {
-		var errors:string[] = [];
+	public static validate (params:RuleValidation): string[] {
+		let errors:string[] = [];
 		if (''==params.title) errors.push(chrome.i18n.getMessage('errorTitleEmpty'));
 		if (''==params.site_regexp) errors.push(chrome.i18n.getMessage('errorSiteRegexEmpty'));
 		if (''!=params.search_block_xpath) {

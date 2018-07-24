@@ -440,7 +440,6 @@ var PathPickerDialog = (function () {
         }
         this.div.style.left = _left + 'px';
         this.div.style.top = _top + 'px';
-        console.log("top=" + _top + ", clientY=" + event.clientY + ", scrollTop=" + scrollTop);
         var currentFilter = (target.isToHide) ? self.currentHideFilter : self.currentSearchFilter;
         if (this.currentFilter != currentFilter) {
             var elements = this.currentFilter.elements;

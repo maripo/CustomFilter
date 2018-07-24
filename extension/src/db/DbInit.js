@@ -41,8 +41,9 @@ catch (ex) {
 }
 function updateDbIfNeeded(callback) {
     console.log("updateDbIfNeeded needDbUpdate");
-    if (!db)
+    if (!db) {
         db = window.openDatabase("customblocker", "", "customblocker extension", DB_SIZE);
+    }
     var currentDbVersion = db.version;
     if (LATEST_DB_VERSION != currentDbVersion) {
         console.log("Database Update " + currentDbVersion + "->" + LATEST_DB_VERSION);

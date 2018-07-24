@@ -75,7 +75,7 @@ interface Dictionary<T> {
 		this.cols.push(new DbColumn(name, type, version, properties));
 	}
 	public abstract createObject () : DbObject;
-	dropTable () {
+	dropTable (): void {
 		let sql = 'DROP TABLE ' + this.tableName;
 		try {
 			db.transaction(function(tx) 
@@ -90,11 +90,11 @@ interface Dictionary<T> {
 			console.log(ex)
 		}
 	}
-	createTable (callback) {
-		var sql = 'CREATE TABLE IF NOT EXISTS ' + this.tableName + '(';
-		var exps = new Array();
+	createTable (callback): void {
+		let sql = 'CREATE TABLE IF NOT EXISTS ' + this.tableName + '(';
+		let exps = new Array();
 		
-		for (var i=0, l=this.cols.length; i<l; i++) 
+		for (let i=0, l=this.cols.length; i<l; i++) 
 		{
 			exps.push(this.cols[i].name + ' ' + this.cols[i].getTypeString());
 		}
@@ -122,7 +122,7 @@ interface Dictionary<T> {
 			console.log(ex)
 		}
 	}
-	select (condition, onFinishCallback, onFailCallback) {
+	select (condition, onFinishCallback, onFailCallback): void {
 		let sql = 'SELECT * FROM ' + this.tableName;
 		if (condition && ''!=condition) {
 			sql += ' WHERE ' + condition;
@@ -142,10 +142,10 @@ interface Dictionary<T> {
 							obj[col.name] = (1==res.rows.item(i)[col.name]);
 						}
 						else if (col.type == DbColumn.TYPE_BITFIELD) {
-							var val = res.rows.item(i)[col.name];
-							for (var pIndex = 0; pIndex<col.properties.length; pIndex++) {
-								var propertyName = col.properties[pIndex];
-								var propertyValue = 0x01 & (val>>pIndex);
+							let val = res.rows.item(i)[col.name];
+							for (let pIndex = 0; pIndex<col.properties.length; pIndex++) {
+								let propertyName = col.properties[pIndex];
+								let propertyValue = 0x01 & (val>>pIndex);
 								obj[propertyName] = (1==propertyValue);
 							}
 						}
@@ -160,43 +160,41 @@ interface Dictionary<T> {
 			onFailCallback);
 		});
 	}
-	saveObject (obj:DbObject, onSuccessCallback:(DbObject)=>void, onFailureCallback:()=>void) {
+	saveObject (obj:DbObject, onSuccessCallback:(DbObject)=>void, onFailureCallback:()=>void): void {
 		if (!obj.insert_date)
 			obj.insert_date = new Date().getTime();
 		obj.update_date = new Date().getTime();
-		if (obj[this.getPkeyColName()] > 0) this.updateObject(obj, onSuccessCallback, onFailureCallback);
-		else this.insertObject(obj, onSuccessCallback, onFailureCallback);
+		if (obj[this.getPkeyColName()] > 0) {
+		  this.updateObject(obj, onSuccessCallback, onFailureCallback);
+		} else {
+		  this.insertObject(obj, onSuccessCallback, onFailureCallback);
+		}
 	}
-	insertObject (obj:DbObject, onSuccessCallback, onFailureCallback) {
-		var sql = 'INSERT INTO ' + this.tableName + ' (';
-		var exps = new Array();
-		var colList = new Array(); // TODO strict
-		var valList = new Array(); // TODO strict
-		for (var i=0, l=this.cols.length; i<l; i++) 
-		{
-			var col = this.cols[i];
+	insertObject (obj:DbObject, onSuccessCallback:(DbObject)=>void, onFailureCallback:()=>void): void {
+		let sql = 'INSERT INTO ' + this.tableName + ' (';
+		let exps = new Array();
+		let colList = new Array(); // TODO strict
+		let valList = new Array(); // TODO strict
+		for (let i=0, l=this.cols.length; i<l; i++) {
+			let col = this.cols[i];
 			if (DbColumn.TYPE_PKEY==col.type) continue;
 			let val = obj[col.name];
 			let valStr = '';
-			if (col.type==DbColumn.TYPE_TEXT) 
-			{
+			if (col.type==DbColumn.TYPE_TEXT) {
 				valStr = "'" + DbPeer.escape(val) + "'";
 			}
-			else if (col.type==DbColumn.TYPE_BOOLEAN) 
-			{
+			else if (col.type==DbColumn.TYPE_BOOLEAN) {
 				valStr = String((val) ?1:0);
 			}
-			else if (col.type==DbColumn.TYPE_BITFIELD) 
-			{
+			else if (col.type==DbColumn.TYPE_BITFIELD) {
 				let fieldVal = 0
-				for (var pIndex = 0; pIndex<col.properties.length; pIndex++) {
-					var propertyName = col.properties[pIndex];
+				for (let pIndex = 0; pIndex<col.properties.length; pIndex++) {
+					let propertyName = col.properties[pIndex];
 					fieldVal += (((obj[propertyName])?1:0)<<pIndex);
 				}
 				valStr = String(fieldVal);
 			}
-			else 
-			{
+			else {
 				valStr = String((val)?val:0);
 			}
 			colList.push(col.name);
@@ -206,46 +204,38 @@ interface Dictionary<T> {
 		sql += ') VALUES (';
 		sql += valList.join(',');
 		sql += ')';
-		var self = this;
+		let self = this;
 		console.log(sql)
-		try 
-		{
-			db.transaction(function(tx) 
-			{
-				tx.executeSql(sql, [], function(tx, res)
-				{
+		try {
+			db.transaction(function(tx) {
+				tx.executeSql(sql, [], function(tx, res) {
 					console.log("Insert Success");
 					obj.dirty = false;
 					obj[self.getPkeyColName()] = res.insertId;
-					if (onSuccessCallback) 
-					{
+					if (onSuccessCallback) {
 						onSuccessCallback(obj);
 					}
 				}, 
-				function(tx, res)
-				{
+				function(tx, res){
 					console.log("Insert Failed code=" + res.code);
 					console.log("Insert Failed message=" + res.message);
 					if (onFailureCallback) onFailureCallback();
 				});
 			});
 		}
-		catch (ex) 
-		{
+		catch (ex) {
 			console.log(ex)
 		}
 	}
-	public updateObject (obj:DbObject, onSuccessCallback:(DbObject)=>void, onFailureCallback:()=>void) {
-		try 
-		{
-			var sql = 'UPDATE ' + this.tableName + ' SET ';
-			var exps = new Array();
-			for (var i=0, l=this.cols.length; i<l; i++) 
-			{
-				var col = this.cols[i];
+	public updateObject (obj:DbObject, onSuccessCallback:(DbObject)=>void, onFailureCallback:()=>void): void {
+		try {
+			let sql = 'UPDATE ' + this.tableName + ' SET ';
+			let exps = new Array();
+			for (let i=0, l=this.cols.length; i<l; i++) {
+				let col = this.cols[i];
 				if (DbColumn.TYPE_PKEY==col.type) continue;
-				var val = obj[col.name];
-				var valStr = '';
+				let val = obj[col.name];
+				let valStr = '';
 				if (col.type==DbColumn.TYPE_TEXT) 
 				{
 					valStr = "'" + DbPeer.escape(val) + "'";
@@ -256,9 +246,9 @@ interface Dictionary<T> {
 				}
 				else if (col.type==DbColumn.TYPE_BITFIELD)
 				{
-					var fieldVal = 0
-					for (var pIndex = 0; pIndex<col.properties.length; pIndex++) {
-						var propertyName = col.properties[pIndex];
+					let fieldVal = 0
+					for (let pIndex = 0; pIndex<col.properties.length; pIndex++) {
+						let propertyName = col.properties[pIndex];
 						fieldVal += (((obj[propertyName])?1:0)<<pIndex);
 					}
 					valStr = String(fieldVal);
@@ -297,27 +287,21 @@ interface Dictionary<T> {
 			console.log(ex)
 		}
 	}
-	deleteObject (obj:DbObject, onSuccessCallback, onFailureCallback) 
-	{
-		try 
-		{
-			var sql = 'DELETE FROM ' + this.tableName;
+	deleteObject (obj:DbObject, onSuccessCallback:(DbObj)=>void, onFailureCallback:()=>void): void {
+		try {
+			let sql = 'DELETE FROM ' + this.tableName;
 			sql += ' WHERE ';
 			sql += this.getPkeyColName();
 			sql += '=';
 			sql += obj[this.getPkeyColName()];
-			db.transaction(function(tx) 
-			{
-				tx.executeSql(sql, [], function()
-				{
+			db.transaction(function(tx) {
+				tx.executeSql(sql, [], function() {
 					console.log("Delete Success");
 					obj.dirty = false;
-					if (onSuccessCallback) 
-					{
+					if (onSuccessCallback) {
 						onSuccessCallback(obj);
 					}
-				}, function()
-				{
+				}, function() {
 					console.log("Delete Failed");
 					if (onFailureCallback) onFailureCallback();
 				});
@@ -331,21 +315,20 @@ interface Dictionary<T> {
 	getPkeyColName (): string {
 		if (this.pkeyColName) 
 			return this.pkeyColName;
-		for (var i = 0, l = this.cols.length; i < l; i++) {
-			var col = this.cols[i];
-			if (DbColumn.TYPE_PKEY == col.type) 
-			{
+		for (let i = 0, l = this.cols.length; i < l; i++) {
+			let col = this.cols[i];
+			if (DbColumn.TYPE_PKEY == col.type) {
 				this.pkeyColName = col.name;
 				break;
 			}
 		}
 		return this.pkeyColName;
 	}
-	static escape (str: string) {
+	static escape (str: string): string {
 		if (str!=null) return str.replace(regexEscape,"''");
 		else return "";
 	 
 	}
 }
-var regexEscape = new RegExp("'",'g');
+let regexEscape = new RegExp("'",'g');
 

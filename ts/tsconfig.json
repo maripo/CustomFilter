@@ -18,6 +18,7 @@
         "src/util.ts",
         "src/analytics.ts",
         "src/background.ts",
+        "src/background_legacy.ts",
         "src/element_highlighter.ts",
         "src/xpath_builder.ts",
         "src/css_builder.ts",

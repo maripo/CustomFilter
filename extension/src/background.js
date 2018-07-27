@@ -5,22 +5,6 @@ var ruleList = [];
 function onStartBackground() {
     updateDbIfNeeded(createRuleTable);
 }
-function createRuleTable() {
-    console.log("createRuleTable");
-    RulePeer.getInstance().createTable(createWordTable);
-}
-function createWordTable() {
-    WordPeer.getInstance().createTable(loadLists);
-}
-function loadLists() {
-    RulePeer.getInstance().select('', onRuleListLoaded, null);
-}
-function onRuleListLoaded(list) {
-    var count = '' + list.length;
-    Analytics.trackEvent('loadRuleList', count);
-    ruleList = list;
-    WordPeer.getInstance().select('', onWordListLoaded, null);
-}
 function removeFromExistingTabList(tabIdToRemove) {
     for (var id in existingTabs) {
         if (tabIdToRemove == id)
@@ -29,22 +13,6 @@ function removeFromExistingTabList(tabIdToRemove) {
 }
 function addToExistingTabList(tabIdToAdd) {
     existingTabs[tabIdToAdd] = true;
-}
-function onWordListLoaded(wordList) {
-    var count = '' + wordList.length;
-    Analytics.trackEvent('loadWordList', count);
-    var ruleMap = new Array();
-    for (var i = 0, l = ruleList.length; i < l; i++) {
-        ruleMap[ruleList[i].rule_id] = ruleList[i];
-    }
-    for (var i_1 = 0, l_1 = wordList.length; i_1 < l_1; i_1++) {
-        var rule = ruleMap[wordList[i_1].rule_id];
-        if (rule) {
-            rule.words.push(wordList[i_1]);
-        }
-    }
-    loadSmartRuleEditorSrc();
-    saveUuidIfNotSet();
 }
 function saveUuidIfNotSet() {
     for (var i = 0; i < ruleList.length; i++) {
@@ -224,71 +192,6 @@ function loadSmartRuleEditorSrc() {
     xhr.open("GET", chrome.extension.getURL('/smart_rule_editor_' + chrome.i18n.getMessage("extLocale") + '.html'), true);
     xhr.send();
 }
-var SaveRuleTask = (function () {
-    function SaveRuleTask(rule, reloadLists, tabId) {
-        var saveWords = [];
-        var deleteWords = [];
-        for (var i = 0, l = rule.words.length; i < l; i++) {
-            var word = rule.words[i];
-            if (word.isNew) {
-                saveWords.push(word);
-            }
-            else if (word.deleted) {
-                deleteWords.push(word);
-            }
-        }
-        this.rule = rule;
-        this.tabId = tabId;
-        this.saveWords = saveWords;
-        this.deleteWords = deleteWords;
-        this.reloadLists = reloadLists;
-    }
-    SaveRuleTask.prototype.exec = function (nextAction) {
-        RulePeer.getInstance().saveObject(this.rule, this.getNextTask(nextAction), function () { });
-    };
-    SaveRuleTask.prototype.getNextTask = function (nextAction) {
-        var self = this;
-        return function () {
-            var nextSaveWord = self.getNextSaveWord();
-            if (nextSaveWord) {
-                WordPeer.getInstance().saveObject(nextSaveWord, self.getNextTask(nextAction), function () { });
-                return;
-            }
-            var nextDeleteWord = self.getNextDeleteWord();
-            if (nextDeleteWord) {
-                WordPeer.getInstance().deleteObject(nextDeleteWord, self.getNextTask(nextAction), function () { });
-                return;
-            }
-            chrome.tabs.sendRequest(self.tabId, {
-                command: nextAction,
-                rules: ruleList,
-                tabId: self.tabId,
-                rule: self.rule
-            }, getForegroundCallback(self.tabId));
-            self.reloadLists();
-        };
-    };
-    SaveRuleTask.prototype.getNextSaveWord = function () {
-        for (var i = 0, l = this.saveWords.length; i < l; i++) {
-            var word = this.saveWords[i];
-            if (word.dirty) {
-                word.rule_id = this.rule.rule_id;
-                return word;
-            }
-        }
-        return null;
-    };
-    SaveRuleTask.prototype.getNextDeleteWord = function () {
-        for (var i = 0, l = this.deleteWords.length; i < l; i++) {
-            var word = this.deleteWords[i];
-            if (word.dirty) {
-                word.rule_id = this.rule.rule_id;
-                return word;
-            }
-        }
-    };
-    return SaveRuleTask;
-}());
 var appliedRuleMap = new Array();
 {
     chrome.tabs.onRemoved.addListener(function (tabId, removeInfo) {
@@ -364,7 +267,6 @@ function getBadgeTooltipString(count) {
     else
         return chrome.i18n.getMessage("tooltipCountSingle");
 }
-onStartBackground();
 function menuCreateOnRightClick(clicked, tab) {
     sendQuickRuleCreationRequest(clicked, tab, true);
     Analytics.trackEvent('contextMenu', 'create');
@@ -400,4 +302,5 @@ chrome.runtime.onInstalled.addListener(function (details) {
         window.open(chrome.extension.getURL('/welcome_' + chrome.i18n.getMessage("extLocale") + '.html'));
     }
 });
+onStartBackground();
 //# sourceMappingURL=background.js.map

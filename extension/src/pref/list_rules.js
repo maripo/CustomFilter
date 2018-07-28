@@ -20,18 +20,22 @@ function onStart() {
         document.getElementById('buttonBadgeOn').setAttribute("checked", "true");
     }
     ruleEditor = new PrefRuleEditor();
-    RulePeer.getInstance().createTable(_createWordTable);
+    RulePeer.getInstance().createTable(_loadLists);
     CustomBlockerUtil.localize();
 }
 function refreshBadgeEnabled() {
     var isBadgeOn = document.getElementById('buttonBadgeOn').checked;
     localStorage.badgeDisabled = (isBadgeOn) ? "false" : "true";
 }
-function _createWordTable() {
-    WordPeer.getInstance().createTable(_loadLists);
-}
 function _loadLists() {
-    RulePeer.getInstance().select('', _onRuleListLoaded, null);
+    RulePeer.getInstance().loadAll(function (rules) {
+        if (!rules || rules.length == 0) {
+            showEmptyAlert();
+        }
+        allRules = rules;
+        renderRules();
+        showCount();
+    });
 }
 function showEmptyAlert() {
     document.getElementById('ruleList').style.display = 'none';
@@ -40,29 +44,6 @@ function showEmptyAlert() {
 function hideEmptyAlert() {
     document.getElementById('ruleList').style.display = 'block';
     document.getElementById('ruleEmptyAlert').style.display = 'none';
-}
-function _onRuleListLoaded(list) {
-    console.log("_onRuleListLoaded");
-    if (!list || list.length == 0)
-        showEmptyAlert();
-    allRules = list;
-    WordPeer.getInstance().select('', _onWordListLoaded, null);
-}
-function _onWordListLoaded(wordList) {
-    console.log("_onWordListLoaded");
-    var ruleMap = new Array();
-    for (var i = 0; i < allRules.length; i++) {
-        ruleMap[allRules[i].rule_id] = allRules[i];
-        ruleContainerList.push(new RuleContainer(allRules[i]));
-    }
-    for (var i = 0; i < wordList.length; i++) {
-        var rule = ruleMap[wordList[i].rule_id];
-        if (rule) {
-            rule.words.push(wordList[i]);
-        }
-    }
-    renderRules();
-    showCount();
 }
 var prevFilterString = null;
 function renderRules() {

@@ -29,7 +29,7 @@ function onStart ()
 	}
 	
 	ruleEditor = new PrefRuleEditor();
-	RulePeer.getInstance().createTable(_createWordTable);
+	RulePeer.getInstance().createTable(_loadLists);
 	CustomBlockerUtil.localize();
 }
 
@@ -38,14 +38,18 @@ function refreshBadgeEnabled () {
     localStorage.badgeDisabled = (isBadgeOn)?"false":"true";
 }
 
-function _createWordTable () 
-{
-	WordPeer.getInstance().createTable(_loadLists);
-}
 
 function _loadLists () 
 {
-	RulePeer.getInstance().select('', _onRuleListLoaded, null);
+	(RulePeer.getInstance() as RulePeer).loadAll (
+		function (rules:[Rule]) {
+			if (!rules || rules.length==0) {
+				showEmptyAlert();
+			}	
+			allRules = rules;
+			renderRules();
+			showCount();
+		});
 }
 function showEmptyAlert ()
 {
@@ -57,35 +61,7 @@ function hideEmptyAlert ()
 	document.getElementById('ruleList').style.display = 'block';
 	document.getElementById('ruleEmptyAlert').style.display = 'none';
 }
-function _onRuleListLoaded (list) 
-{
-	console.log("_onRuleListLoaded");
-	if (!list || list.length==0)
-		showEmptyAlert();
-	allRules = list;
-	WordPeer.getInstance().select('', _onWordListLoaded, null);
-}
 
-function _onWordListLoaded (wordList:[Word]):void {
-	console.log("_onWordListLoaded");
-	let ruleMap = new Array();
-	for (let i=0; i<allRules.length; i++) 
-	{
-		ruleMap[allRules[i].rule_id] = allRules[i];
-		ruleContainerList.push(new RuleContainer(allRules[i]));
-	}
-	// Relate words with rules
-	for (let i = 0; i < wordList.length; i++) 
-	{
-		let rule = ruleMap[wordList[i].rule_id];
-		if (rule) 
-		{
-			rule.words.push(wordList[i]);
-		}
-	}
-	renderRules();
-	showCount();
-}
 let prevFilterString = null;
 function renderRules (): void {
 	for (let i = 0, l = ruleContainerList.length; i < l; i++) {

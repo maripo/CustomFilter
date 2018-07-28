@@ -30,30 +30,15 @@ var Export = (function () {
         PrefRuleWrapper.toggleAllCheckboxes(document.getElementById('checkboxToggleAll'), Export.ruleWrapperList);
     };
     Export.loadLists = function () {
-        RulePeer.getInstance().select('', Export.onRuleListLoaded, null);
-    };
-    Export.onRuleListLoaded = function (list) {
-        Export.ruleList = list;
-        WordPeer.getInstance().select('', Export.onWordListLoaded, null);
-    };
-    Export.onWordListLoaded = function (wordList) {
-        var ruleMap = new Array();
-        for (var i = 0, l = Export.ruleList.length; i < l; i++) {
-            var rule = Export.ruleList[i];
-            ruleMap[rule.rule_id] = rule;
-        }
-        for (var i = 0; i < wordList.length; i++) {
-            var rule_1 = ruleMap[wordList[i].rule_id];
-            if (rule_1) {
-                rule_1.words.push(wordList[i]);
+        RulePeer.getInstance().loadAll(function (rules) {
+            Export.ruleList = rules;
+            for (var i = 0; i < Export.ruleList.length; i++) {
+                var rule = Export.ruleList[i];
+                var wrapper = new PrefRuleWrapper(rule);
+                Export.ruleWrapperList.push(wrapper);
+                document.getElementById('ruleList').appendChild(wrapper.liElement);
             }
-        }
-        for (var i = 0; i < Export.ruleList.length; i++) {
-            var rule = Export.ruleList[i];
-            var wrapper = new PrefRuleWrapper(rule);
-            Export.ruleWrapperList.push(wrapper);
-            document.getElementById('ruleList').appendChild(wrapper.liElement);
-        }
+        });
     };
     return Export;
 }());

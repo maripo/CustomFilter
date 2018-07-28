@@ -50,6 +50,29 @@ class RulePeer extends DbPeer {
 		rule.hide_block_by_css = true;
 		return rule;
 	}
+	public loadAll (callback:([Rule])=>void): void {
+		this.select('', function (rules:[Rule]): void {
+			let count = '' + rules.length;
+			Analytics.trackEvent('loadRuleList', count);
+			// Add words to parent rules
+			WordPeer.getInstance().select('', function (words:Word[]): void {
+				var count = '' + words.length;
+				Analytics.trackEvent('loadWordList', count);
+				let ruleMap = new Array();
+				for (var i=0, l=rules.length; i<l; i++) {
+					ruleMap[rules[i].rule_id] = rules[i];
+				}
+				for (let i = 0, l = words.length; i < l; i++) {
+					let rule = ruleMap[words[i].rule_id] as Rule;
+					if (rule) {
+						rule.words.push(words[i]);
+					}
+				}
+				callback(rules);
+			}
+			, null);
+		}, null);
+	}
 }
 /**
  * Object

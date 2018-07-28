@@ -16,33 +16,20 @@ class Import
 		
 		fileSelector.addEventListener('change', Import.readFile);
 		document.getElementById('checkboxToggleAll').addEventListener('change', Import.toggleAllCheckboxes, false);
-		RulePeer.getInstance().select('', Import.onRuleListLoaded, null);
+		(RulePeer.getInstance() as RulePeer).loadAll(function(rules:[Rule]){
+			Import.ruleList = rules;
+      for (var i = 0; i < Export.ruleList.length; i++) {
+          var rule = Export.ruleList[i];
+          var wrapper = new PrefRuleWrapper(rule);
+          Export.ruleWrapperList.push(wrapper);
+          document.getElementById('ruleList').appendChild(wrapper.liElement);
+      }
+		
+		});
 		document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
 		document.getElementById('donate_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate');
 		document.getElementById('help_link_empty').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
 		CustomBlockerUtil.localize();
-	}
-	static onRuleListLoaded (list:[Rule]) 
-	{
-		Import.ruleList = list;
-		WordPeer.getInstance().select('', Import.onWordListLoaded, null);
-	}
-	static onWordListLoaded (wordList:[Word])
-	{
-		let ruleMap = new Array();
-		for (let i=0, l=Import.ruleList.length; i<l; i++) 
-		{
-			ruleMap[Import.ruleList[i].rule_id] = Import.ruleList[i];
-		}
-		// Relate words with rules
-		for (let i = 0, l = wordList.length; i < l; i++) 
-		{
-			let rule = ruleMap[wordList[i].rule_id];
-			if (rule) 
-			{
-				rule.words.push(wordList[i]);
-			}
-		}
 	}
 	static readFile (event)
 	{

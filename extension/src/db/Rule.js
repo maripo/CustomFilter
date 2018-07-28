@@ -48,6 +48,27 @@ var RulePeer = (function (_super) {
         rule.hide_block_by_css = true;
         return rule;
     };
+    RulePeer.prototype.loadAll = function (callback) {
+        this.select('', function (rules) {
+            var count = '' + rules.length;
+            Analytics.trackEvent('loadRuleList', count);
+            WordPeer.getInstance().select('', function (words) {
+                var count = '' + words.length;
+                Analytics.trackEvent('loadWordList', count);
+                var ruleMap = new Array();
+                for (var i = 0, l = rules.length; i < l; i++) {
+                    ruleMap[rules[i].rule_id] = rules[i];
+                }
+                for (var i_1 = 0, l_1 = words.length; i_1 < l_1; i_1++) {
+                    var rule = ruleMap[words[i_1].rule_id];
+                    if (rule) {
+                        rule.words.push(words[i_1]);
+                    }
+                }
+                callback(rules);
+            }, null);
+        }, null);
+    };
     return RulePeer;
 }(DbPeer));
 var Rule = (function (_super) {

@@ -6,27 +6,19 @@ var Import = (function () {
         document.getElementById('button_import').addEventListener('click', Import.saveSelected, false);
         fileSelector.addEventListener('change', Import.readFile);
         document.getElementById('checkboxToggleAll').addEventListener('change', Import.toggleAllCheckboxes, false);
-        RulePeer.getInstance().select('', Import.onRuleListLoaded, null);
+        RulePeer.getInstance().loadAll(function (rules) {
+            Import.ruleList = rules;
+            for (var i = 0; i < Export.ruleList.length; i++) {
+                var rule = Export.ruleList[i];
+                var wrapper = new PrefRuleWrapper(rule);
+                Export.ruleWrapperList.push(wrapper);
+                document.getElementById('ruleList').appendChild(wrapper.liElement);
+            }
+        });
         document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
         document.getElementById('donate_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate');
         document.getElementById('help_link_empty').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
         CustomBlockerUtil.localize();
-    };
-    Import.onRuleListLoaded = function (list) {
-        Import.ruleList = list;
-        WordPeer.getInstance().select('', Import.onWordListLoaded, null);
-    };
-    Import.onWordListLoaded = function (wordList) {
-        var ruleMap = new Array();
-        for (var i = 0, l = Import.ruleList.length; i < l; i++) {
-            ruleMap[Import.ruleList[i].rule_id] = Import.ruleList[i];
-        }
-        for (var i = 0, l = wordList.length; i < l; i++) {
-            var rule = ruleMap[wordList[i].rule_id];
-            if (rule) {
-                rule.words.push(wordList[i]);
-            }
-        }
     };
     Import.readFile = function (event) {
         console.log('Import.readFile');

@@ -2,13 +2,12 @@ var Welcome = (function () {
     function Welcome() {
     }
     Welcome.init = function () {
-        Welcome.rulePeer = RulePeer.getInstance();
         Welcome.siteWrappers = [];
         Welcome.renderPreset();
         document.getElementById("buttonUse").addEventListener('click', Welcome.useChecked, false);
         document.getElementById("checkAll").checked = true;
         document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
-        Welcome.rulePeer.select('', Welcome.onRuleListLoaded, null);
+        RulePeer.getInstance().select('', Welcome.onRuleListLoaded, null);
     };
     Welcome.onRuleListLoaded = function (rules) {
         for (var ruleIndex = 0; ruleIndex < rules.length; ruleIndex++) {
@@ -73,7 +72,7 @@ var Welcome = (function () {
             }
         }
         for (var i = 0; i < rulesToUse.length; i++) {
-            Welcome.rulePeer.saveObject(rulesToUse[i].rule, null, null);
+            RulePeer.getInstance().saveObject(rulesToUse[i].rule, null, null);
         }
         try {
             var bgWindow = chrome.extension.getBackgroundPage();

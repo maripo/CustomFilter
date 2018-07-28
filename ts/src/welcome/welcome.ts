@@ -1,14 +1,12 @@
 class Welcome {
-	static rulePeer:RulePeer;
 	static siteWrappers:SiteWrapper[];
 	static init () {
-		Welcome.rulePeer = RulePeer.getInstance();
 		Welcome.siteWrappers = [];
 		Welcome.renderPreset();
 		document.getElementById("buttonUse").addEventListener('click',Welcome.useChecked, false);
 		(document.getElementById("checkAll") as HTMLInputElement).checked = true;
 		document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
-		Welcome.rulePeer.select('', Welcome.onRuleListLoaded, null);
+		RulePeer.getInstance().select('', Welcome.onRuleListLoaded, null);
 	}
 	static onRuleListLoaded (rules:[Rule]): void {
 		//Compare existing rules to preset rules for disabling duplicate rules.
@@ -76,7 +74,7 @@ class Welcome {
 			}
 		}
 		for (let i=0; i<rulesToUse.length; i++) {
-			Welcome.rulePeer.saveObject(rulesToUse[i].rule, null, null);
+			RulePeer.getInstance().saveObject(rulesToUse[i].rule, null, null);
 		}
 		// Reload imported rules
 		try {

@@ -2,41 +2,20 @@
 
 function createRuleTable (): void {
 	console.log("createRuleTable");
-	RulePeer.getInstance().createTable(createWordTable);
+	RulePeer.getInstance().createTable(function(){
+		WordPeer.getInstance().createTable(loadLists);
+	});
 }
-
-function createWordTable (): void {
-	WordPeer.getInstance().createTable(loadLists);
-}
-
 
 function loadLists (): void {
-	RulePeer.getInstance().select('', onRuleListLoaded, null);
-}
-
-function onRuleListLoaded (list:Rule[]): void {
-	let count = '' + list.length;
-	Analytics.trackEvent('loadRuleList', count);
-	ruleList = list;
-	WordPeer.getInstance().select('', onWordListLoaded, null);
-}
-function onWordListLoaded (wordList:Word[]): void {
-	var count = '' + wordList.length;
-	Analytics.trackEvent('loadWordList', count);
-	var ruleMap = new Array();
-	for (var i=0, l=ruleList.length; i<l; i++) {
-		ruleMap[ruleList[i].rule_id] = ruleList[i];
-	}
-	for (let i = 0, l = wordList.length; i < l; i++) {
-		var rule = ruleMap[wordList[i].rule_id];
-		if (rule) {
-			rule.words.push(wordList[i]);
+	(RulePeer.getInstance() as RulePeer).loadAll (
+		function (rules:[Rule]) {
+			ruleList = rules;
+			loadSmartRuleEditorSrc();
+			saveUuidIfNotSet();
 		}
-	}
-	loadSmartRuleEditorSrc();
-	saveUuidIfNotSet();
+	);
 }
-
 
 class SaveRuleTask {
 	rule:Rule;

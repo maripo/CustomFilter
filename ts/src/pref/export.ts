@@ -30,30 +30,16 @@ class Export {
         PrefRuleWrapper.toggleAllCheckboxes(document.getElementById('checkboxToggleAll'), Export.ruleWrapperList);
     }
     static loadLists (): void {
-        RulePeer.getInstance().select('', Export.onRuleListLoaded, null);
-    }
-    static onRuleListLoaded (list): void {
-        Export.ruleList = list;
-        WordPeer.getInstance().select('', Export.onWordListLoaded, null);
-    }
-    static onWordListLoaded (wordList:[Word]): void {
-        let ruleMap = new Array();
-        for (var i = 0, l = Export.ruleList.length; i < l; i++) {
-            var rule = Export.ruleList[i];
-            ruleMap[rule.rule_id] = rule;
-        }
-        for (var i = 0; i <  wordList.length; i++) {
-            let rule = ruleMap[wordList[i].rule_id];
-            if (rule) {
-                rule.words.push(wordList[i]);
-            }
-        }
+			(RulePeer.getInstance() as RulePeer).loadAll(function(rules:[Rule]){
+				Export.ruleList = rules;
         for (var i = 0; i < Export.ruleList.length; i++) {
             var rule = Export.ruleList[i];
             var wrapper = new PrefRuleWrapper(rule);
             Export.ruleWrapperList.push(wrapper);
             document.getElementById('ruleList').appendChild(wrapper.liElement);
         }
+			
+			});
     }
 }
 PrefRuleWrapper.getSubDivClassName = function () {

@@ -6,13 +6,13 @@ class Welcome {
 		document.getElementById("buttonUse").addEventListener('click',Welcome.useChecked, false);
 		(document.getElementById("checkAll") as HTMLInputElement).checked = true;
 		document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
-		RulePeer.getInstance().select('', Welcome.onRuleListLoaded, null);
-	}
-	static onRuleListLoaded (rules:[Rule]): void {
-		//Compare existing rules to preset rules for disabling duplicate rules.
-		for (let ruleIndex = 0; ruleIndex<rules.length; ruleIndex++) {
-			Welcome.disableDuplicateRules(rules[ruleIndex]);
-		}
+		
+		(RulePeer.getInstance() as RulePeer).loadAll (
+			function (rules:[Rule]) {
+				for (let ruleIndex = 0; ruleIndex<rules.length; ruleIndex++) {
+					Welcome.disableDuplicateRules(rules[ruleIndex]);
+				}
+			});
 	}
 	static disableDuplicateRules (existingRule:Rule): void {
 		for (let siteIndex = 0; siteIndex < Welcome.siteWrappers.length; siteIndex++) {

@@ -7,12 +7,11 @@ var Welcome = (function () {
         document.getElementById("buttonUse").addEventListener('click', Welcome.useChecked, false);
         document.getElementById("checkAll").checked = true;
         document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
-        RulePeer.getInstance().select('', Welcome.onRuleListLoaded, null);
-    };
-    Welcome.onRuleListLoaded = function (rules) {
-        for (var ruleIndex = 0; ruleIndex < rules.length; ruleIndex++) {
-            Welcome.disableDuplicateRules(rules[ruleIndex]);
-        }
+        RulePeer.getInstance().loadAll(function (rules) {
+            for (var ruleIndex = 0; ruleIndex < rules.length; ruleIndex++) {
+                Welcome.disableDuplicateRules(rules[ruleIndex]);
+            }
+        });
     };
     Welcome.disableDuplicateRules = function (existingRule) {
         for (var siteIndex = 0; siteIndex < Welcome.siteWrappers.length; siteIndex++) {

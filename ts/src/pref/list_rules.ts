@@ -29,18 +29,7 @@ function onStart ()
 	}
 	
 	ruleEditor = new PrefRuleEditor();
-	RulePeer.getInstance().createTable(_loadLists);
 	CustomBlockerUtil.localize();
-}
-
-function refreshBadgeEnabled () {
-	let isBadgeOn = (document.getElementById('buttonBadgeOn') as HTMLInputElement).checked;
-    localStorage.badgeDisabled = (isBadgeOn)?"false":"true";
-}
-
-
-function _loadLists () 
-{
 	(RulePeer.getInstance() as RulePeer).loadAll (
 		function (rules:[Rule]) {
 			if (!rules || rules.length==0) {
@@ -51,6 +40,12 @@ function _loadLists ()
 			showCount();
 		});
 }
+
+function refreshBadgeEnabled () {
+	let isBadgeOn = (document.getElementById('buttonBadgeOn') as HTMLInputElement).checked;
+    localStorage.badgeDisabled = (isBadgeOn)?"false":"true";
+}
+
 function showEmptyAlert ()
 {
 	document.getElementById('ruleList').style.display = 'none';

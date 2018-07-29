@@ -14,6 +14,7 @@ class Welcome {
 				}
 			});
 	}
+	
 	static disableDuplicateRules (existingRule:Rule): void {
 		for (let siteIndex = 0; siteIndex < Welcome.siteWrappers.length; siteIndex++) {
 			let site = Welcome.siteWrappers[siteIndex];

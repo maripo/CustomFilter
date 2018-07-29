@@ -51,7 +51,8 @@
       [
         "src/util.js","src/uuid.js",
         "src/element_highlighter.js",
-        "src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js", 
+        "src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js",
+        "src/rule/Rule.js", "src/rule/Word.js", "src/rule/WordGroup.js", 
         "src/rule_executor.js", "src/contentscript.js",
         "src/smart_path_analyzer.js",
         "src/rule_editor.js",

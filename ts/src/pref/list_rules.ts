@@ -4,8 +4,7 @@ let ruleContainerList = new Array();
 
 let ruleEditor;
 
-function onStart () 
-{
+function onStart () {
 	// Localize
 	document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
 	document.getElementById('donate_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate');
@@ -36,6 +35,9 @@ function onStart ()
 				showEmptyAlert();
 			}	
 			allRules = rules;
+			for (let i=0; i<allRules.length; i++) {
+				ruleContainerList.push(new RuleContainer(allRules[i]));
+			}
 			renderRules();
 			showCount();
 		});
@@ -46,18 +48,17 @@ function refreshBadgeEnabled () {
     localStorage.badgeDisabled = (isBadgeOn)?"false":"true";
 }
 
-function showEmptyAlert ()
-{
+function showEmptyAlert () {
 	document.getElementById('ruleList').style.display = 'none';
 	document.getElementById('ruleEmptyAlert').style.display = 'block';
 }
-function hideEmptyAlert ()
-{
+function hideEmptyAlert () {
 	document.getElementById('ruleList').style.display = 'block';
 	document.getElementById('ruleEmptyAlert').style.display = 'none';
 }
 
 let prevFilterString = null;
+
 function renderRules (): void {
 	for (let i = 0, l = ruleContainerList.length; i < l; i++) {
 		let container = ruleContainerList[i];

@@ -18,13 +18,6 @@ class Import
 		document.getElementById('checkboxToggleAll').addEventListener('change', Import.toggleAllCheckboxes, false);
 		(RulePeer.getInstance() as RulePeer).loadAll(function(rules:[Rule]){
 			Import.ruleList = rules;
-      for (var i = 0; i < Export.ruleList.length; i++) {
-          var rule = Export.ruleList[i];
-          var wrapper = new PrefRuleWrapper(rule);
-          Export.ruleWrapperList.push(wrapper);
-          document.getElementById('ruleList').appendChild(wrapper.liElement);
-      }
-		
 		});
 		document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
 		document.getElementById('donate_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate');
@@ -155,16 +148,16 @@ class Import
 			return;
 		}
 		RulePeer.getInstance().saveObject (rule.rule, 
-			function (insertedRule) 
-			{
-			Import.savingWordIndex = 0;
-				Import.currentRule = insertedRule;
-				Import.saveWord();
-			},
-			function () 
-			{
-				alert("Error.");
-			});
+			function (insertedRule:Rule) {
+				Import.savingWordIndex = 0;
+					Import.currentRule = insertedRule;
+					Import.saveWord();
+				},
+				function () 
+				{
+					alert("Error.");
+				}
+			);
 	}
 	static saveWord (): void {
 		let word: Word;

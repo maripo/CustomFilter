@@ -20,22 +20,22 @@ function onStart() {
         document.getElementById('buttonBadgeOn').setAttribute("checked", "true");
     }
     ruleEditor = new PrefRuleEditor();
-    RulePeer.getInstance().createTable(_loadLists);
     CustomBlockerUtil.localize();
-}
-function refreshBadgeEnabled() {
-    var isBadgeOn = document.getElementById('buttonBadgeOn').checked;
-    localStorage.badgeDisabled = (isBadgeOn) ? "false" : "true";
-}
-function _loadLists() {
     RulePeer.getInstance().loadAll(function (rules) {
         if (!rules || rules.length == 0) {
             showEmptyAlert();
         }
         allRules = rules;
+        for (var i = 0; i < allRules.length; i++) {
+            ruleContainerList.push(new RuleContainer(allRules[i]));
+        }
         renderRules();
         showCount();
     });
+}
+function refreshBadgeEnabled() {
+    var isBadgeOn = document.getElementById('buttonBadgeOn').checked;
+    localStorage.badgeDisabled = (isBadgeOn) ? "false" : "true";
 }
 function showEmptyAlert() {
     document.getElementById('ruleList').style.display = 'none';

@@ -120,9 +120,17 @@ function execCallbackDb(tabId, param) {
         var exPeer;
         if ('save' == param.dbCommand) {
             Analytics.trackEvent('save', 'save');
-            var rule = param.obj;
-            var saveRuleTask = new SaveRuleTask(rule, reloadLists, tabId);
-            saveRuleTask.exec(param.nextAction);
+            var rule_1 = param.obj;
+            var saveRuleTask = new SaveRuleTask(rule_1, function () {
+                chrome.tabs.sendRequest(tabId, {
+                    command: param.nextAction,
+                    rules: ruleList,
+                    tabId: tabId,
+                    rule: rule_1
+                }, getForegroundCallback(tabId));
+                reloadLists();
+            });
+            saveRuleTask.exec();
         }
     }
     catch (e) {

@@ -17,13 +17,13 @@ function loadLists (): void {
 	);
 }
 
+/* Update rule and words. Delete words if delete flags are found. */
 class SaveRuleTask {
 	rule:Rule;
-	tabId:number;
 	saveWords:Word[];
 	deleteWords:Word[];
-	reloadLists:()=>void;
-	constructor (rule:Rule, reloadLists, tabId) {
+	callback:()=>void;
+	constructor (rule:Rule, callback) {
 		let saveWords:Word[] = [];
 		let deleteWords:Word[] = [];
 		
@@ -38,40 +38,29 @@ class SaveRuleTask {
 		}
 		
 		this.rule = rule;
-		this.tabId = tabId;
-		
 		this.saveWords = saveWords;
 		this.deleteWords = deleteWords;
 		
-		this.reloadLists /* function */ = reloadLists;
+		this.callback = callback;
 	}
-	exec (nextAction) {
+	exec () {
 		//peer, wordPeer
-		RulePeer.getInstance().saveObject(this.rule, this.getNextTask(nextAction), function(){});	
+		RulePeer.getInstance().saveObject(this.rule, this.getNextTask(), function(){});	
 	}
-	getNextTask (nextAction): (obj:DbObject)=>void {
+	getNextTask (): (obj:DbObject)=>void {
 		var self = this;
 		return function () {
 			let nextSaveWord = self.getNextSaveWord();
 			if (nextSaveWord) {
-				WordPeer.getInstance().saveObject(nextSaveWord, self.getNextTask(nextAction), function(){});
+				WordPeer.getInstance().saveObject(nextSaveWord, self.getNextTask(), function(){});
 				return;
 			}
 			let nextDeleteWord = self.getNextDeleteWord();
 			if (nextDeleteWord) {
-				WordPeer.getInstance().deleteObject(nextDeleteWord, self.getNextTask(nextAction), function(){});
+				WordPeer.getInstance().deleteObject(nextDeleteWord, self.getNextTask(), function(){});
 				return;
 			}
-			chrome.tabs.sendRequest(self.tabId,
-			{
-				command:nextAction,
-				rules: ruleList,
-				tabId: self.tabId,
-				rule: self.rule
-			}
-			, getForegroundCallback(self.tabId)
-			);
-			self.reloadLists();
+			self.callback();
 		}
 	}
 	getNextSaveWord ():Word {

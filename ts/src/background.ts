@@ -166,15 +166,26 @@ function execCallbackReload (tabId, param): void {
 	}, getForegroundCallback (tabId));
 
 }
-function execCallbackDb (tabId:string, param): void {
+function execCallbackDb (tabId, param): void {
 	try {
 		var exPeer;
 		if ('save' == param.dbCommand) 
 		{
 			Analytics.trackEvent('save', 'save');
-			var rule =param.obj;
-			var saveRuleTask = new SaveRuleTask(rule, reloadLists, tabId);
-			saveRuleTask.exec(param.nextAction);
+			let rule = param.obj;
+			let saveRuleTask = new SaveRuleTask(rule, function() {
+				chrome.tabs.sendRequest(tabId,
+				{
+					command:param.nextAction,
+					rules: ruleList,
+					tabId: tabId,
+					rule: rule
+				}
+				, getForegroundCallback(tabId)
+				);
+				reloadLists();
+				});
+			saveRuleTask.exec();
 		}
 	} 
 	catch (e) 

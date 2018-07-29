@@ -1,0 +1,1 @@
+// New word class

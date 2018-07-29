@@ -267,8 +267,8 @@ class RuleContainer {
   
   getDisableAction (inputButton: HTMLInputElement) {
     let rule = this.rule;
-    return function (event)
-    {
+    return function (event) {
+      // Toggle enabled flag and save
       rule.is_disabled = !rule.is_disabled;
       inputButton.value = (rule.is_disabled)?'OFF':'ON';
       inputButton.className = (rule.is_disabled)?'uiButton buttonOff':'uiButton buttonOn';

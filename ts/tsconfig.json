@@ -13,6 +13,7 @@
     "include": ["src/uuid.js"
     ],
     "files": [
+        "src/CustomBlocker.ts",
         "src/index.ts",
         "src/contentscript.ts",
         "src/util.ts",
@@ -31,6 +32,9 @@
         "src/db/DbInit.ts",
         "src/db/Rule.ts",
         "src/db/Word.ts",
+        "src/rule/Rule.ts",
+        "src/rule/Word.ts",
+        "src/rule/WordGroup.ts",
         "src/rule_editor/rule_editor_frame.ts", 
         "src/welcome/welcome.ts",
         "src/welcome/preset_en.ts",

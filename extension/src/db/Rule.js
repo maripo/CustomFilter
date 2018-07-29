@@ -104,9 +104,6 @@ var Rule = (function (_super) {
         rule.site_description = title;
         return rule;
     };
-    Rule.prototype.getPeer = function () {
-        return RulePeer.getInstance();
-    };
     Rule.validate = function (params) {
         var errors = [];
         if ('' == params.title)

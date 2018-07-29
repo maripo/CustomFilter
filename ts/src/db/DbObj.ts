@@ -52,7 +52,6 @@ abstract class DbObject {
 	delete_date:number;
 	constructor () {
 	}
-	public abstract getPeer (): DbPeer; 
 }
 interface Dictionary<T> {
     [K: string]: T;

@@ -38,9 +38,6 @@ var Word = (function (_super) {
     function Word() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Word.prototype.getPeer = function () {
-        return WordPeer.getInstance();
-    };
     return Word;
 }(DbObject));
 //# sourceMappingURL=Word.js.map

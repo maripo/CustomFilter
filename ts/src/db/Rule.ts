@@ -150,9 +150,7 @@ class RulePeer extends DbPeer {
 		rule.site_description = title;
 		return rule;
 	}
-	public getPeer (): DbPeer {
-		return RulePeer.getInstance();
-	}
+	
 	public static validate (params:RuleValidation): string[] {
 		let errors:string[] = [];
 		if (''==params.title) errors.push(chrome.i18n.getMessage('errorTitleEmpty'));
@@ -175,6 +173,7 @@ class RulePeer extends DbPeer {
 		}
 		return errors;
 	}
+	
 }
 interface RuleValidation {
 	title:string, 

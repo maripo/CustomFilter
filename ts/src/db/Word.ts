@@ -49,7 +49,4 @@ class Word extends DbObject {
  	// TODO move to wrapper
  	checkedNodes:HTMLElement[];
 	
-	getPeer (): DbPeer {
-		return WordPeer.getInstance();
-	}
 }

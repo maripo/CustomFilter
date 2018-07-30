@@ -80,8 +80,6 @@ function isValidURL(url) {
 }
 function getForegroundCallback(tabId) {
     return function (param) {
-        console.log("Foreground message received.");
-        console.log(param);
         if (!param)
             return;
         var useCallback = false;

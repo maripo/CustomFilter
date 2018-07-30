@@ -134,7 +134,6 @@ interface Dictionary<T> {
 				for(let i=0, l=res.rows.length;i<l; i++) {
 					let _obj = self.createObject();
 					let obj = _obj as object;
-					obj["foo"] = "bar";
 					for (let j=0; j<self.cols.length; j++) {
 						let col = self.cols[j];
 						if (col.type == DbColumn.TYPE_BOOLEAN) {

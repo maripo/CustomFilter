@@ -68,6 +68,11 @@ class RulePeer extends DbPeer {
 						rule.words.push(words[i]);
 					}
 				}
+				for (let rule of rules) {
+					let newRule = rule.getRule();
+					console.log(newRule)
+					newRule.saveTest(null);
+				}
 				callback(rules);
 			}
 			, null);
@@ -194,18 +199,16 @@ class RulePeer extends DbPeer {
 			this.rule.url = this.url;
 			this.rule.site_regexp = this.site_regexp;
 			this.rule.example_url = this.example_url;
-			this.rule.site_description = this.site_description;
 			this.rule.search_block_css = this.search_block_css;
 			this.rule.search_block_xpath = this.search_block_xpath;
 			this.rule.search_block_by_css = this.search_block_by_css;
-			this.rule.search_block_description = this.search_block_description;
 			this.rule.hide_block_css = this.hide_block_css;
 			this.rule.hide_block_xpath = this.hide_block_xpath;
 			this.rule.hide_block_by_css = this.hide_block_by_css;
-			this.rule.hide_block_description = this.hide_block_description;
 			this.rule.block_anyway = this.block_anyway;
 			this.rule.specify_url_by_regexp = this.specify_url_by_regexp;
 			this.rule.existing = this.existing;
+			
 		}
 		return this.rule;
 	}

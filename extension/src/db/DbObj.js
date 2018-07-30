@@ -97,7 +97,6 @@ var DbPeer = (function () {
                 for (var i = 0, l = res.rows.length; i < l; i++) {
                     var _obj = self.createObject();
                     var obj = _obj;
-                    obj["foo"] = "bar";
                     for (var j = 0; j < self.cols.length; j++) {
                         var col = self.cols[j];
                         if (col.type == DbColumn.TYPE_BOOLEAN) {

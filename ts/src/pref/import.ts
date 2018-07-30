@@ -148,7 +148,7 @@ class Import
 			return;
 		}
 		RulePeer.getInstance().saveObject (rule.rule, 
-			function (insertedRule:Rule) {
+			function (insertedRule: Rule) {
 				Import.savingWordIndex = 0;
 					Import.currentRule = insertedRule;
 					Import.saveWord();

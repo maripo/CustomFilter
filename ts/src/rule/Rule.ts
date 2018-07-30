@@ -1,6 +1,16 @@
 // New rule class
 
 class NewRule {
+	// Copied from legacy DbObj
+	
+	dirty:boolean;
+	isNew:boolean;
+	deleted:boolean;
+	insert_date:number;
+	update_date:number;
+	delete_date:number;
+	
+	// Copied from legacy Rule
  	words:Word[];
  	
  	// TODO move to wrapper class!
@@ -19,16 +29,14 @@ class NewRule {
  	url:string;
  	site_regexp:string;
  	example_url: string;
- 	site_description:string;
  	
  	search_block_css:string;
  	search_block_xpath:string;
  	search_block_by_css:boolean;
- 	search_block_description:string;
+ 	
  	hide_block_css:string;
  	hide_block_xpath:string;
  	hide_block_by_css:boolean;
- 	hide_block_description:string;
  	
  	block_anyway:boolean;
  	specify_url_by_regexp:boolean;
@@ -72,5 +80,16 @@ class NewRule {
 			}
 		}
 		return errors;
+	}
+	saveTest (caooback:(NewRule)=>void): void {
+		// Save to synced storage
+		
+		// TODO generate key (for new object)
+		// TODO Generate JSON
+		// TODO Save / Load
+		let json = JSON.stringify(this);
+		console.log(json);
+		console.log(json.length);
+		// TODO JSON size
 	}
 }

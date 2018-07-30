@@ -37,6 +37,7 @@ class Word extends DbObject {
 	rule_id:number;
 	word:string;
 	is_regexp:boolean;
+	newWord: NewWord;
 	
 	// Saved as bitfields
 	is_complete_matching:boolean;
@@ -48,5 +49,18 @@ class Word extends DbObject {
  	
  	// TODO move to wrapper
  	checkedNodes:HTMLElement[];
+ 	getWord (): NewWord {
+ 		if (!this.newWord) {
+ 			this.newWord = new NewWord();
+ 			this.newWord.word_id = this.word_id;
+ 			this.newWord.rule_id = this.rule_id;
+ 			this.newWord.word = this.word;
+ 			this.newWord.is_regexp = this.is_regexp;
+ 			this.newWord.is_complete_matching = this.is_complete_matching;
+ 			this.newWord.is_case_sensitive = this.is_case_sensitive;
+ 			this.newWord.is_include_href = this.is_include_href;
+ 		}
+ 		return this.newWord;
+ 	}
 	
 }

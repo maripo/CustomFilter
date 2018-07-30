@@ -308,5 +308,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
         window.open(chrome.extension.getURL('/welcome_' + chrome.i18n.getMessage("extLocale") + '.html'));
     }
 });
-onStartBackground();
+window.onload = function () {
+    onStartBackground();
+};
 //# sourceMappingURL=background.js.map

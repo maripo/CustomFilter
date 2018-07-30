@@ -38,6 +38,19 @@ var Word = (function (_super) {
     function Word() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Word.prototype.getWord = function () {
+        if (!this.newWord) {
+            this.newWord = new NewWord();
+            this.newWord.word_id = this.word_id;
+            this.newWord.rule_id = this.rule_id;
+            this.newWord.word = this.word;
+            this.newWord.is_regexp = this.is_regexp;
+            this.newWord.is_complete_matching = this.is_complete_matching;
+            this.newWord.is_case_sensitive = this.is_case_sensitive;
+            this.newWord.is_include_href = this.is_include_href;
+        }
+        return this.newWord;
+    };
     return Word;
 }(DbObject));
 //# sourceMappingURL=Word.js.map

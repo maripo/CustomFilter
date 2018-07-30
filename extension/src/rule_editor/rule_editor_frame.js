@@ -372,8 +372,6 @@ var RuleEditorFrame = (function () {
     };
     return RuleEditorFrame;
 }());
-var editor = new RuleEditorFrame();
-window.addEventListener("message", handleReceivedMessage, false);
 function handleReceivedMessage(event) {
     switch (event.data.command) {
         case "customblocker_set_rule": {
@@ -403,5 +401,10 @@ function initRuleEditor() {
     console.log("initRuleEditor");
     postMessageToParent({ command: "customblocker_frame_ready" });
 }
-initRuleEditor();
+var editor;
+window.onload = function () {
+    editor = new RuleEditorFrame();
+    window.addEventListener("message", handleReceivedMessage, false);
+    initRuleEditor();
+};
 //# sourceMappingURL=rule_editor_frame.js.map

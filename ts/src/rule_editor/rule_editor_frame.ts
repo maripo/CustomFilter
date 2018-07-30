@@ -423,8 +423,6 @@ class RuleEditorFrame {
 }
 
 
-var editor = new RuleEditorFrame();
-window.addEventListener("message", handleReceivedMessage, false);
 
 function handleReceivedMessage(event) {
 	switch (event.data.command) {
@@ -457,4 +455,10 @@ function initRuleEditor () {
 	console.log("initRuleEditor");
 	postMessageToParent({command:"customblocker_frame_ready"});
 }
-initRuleEditor();
+
+var editor:RuleEditorFrame;
+window.onload = function() {
+	editor = new RuleEditorFrame();
+	window.addEventListener("message", handleReceivedMessage, false);
+	initRuleEditor();
+}

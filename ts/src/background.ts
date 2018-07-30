@@ -405,4 +405,6 @@ chrome.runtime.onInstalled.addListener(function(details) {
 });
 
 // chrome.tabs.customBlockerOnUpdateSet = true;
-onStartBackground();
+window.onload = function() {
+	onStartBackground();
+}

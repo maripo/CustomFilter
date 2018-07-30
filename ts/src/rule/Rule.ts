@@ -1,6 +1,7 @@
 // New rule class
 
 class NewRule {
+	static JSON_RULE_CONVERSION_RULE: [[string]];
 	// Copied from legacy DbObj
 	
 	dirty:boolean;
@@ -11,7 +12,8 @@ class NewRule {
 	delete_date:number;
 	
 	// Copied from legacy Rule
- 	words:Word[];
+ 	words:NewWord[];
+ 	wordGroups:WordGroup[];
  	
  	// TODO move to wrapper class!
  	hideNodes: HTMLElement[];
@@ -43,7 +45,7 @@ class NewRule {
  	
  	existing: boolean; // TODO for import/export
  	
- 	public addWord (word:Word) {
+ 	public addWord (word:NewWord) {
 		this.words.push(word);	
 	}
 	
@@ -81,15 +83,52 @@ class NewRule {
 		}
 		return errors;
 	}
+	toJSON (): object {
+		let obj = {};
+		for (let prop of NewRule.JSON_RULE_CONVERSION_RULE) {
+			obj[prop[1]] = (this as object)[prop[0]];
+		}
+		obj["w"] = []; // Words
+		obj["wg"] = []; // Word group
+		for (let word of this.words) {
+			obj["w"].push(word.toJSON());
+		}
+		/*
+		
+		for (let wordGroup of this.wordGroups) {
+			obj["wg"].push(wordGroup.getJSON();
+		}
+		*/
+		return obj;
+	}
 	saveTest (caooback:(NewRule)=>void): void {
 		// Save to synced storage
 		
 		// TODO generate key (for new object)
 		// TODO Generate JSON
 		// TODO Save / Load
-		let json = JSON.stringify(this);
-		console.log(json);
-		console.log(json.length);
+		let json = this.toJSON();
+		console.log(JSON.stringify(json));
+		console.log(JSON.stringify(json).length);
 		// TODO JSON size
 	}
 }
+
+NewRule.JSON_RULE_CONVERSION_RULE = [
+	["global_identifier", "g"],
+	["title", "t"],
+	["url", "uu"],
+	["specify_url_by_regexp", "ur"],
+	["site_regexp", "ux"],
+	["example_url", "ue"],
+	["search_block_css", "sc"],
+	["search_block_xpath", "sx"],
+	["search_block_by_css", "st"],
+	["hide_block_css", "hc"],
+	["hide_block_xpath", "hx"],
+	["hide_block_by_css", "ht"],
+	["insert_date:number", "di"],
+	["update_date:number", "du"],
+	
+	["block_anyway", "b"]
+];

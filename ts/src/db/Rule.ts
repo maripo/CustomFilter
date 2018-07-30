@@ -185,15 +185,16 @@ class RulePeer extends DbPeer {
 		if (!this.rule) {
 			// Just copy properties
 			this.rule =  new NewRule();
-			this.rule.words = this.words;
 			this.rule.hideNodes = this.hideNodes;
 			this.rule.searchNodes = this.searchNodes;
 			this.rule.hiddenCount = this.hiddenCount;
 			this.rule.staticXpath = this.staticXpath;
 			this.rule.appliedWords = this.appliedWords;
+			
 			this.rule.is_disabled = this.is_disabled;
-			this.rule.rule_id = this.rule_id;
-			this.rule.user_identifier = this.user_identifier;
+			
+			// this.rule.rule_id = this.rule_id;
+			// this.rule.user_identifier = this.user_identifier;
 			this.rule.global_identifier = this.global_identifier;
 			this.rule.title = this.title;
 			this.rule.url = this.url;
@@ -208,6 +209,11 @@ class RulePeer extends DbPeer {
 			this.rule.block_anyway = this.block_anyway;
 			this.rule.specify_url_by_regexp = this.specify_url_by_regexp;
 			this.rule.existing = this.existing;
+			
+			this.rule.words = [] as [NewWord];
+			for (let word of this.words) {
+				this.rule.words.push(word.getWord());
+			}
 			
 		}
 		return this.rule;

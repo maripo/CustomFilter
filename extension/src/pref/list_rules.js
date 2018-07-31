@@ -1,4 +1,4 @@
-var allRules = new Array();
+var allRules = [];
 var ruleContainerList = new Array();
 var ruleEditor;
 function onStart() {

@@ -83,6 +83,61 @@ class NewRule {
 		}
 		return errors;
 	}
+	public saveTest (callback): void {
+		// Save to synced storage
+		
+		// TODO generate key (for new object)
+		// TODO Generate JSON
+		// TODO Save / Load
+		let key = this.getJSONKey ();
+		let json = this.toJSON();
+		console.log("Key=" + key);
+		console.log(JSON.stringify(json));
+		
+		let testRule = new NewRule();
+		testRule.initByJSON(json);
+		
+		/*
+		console.log("Orig:");
+		console.log(JSON.stringify(this));
+		console.log(JSON.stringify(this).length);
+		console.log("Re:");
+		console.log(JSON.stringify(testRule));
+		console.log(JSON.stringify(testRule).length);
+		*/
+		let isEqual = JSON.stringify(this) == JSON.stringify(testRule);
+		console.log("Equal? " + isEqual)
+		
+		
+		// TODO JSON size
+	}
+	
+	// load / update locally
+	initByJSON (obj:object) {
+		// TODO
+		for (let prop of NewRule.JSON_RULE_CONVERSION_RULE) {
+			(this as object)[prop[0]] = obj[prop[1]]; 
+		}
+		this.words = [];
+		this.wordGroups = [];
+		let words = obj["w"] as [any];
+		let wordGroups = obj["wg"] as [any];
+		for (let word of words) {
+			let wordObj = new NewWord();
+			wordObj.initByJSON(word);
+			this.words.push(wordObj);
+		}
+	}
+	
+	// Update by data sync (Merge word list if needed)
+	sync (obj) {
+		// compare updated date
+	}
+	
+	getJSONKey(): string {
+		return this.global_identifier;
+	}
+	
 	toJSON (): object {
 		let obj = {};
 		for (let prop of NewRule.JSON_RULE_CONVERSION_RULE) {
@@ -101,17 +156,7 @@ class NewRule {
 		*/
 		return obj;
 	}
-	saveTest (caooback:(NewRule)=>void): void {
-		// Save to synced storage
-		
-		// TODO generate key (for new object)
-		// TODO Generate JSON
-		// TODO Save / Load
-		let json = this.toJSON();
-		console.log(JSON.stringify(json));
-		console.log(JSON.stringify(json).length);
-		// TODO JSON size
-	}
+	
 }
 
 NewRule.JSON_RULE_CONVERSION_RULE = [

@@ -38,5 +38,23 @@ class NewWord {
 		NewWord.JSON_FLAG_CASE_SENSITIVE = 3;
 		NewWord.JSON_FLAG_INCLUDE_HREF = 4;
 	}
+	initByJSON (obj: any) {
+		if (typeof(obj)=="string") {
+			this.word = obj as string;
+		} else {
+			let jsonObj = obj as object;
+			this.word = jsonObj["w"];
+			if (jsonObj["f"]) {
+				// Flags
+				let flags = jsonObj["f"] as [number];
+				for (let flagNum of flags) {
+					if (flagNum==NewWord.JSON_FLAG_REGEXP) { this.is_regexp = true; }
+					if (flagNum==NewWord.JSON_FLAG_COMPLETE_MATCHING) { this.is_complete_matching = true; }
+					if (flagNum==NewWord.JSON_FLAG_CASE_SENSITIVE) { this.is_case_sensitive = true; }
+					if (flagNum==NewWord.JSON_FLAG_INCLUDE_HREF) { this.is_include_href = true; }
+				}
+			}
+		}
+	}
 }
 NewWord.init();

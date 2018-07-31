@@ -49,6 +49,7 @@ var RulePeer = (function (_super) {
         return rule;
     };
     RulePeer.prototype.loadAll = function (callback) {
+        var scope = this;
         this.select('', function (rules) {
             var count = '' + rules.length;
             Analytics.trackEvent('loadRuleList', count);
@@ -64,12 +65,6 @@ var RulePeer = (function (_super) {
                     if (rule) {
                         rule.words.push(words[i_1]);
                     }
-                }
-                for (var _i = 0, rules_1 = rules; _i < rules_1.length; _i++) {
-                    var rule = rules_1[_i];
-                    var newRule = rule.getRule();
-                    console.log(newRule);
-                    newRule.saveTest(null);
                 }
                 callback(rules);
             }, null);

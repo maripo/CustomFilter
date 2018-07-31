@@ -50,7 +50,9 @@ class RulePeer extends DbPeer {
 		rule.hide_block_by_css = true;
 		return rule;
 	}
+
 	public loadAll (callback:([Rule])=>void): void {
+		let scope = this;
 		this.select('', function (rules:[Rule]): void {
 			let count = '' + rules.length;
 			Analytics.trackEvent('loadRuleList', count);
@@ -67,11 +69,6 @@ class RulePeer extends DbPeer {
 					if (rule) {
 						rule.words.push(words[i]);
 					}
-				}
-				for (let rule of rules) {
-					let newRule = rule.getRule();
-					console.log(newRule)
-					newRule.saveTest(null);
 				}
 				callback(rules);
 			}

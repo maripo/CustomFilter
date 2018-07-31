@@ -1,8 +1,7 @@
 
-let allRules = new Array();
+let allRules = [] as [Rule];
 let ruleContainerList = new Array();
-
-let ruleEditor;
+let ruleEditor: PrefRuleEditor;
 
 function onStart () {
 	// Localize

@@ -86,3 +86,53 @@ class SaveRuleTask {
 		}
 	}
 }
+
+function syncAll (rulesToSync: [NewRule], callback) {
+		if (rulesToSync.length==0) {
+			console.log("Snyc done.");
+			callback();
+		} else {
+			let scope = this;
+			let rule = rulesToSync.pop();
+			let obj = {};
+			let json = rule.toJSON();
+			json["sql"] = true;
+			obj[rule.getJSONKey()] = json;
+			chrome.storage.sync.set(obj, function(){
+				scope.syncAll(rulesToSync, callback);
+			});
+		}
+
+}
+function migrateToChromeSync (onMingrationDone) {
+	(RulePeer.getInstance() as RulePeer).loadAll (
+		function (rules:[Rule]) {
+	
+			let rulesToSync = [] as [NewRule];
+			for (let rule of rules) {
+				rulesToSync.push(rule.getRule());
+			}
+			syncAll (rulesToSync, onMingrationDone);
+		}
+	);
+}
+
+chrome.runtime.onInstalled.addListener(function(details) {
+	if (details.reason=="update" && details.previousVersion && 
+		( details.previousVersion.match(/^2\./)|| details.previousVersion.match(/^1\./)) ) {
+		console.log("DATA MIGRATION NEEDED");
+		
+		chrome.storage.local.get(["migrationDone"], function(result) {
+			console.log("migrationDone=" + result["migrationDone"]);
+			if (!result["migrationDone"]) {
+				console.log("Migration flag is empty. Start migration...");
+				migrateToChromeSync (function(){
+					console.log("Migration done.");
+					chrome.storage.local.set({migrationDone:true}, function () {
+						console.log("Migration flag set.");
+					});
+				});
+			}
+		});
+	} 
+});

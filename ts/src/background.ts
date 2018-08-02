@@ -165,10 +165,15 @@ function execCallbackReload (tabId, param): void {
 
 }
 function execCallbackDb (tabId, param): void {
+
 	try {
 		var exPeer;
 		if ('save' == param.dbCommand) 
 		{
+			console.log("WARNING:execCallbackDb.save called.");
+			if (0 < 1) {
+				return;
+			}
 			Analytics.trackEvent('save', 'save');
 			let rule = param.obj;
 			let saveRuleTask = new SaveRuleTask(rule, function() {

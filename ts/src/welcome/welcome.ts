@@ -7,7 +7,7 @@ class Welcome {
 		(document.getElementById("checkAll") as HTMLInputElement).checked = true;
 		document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
 		
-		(RulePeer.getInstance() as RulePeer).loadAll (
+		CustomBlockerStorage.getInstance().loadAll (
 			function (rules:[Rule]) {
 				for (let ruleIndex = 0; ruleIndex<rules.length; ruleIndex++) {
 					Welcome.disableDuplicateRules(rules[ruleIndex]);
@@ -194,14 +194,11 @@ class RuleWrapper {
 		rule.is_disabled = false;
 		rule.site_regexp = rule.site_regexp||"";
 		rule.example_url = rule.example_url||"";
-		rule.site_description = rule.site_description||"";
 		rule.specify_url_by_regexp = !!rule.specify_url_by_regexp;
 		rule.search_block_xpath = rule.search_block_xpath||"";
 		rule.search_block_css = rule.search_block_css||"";
-		rule.search_block_description = rule.search_block_description||"";
 		rule.hide_block_xpath = rule.hide_block_xpath||"";
 		rule.hide_block_css = rule.hide_block_css||"";
-		rule.hide_block_description = "";
 		rule.user_identifier = null;
 		rule.global_identifier = null;
 		rule.insert_date = 0;

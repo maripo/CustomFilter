@@ -44,20 +44,20 @@ class RulePeer extends DbPeer {
 		return RulePeer.instance;
 	}
 	createObject() : DbObject {
-		let rule = new Rule();
+		let rule = new LegacyRule();
 		// Default Values (CSS on)
 		rule.search_block_by_css = true;
 		rule.hide_block_by_css = true;
 		return rule;
 	}
 
-	public loadAll (callback:([Rule])=>void): void {
+	public loadAll (callback:([LegacyRule])=>void): void {
 		let scope = this;
-		this.select('', function (rules:[Rule]): void {
+		this.select('', function (rules:[LegacyRule]): void {
 			let count = '' + rules.length;
 			Analytics.trackEvent('loadRuleList', count);
 			// Add words to parent rules
-			WordPeer.getInstance().select('', function (words:Word[]): void {
+			WordPeer.getInstance().select('', function (words:LegacyWord[]): void {
 				var count = '' + words.length;
 				Analytics.trackEvent('loadWordList', count);
 				let ruleMap = new Array();
@@ -65,7 +65,7 @@ class RulePeer extends DbPeer {
 					ruleMap[rules[i].rule_id] = rules[i];
 				}
 				for (let i = 0, l = words.length; i < l; i++) {
-					let rule = ruleMap[words[i].rule_id] as Rule;
+					let rule = ruleMap[words[i].rule_id] as LegacyRule;
 					if (rule) {
 						rule.words.push(words[i]);
 					}
@@ -79,8 +79,8 @@ class RulePeer extends DbPeer {
 /**
  * Object
  */
- class Rule extends DbObject {
- 	words:Word[];
+ class LegacyRule extends DbObject {
+ 	words:LegacyWord[];
  	
  	// TODO move to wrapper class!
  	hideNodes: HTMLElement[];
@@ -114,7 +114,7 @@ class RulePeer extends DbPeer {
  	
  	existing: boolean; // TODO for import/export
  	
- 	public addWord (word:Word) {
+ 	public addWord (word:LegacyWord) {
 		this.words.push(word);	
 	}
 	
@@ -144,8 +144,8 @@ class RulePeer extends DbPeer {
 	}
 	
 	
-	public static createInstance (url:string, title:string): Rule {
-		let rule = new Rule();
+	public static createInstance (url:string, title:string): LegacyRule {
+		let rule = new LegacyRule();
 		rule.title = title;
 		rule.site_regexp = url;
 		rule.example_url = url;
@@ -177,11 +177,11 @@ class RulePeer extends DbPeer {
 	}
 	
 	// Convert legacy rule to new rule
-	rule: NewRule;
-	getRule () : NewRule {
+	rule: Rule;
+	getRule () : Rule {
 		if (!this.rule) {
 			// Just copy properties
-			this.rule =  new NewRule();
+			this.rule =  new Rule();
 			this.rule.hideNodes = this.hideNodes;
 			this.rule.searchNodes = this.searchNodes;
 			this.rule.hiddenCount = this.hiddenCount;
@@ -207,13 +207,15 @@ class RulePeer extends DbPeer {
 			this.rule.specify_url_by_regexp = this.specify_url_by_regexp;
 			this.rule.existing = this.existing;
 			
-			this.rule.words = [] as [NewWord];
+			this.rule.words = [] as [Word];
 			for (let word of this.words) {
 				this.rule.words.push(word.getWord());
 			}
 			
 		}
 		return this.rule;
+	}
+	legacyRuleFunc (): void {
 	}
 }
 interface RuleValidation {

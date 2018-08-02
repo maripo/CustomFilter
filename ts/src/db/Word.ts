@@ -25,19 +25,19 @@ class WordPeer extends DbPeer {
 		return WordPeer.instance;
 	}
 	createObject () : DbObject {
-		return new Word();
+		return new LegacyWord();
 	}
 }
 
 /**
  * Object
  */
-class Word extends DbObject {
-	word_id:number;
+class LegacyWord extends DbObject {
+	word_id:number; 
 	rule_id:number;
 	word:string;
 	is_regexp:boolean;
-	newWord: NewWord;
+	newWord: Word;
 	
 	// Saved as bitfields
 	is_complete_matching:boolean;
@@ -49,9 +49,9 @@ class Word extends DbObject {
  	
  	// TODO move to wrapper
  	checkedNodes:HTMLElement[];
- 	getWord (): NewWord {
+ 	getWord (): Word {
  		if (!this.newWord) {
- 			this.newWord = new NewWord();
+ 			this.newWord = new Word();
  			this.newWord.word_id = this.word_id;
  			this.newWord.rule_id = this.rule_id;
  			this.newWord.word = this.word;

@@ -8,11 +8,11 @@ function createRuleTable (): void {
 }
 
 function loadLists (): void {
-	(RulePeer.getInstance() as RulePeer).loadAll (
+	CustomBlockerStorage.getInstance().loadAll (
 		function (rules:[Rule]) {
 			ruleList = rules;
 			loadSmartRuleEditorSrc();
-			saveUuidIfNotSet();
+			// saveUuidIfNotSet();
 		}
 	);
 }
@@ -87,7 +87,7 @@ class SaveRuleTask {
 	}
 }
 
-function syncAll (rulesToSync: [NewRule], callback) {
+function syncAll (rulesToSync: [Rule], callback) {
 		if (rulesToSync.length==0) {
 			console.log("Snyc done.");
 			callback();
@@ -106,9 +106,8 @@ function syncAll (rulesToSync: [NewRule], callback) {
 }
 function migrateToChromeSync (onMingrationDone) {
 	(RulePeer.getInstance() as RulePeer).loadAll (
-		function (rules:[Rule]) {
-	
-			let rulesToSync = [] as [NewRule];
+		function (rules:[LegacyRule]) {
+			let rulesToSync = [] as [Rule];
 			for (let rule of rules) {
 				rulesToSync.push(rule.getRule());
 			}

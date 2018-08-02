@@ -43,7 +43,7 @@ var RulePeer = (function (_super) {
         return RulePeer.instance;
     };
     RulePeer.prototype.createObject = function () {
-        var rule = new Rule();
+        var rule = new LegacyRule();
         rule.search_block_by_css = true;
         rule.hide_block_by_css = true;
         return rule;
@@ -72,9 +72,9 @@ var RulePeer = (function (_super) {
     };
     return RulePeer;
 }(DbPeer));
-var Rule = (function (_super) {
-    __extends(Rule, _super);
-    function Rule() {
+var LegacyRule = (function (_super) {
+    __extends(LegacyRule, _super);
+    function LegacyRule() {
         var _this = _super.call(this) || this;
         _this.words = [];
         _this.title = "";
@@ -94,18 +94,18 @@ var Rule = (function (_super) {
         _this.appliedWords = {};
         return _this;
     }
-    Rule.prototype.addWord = function (word) {
+    LegacyRule.prototype.addWord = function (word) {
         this.words.push(word);
     };
-    Rule.createInstance = function (url, title) {
-        var rule = new Rule();
+    LegacyRule.createInstance = function (url, title) {
+        var rule = new LegacyRule();
         rule.title = title;
         rule.site_regexp = url;
         rule.example_url = url;
         rule.site_description = title;
         return rule;
     };
-    Rule.validate = function (params) {
+    LegacyRule.validate = function (params) {
         var errors = [];
         if ('' == params.title)
             errors.push(chrome.i18n.getMessage('errorTitleEmpty'));
@@ -129,9 +129,9 @@ var Rule = (function (_super) {
         }
         return errors;
     };
-    Rule.prototype.getRule = function () {
+    LegacyRule.prototype.getRule = function () {
         if (!this.rule) {
-            this.rule = new NewRule();
+            this.rule = new Rule();
             this.rule.hideNodes = this.hideNodes;
             this.rule.searchNodes = this.searchNodes;
             this.rule.hiddenCount = this.hiddenCount;
@@ -160,6 +160,8 @@ var Rule = (function (_super) {
         }
         return this.rule;
     };
-    return Rule;
+    LegacyRule.prototype.legacyRuleFunc = function () {
+    };
+    return LegacyRule;
 }(DbObject));
 //# sourceMappingURL=Rule.js.map

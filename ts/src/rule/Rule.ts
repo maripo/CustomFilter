@@ -1,9 +1,9 @@
 // New rule class
 
-class NewRule {
+class Rule {
 	static JSON_RULE_CONVERSION_RULE: [[string]];
-	// Copied from legacy DbObj
 	
+	// Copied from legacy DbObj
 	dirty:boolean;
 	isNew:boolean;
 	deleted:boolean;
@@ -12,7 +12,7 @@ class NewRule {
 	delete_date:number;
 	
 	// Copied from legacy Rule
- 	words:NewWord[];
+ 	words:Word[];
  	wordGroups:WordGroup[];
  	
  	// TODO move to wrapper class!
@@ -45,7 +45,7 @@ class NewRule {
  	
  	existing: boolean; // TODO for import/export
  	
- 	public addWord (word:NewWord) {
+ 	public addWord (word:Word) {
 		this.words.push(word);	
 	}
 	
@@ -57,8 +57,9 @@ class NewRule {
 		rule.title = title;
 		rule.site_regexp = url;
 		rule.example_url = url;
-		rule.site_description = title;
 		return rule;
+	}
+	newRuleFunc (): void {
 	}
 	
 	public static validate (params:RuleValidation): string[] {
@@ -94,17 +95,9 @@ class NewRule {
 		console.log("Key=" + key);
 		console.log(JSON.stringify(json));
 		
-		let testRule = new NewRule();
+		let testRule = new Rule();
 		testRule.initByJSON(json);
 		
-		/*
-		console.log("Orig:");
-		console.log(JSON.stringify(this));
-		console.log(JSON.stringify(this).length);
-		console.log("Re:");
-		console.log(JSON.stringify(testRule));
-		console.log(JSON.stringify(testRule).length);
-		*/
 		let isEqual = JSON.stringify(this) == JSON.stringify(testRule);
 		console.log("Equal? " + isEqual)
 		
@@ -113,9 +106,9 @@ class NewRule {
 	}
 	
 	// load / update locally
-	initByJSON (obj:object) {
+	initByJSON (obj:object): Rule {
 		// TODO
-		for (let prop of NewRule.JSON_RULE_CONVERSION_RULE) {
+		for (let prop of Rule.JSON_RULE_CONVERSION_RULE) {
 			(this as object)[prop[0]] = obj[prop[1]]; 
 		}
 		this.words = [];
@@ -123,10 +116,11 @@ class NewRule {
 		let words = obj["w"] as [any];
 		let wordGroups = obj["wg"] as [any];
 		for (let word of words) {
-			let wordObj = new NewWord();
+			let wordObj = new Word();
 			wordObj.initByJSON(word);
 			this.words.push(wordObj);
 		}
+		return this;
 	}
 	
 	// Update by data sync (Merge word list if needed)
@@ -135,12 +129,12 @@ class NewRule {
 	}
 	
 	getJSONKey(): string {
-		return this.global_identifier;
+		return "R-" + this.global_identifier;
 	}
 	
 	toJSON (): object {
 		let obj = {};
-		for (let prop of NewRule.JSON_RULE_CONVERSION_RULE) {
+		for (let prop of Rule.JSON_RULE_CONVERSION_RULE) {
 			obj[prop[1]] = (this as object)[prop[0]];
 		}
 		obj["w"] = []; // Words
@@ -159,7 +153,7 @@ class NewRule {
 	
 }
 
-NewRule.JSON_RULE_CONVERSION_RULE = [
+Rule.JSON_RULE_CONVERSION_RULE = [
 	["global_identifier", "g"],
 	["title", "t"],
 	["url", "uu"],

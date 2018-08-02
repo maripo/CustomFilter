@@ -29,18 +29,18 @@ var WordPeer = (function (_super) {
         return WordPeer.instance;
     };
     WordPeer.prototype.createObject = function () {
-        return new Word();
+        return new LegacyWord();
     };
     return WordPeer;
 }(DbPeer));
-var Word = (function (_super) {
-    __extends(Word, _super);
-    function Word() {
+var LegacyWord = (function (_super) {
+    __extends(LegacyWord, _super);
+    function LegacyWord() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Word.prototype.getWord = function () {
+    LegacyWord.prototype.getWord = function () {
         if (!this.newWord) {
-            this.newWord = new NewWord();
+            this.newWord = new Word();
             this.newWord.word_id = this.word_id;
             this.newWord.rule_id = this.rule_id;
             this.newWord.word = this.word;
@@ -51,6 +51,6 @@ var Word = (function (_super) {
         }
         return this.newWord;
     };
-    return Word;
+    return LegacyWord;
 }(DbObject));
 //# sourceMappingURL=Word.js.map

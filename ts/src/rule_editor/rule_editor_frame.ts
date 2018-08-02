@@ -13,17 +13,14 @@ class RuleEditorFrame {
 	site_regexp: HTMLInputElement;
 	specify_url_by_regexp_checkbox: HTMLInputElement;
 	example_url: HTMLInputElement;
-	site_description: HTMLInputElement;
 	search_block_xpath: HTMLInputElement;
 	search_block_css: HTMLInputElement;
 	radio_search_css: HTMLInputElement;
 	radio_search_xpath: HTMLInputElement;
-	search_block_description: HTMLInputElement;
 	hide_block_xpath: HTMLInputElement;
 	hide_block_css: HTMLInputElement;
 	radio_hide_css: HTMLInputElement;
 	radio_hide_xpath: HTMLInputElement;
-	hide_block_description: HTMLInputElement;
 	block_anyway_false: HTMLInputElement;
 	block_anyway: HTMLInputElement;
 	hide_detail: HTMLInputElement;
@@ -39,17 +36,14 @@ class RuleEditorFrame {
 		this.site_regexp = document.getElementById('rule_editor_site_regexp') as HTMLInputElement;
 		this.specify_url_by_regexp_checkbox = document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement;
 		this.example_url = document.getElementById('rule_editor_example_url') as HTMLInputElement;
-		this.site_description = document.getElementById('rule_editor_site_description') as HTMLInputElement;
 		this.search_block_xpath = document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement;
 		this.search_block_css = document.getElementById('rule_editor_search_block_css') as HTMLInputElement;
 		this.radio_search_css = document.getElementById('rule_editor_radio_search_css') as HTMLInputElement;
 		this.radio_search_xpath = document.getElementById('rule_editor_radio_search_xpath') as HTMLInputElement;
-		this.search_block_description = document.getElementById('rule_editor_search_block_description') as HTMLInputElement;
 		this.hide_block_xpath = document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement;
 		this.hide_block_css = document.getElementById('rule_editor_hide_block_css') as HTMLInputElement;
 		this.radio_hide_css = document.getElementById('rule_editor_radio_hide_css') as HTMLInputElement;
 		this.radio_hide_xpath = document.getElementById('rule_editor_radio_hide_xpath') as HTMLInputElement;
-		this.hide_block_description = document.getElementById('rule_editor_hide_block_description') as HTMLInputElement;
 		this.block_anyway = document.getElementById('rule_editor_block_anyway') as HTMLInputElement;
 		this.block_anyway_false = document.getElementById('rule_editor_block_anyway_false') as HTMLInputElement;
 		this.hide_detail = document.getElementById('rule_editor_hide_detail') as HTMLInputElement;
@@ -75,17 +69,14 @@ class RuleEditorFrame {
 		this.title.addEventListener('change', changeHandler, false);
 		this.site_regexp.addEventListener('change', changeHandler, false);
 		this.example_url.addEventListener('change', changeHandler, false);
-		this.site_description.addEventListener('change', changeHandler, false);
 		this.search_block_xpath.addEventListener('change', changeHandler, false);
 		this.search_block_css.addEventListener('change', changeHandler, false);
 		this.radio_search_css.addEventListener('change', changeHandler, false);
 		this.radio_search_xpath.addEventListener('change', changeHandler, false);
-		this.search_block_description.addEventListener('change', changeHandler, false);
 		this.hide_block_xpath.addEventListener('change', changeHandler, false);
 		this.hide_block_css.addEventListener('change', changeHandler, false);
 		this.radio_hide_css.addEventListener('change', changeHandler, false);
 		this.radio_hide_xpath.addEventListener('change', changeHandler, false);
-		this.hide_block_description.addEventListener('change', changeHandler, false);
 		this.block_anyway.addEventListener('change', changeHandler, false);
 		this.block_anyway_false.addEventListener('change', changeHandler, false);
 		this.specify_url_by_regexp_checkbox.addEventListener('change', changeHandler, false);
@@ -147,16 +138,13 @@ class RuleEditorFrame {
 		this.title.value = rule.title;
 		this.site_regexp.value = rule.site_regexp;
 		this.example_url.value = rule.example_url;
-		this.site_description.value = rule.site_description;
 		
 		this.search_block_xpath.value = rule.search_block_xpath;
 		this.search_block_css.value = rule.search_block_css;
 		((rule.search_block_by_css)?this.radio_search_css:this.radio_search_xpath).checked = true;
-		this.search_block_description.value  = rule.search_block_description;
 		this.hide_block_xpath.value = rule.hide_block_xpath;
 		this.hide_block_css.value = rule.hide_block_css;
 		((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath).checked = true;
-		this.hide_block_description.value = rule.hide_block_description;
 		((rule.block_anyway)?this.block_anyway:this.block_anyway_false).checked = true;
 		this.specify_url_by_regexp_checkbox.checked = rule.specify_url_by_regexp;
 		
@@ -198,28 +186,22 @@ class RuleEditorFrame {
 			title : this.title.value,
 			site_regexp : this.site_regexp.value,
 			example_url : this.example_url.value,
-			site_description : this.site_description.value,
 			search_block_xpath : this.search_block_xpath.value,
 			search_block_css : this.search_block_css.value,
-			search_block_description : this.search_block_description.value,
 			hide_block_xpath : this.hide_block_xpath.value,
-			hide_block_css : this.hide_block_css.value,
-			hide_block_description : this.hide_block_description.value
+			hide_block_css : this.hide_block_css.value
 		});
 	}
 	applyInput () {
 		this.rule.title = this.title.value;
 		this.rule.site_regexp = this.site_regexp.value;
 		this.rule.example_url = this.example_url.value;
-		this.rule.site_description = this.site_description.value;
 		this.rule.search_block_xpath = this.search_block_xpath.value;
 		this.rule.search_block_css = this.search_block_css.value;
 		this.rule.search_block_by_css = this.radio_search_css.checked;
-		this.rule.search_block_description = this.search_block_description.value;
 		this.rule.hide_block_xpath = this.hide_block_xpath.value;
 		this.rule.hide_block_css = this.hide_block_css.value;
 		this.rule.hide_block_by_css = this.radio_hide_css.checked;
-		this.rule.hide_block_description = this.hide_block_description.value;
 		this.rule.block_anyway = this.block_anyway.checked;
 		this.rule.specify_url_by_regexp = this.specify_url_by_regexp_checkbox.checked;
 	}

@@ -32,6 +32,7 @@
         "src/db/DbInit.ts",
         "src/db/Rule.ts",
         "src/db/Word.ts",
+        "src/rule/Storage.ts",
         "src/rule/Rule.ts",
         "src/rule/Word.ts",
         "src/rule/WordGroup.ts",

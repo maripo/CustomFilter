@@ -6,7 +6,7 @@ var Import = (function () {
         document.getElementById('button_import').addEventListener('click', Import.saveSelected, false);
         fileSelector.addEventListener('change', Import.readFile);
         document.getElementById('checkboxToggleAll').addEventListener('change', Import.toggleAllCheckboxes, false);
-        RulePeer.getInstance().loadAll(function (rules) {
+        CustomBlockerStorage.getInstance().loadAll(function (rules) {
             Import.ruleList = rules;
         });
         document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');

@@ -117,6 +117,10 @@ function execCallbackDb(tabId, param) {
     try {
         var exPeer;
         if ('save' == param.dbCommand) {
+            console.log("WARNING:execCallbackDb.save called.");
+            if (0 < 1) {
+                return;
+            }
             Analytics.trackEvent('save', 'save');
             var rule_1 = param.obj;
             var saveRuleTask = new SaveRuleTask(rule_1, function () {

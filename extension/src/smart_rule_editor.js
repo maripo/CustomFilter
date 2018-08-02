@@ -136,10 +136,8 @@ var SmartRuleCreatorDialog = (function () {
         this.input_site_description = document.getElementById('smart_rule_editor_site_description');
         this.input_search_block_xpath = document.getElementById('smart_rule_editor_search_block_xpath');
         this.input_search_block_css = document.getElementById('smart_rule_editor_search_block_css');
-        this.input_search_block_description = document.getElementById('smart_rule_editor_search_block_description');
         this.input_hide_block_xpath = document.getElementById('smart_rule_editor_hide_block_xpath');
         this.input_hide_block_css = document.getElementById('smart_rule_editor_hide_block_css');
-        this.input_hide_block_description = document.getElementById('smart_rule_editor_hide_block_description');
         this.radio_search_css.addEventListener('change', this.setPathInputVisibility, true);
         this.radio_search_xpath.addEventListener('change', this.setPathInputVisibility, true);
         this.radio_hide_css.addEventListener('change', this.setPathInputVisibility, true);
@@ -257,26 +255,20 @@ var SmartRuleCreatorDialog = (function () {
             title: this.input_title.value,
             site_regexp: this.input_url.value,
             example_url: this.input_example_url.value,
-            site_description: this.input_site_description.value,
             search_block_xpath: this.input_search_block_xpath.value,
             search_block_css: this.input_search_block_css.value,
-            search_block_description: this.input_search_block_description.value,
             hide_block_xpath: this.input_hide_block_xpath.value,
-            hide_block_css: this.input_hide_block_css.value,
-            hide_block_description: this.input_hide_block_description.value
+            hide_block_css: this.input_hide_block_css.value
         });
     };
     SmartRuleCreatorDialog.prototype.applyInput = function () {
         this.rule.title = this.input_title.value;
         this.rule.site_regexp = this.input_url.value;
-        this.rule.site_description = this.input_site_description.value;
         this.rule.example_url = this.input_example_url.value;
         this.rule.search_block_xpath = this.input_search_block_xpath.value;
         this.rule.search_block_css = this.input_search_block_css.value;
-        this.rule.search_block_description = this.input_search_block_description.value;
         this.rule.hide_block_xpath = this.input_hide_block_xpath.value;
         this.rule.hide_block_css = this.input_hide_block_css.value;
-        this.rule.hide_block_description = this.input_hide_block_description.value;
     };
     SmartRuleCreatorDialog.prototype.onSaveDone = function (rule) {
         this.rule.rule_id = rule.rule_id;
@@ -451,10 +443,8 @@ var SmartRuleCreatorDialog = (function () {
         rule.title = path.title;
         rule.search_block_css = path.searchPath.path;
         rule.search_block_xpath = null;
-        rule.search_block_description = null;
         rule.hide_block_css = path.hidePath.path;
         rule.hide_block_xpath = null;
-        rule.hide_block_description = null;
         return rule;
     };
     SmartRuleCreatorDialog.prototype.showRule = function (rule) {
@@ -463,15 +453,12 @@ var SmartRuleCreatorDialog = (function () {
         document.getElementById('smart_rule_editor_preview').style.display = 'none';
         document.getElementById('smart_rule_editor_body').style.display = 'block';
         this.input_example_url.value = rule.example_url;
-        this.input_site_description.value = rule.site_description;
         this.input_title.value = rule.title;
         this.input_url.value = rule.site_regexp;
         this.input_search_block_xpath.value = rule.search_block_xpath;
         this.input_search_block_css.value = rule.search_block_css;
-        this.input_search_block_description.value = rule.search_block_description;
         this.input_hide_block_xpath.value = rule.hide_block_xpath;
         this.input_hide_block_css.value = rule.hide_block_css;
-        this.input_hide_block_description.value = rule.hide_block_description;
         CustomBlockerUtil.clearChildren(this.input_keyword);
         var searchRadio = (rule.search_block_by_css) ? this.radio_search_css : this.radio_search_xpath;
         searchRadio.checked = true;

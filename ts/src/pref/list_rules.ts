@@ -28,7 +28,7 @@ function onStart () {
 	
 	ruleEditor = new PrefRuleEditor();
 	CustomBlockerUtil.localize();
-	(RulePeer.getInstance() as RulePeer).loadAll (
+	CustomBlockerStorage.getInstance().loadAll (
 		function (rules:[Rule]) {
 			if (!rules || rules.length==0) {
 				showEmptyAlert();
@@ -377,18 +377,15 @@ class PrefRuleEditor {
       (document.getElementById('rule_editor_title') as HTMLInputElement).value = rule.title;
       (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value = rule.site_regexp;
       (document.getElementById('rule_editor_example_url') as HTMLInputElement).value = rule.example_url;
-      (document.getElementById('rule_editor_site_description') as HTMLInputElement).value = rule.site_description;
       (document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement).value = rule.search_block_xpath;
       (document.getElementById('rule_editor_search_block_css') as HTMLInputElement).value = rule.search_block_css;
       let searchRadio = document.getElementById('rule_editor_radio_search_'+((rule.search_block_by_css)?'css':'xpath')) as HTMLInputElement
       searchRadio.checked   = true;
-      (document.getElementById('rule_editor_search_block_description') as HTMLInputElement).value = rule.search_block_description;
       (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value = rule.hide_block_xpath;
       (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value = rule.hide_block_css;
       let hideRadio = document.getElementById('rule_editor_radio_hide_'+((rule.hide_block_by_css)?'css':'xpath')) as HTMLInputElement
       hideRadio.checked = true;
       
-      (document.getElementById('rule_editor_hide_block_description') as HTMLInputElement).value = rule.hide_block_description;
       let blockAnywayCheckbox = document.getElementById((rule.block_anyway)?'rule_editor_block_anyway':'rule_editor_block_anyway_false') as HTMLInputElement
       blockAnywayCheckbox.checked = true;
       document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway)?'none':'block';
@@ -416,13 +413,10 @@ class PrefRuleEditor {
       title : (document.getElementById('rule_editor_title') as HTMLInputElement).value,
       site_regexp : (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value,
       example_url : (document.getElementById('rule_editor_example_url') as HTMLInputElement).value,
-      site_description : (document.getElementById('rule_editor_site_description') as HTMLInputElement).value,
       search_block_xpath : (document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement).value,
       search_block_css : (document.getElementById('rule_editor_search_block_css') as HTMLInputElement).value,
-      search_block_description : (document.getElementById('rule_editor_search_block_description') as HTMLInputElement).value,
       hide_block_xpath : (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value,
       hide_block_css : (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value,
-      hide_block_description : (document.getElementById('rule_editor_hide_block_description') as HTMLInputElement).value
     });
     if (validateErrors.length>0)
     {
@@ -432,15 +426,12 @@ class PrefRuleEditor {
     this.rule.title = (document.getElementById('rule_editor_title') as HTMLInputElement).value;
     this.rule.site_regexp = (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value;
     this.rule.example_url = (document.getElementById('rule_editor_example_url') as HTMLInputElement).value;
-    this.rule.site_description = (document.getElementById('rule_editor_site_description') as HTMLInputElement).value;
     this.rule.search_block_xpath = (document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement).value;
     this.rule.search_block_css = (document.getElementById('rule_editor_search_block_css') as HTMLInputElement).value;
     this.rule.search_block_by_css = (document.getElementById('rule_editor_radio_search_css') as HTMLInputElement).checked;
-    this.rule.search_block_description = (document.getElementById('rule_editor_search_block_description') as HTMLInputElement).value;
     this.rule.hide_block_xpath = (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value;
     this.rule.hide_block_css = (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value;
     this.rule.hide_block_by_css = (document.getElementById('rule_editor_radio_hide_css') as HTMLInputElement).checked;
-    this.rule.hide_block_description = (document.getElementById('rule_editor_hide_block_description') as HTMLInputElement).value;
     this.rule.block_anyway = (document.getElementById('rule_editor_block_anyway') as HTMLInputElement).checked;
     this.rule.specify_url_by_regexp = (document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked;
     let self = this;

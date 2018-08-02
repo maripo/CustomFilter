@@ -16,7 +16,7 @@ class Import
 		
 		fileSelector.addEventListener('change', Import.readFile);
 		document.getElementById('checkboxToggleAll').addEventListener('change', Import.toggleAllCheckboxes, false);
-		(RulePeer.getInstance() as RulePeer).loadAll(function(rules:[Rule]){
+		CustomBlockerStorage.getInstance().loadAll(function(rules:[Rule]){
 			Import.ruleList = rules;
 		});
 		document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');

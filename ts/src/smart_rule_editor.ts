@@ -141,10 +141,8 @@ class SmartRuleCreatorDialog {
 	input_site_description:HTMLInputElement;
 	input_search_block_xpath:HTMLInputElement;
 	input_search_block_css:HTMLInputElement;
-	input_search_block_description:HTMLInputElement;
 	input_hide_block_xpath:HTMLInputElement;
 	input_hide_block_css:HTMLInputElement;
-	input_hide_block_description:HTMLInputElement;
 	
 	/* Dragging */
 	moving:boolean;
@@ -207,10 +205,8 @@ class SmartRuleCreatorDialog {
 		this.input_site_description = <HTMLInputElement>document.getElementById('smart_rule_editor_site_description');
 		this.input_search_block_xpath = <HTMLInputElement>document.getElementById('smart_rule_editor_search_block_xpath');
 		this.input_search_block_css = <HTMLInputElement>document.getElementById('smart_rule_editor_search_block_css');
-		this.input_search_block_description = <HTMLInputElement>document.getElementById('smart_rule_editor_search_block_description');
 		this.input_hide_block_xpath = <HTMLInputElement>document.getElementById('smart_rule_editor_hide_block_xpath');
 		this.input_hide_block_css = <HTMLInputElement>document.getElementById('smart_rule_editor_hide_block_css');
-		this.input_hide_block_description = <HTMLInputElement>document.getElementById('smart_rule_editor_hide_block_description');
 		
 		// XPath & CSS radio buttons
 		this.radio_search_css.addEventListener('change', this.setPathInputVisibility, true);
@@ -343,29 +339,23 @@ class SmartRuleCreatorDialog {
 			title : this.input_title.value,
 			site_regexp : this.input_url.value,
 			example_url : this.input_example_url.value,
-			site_description : this.input_site_description.value,
 			
 			search_block_xpath : this.input_search_block_xpath.value,
 			search_block_css : this.input_search_block_css.value,
-			search_block_description : this.input_search_block_description.value,
 			
 			hide_block_xpath: this.input_hide_block_xpath.value,
-			hide_block_css : this.input_hide_block_css.value,
-			hide_block_description : this.input_hide_block_description.value
+			hide_block_css : this.input_hide_block_css.value
 		});
 	}
 	applyInput ():void {
 		// Set form values to rule
 		this.rule.title = this.input_title.value;
 		this.rule.site_regexp = this.input_url.value;
-		this.rule.site_description = this.input_site_description.value;
 		this.rule.example_url = this.input_example_url.value;
 		this.rule.search_block_xpath = this.input_search_block_xpath.value;
 		this.rule.search_block_css = this.input_search_block_css.value;
-		this.rule.search_block_description = this.input_search_block_description.value;
 		this.rule.hide_block_xpath = this.input_hide_block_xpath.value;
 		this.rule.hide_block_css = this.input_hide_block_css.value;
-		this.rule.hide_block_description = this.input_hide_block_description.value;
 	}
 	onSaveDone (rule:Rule):void {
 		this.rule.rule_id = rule.rule_id;
@@ -566,10 +556,8 @@ class SmartRuleCreatorDialog {
 		rule.title = path.title;
 		rule.search_block_css = path.searchPath.path;
 		rule.search_block_xpath = null;
-		rule.search_block_description = null;
 		rule.hide_block_css = path.hidePath.path;
 		rule.hide_block_xpath = null;
-		rule.hide_block_description = null;
 		return rule;
 	}
 	showRule (rule:Rule):void {
@@ -579,15 +567,12 @@ class SmartRuleCreatorDialog {
 		document.getElementById('smart_rule_editor_body').style.display = 'block';
 		
 		this.input_example_url.value = rule.example_url;
-		this.input_site_description.value = rule.site_description;
 		this.input_title.value = rule.title;
 		this.input_url.value = rule.site_regexp;
 		this.input_search_block_xpath.value = rule.search_block_xpath;
 		this.input_search_block_css.value = rule.search_block_css;
-		this.input_search_block_description.value = rule.search_block_description;
 		this.input_hide_block_xpath.value = rule.hide_block_xpath;
 		this.input_hide_block_css.value = rule.hide_block_css;
-		this.input_hide_block_description.value = rule.hide_block_description;
 		CustomBlockerUtil.clearChildren(this.input_keyword);
 		
 		var searchRadio = (rule.search_block_by_css)?this.radio_search_css:this.radio_search_xpath;

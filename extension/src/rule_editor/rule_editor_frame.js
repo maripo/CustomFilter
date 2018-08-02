@@ -14,17 +14,14 @@ var RuleEditorFrame = (function () {
         this.site_regexp = document.getElementById('rule_editor_site_regexp');
         this.specify_url_by_regexp_checkbox = document.getElementById('specify_url_by_regexp_checkbox');
         this.example_url = document.getElementById('rule_editor_example_url');
-        this.site_description = document.getElementById('rule_editor_site_description');
         this.search_block_xpath = document.getElementById('rule_editor_search_block_xpath');
         this.search_block_css = document.getElementById('rule_editor_search_block_css');
         this.radio_search_css = document.getElementById('rule_editor_radio_search_css');
         this.radio_search_xpath = document.getElementById('rule_editor_radio_search_xpath');
-        this.search_block_description = document.getElementById('rule_editor_search_block_description');
         this.hide_block_xpath = document.getElementById('rule_editor_hide_block_xpath');
         this.hide_block_css = document.getElementById('rule_editor_hide_block_css');
         this.radio_hide_css = document.getElementById('rule_editor_radio_hide_css');
         this.radio_hide_xpath = document.getElementById('rule_editor_radio_hide_xpath');
-        this.hide_block_description = document.getElementById('rule_editor_hide_block_description');
         this.block_anyway = document.getElementById('rule_editor_block_anyway');
         this.block_anyway_false = document.getElementById('rule_editor_block_anyway_false');
         this.hide_detail = document.getElementById('rule_editor_hide_detail');
@@ -47,17 +44,14 @@ var RuleEditorFrame = (function () {
         this.title.addEventListener('change', changeHandler, false);
         this.site_regexp.addEventListener('change', changeHandler, false);
         this.example_url.addEventListener('change', changeHandler, false);
-        this.site_description.addEventListener('change', changeHandler, false);
         this.search_block_xpath.addEventListener('change', changeHandler, false);
         this.search_block_css.addEventListener('change', changeHandler, false);
         this.radio_search_css.addEventListener('change', changeHandler, false);
         this.radio_search_xpath.addEventListener('change', changeHandler, false);
-        this.search_block_description.addEventListener('change', changeHandler, false);
         this.hide_block_xpath.addEventListener('change', changeHandler, false);
         this.hide_block_css.addEventListener('change', changeHandler, false);
         this.radio_hide_css.addEventListener('change', changeHandler, false);
         this.radio_hide_xpath.addEventListener('change', changeHandler, false);
-        this.hide_block_description.addEventListener('change', changeHandler, false);
         this.block_anyway.addEventListener('change', changeHandler, false);
         this.block_anyway_false.addEventListener('change', changeHandler, false);
         this.specify_url_by_regexp_checkbox.addEventListener('change', changeHandler, false);
@@ -104,15 +98,12 @@ var RuleEditorFrame = (function () {
         this.title.value = rule.title;
         this.site_regexp.value = rule.site_regexp;
         this.example_url.value = rule.example_url;
-        this.site_description.value = rule.site_description;
         this.search_block_xpath.value = rule.search_block_xpath;
         this.search_block_css.value = rule.search_block_css;
         ((rule.search_block_by_css) ? this.radio_search_css : this.radio_search_xpath).checked = true;
-        this.search_block_description.value = rule.search_block_description;
         this.hide_block_xpath.value = rule.hide_block_xpath;
         this.hide_block_css.value = rule.hide_block_css;
         ((rule.hide_block_by_css) ? this.radio_hide_css : this.radio_hide_xpath).checked = true;
-        this.hide_block_description.value = rule.hide_block_description;
         ((rule.block_anyway) ? this.block_anyway : this.block_anyway_false).checked = true;
         this.specify_url_by_regexp_checkbox.checked = rule.specify_url_by_regexp;
         this.setBlockAnywayStyle(this.block_anyway.checked);
@@ -151,28 +142,22 @@ var RuleEditorFrame = (function () {
             title: this.title.value,
             site_regexp: this.site_regexp.value,
             example_url: this.example_url.value,
-            site_description: this.site_description.value,
             search_block_xpath: this.search_block_xpath.value,
             search_block_css: this.search_block_css.value,
-            search_block_description: this.search_block_description.value,
             hide_block_xpath: this.hide_block_xpath.value,
-            hide_block_css: this.hide_block_css.value,
-            hide_block_description: this.hide_block_description.value
+            hide_block_css: this.hide_block_css.value
         });
     };
     RuleEditorFrame.prototype.applyInput = function () {
         this.rule.title = this.title.value;
         this.rule.site_regexp = this.site_regexp.value;
         this.rule.example_url = this.example_url.value;
-        this.rule.site_description = this.site_description.value;
         this.rule.search_block_xpath = this.search_block_xpath.value;
         this.rule.search_block_css = this.search_block_css.value;
         this.rule.search_block_by_css = this.radio_search_css.checked;
-        this.rule.search_block_description = this.search_block_description.value;
         this.rule.hide_block_xpath = this.hide_block_xpath.value;
         this.rule.hide_block_css = this.hide_block_css.value;
         this.rule.hide_block_by_css = this.radio_hide_css.checked;
-        this.rule.hide_block_description = this.hide_block_description.value;
         this.rule.block_anyway = this.block_anyway.checked;
         this.rule.specify_url_by_regexp = this.specify_url_by_regexp_checkbox.checked;
     };

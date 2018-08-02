@@ -30,7 +30,7 @@ class Export {
         PrefRuleWrapper.toggleAllCheckboxes(document.getElementById('checkboxToggleAll'), Export.ruleWrapperList);
     }
     static loadLists (): void {
-			(RulePeer.getInstance() as RulePeer).loadAll(function(rules:[Rule]){
+			CustomBlockerStorage.getInstance().loadAll(function(rules:[Rule]){
 				Export.ruleList = rules;
         for (var i = 0; i < Export.ruleList.length; i++) {
             var rule = Export.ruleList[i];

@@ -7,7 +7,7 @@ var Welcome = (function () {
         document.getElementById("buttonUse").addEventListener('click', Welcome.useChecked, false);
         document.getElementById("checkAll").checked = true;
         document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
-        RulePeer.getInstance().loadAll(function (rules) {
+        CustomBlockerStorage.getInstance().loadAll(function (rules) {
             for (var ruleIndex = 0; ruleIndex < rules.length; ruleIndex++) {
                 Welcome.disableDuplicateRules(rules[ruleIndex]);
             }
@@ -177,14 +177,11 @@ var RuleWrapper = (function () {
         rule.is_disabled = false;
         rule.site_regexp = rule.site_regexp || "";
         rule.example_url = rule.example_url || "";
-        rule.site_description = rule.site_description || "";
         rule.specify_url_by_regexp = !!rule.specify_url_by_regexp;
         rule.search_block_xpath = rule.search_block_xpath || "";
         rule.search_block_css = rule.search_block_css || "";
-        rule.search_block_description = rule.search_block_description || "";
         rule.hide_block_xpath = rule.hide_block_xpath || "";
         rule.hide_block_css = rule.hide_block_css || "";
-        rule.hide_block_description = "";
         rule.user_identifier = null;
         rule.global_identifier = null;
         rule.insert_date = 0;

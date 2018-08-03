@@ -52,7 +52,7 @@ var CustomBlockerTab = (function () {
         });
     }
     CustomBlockerTab.prototype.execCallbackReload = function (param) {
-        this.port.postMessage({ rules: ruleList });
+        this.postMessage({ rules: ruleList });
     };
     CustomBlockerTab.prototype.execCallbackDb = function (param) {
         console.log("TODO execCallbackDb");
@@ -90,6 +90,9 @@ var CustomBlockerTab = (function () {
             console.log(ex);
         }
     };
+    CustomBlockerTab.prototype.postMessage = function (message) {
+        this.port.postMessage(message);
+    };
     CustomBlockerTab.prototype.onMessage = function (message) {
         console.log("onMessage");
         console.log(message);
@@ -121,11 +124,11 @@ var tabOnUpdate = function (tabId, changeInfo, tab) {
     var url = tab.url;
     if (isValidURL(url)) {
         tabMap[tabId] = new CustomBlockerTab(tabId, tab);
-        chrome.tabs.sendRequest(tabId, {
+        tabMap[tabId].postMessage({
             command: 'init',
             rules: ruleList,
             tabId: tabId
-        }, getForegroundCallback(tabId));
+        });
     }
 };
 var VALID_URL_REGEX = new RegExp('^https?:');

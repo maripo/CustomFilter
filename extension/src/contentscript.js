@@ -102,7 +102,9 @@ var BackgroundCommunicator = (function () {
             console.log(port);
             scope.bgPort = port;
             port.onMessage.addListener(function (msg) {
-                scope.processBackgroundRequest(null, msg, null);
+                console.log("port.onMessage: ");
+                console.log(msg);
+                scope.processBackgroundRequest(msg, null, null);
             });
         });
     };
@@ -116,6 +118,8 @@ if (!window.bgCommunicator) {
     window.bgCommunicator.start();
 }
 chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
+    console.warn("WARNING: Legacy request type.");
+    console.warn(request);
     window.bgCommunicator.processBackgroundRequest(request, sender, sendResponse);
 });
 var lastRightClickedElement = null;

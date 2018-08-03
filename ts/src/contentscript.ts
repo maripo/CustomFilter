@@ -23,19 +23,6 @@ class BackgroundCommunicator {
 		console.log(param);
 		
 		this.bgPort.postMessage({command:command, param:param});
-		
-		/*
-		if (!customBlockerBgCallback) {
-			console.log("bgCallback not found. command:" + command);
-			return;
-		}
-		try {
-			customBlockerBgCallback(param);
-			customBlockerBgCallback = null;
-		} catch (ex) {
-			console.log(ex);
-		}
-		*/
 	}
 
 	/**
@@ -114,8 +101,7 @@ class BackgroundCommunicator {
 	}
 	
 	execQuickRuleCreation (request) {
-		if (!window.smartRuleCreatorDialog)
-		{
+		if (!window.smartRuleCreatorDialog) {
 			window.smartRuleCreatorDialog = new SmartRuleCreatorDialog(RuleEditor.getMaxZIndex() + 1, request.src);
 		}
 		var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText, request.needSuggestion);
@@ -129,7 +115,9 @@ class BackgroundCommunicator {
 			console.log(port);
 			scope.bgPort = port;
 			port.onMessage.addListener(function(msg) {
-				scope.processBackgroundRequest(null, msg, null);
+				console.log("port.onMessage: ");
+				console.log(msg);
+				scope.processBackgroundRequest(msg, null, null);
 		  });
 		});
 	}
@@ -146,6 +134,8 @@ if (!window.bgCommunicator) {
 }
 
 chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
+		console.warn("WARNING: Legacy request type.");
+		console.warn(request);
 		window.bgCommunicator.processBackgroundRequest(request, sender, sendResponse);
 	}
 );

@@ -18,10 +18,10 @@ class RuleExecutor {
 					regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(rule.site_regexp), 'i');
 				}
 				if (regex.test(location.href))  {
-					//console.info("Rule is applied." + location.href + "<=>" + rule.site_regexp);
+					// console.info("Rule is applied." + location.href + "<=>" + rule.site_regexp);
 					rules.push(rule);
 				} else {
-					console.info("Rule is NOT applied." + location.href + "<=>" + rule.site_regexp);
+					// console.info("Rule is NOT applied." + location.href + "<=>" + rule.site_regexp);
 				}
 			} 
 			catch (e)  {

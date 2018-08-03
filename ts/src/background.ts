@@ -99,7 +99,7 @@ class CustomBlockerTab {
 	}
 	
 	execCallbackReload (param): void {
-		this.port.postMessage({rules: ruleList});
+		this.postMessage({rules: ruleList});
 	}
 	
 	execCallbackDb (param): void {
@@ -140,6 +140,10 @@ class CustomBlockerTab {
 		}
 	}
 	
+	postMessage (message) {
+		this.port.postMessage(message);
+	}
+	
 	onMessage (message) {
 		console.log("onMessage");
 		console.log(message);
@@ -174,13 +178,11 @@ var tabOnUpdate = function(tabId:number, changeInfo, tab): void {
 	if (isValidURL(url)/* && changeInfo.status == "complete"*/) {
 		tabMap[tabId] = new CustomBlockerTab(tabId, tab);
 		// Legacy communication channel. Replace it with a long-lived connection
-		chrome.tabs.sendRequest(tabId,
-		{
+		tabMap[tabId].postMessage({
 			command:'init',
 			rules: ruleList,
 			tabId: tabId
-		},
-		getForegroundCallback (tabId));
+		});
 	}
 }
 var VALID_URL_REGEX = new RegExp('^https?:');

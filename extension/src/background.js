@@ -23,12 +23,15 @@ function openRulePicker(selectedRule) {
     try {
         chrome.tabs.getSelected(null, function (tab) {
             var tabInfo = tabMap[tab.id];
+            if (!tabInfo) {
+                return;
+            }
             var appliedRules = (tabInfo) ? tabInfo.appliedRules : [];
-            chrome.tabs.sendRequest(tab.id, {
+            tabInfo.postMessage({
                 command: 'ruleEditor',
                 rule: selectedRule,
                 appliedRuleList: appliedRules
-            }, getForegroundCallback(tab.id));
+            });
         });
     }
     catch (ex) {
@@ -111,6 +114,14 @@ var CustomBlockerTab = (function () {
                 break;
         }
     };
+    CustomBlockerTab.postMessage = function (tabId, message) {
+        var tabInfo = tabMap[tabId];
+        if (!tabInfo) {
+            console.warn("CustomBlockerTab.postMessage tab not found.");
+            return;
+        }
+        tabInfo.postMessage(message);
+    };
     return CustomBlockerTab;
 }());
 var tabMap = {};
@@ -157,20 +168,8 @@ function handleForegroundMessage(tabId, param) {
             break;
         case 'reload':
             useCallback = true;
-            execCallbackReload(tabId, param);
             break;
     }
-    if (!useCallback) {
-        chrome.tabs.sendRequest(tabId, {
-            command: (param.nextAction || 'badge')
-        }, getForegroundCallback(tabId));
-    }
-}
-function execCallbackReload(tabId, param) {
-    chrome.tabs.sendRequest(tabId, {
-        command: (param.nextAction),
-        rules: ruleList
-    }, getForegroundCallback(tabId));
 }
 function execCallbackDb(tabId, param) {
     try {
@@ -228,9 +227,7 @@ function loadSmartRuleEditorSrc() {
         for (var _index in existingTabs) {
             var tabIdToDisable = parseInt(_index);
             if (tabIdToDisable && tabIdToDisable != tabId) {
-                chrome.tabs.sendRequest(tabIdToDisable, {
-                    command: 'stop'
-                }, getForegroundCallback(tabIdToDisable));
+                CustomBlockerTab.postMessage(tabIdToDisable, { command: 'stop' });
             }
         }
         try {
@@ -244,9 +241,7 @@ function loadSmartRuleEditorSrc() {
                     tabId: tabId
                 });
             }
-            chrome.tabs.sendRequest(tabId, {
-                command: 'resume'
-            }, getForegroundCallback(tabId));
+            CustomBlockerTab.postMessage(tabId, { command: 'resume' });
             if (tabBadgeMap[tabId]) {
                 if (localStorage.badgeDisabled != "true") {
                     chrome.browserAction.setBadgeText({
@@ -280,10 +275,10 @@ function _setIconDisabled(isDisabled, tabId) {
 }
 function highlightRuleElements(rule) {
     chrome.tabs.getSelected(null, function (tab) {
-        chrome.tabs.sendRequest(tab.id, {
+        CustomBlockerTab.postMessage(tab.id, {
             command: 'highlight',
             rule: rule
-        }, getForegroundCallback(tab.id));
+        });
     });
 }
 function getBadgeTooltipString(count) {
@@ -304,13 +299,13 @@ function menuAddOnRightClick(clicked, tab) {
 ;
 function sendQuickRuleCreationRequest(clicked, tab, needSuggestion) {
     var appliedRules = (tabMap[tab.id]) ? tabMap[tab.id].appliedRules : [];
-    chrome.tabs.sendRequest(tab.id, {
+    CustomBlockerTab.postMessage(tab.id, {
         command: 'quickRuleCreation',
         src: smartRuleEditorSrc,
         appliedRuleList: appliedRules,
         selectionText: clicked.selectionText,
         needSuggestion: needSuggestion
-    }, getForegroundCallback(tab.id));
+    });
 }
 ;
 var menuIdCreate = chrome.contextMenus.create({ "title": chrome.i18n.getMessage('menuCreateRule'), "contexts": ["selection"],

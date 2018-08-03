@@ -71,7 +71,7 @@ var Welcome = (function () {
             }
         }
         for (var i = 0; i < rulesToUse.length; i++) {
-            RulePeer.getInstance().saveObject(rulesToUse[i].rule, null, null);
+            rulesToUse[i].rule.save(null);
         }
         try {
             var bgWindow = chrome.extension.getBackgroundPage();

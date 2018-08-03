@@ -271,17 +271,7 @@ class RuleContainer {
       rule.is_disabled = !rule.is_disabled;
       inputButton.value = (rule.is_disabled)?'OFF':'ON';
       inputButton.className = (rule.is_disabled)?'uiButton buttonOff':'uiButton buttonOn';
-      // set UUIDs
-      if (CustomBlockerUtil.isEmpty(rule.user_identifier))
-      {
-        rule.user_identifier = UUID.generate();
-      }
-      if (CustomBlockerUtil.isEmpty(rule.global_identifier))
-      {
-        rule.global_identifier = UUID.generate();
-      }
-      RulePeer.getInstance().saveObject(rule, function () {}, function () {});
-      reloadBackground();
+      rule.save(function(){reloadBackground();});
     }
   }
   getSelectAction () {
@@ -299,7 +289,7 @@ class RuleContainer {
     let self = this;
     return function () {
       if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
-        RulePeer.getInstance().deleteObject(self.rule, function(){}, function(){});
+      		self.rule.delete(function(){});
         self.liElement.parentNode.removeChild(self.liElement);
         removeElement (self);
         showCount();
@@ -372,8 +362,7 @@ class PrefRuleEditor {
     console.log("Rule selected: " + rule.title);
     this.rule = rule;
     document.getElementById('rule_editor_keywords').innerHTML = '';
-    if (rule.rule_id && rule.rule_id > 0) 
-    {
+    if (rule) {
       (document.getElementById('rule_editor_title') as HTMLInputElement).value = rule.title;
       (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value = rule.site_regexp;
       (document.getElementById('rule_editor_example_url') as HTMLInputElement).value = rule.example_url;
@@ -436,19 +425,17 @@ class PrefRuleEditor {
     this.rule.specify_url_by_regexp = (document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked;
     let self = this;
     // set UUIDs
-    if (CustomBlockerUtil.isEmpty(this.rule.user_identifier))
-    {
+    if (CustomBlockerUtil.isEmpty(this.rule.user_identifier)) {
       this.rule.user_identifier = UUID.generate();
     }
-    if (CustomBlockerUtil.isEmpty(this.rule.global_identifier))
-    {
+    if (CustomBlockerUtil.isEmpty(this.rule.global_identifier)) {
       this.rule.global_identifier = UUID.generate();
     }
-    RulePeer.getInstance().saveObject(this.rule, function () {
+    this.rule.save(function () {
       hideEmptyAlert();
       self.showMessage(chrome.i18n.getMessage('saveDone'));
       reloadBackground();
-    }, function(){/* onFail */});
+    });
   }
   
   getWordElement (word: Word) : HTMLElement
@@ -476,18 +463,16 @@ class PrefRuleEditor {
   }
   getDeleteWordAction (word:Word, span:HTMLElement) {
     let self = this;
-    return function () 
-    {
+    return function () {
       span.parentNode.removeChild(span);
-      WordPeer.getInstance().deleteObject(word, function(){}, function(){});
+      self.rule.removeWord(word);
+      self.rule.save(null);
     }
   }
   getAddWordByEnterAction () {
     let self = this;
-    return function (event) 
-    {
-      if (13==event.keyCode) 
-      {
+    return function (event) {
+      if (13==event.keyCode) {
         self.saveWord();
       }
     }
@@ -495,8 +480,7 @@ class PrefRuleEditor {
   
   getAddWordAction () {
     let self = this;
-    return function () 
-    {
+    return function () {
       self.saveWord();
     }
   }
@@ -519,15 +503,11 @@ class PrefRuleEditor {
     word.is_include_href = 
       (document.getElementById('rule_editor_keyword_include_href_checkbox') as HTMLInputElement).checked;
     word.rule_id = self.rule.rule_id;
-    WordPeer.getInstance().saveObject(word, function () 
-    {
-      self.rule.words.push(word);
+    self.rule.addWord(word);
+    self.rule.save(function(){
       document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
       (document.getElementById('rule_editor_keyword') as HTMLInputElement).value = '';
-    }, 
-    function () {
-      alert("save failed")
-      });
+    });
   }
 }
 

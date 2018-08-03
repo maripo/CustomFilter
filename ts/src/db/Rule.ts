@@ -1,8 +1,8 @@
 /**
  * Peer
  */
-class RulePeer extends DbPeer {
-	private static instance:RulePeer;
+class LegacyRulePeer extends DbPeer {
+	private static instance:LegacyRulePeer;
 	constructor () {
 		super();
 		this.tableName = 'rule';
@@ -38,10 +38,10 @@ class RulePeer extends DbPeer {
 		this.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
 	}
 	public static getInstance () : DbPeer {
-		if (!RulePeer.instance) {
-			RulePeer.instance =  new RulePeer();
+		if (!LegacyRulePeer.instance) {
+			LegacyRulePeer.instance =  new LegacyRulePeer();
 		}
-		return RulePeer.instance;
+		return LegacyRulePeer.instance;
 	}
 	createObject() : DbObject {
 		let rule = new LegacyRule();
@@ -57,7 +57,7 @@ class RulePeer extends DbPeer {
 			let count = '' + rules.length;
 			Analytics.trackEvent('loadRuleList', count);
 			// Add words to parent rules
-			WordPeer.getInstance().select('', function (words:LegacyWord[]): void {
+			LegacyWordPeer.getInstance().select('', function (words:LegacyWord[]): void {
 				var count = '' + words.length;
 				Analytics.trackEvent('loadWordList', count);
 				let ruleMap = new Array();

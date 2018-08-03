@@ -26,7 +26,7 @@ var RuleExecutor = (function () {
                 console.log(e);
             }
         }
-        window.bgProcessor.sendRequest('setApplied', { list: rules }, 'badge');
+        window.bgCommunicator.sendRequest('setApplied', { list: rules }, 'badge');
         if (rules.length > 0) {
             RuleExecutor.startBlocking();
         }
@@ -113,7 +113,7 @@ var RuleExecutor = (function () {
         }
     };
     RuleExecutor.reloadRules = function () {
-        window.bgProcessor.sendRequest('reload', {}, 'reload');
+        window.bgCommunicator.sendRequest('reload', {}, 'reload');
     };
     RuleExecutor.applyRule = function (rule, ignoreHidden, onHide, isTesting) {
         var needRefreshBadge = false;
@@ -193,7 +193,7 @@ var RuleExecutor = (function () {
             node.containsNgWord = false;
         }
         if (needRefreshBadge && RuleExecutor.blockedCount > 0) {
-            window.bgProcessor.sendRequest('badge', { rules: rules, count: RuleExecutor.blockedCount }, 'badge');
+            window.bgCommunicator.sendRequest('badge', { rules: rules, count: RuleExecutor.blockedCount }, 'badge');
         }
     };
     RuleExecutor.findFlaggedChild = function (hideNode, list) {

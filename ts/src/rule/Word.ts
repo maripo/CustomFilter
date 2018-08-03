@@ -29,7 +29,7 @@ class Word {
 	static JSON_FLAG_COMPLETE_MATCHING: number;
 	static JSON_FLAG_CASE_SENSITIVE: number;
 	static JSON_FLAG_INCLUDE_HREF: number;
-	toJSON () : any {
+	toSyncJSON () : any {
 		let flags = [] as [number];
 		if (this.is_regexp) { flags.push(Word.JSON_FLAG_REGEXP); }
 		if (this.is_complete_matching) { flags.push(Word.JSON_FLAG_COMPLETE_MATCHING); }

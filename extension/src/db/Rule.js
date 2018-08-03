@@ -8,9 +8,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var RulePeer = (function (_super) {
-    __extends(RulePeer, _super);
-    function RulePeer() {
+var LegacyRulePeer = (function (_super) {
+    __extends(LegacyRulePeer, _super);
+    function LegacyRulePeer() {
         var _this = _super.call(this) || this;
         _this.tableName = 'rule';
         _this.addColumn('rule_id', DbColumn.TYPE_PKEY, 1.0, null);
@@ -36,24 +36,24 @@ var RulePeer = (function (_super) {
         _this.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
         return _this;
     }
-    RulePeer.getInstance = function () {
-        if (!RulePeer.instance) {
-            RulePeer.instance = new RulePeer();
+    LegacyRulePeer.getInstance = function () {
+        if (!LegacyRulePeer.instance) {
+            LegacyRulePeer.instance = new LegacyRulePeer();
         }
-        return RulePeer.instance;
+        return LegacyRulePeer.instance;
     };
-    RulePeer.prototype.createObject = function () {
+    LegacyRulePeer.prototype.createObject = function () {
         var rule = new LegacyRule();
         rule.search_block_by_css = true;
         rule.hide_block_by_css = true;
         return rule;
     };
-    RulePeer.prototype.loadAll = function (callback) {
+    LegacyRulePeer.prototype.loadAll = function (callback) {
         var scope = this;
         this.select('', function (rules) {
             var count = '' + rules.length;
             Analytics.trackEvent('loadRuleList', count);
-            WordPeer.getInstance().select('', function (words) {
+            LegacyWordPeer.getInstance().select('', function (words) {
                 var count = '' + words.length;
                 Analytics.trackEvent('loadWordList', count);
                 var ruleMap = new Array();
@@ -70,7 +70,7 @@ var RulePeer = (function (_super) {
             }, null);
         }, null);
     };
-    return RulePeer;
+    return LegacyRulePeer;
 }(DbPeer));
 var LegacyRule = (function (_super) {
     __extends(LegacyRule, _super);

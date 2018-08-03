@@ -1,8 +1,8 @@
 /**
  * Peer
  */
-class WordPeer extends DbPeer {
-	static instance:WordPeer;
+class LegacyWordPeer extends DbPeer {
+	static instance:LegacyWordPeer;
 	private constructor () {
 		super();
 		this.tableName = 'word';
@@ -19,10 +19,10 @@ class WordPeer extends DbPeer {
 		this.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
 	}
 	public static getInstance () : DbPeer {
-		if (!WordPeer.instance) {
-      WordPeer.instance = new WordPeer();
+		if (!LegacyWordPeer.instance) {
+      LegacyWordPeer.instance = new LegacyWordPeer();
 		}
-		return WordPeer.instance;
+		return LegacyWordPeer.instance;
 	}
 	createObject () : DbObject {
 		return new LegacyWord();

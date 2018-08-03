@@ -8,9 +8,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var WordPeer = (function (_super) {
-    __extends(WordPeer, _super);
-    function WordPeer() {
+var LegacyWordPeer = (function (_super) {
+    __extends(LegacyWordPeer, _super);
+    function LegacyWordPeer() {
         var _this = _super.call(this) || this;
         _this.tableName = 'word';
         _this.addColumn('word_id', DbColumn.TYPE_PKEY, 1.0, null);
@@ -22,16 +22,16 @@ var WordPeer = (function (_super) {
         _this.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
         return _this;
     }
-    WordPeer.getInstance = function () {
-        if (!WordPeer.instance) {
-            WordPeer.instance = new WordPeer();
+    LegacyWordPeer.getInstance = function () {
+        if (!LegacyWordPeer.instance) {
+            LegacyWordPeer.instance = new LegacyWordPeer();
         }
-        return WordPeer.instance;
+        return LegacyWordPeer.instance;
     };
-    WordPeer.prototype.createObject = function () {
+    LegacyWordPeer.prototype.createObject = function () {
         return new LegacyWord();
     };
-    return WordPeer;
+    return LegacyWordPeer;
 }(DbPeer));
 var LegacyWord = (function (_super) {
     __extends(LegacyWord, _super);

@@ -14,26 +14,6 @@ function removeFromExistingTabList(tabIdToRemove) {
 function addToExistingTabList(tabIdToAdd) {
     existingTabs[tabIdToAdd] = true;
 }
-function saveUuidIfNotSet() {
-    for (var i = 0; i < ruleList.length; i++) {
-        var rule = ruleList[i];
-        var needSave = false;
-        if (CustomBlockerUtil.isEmpty(rule.user_identifier)) {
-            needSave = true;
-            rule.user_identifier = UUID.generate();
-        }
-        if (CustomBlockerUtil.isEmpty(rule.global_identifier)) {
-            needSave = true;
-            rule.global_identifier = UUID.generate();
-        }
-        if (needSave) {
-            RulePeer.getInstance().saveObject(rule, function (obj) {
-                var bgWindow = chrome.extension.getBackgroundPage();
-                bgWindow.reloadLists();
-            }, function () { });
-        }
-    }
-}
 function reloadLists() {
     loadLists();
 }
@@ -42,10 +22,12 @@ function openRulePicker(selectedRule) {
     Analytics.trackEvent('openRulePicker', status);
     try {
         chrome.tabs.getSelected(null, function (tab) {
+            var tabInfo = tabMap[tab.id];
+            var appliedRules = (tabInfo) ? tabInfo.appliedRules : [];
             chrome.tabs.sendRequest(tab.id, {
                 command: 'ruleEditor',
                 rule: selectedRule,
-                appliedRuleList: appliedRuleMap[tab.id]
+                appliedRuleList: appliedRules
             }, getForegroundCallback(tab.id));
         });
     }
@@ -58,6 +40,77 @@ chrome.extension.onRequest.addListener(function (request, sender) {
         tabOnUpdate(sender.tab.id, null, sender.tab);
     }
 });
+var CustomBlockerTab = (function () {
+    function CustomBlockerTab(tabId, tab) {
+        this.tabId = tab.id;
+        this.url = tab.url;
+        this.appliedRules = [];
+        this.port = chrome.tabs.connect(tabId, {});
+        var self = this;
+        this.port.onMessage.addListener(function (msg) {
+            self.onMessage(msg);
+        });
+    }
+    CustomBlockerTab.prototype.execCallbackReload = function (param) {
+        this.port.postMessage({ rules: ruleList });
+    };
+    CustomBlockerTab.prototype.execCallbackDb = function (param) {
+        console.log("TODO execCallbackDb");
+    };
+    CustomBlockerTab.prototype.execCallbackSetApplied = function (param) {
+        this.appliedRules = param.list;
+        try {
+            chrome.browserAction.setIcon({
+                path: ((this.appliedRules.length > 0) ? 'icon.png' : 'icon_disabled.png'),
+                tabId: this.tabId
+            });
+        }
+        catch (ex) {
+            console.log(ex);
+        }
+    };
+    CustomBlockerTab.prototype.execCallbackBadge = function (param) {
+        var count = param.count;
+        try {
+            var badgeText = '' + count;
+            tabBadgeMap[this.tabId] = badgeText;
+            if (localStorage.badgeDisabled != "true") {
+                chrome.browserAction.setBadgeText({
+                    text: badgeText,
+                    tabId: this.tabId
+                });
+            }
+            chrome.browserAction.setTitle({
+                title: getBadgeTooltipString(count),
+                tabId: this.tabId
+            });
+            this.appliedRules = param.rules;
+        }
+        catch (ex) {
+            console.log(ex);
+        }
+    };
+    CustomBlockerTab.prototype.onMessage = function (message) {
+        console.log("onMessage");
+        console.log(message);
+        switch (message.command) {
+            case 'badge':
+                this.execCallbackBadge(message.param);
+                break;
+            case 'setApplied':
+                this.execCallbackSetApplied(message.param);
+                break;
+            case 'db':
+                this.execCallbackDb(message.param);
+                break;
+            case 'reload':
+                this.execCallbackReload(message.param);
+                break;
+        }
+    };
+    return CustomBlockerTab;
+}());
+var tabMap = {};
 var tabOnUpdate = function (tabId, changeInfo, tab) {
     addToExistingTabList(tabId);
     var isDisabled = ('true' == localStorage.blockDisabled);
@@ -67,6 +120,7 @@ var tabOnUpdate = function (tabId, changeInfo, tab) {
     }
     var url = tab.url;
     if (isValidURL(url)) {
+        tabMap[tabId] = new CustomBlockerTab(tabId, tab);
         chrome.tabs.sendRequest(tabId, {
             command: 'init',
             rules: ruleList,
@@ -80,33 +134,35 @@ function isValidURL(url) {
 }
 function getForegroundCallback(tabId) {
     return function (param) {
-        if (!param)
-            return;
-        var useCallback = false;
-        switch (param.command) {
-            case 'badge':
-                execCallbackBadge(tabId, param);
-                break;
-            case 'setApplied':
-                execCallbackSetApplied(tabId, param);
-                break;
-            case 'db':
-                useCallback = true;
-                execCallbackDb(tabId, param);
-                break;
-            case 'reload':
-                useCallback = true;
-                execCallbackReload(tabId, param);
-                break;
-        }
-        if (!useCallback) {
-            chrome.tabs.sendRequest(tabId, {
-                command: (param.nextAction || 'badge')
-            }, getForegroundCallback(tabId));
-        }
     };
 }
 ;
+function handleForegroundMessage(tabId, param) {
+    console.log("Foreground message received.");
+    console.log(param);
+    if (!param)
+        return;
+    var useCallback = false;
+    switch (param.command) {
+        case 'badge':
+            break;
+        case 'setApplied':
+            break;
+        case 'db':
+            useCallback = true;
+            execCallbackDb(tabId, param);
+            break;
+        case 'reload':
+            useCallback = true;
+            execCallbackReload(tabId, param);
+            break;
+    }
+    if (!useCallback) {
+        chrome.tabs.sendRequest(tabId, {
+            command: (param.nextAction || 'badge')
+        }, getForegroundCallback(tabId));
+    }
+}
 function execCallbackReload(tabId, param) {
     chrome.tabs.sendRequest(tabId, {
         command: (param.nextAction),
@@ -118,12 +174,9 @@ function execCallbackDb(tabId, param) {
         var exPeer;
         if ('save' == param.dbCommand) {
             console.log("WARNING:execCallbackDb.save called.");
-            if (0 < 1) {
-                return;
-            }
             Analytics.trackEvent('save', 'save');
             var rule_1 = param.obj;
-            var saveRuleTask = new SaveRuleTask(rule_1, function () {
+            rule_1.save(function () {
                 chrome.tabs.sendRequest(tabId, {
                     command: param.nextAction,
                     rules: ruleList,
@@ -132,57 +185,17 @@ function execCallbackDb(tabId, param) {
                 }, getForegroundCallback(tabId));
                 reloadLists();
             });
-            saveRuleTask.exec();
         }
     }
     catch (e) {
         console.log(e);
     }
 }
-function execCallbackSetApplied(tabId, param) {
-    var list = param.list || new Array();
-    try {
-        chrome.browserAction.setIcon({
-            path: ((list.length > 0) ? 'icon.png' : 'icon_disabled.png'),
-            tabId: tabId
-        });
-    }
-    catch (ex) {
-        console.log(ex);
-    }
-    appliedRuleMap[tabId] = list;
-}
-;
-function execCallbackBadge(tabId, param) {
-    console.log("execCallbackBadge param=");
-    console.log(param);
-    var count = param.count;
-    try {
-        chrome.tabs.sendRequest(tabId, {
-            command: (param.nextAction)
-        }, getForegroundCallback(tabId));
-        var badgeText = '' + count;
-        tabBadgeMap[tabId] = badgeText;
-        if (localStorage.badgeDisabled != "true") {
-            chrome.browserAction.setBadgeText({
-                text: badgeText,
-                tabId: tabId
-            });
-        }
-        chrome.browserAction.setTitle({
-            title: getBadgeTooltipString(count),
-            tabId: tabId
-        });
-        appliedRuleMap[tabId] = param.rules;
-    }
-    catch (ex) {
-        console.log(ex);
-    }
-}
 function getAppliedRules(callback) {
     chrome.tabs.getSelected(null, function (tab) {
         try {
-            callback(appliedRuleMap[tab.id]);
+            var appliedRules = (tabMap[tab.id]) ? tabMap[tab.id].appliedRules : [];
+            callback(appliedRules);
         }
         catch (ex) {
             console.log(ex);
@@ -202,11 +215,10 @@ function loadSmartRuleEditorSrc() {
     xhr.open("GET", chrome.extension.getURL('/smart_rule_editor_' + chrome.i18n.getMessage("extLocale") + '.html'), true);
     xhr.send();
 }
-var appliedRuleMap = new Array();
 {
     chrome.tabs.onRemoved.addListener(function (tabId, removeInfo) {
         removeFromExistingTabList(tabId);
-        appliedRuleMap[tabId] = null;
+        tabMap[tabId] = null;
     });
     chrome.tabs.onSelectionChanged.addListener(function (_tabId, selectInfo) {
         var tabId = _tabId;
@@ -222,8 +234,8 @@ var appliedRuleMap = new Array();
             if ('true' == localStorage.blockDisabled)
                 _setIconDisabled(!applied, tabId);
             else {
-                var applied = appliedRuleMap[tabId]
-                    && appliedRuleMap[tabId].length > 0;
+                var appliedRules = (tabMap[tabId]) ? tabMap[tabId].appliedRules : [];
+                var applied = appliedRules.length > 0;
                 chrome.browserAction.setIcon({
                     path: (applied) ? 'icon.png' : 'icon_disabled.png',
                     tabId: tabId
@@ -288,10 +300,11 @@ function menuAddOnRightClick(clicked, tab) {
 }
 ;
 function sendQuickRuleCreationRequest(clicked, tab, needSuggestion) {
+    var appliedRules = (tabMap[tab.id]) ? tabMap[tab.id].appliedRules : [];
     chrome.tabs.sendRequest(tab.id, {
         command: 'quickRuleCreation',
         src: smartRuleEditorSrc,
-        appliedRuleList: appliedRuleMap[tab.id],
+        appliedRuleList: appliedRules,
         selectionText: clicked.selectionText,
         needSuggestion: needSuggestion
     }, getForegroundCallback(tab.id));

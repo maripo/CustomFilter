@@ -111,7 +111,7 @@ var RuleEditor = (function () {
                 break;
             }
             case "customblocker_save_rule": {
-                window.bgProcessor.sendRequest('db', { dbCommand: 'save', type: 'rule', obj: data.rule }, 'ruleSaveDoneRuleEditor');
+                window.bgCommunicator.sendRequest('db', { dbCommand: 'save', type: 'rule', obj: data.rule }, 'ruleSaveDoneRuleEditor');
                 break;
             }
             case "customblocker_test_rule": {

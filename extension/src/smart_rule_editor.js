@@ -246,7 +246,7 @@ var SmartRuleCreatorDialog = (function () {
         var _searchNodes = this.rule.searchNodes;
         this.rule.hideNodes = null;
         this.rule.searchNodes = null;
-        window.bgProcessor.sendRequest('db', { dbCommand: 'save', type: 'rule', obj: this.rule }, 'ruleSaveDoneRuleSmart');
+        window.bgCommunicator.sendRequest('db', { dbCommand: 'save', type: 'rule', obj: this.rule }, 'ruleSaveDoneRuleSmart');
         this.rule.hideNodes = _hideNodes;
         this.rule.searchNodes = _searchNodes;
     };

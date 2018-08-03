@@ -125,10 +125,10 @@ var Popup = (function () {
                 if (CustomBlockerUtil.isEmpty(rule.global_identifier)) {
                     rule.global_identifier = UUID.generate();
                 }
-                RulePeer.getInstance().saveObject(rule, function () {
+                rule.save(function () {
                     var bgWindow = chrome.extension.getBackgroundPage();
                     bgWindow.reloadLists();
-                }, function () { });
+                });
             }
             catch (ex) {
                 document.write(ex);

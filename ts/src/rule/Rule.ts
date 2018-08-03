@@ -48,6 +48,12 @@ class Rule {
  	public addWord (word:Word) {
 		this.words.push(word);	
 	}
+	public removeWord (word:Word) {
+		let wordIndex = this.words.indexOf(word);
+		if (wordIndex >= 0) {
+		  this.words.splice(wordIndex, 1);
+		}
+	}
 	
 	constructor () {
 	}
@@ -91,7 +97,7 @@ class Rule {
 		// TODO Generate JSON
 		// TODO Save / Load
 		let key = this.getJSONKey ();
-		let json = this.toJSON();
+		let json = this.toSyncJSON();
 		console.log("Key=" + key);
 		console.log(JSON.stringify(json));
 		
@@ -103,6 +109,30 @@ class Rule {
 		
 		
 		// TODO JSON size
+	}
+	
+	save (callback:()=>void) {
+		// TODO implement.
+		console.log("Rule save stub called.");
+		if (CustomBlockerUtil.isEmpty(this.global_identifier)) {
+			this.global_identifier = UUID.generate();
+		}
+		let obj = {};
+		obj[this.getJSONKey()] = this.toSyncJSON();
+		chrome.storage.sync.set(obj, function() {
+			console.log("Saved rule.");
+			if (callback) {
+				callback();
+			}
+		});
+	}
+	
+	delete (callback:()=>void) {
+		// TODO implement.
+		console.log("Rule delete stub called.");
+		if (callback) {
+			callback();
+		}
 	}
 	
 	// load / update locally
@@ -132,7 +162,7 @@ class Rule {
 		return "R-" + this.global_identifier;
 	}
 	
-	toJSON (): object {
+	toSyncJSON (): object {
 		let obj = {};
 		for (let prop of Rule.JSON_RULE_CONVERSION_RULE) {
 			obj[prop[1]] = (this as object)[prop[0]];
@@ -140,7 +170,7 @@ class Rule {
 		obj["w"] = []; // Words
 		obj["wg"] = []; // Word group
 		for (let word of this.words) {
-			obj["w"].push(word.toJSON());
+			obj["w"].push(word.toSyncJSON());
 		}
 		/*
 		

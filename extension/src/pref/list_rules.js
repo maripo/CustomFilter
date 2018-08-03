@@ -217,14 +217,7 @@ var RuleContainer = (function () {
             rule.is_disabled = !rule.is_disabled;
             inputButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
             inputButton.className = (rule.is_disabled) ? 'uiButton buttonOff' : 'uiButton buttonOn';
-            if (CustomBlockerUtil.isEmpty(rule.user_identifier)) {
-                rule.user_identifier = UUID.generate();
-            }
-            if (CustomBlockerUtil.isEmpty(rule.global_identifier)) {
-                rule.global_identifier = UUID.generate();
-            }
-            RulePeer.getInstance().saveObject(rule, function () { }, function () { });
-            reloadBackground();
+            rule.save(function () { reloadBackground(); });
         };
     };
     RuleContainer.prototype.getSelectAction = function () {
@@ -241,7 +234,7 @@ var RuleContainer = (function () {
         var self = this;
         return function () {
             if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
-                RulePeer.getInstance().deleteObject(self.rule, function () { }, function () { });
+                self.rule.delete(function () { });
                 self.liElement.parentNode.removeChild(self.liElement);
                 removeElement(self);
                 showCount();
@@ -301,7 +294,7 @@ var PrefRuleEditor = (function () {
         console.log("Rule selected: " + rule.title);
         this.rule = rule;
         document.getElementById('rule_editor_keywords').innerHTML = '';
-        if (rule.rule_id && rule.rule_id > 0) {
+        if (rule) {
             document.getElementById('rule_editor_title').value = rule.title;
             document.getElementById('rule_editor_site_regexp').value = rule.site_regexp;
             document.getElementById('rule_editor_example_url').value = rule.example_url;
@@ -363,11 +356,11 @@ var PrefRuleEditor = (function () {
         if (CustomBlockerUtil.isEmpty(this.rule.global_identifier)) {
             this.rule.global_identifier = UUID.generate();
         }
-        RulePeer.getInstance().saveObject(this.rule, function () {
+        this.rule.save(function () {
             hideEmptyAlert();
             self.showMessage(chrome.i18n.getMessage('saveDone'));
             reloadBackground();
-        }, function () { });
+        });
     };
     PrefRuleEditor.prototype.getWordElement = function (word) {
         var span = document.createElement('SPAN');
@@ -393,7 +386,8 @@ var PrefRuleEditor = (function () {
         var self = this;
         return function () {
             span.parentNode.removeChild(span);
-            WordPeer.getInstance().deleteObject(word, function () { }, function () { });
+            self.rule.removeWord(word);
+            self.rule.save(null);
         };
     };
     PrefRuleEditor.prototype.getAddWordByEnterAction = function () {
@@ -427,12 +421,10 @@ var PrefRuleEditor = (function () {
         word.is_include_href =
             document.getElementById('rule_editor_keyword_include_href_checkbox').checked;
         word.rule_id = self.rule.rule_id;
-        WordPeer.getInstance().saveObject(word, function () {
-            self.rule.words.push(word);
+        self.rule.addWord(word);
+        self.rule.save(function () {
             document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
             document.getElementById('rule_editor_keyword').value = '';
-        }, function () {
-            alert("save failed");
         });
     };
     return PrefRuleEditor;

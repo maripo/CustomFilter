@@ -14,15 +14,13 @@ class RuleExecutor {
 				var regex;
 				if (rule.specify_url_by_regexp)  {
 					regex = new RegExp(rule.site_regexp, 'i');
-				}
-				else {
+				} else {
 					regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(rule.site_regexp), 'i');
 				}
 				if (regex.test(location.href))  {
 					//console.info("Rule is applied." + location.href + "<=>" + rule.site_regexp);
 					rules.push(rule);
-				}
-				else {
+				} else {
 					console.info("Rule is NOT applied." + location.href + "<=>" + rule.site_regexp);
 				}
 			} 
@@ -30,7 +28,7 @@ class RuleExecutor {
 				console.log(e);
 			}
 		}
-		window.bgProcessor.sendRequest('setApplied', {list:rules}, 'badge');
+		window.bgCommunicator.sendRequest('setApplied', {list:rules}, 'badge');
 		if (rules.length > 0) {
 			RuleExecutor.startBlocking();
 		}
@@ -117,7 +115,7 @@ class RuleExecutor {
 		}
 	}
 	static reloadRules ():void {
-		window.bgProcessor.sendRequest(
+		window.bgCommunicator.sendRequest(
 			'reload', 
 			{}, 
 			'reload'
@@ -204,9 +202,9 @@ class RuleExecutor {
 			node.containsNgWord = false;
 		}
 		if (needRefreshBadge && RuleExecutor.blockedCount > 0) {
-			window.bgProcessor.sendRequest(
+			window.bgCommunicator.sendRequest(
 				'badge', 
-				{rules:rules, count: RuleExecutor.blockedCount}, 
+				{ rules:rules, count: RuleExecutor.blockedCount }, 
 				'badge'
 			);
 		}	

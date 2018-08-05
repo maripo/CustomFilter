@@ -1,4 +1,4 @@
-// TODOmove
+// TODO move
 var selectedNode = null;
 var origStyle = null;
 var origHref = null;
@@ -23,7 +23,13 @@ class RuleEditor {
 	pathPickerEventHandlers:PathPickerHandlerSet[];
 	initialize (rule:Rule, appliedRuleList:Rule[]) {
 		this.pathPickerEventHandlers = new Array(0);
-		this.rule = (rule)?rule:Rule.createInstance(location.href, document.title);
+		this.rule = rule;
+		if (!this.rule) {
+			this.rule = cbStorage.createRule();
+			this.rule.title = document.title;
+			this.rule.site_regexp = location.href;
+			this.rule.example_url = location.href;
+		}
 		this.appliedRuleList = appliedRuleList;
 		this.maxZIndex = 0;
 		
@@ -110,7 +116,10 @@ class RuleEditor {
 			break;
 		}
 		case "customblocker_save_rule": {
-			window.bgCommunicator.sendRequest('db', {dbCommand:'save', type:'rule', obj: data.rule}, 'ruleSaveDoneRuleEditor');
+			
+			console.log("customblocker_save_rule");
+			console.log(data.rule.toSyncJSON());
+			//window.bgCommunicator.sendRequest('db', {dbCommand:'save', type:'rule', obj: data.rule}, 'ruleSaveDoneRuleEditor');
 			break;
 		}
 		case "customblocker_test_rule": {

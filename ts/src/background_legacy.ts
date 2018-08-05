@@ -8,7 +8,7 @@ function createRuleTable (): void {
 }
 
 function loadLists (): void {
-	CustomBlockerStorage.getInstance().loadAll (
+	cbStorage.loadAll (
 		function (rules:[Rule]) {
 			ruleList = rules;
 			loadSmartRuleEditorSrc();
@@ -25,9 +25,10 @@ function syncAll (rulesToSync: [Rule], callback) {
 			let scope = this;
 			let rule = rulesToSync.pop();
 			let obj = {};
-			let json = rule.toSyncJSON();
+			let storage = cbStorage;
+			let json = storage.convertRuleToJSON(rule);
 			json["sql"] = true;
-			obj[rule.getJSONKey()] = json;
+			obj[storage.getRuleJSONKey(rule)] = json;
 			chrome.storage.sync.set(obj, function(){
 				scope.syncAll(rulesToSync, callback);
 			});

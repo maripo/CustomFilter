@@ -181,7 +181,7 @@ class LegacyRulePeer extends DbPeer {
 	getRule () : Rule {
 		if (!this.rule) {
 			// Just copy properties
-			this.rule =  new Rule();
+			this.rule =  cbStorage.createRule();
 			this.rule.hideNodes = this.hideNodes;
 			this.rule.searchNodes = this.searchNodes;
 			this.rule.hiddenCount = this.hiddenCount;

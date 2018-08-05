@@ -131,7 +131,7 @@ var LegacyRule = (function (_super) {
     };
     LegacyRule.prototype.getRule = function () {
         if (!this.rule) {
-            this.rule = new Rule();
+            this.rule = cbStorage.createRule();
             this.rule.hideNodes = this.hideNodes;
             this.rule.searchNodes = this.searchNodes;
             this.rule.hiddenCount = this.hiddenCount;

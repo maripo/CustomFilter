@@ -40,7 +40,7 @@ var LegacyWord = (function (_super) {
     }
     LegacyWord.prototype.getWord = function () {
         if (!this.newWord) {
-            this.newWord = new Word();
+            this.newWord = cbStorage.createWord();
             this.newWord.word_id = this.word_id;
             this.newWord.rule_id = this.rule_id;
             this.newWord.word = this.word;

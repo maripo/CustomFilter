@@ -138,7 +138,7 @@ var RuleEditorFrame = (function () {
         this.resize();
     };
     RuleEditorFrame.prototype.validateInput = function () {
-        return Rule.validate({
+        return cbStorage.validateRule({
             title: this.title.value,
             site_regexp: this.site_regexp.value,
             example_url: this.example_url.value,
@@ -201,7 +201,7 @@ var RuleEditorFrame = (function () {
         console.log("addWord word=" + wordStr);
         if (!wordStr || '' == wordStr)
             return;
-        var word = new Word();
+        var word = cbStorage.createWord();
         word.word = wordStr;
         word.isNew = true;
         word.is_regexp =

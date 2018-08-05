@@ -251,7 +251,7 @@ var SmartRuleCreatorDialog = (function () {
         this.rule.searchNodes = _searchNodes;
     };
     SmartRuleCreatorDialog.prototype.validate = function () {
-        return Rule.validate({
+        return cbStorage.validateRule({
             title: this.input_title.value,
             site_regexp: this.input_url.value,
             example_url: this.input_example_url.value,
@@ -437,7 +437,10 @@ var SmartRuleCreatorDialog = (function () {
         };
     };
     SmartRuleCreatorDialog.prototype.createRuleByPath = function (path) {
-        var rule = Rule.createInstance(location.href, document.title);
+        var rule = cbStorage.createRule();
+        rule.title = document.title;
+        rule.site_regexp = location.href;
+        rule.example_url = location.href;
         rule.search_block_by_css = true;
         rule.hide_block_by_css = true;
         rule.title = path.title;
@@ -498,7 +501,7 @@ var SmartRuleCreatorDialog = (function () {
     SmartRuleCreatorDialog.prototype.addWord = function (wordStr) {
         if (!wordStr || '' == wordStr)
             return;
-        var word = new Word();
+        var word = cbStorage.createWord();
         word.word = wordStr;
         word.isNew = true;
         word.is_regexp = document.getElementById('smart_rule_editor_keyword_regexp').checked;

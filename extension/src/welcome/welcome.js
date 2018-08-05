@@ -7,7 +7,7 @@ var Welcome = (function () {
         document.getElementById("buttonUse").addEventListener('click', Welcome.useChecked, false);
         document.getElementById("checkAll").checked = true;
         document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
-        CustomBlockerStorage.getInstance().loadAll(function (rules) {
+        cbStorage.loadAll(function (rules) {
             for (var ruleIndex = 0; ruleIndex < rules.length; ruleIndex++) {
                 Welcome.disableDuplicateRules(rules[ruleIndex]);
             }
@@ -71,7 +71,7 @@ var Welcome = (function () {
             }
         }
         for (var i = 0; i < rulesToUse.length; i++) {
-            rulesToUse[i].rule.save(null);
+            cbStorage.saveRule(rulesToUse[i].rule, null);
         }
         try {
             var bgWindow = chrome.extension.getBackgroundPage();

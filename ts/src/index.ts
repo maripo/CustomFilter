@@ -140,7 +140,7 @@ class Popup {
 				if (CustomBlockerUtil.isEmpty(rule.global_identifier)) {
 					rule.global_identifier = UUID.generate();
 				}
-				rule.save(function () {
+				cbStorage.saveRule(rule, function () {
 					let bgWindow = chrome.extension.getBackgroundPage();
 					bgWindow.reloadLists();
 				});

@@ -7,7 +7,7 @@ class Welcome {
 		(document.getElementById("checkAll") as HTMLInputElement).checked = true;
 		document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
 		
-		CustomBlockerStorage.getInstance().loadAll (
+		cbStorage.loadAll (
 			function (rules:[Rule]) {
 				for (let ruleIndex = 0; ruleIndex<rules.length; ruleIndex++) {
 					Welcome.disableDuplicateRules(rules[ruleIndex]);
@@ -75,7 +75,7 @@ class Welcome {
 			}
 		}
 		for (let i=0; i<rulesToUse.length; i++) {
-			rulesToUse[i].rule.save(null);
+			cbStorage.saveRule(rulesToUse[i].rule, null);
 		}
 		// Reload imported rules
 		try {

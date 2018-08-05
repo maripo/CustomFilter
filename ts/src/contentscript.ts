@@ -54,7 +54,7 @@ class BackgroundCommunicator {
 		}
 	}
 	execInit (request) {
-		CustomBlockerStorage.getInstance().loadAll(function(allRules:[Rule]){
+		cbStorage.loadAll(function(allRules:[Rule]){
 			if (window.customBlockerInitDone) return;
 			window.customBlockerInitDone = true;
 			rules = new Array();

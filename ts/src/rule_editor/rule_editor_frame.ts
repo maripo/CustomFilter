@@ -182,7 +182,7 @@ class RuleEditorFrame {
 		this.resize();
 	}
 	validateInput () {
-		return Rule.validate({
+		return cbStorage.validateRule({
 			title : this.title.value,
 			site_regexp : this.site_regexp.value,
 			example_url : this.example_url.value,
@@ -244,7 +244,7 @@ class RuleEditorFrame {
 		let wordStr = (document.getElementById('rule_editor_keyword') as HTMLInputElement).value;
 		console.log("addWord word=" + wordStr);
 		if (!wordStr || ''==wordStr) return; //Empty
-		let word = new Word();
+		let word = cbStorage.createWord();
 		
 		word.word = wordStr;
 		word.isNew = true;

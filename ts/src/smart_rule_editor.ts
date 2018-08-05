@@ -335,7 +335,7 @@ class SmartRuleCreatorDialog {
 		this.rule.searchNodes = _searchNodes;
 	}
 	validate (): string[] {
-		return Rule.validate({
+		return cbStorage.validateRule({
 			title : this.input_title.value,
 			site_regexp : this.input_url.value,
 			example_url : this.input_example_url.value,
@@ -550,7 +550,10 @@ class SmartRuleCreatorDialog {
 		}	
 	}
 	createRuleByPath (path:SmartPath):Rule {
-		var rule = Rule.createInstance(location.href, document.title);
+		let rule = cbStorage.createRule();
+		rule.title = document.title;
+		rule.site_regexp = location.href;
+		rule.example_url = location.href;
 		rule.search_block_by_css = true;
 		rule.hide_block_by_css = true;
 		rule.title = path.title;
@@ -617,8 +620,7 @@ class SmartRuleCreatorDialog {
 	}
 	addWord (wordStr:string): void {
 		if (!wordStr || ''==wordStr) return; //Empty
-		let word = new Word();
-		
+		let word = cbStorage.createWord();
 		word.word = wordStr;
 		word.isNew = true;
 		word.is_regexp = (<HTMLInputElement>document.getElementById('smart_rule_editor_keyword_regexp')).checked;

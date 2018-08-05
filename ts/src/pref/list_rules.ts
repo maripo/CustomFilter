@@ -28,7 +28,7 @@ function onStart () {
 	
 	ruleEditor = new PrefRuleEditor();
 	CustomBlockerUtil.localize();
-	CustomBlockerStorage.getInstance().loadAll (
+	cbStorage.loadAll (
 		function (rules:[Rule]) {
 			if (!rules || rules.length==0) {
 				showEmptyAlert();
@@ -271,7 +271,7 @@ class RuleContainer {
       rule.is_disabled = !rule.is_disabled;
       inputButton.value = (rule.is_disabled)?'OFF':'ON';
       inputButton.className = (rule.is_disabled)?'uiButton buttonOff':'uiButton buttonOn';
-      rule.save(function(){reloadBackground();});
+      cbStorage.saveRule(rule, function(){reloadBackground();});
     }
   }
   getSelectAction () {
@@ -289,7 +289,7 @@ class RuleContainer {
     let self = this;
     return function () {
       if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
-      		self.rule.delete(function(){});
+      		cbStorage.deleteRule(self.rule, function(){});
         self.liElement.parentNode.removeChild(self.liElement);
         removeElement (self);
         showCount();
@@ -398,7 +398,7 @@ class PrefRuleEditor {
   
   saveRule () {
     //Validation  
-    let validateErrors = Rule.validate({
+    let validateErrors = cbStorage.validateRule({
       title : (document.getElementById('rule_editor_title') as HTMLInputElement).value,
       site_regexp : (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value,
       example_url : (document.getElementById('rule_editor_example_url') as HTMLInputElement).value,
@@ -431,7 +431,7 @@ class PrefRuleEditor {
     if (CustomBlockerUtil.isEmpty(this.rule.global_identifier)) {
       this.rule.global_identifier = UUID.generate();
     }
-    this.rule.save(function () {
+    cbStorage.saveRule(this.rule, function () {
       hideEmptyAlert();
       self.showMessage(chrome.i18n.getMessage('saveDone'));
       reloadBackground();
@@ -465,8 +465,8 @@ class PrefRuleEditor {
     let self = this;
     return function () {
       span.parentNode.removeChild(span);
-      self.rule.removeWord(word);
-      self.rule.save(null);
+      cbStorage.removeWordFromRule(self.rule, word);
+      cbStorage.saveRule(self.rule, null);
     }
   }
   getAddWordByEnterAction () {
@@ -492,7 +492,7 @@ class PrefRuleEditor {
     {
       return;
     }
-    let word = new Word();
+    let word = cbStorage.createWord();
     word.word = str;
     word.is_regexp = 
       (document.getElementById('rule_editor_keyword_regexp_checkbox') as HTMLInputElement).checked;
@@ -503,8 +503,8 @@ class PrefRuleEditor {
     word.is_include_href = 
       (document.getElementById('rule_editor_keyword_include_href_checkbox') as HTMLInputElement).checked;
     word.rule_id = self.rule.rule_id;
-    self.rule.addWord(word);
-    self.rule.save(function(){
+    cbStorage.addWordToRule(self.rule, word);
+    cbStorage.saveRule(self.rule, function(){
       document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
       (document.getElementById('rule_editor_keyword') as HTMLInputElement).value = '';
     });

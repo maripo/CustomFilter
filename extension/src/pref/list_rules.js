@@ -21,7 +21,7 @@ function onStart() {
     }
     ruleEditor = new PrefRuleEditor();
     CustomBlockerUtil.localize();
-    CustomBlockerStorage.getInstance().loadAll(function (rules) {
+    cbStorage.loadAll(function (rules) {
         if (!rules || rules.length == 0) {
             showEmptyAlert();
         }
@@ -217,7 +217,7 @@ var RuleContainer = (function () {
             rule.is_disabled = !rule.is_disabled;
             inputButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
             inputButton.className = (rule.is_disabled) ? 'uiButton buttonOff' : 'uiButton buttonOn';
-            rule.save(function () { reloadBackground(); });
+            cbStorage.saveRule(rule, function () { reloadBackground(); });
         };
     };
     RuleContainer.prototype.getSelectAction = function () {
@@ -234,7 +234,7 @@ var RuleContainer = (function () {
         var self = this;
         return function () {
             if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
-                self.rule.delete(function () { });
+                cbStorage.deleteRule(self.rule, function () { });
                 self.liElement.parentNode.removeChild(self.liElement);
                 removeElement(self);
                 showCount();
@@ -325,7 +325,7 @@ var PrefRuleEditor = (function () {
         this.alertDiv.style.display = 'none';
     };
     PrefRuleEditor.prototype.saveRule = function () {
-        var validateErrors = Rule.validate({
+        var validateErrors = cbStorage.validateRule({
             title: document.getElementById('rule_editor_title').value,
             site_regexp: document.getElementById('rule_editor_site_regexp').value,
             example_url: document.getElementById('rule_editor_example_url').value,
@@ -356,7 +356,7 @@ var PrefRuleEditor = (function () {
         if (CustomBlockerUtil.isEmpty(this.rule.global_identifier)) {
             this.rule.global_identifier = UUID.generate();
         }
-        this.rule.save(function () {
+        cbStorage.saveRule(this.rule, function () {
             hideEmptyAlert();
             self.showMessage(chrome.i18n.getMessage('saveDone'));
             reloadBackground();
@@ -386,8 +386,8 @@ var PrefRuleEditor = (function () {
         var self = this;
         return function () {
             span.parentNode.removeChild(span);
-            self.rule.removeWord(word);
-            self.rule.save(null);
+            cbStorage.removeWordFromRule(self.rule, word);
+            cbStorage.saveRule(self.rule, null);
         };
     };
     PrefRuleEditor.prototype.getAddWordByEnterAction = function () {
@@ -410,7 +410,7 @@ var PrefRuleEditor = (function () {
         if (!str || '' == str) {
             return;
         }
-        var word = new Word();
+        var word = cbStorage.createWord();
         word.word = str;
         word.is_regexp =
             document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
@@ -421,8 +421,8 @@ var PrefRuleEditor = (function () {
         word.is_include_href =
             document.getElementById('rule_editor_keyword_include_href_checkbox').checked;
         word.rule_id = self.rule.rule_id;
-        self.rule.addWord(word);
-        self.rule.save(function () {
+        cbStorage.addWordToRule(self.rule, word);
+        cbStorage.saveRule(self.rule, function () {
             document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
             document.getElementById('rule_editor_keyword').value = '';
         });

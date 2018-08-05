@@ -51,7 +51,7 @@ class LegacyWord extends DbObject {
  	checkedNodes:HTMLElement[];
  	getWord (): Word {
  		if (!this.newWord) {
- 			this.newWord = new Word();
+ 			this.newWord = cbStorage.createWord();
  			this.newWord.word_id = this.word_id;
  			this.newWord.rule_id = this.rule_id;
  			this.newWord.word = this.word;

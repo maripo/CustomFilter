@@ -1,5 +1,5 @@
 /* Group of keywords */
-class WordGroup {
+interface WordGroup {
 	name: string;
 	words: [Word];
 }

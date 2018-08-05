@@ -50,7 +50,7 @@ var BackgroundCommunicator = (function () {
         }
     };
     BackgroundCommunicator.prototype.execInit = function (request) {
-        CustomBlockerStorage.getInstance().loadAll(function (allRules) {
+        cbStorage.loadAll(function (allRules) {
             if (window.customBlockerInitDone)
                 return;
             window.customBlockerInitDone = true;

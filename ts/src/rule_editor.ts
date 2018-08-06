@@ -118,8 +118,9 @@ class RuleEditor {
 		case "customblocker_save_rule": {
 			
 			console.log("customblocker_save_rule");
-			console.log(data.rule.toSyncJSON());
-			//window.bgCommunicator.sendRequest('db', {dbCommand:'save', type:'rule', obj: data.rule}, 'ruleSaveDoneRuleEditor');
+			cbStorage.saveRule(data.rule, function () {
+				window.bgCommunicator.sendRequest('notifyUpdate', {dbCommand:'save', type:'rule', obj: data.rule}, 'ruleSaveDoneRuleEditor');
+			});
 			break;
 		}
 		case "customblocker_test_rule": {

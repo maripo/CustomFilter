@@ -330,9 +330,12 @@ class SmartRuleCreatorDialog {
 		var _searchNodes = this.rule.searchNodes;
 		this.rule.hideNodes = null;
 		this.rule.searchNodes = null;
-		window.bgCommunicator.sendRequest('db', {dbCommand:'save', type:'rule', obj: this.rule}, 'ruleSaveDoneRuleSmart');
-		this.rule.hideNodes = _hideNodes;
-		this.rule.searchNodes = _searchNodes;
+		cbStorage.saveRule(this.rule, function () {
+			window.bgCommunicator.sendRequest('notifyUpdate', null, null);
+			this.rule.hideNodes = _hideNodes;
+			this.rule.searchNodes = _searchNodes;
+		
+		});
 	}
 	validate (): string[] {
 		return cbStorage.validateRule({

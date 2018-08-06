@@ -106,7 +106,7 @@ var CustomBlockerTab = (function () {
             case 'setApplied':
                 this.execCallbackSetApplied(message.param);
                 break;
-            case 'db':
+            case 'notifyUpdate':
                 this.execCallbackDb(message.param);
                 break;
             case 'reload':
@@ -162,7 +162,7 @@ function handleForegroundMessage(tabId, param) {
             break;
         case 'setApplied':
             break;
-        case 'db':
+        case 'notifyUpdate':
             useCallback = true;
             execCallbackDb(tabId, param);
             break;

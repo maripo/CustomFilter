@@ -156,7 +156,7 @@ class CustomBlockerTab {
 			case 'setApplied': 
 				this.execCallbackSetApplied(message.param);
 				break;
-			case 'db':
+			case 'notifyUpdate':
 				this.execCallbackDb(message.param);
 				break;
 			case 'reload':
@@ -213,15 +213,14 @@ function handleForegroundMessage (tabId, param) {
 	console.log(param);
 	if (!param) return;
 	var useCallback = false;
-	switch (param.command)
-	{
+	switch (param.command) {
 		case 'badge': 
 			//execCallbackBadge(tabId, param);
 			break;
 		case 'setApplied': 
 			//execCallbackSetApplied(tabId, param);
 			break;
-		case 'db':
+		case 'notifyUpdate':
 			useCallback = true;
 			execCallbackDb(tabId, param);
 			break;

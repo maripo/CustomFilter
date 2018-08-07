@@ -101,7 +101,7 @@ class CustomBlockerTab {
 	}
 	
 	execCallbackReload (param): void {
-		this.postMessage({rules: ruleList});
+		this.postMessage({command:'reload', rules: ruleList});
 	}
 	
 	execCallbackDb (param): void {
@@ -221,40 +221,13 @@ function handleForegroundMessage (tabId, param) {
 			//execCallbackSetApplied(tabId, param);
 			break;
 		case 'notifyUpdate':
-			useCallback = true;
-			execCallbackDb(tabId, param);
+			//useCallback = true;
+			//execCallbackDb(tabId, param);
 			break;
 		case 'reload':
 			useCallback = true;
 			// execCallbackReload(tabId, param);
 			break;
-	}
-}
-
-function execCallbackDb (tabId, param): void {
-	try {
-		var exPeer;
-		if ('save' == param.dbCommand) {
-			console.log("WARNING:execCallbackDb.save called.");
-			Analytics.trackEvent('save', 'save');
-			
-			let rule = param.obj;
-			rule.save(function() {
-				chrome.tabs.sendRequest(tabId,
-				{
-					command:param.nextAction,
-					rules: ruleList,
-					tabId: tabId,
-					rule: rule
-				}
-				, getForegroundCallback(tabId)
-				);
-				reloadLists();
-				});
-		}
-	} 
-	catch (e) {
-		console.log(e)
 	}
 }
 

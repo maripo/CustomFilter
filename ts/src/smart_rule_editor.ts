@@ -322,7 +322,7 @@ class SmartRuleCreatorDialog {
 		this.rule.hideNodes = null;
 		this.rule.searchNodes = null;
 		cbStorage.saveRule(this.rule, function () {
-			window.bgCommunicator.sendRequest('notifyUpdate', null, null);
+			window.bgCommunicator.sendRequest('notifyUpdate', null);
 			this.rule.hideNodes = _hideNodes;
 			this.rule.searchNodes = _searchNodes;
 		
@@ -353,14 +353,12 @@ class SmartRuleCreatorDialog {
 	}
 	onSaveDone (rule:Rule):void {
 		this.rule.rule_id = rule.rule_id;
-		for (var i=0, l=this.rule.words.length; i<l; i++)
-		{
+		for (let i=0, l=this.rule.words.length; i<l; i++) {
 			this.rule.words[i].word_id = rule.words[i].word_id;
 		}
 		this.showMessage(chrome.i18n.getMessage('saveDone'));
 	}
-	show (creator:SmartRuleCreator, target, event)
-	{
+	show (creator:SmartRuleCreator, target, event) {
 		CustomBlockerUtil.clearChildren(this.ul);
 		this.div.style.display = 'block';
 		
@@ -578,8 +576,7 @@ class SmartRuleCreatorDialog {
 		hideRadio.checked = true;
 		this.setPathInputVisibility();
 		
-		for (var i=0; i<rule.words.length; i++)
-		{
+		for (var i=0; i<rule.words.length; i++) {
 			document.getElementById('smart_rule_editor_keywords').appendChild(this.getWordElement(rule.words[i]));
 		}
 		this.input_keyword.focus();

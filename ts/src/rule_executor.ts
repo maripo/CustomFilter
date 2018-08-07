@@ -28,7 +28,7 @@ class RuleExecutor {
 				console.log(e);
 			}
 		}
-		window.bgCommunicator.sendRequest('setApplied', {list:rules}, 'badge');
+		window.bgCommunicator.sendRequest('setApplied', {list:rules});
 		if (rules.length > 0) {
 			RuleExecutor.startBlocking();
 		}
@@ -115,11 +115,7 @@ class RuleExecutor {
 		}
 	}
 	static reloadRules ():void {
-		window.bgCommunicator.sendRequest(
-			'reload', 
-			{}, 
-			'reload'
-		);
+		window.bgCommunicator.sendRequest('reload', {});
 	}
 	static applyRule (rule:Rule, ignoreHidden:boolean, onHide:(HTMLElement)=>void, isTesting:boolean) {
 		var needRefreshBadge = false;
@@ -202,11 +198,7 @@ class RuleExecutor {
 			node.containsNgWord = false;
 		}
 		if (needRefreshBadge && RuleExecutor.blockedCount > 0) {
-			window.bgCommunicator.sendRequest(
-				'badge', 
-				{ rules:rules, count: RuleExecutor.blockedCount }, 
-				'badge'
-			);
+			window.bgCommunicator.sendRequest('badge', { rules:rules, count: RuleExecutor.blockedCount });
 		}	
 	}
 	static findFlaggedChild (hideNode, list) {

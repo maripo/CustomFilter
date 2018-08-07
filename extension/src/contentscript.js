@@ -7,9 +7,8 @@ window.ruleEditor = null;
 var BackgroundCommunicator = (function () {
     function BackgroundCommunicator() {
     }
-    BackgroundCommunicator.prototype.sendRequest = function (command, param, nextAction) {
+    BackgroundCommunicator.prototype.sendRequest = function (command, param) {
         param.command = command;
-        param.nextAction = nextAction;
         console.log("sendRequest");
         console.log(param);
         this.bgPort.postMessage({ command: command, param: param });
@@ -19,9 +18,6 @@ var BackgroundCommunicator = (function () {
         switch (request.command) {
             case 'init':
                 this.execInit(request);
-                break;
-            case 'badge':
-                this.execBadge(request);
                 break;
             case 'highlight':
                 this.execHighlight(request);
@@ -54,8 +50,6 @@ var BackgroundCommunicator = (function () {
             rules = new Array();
             RuleExecutor.checkRules(allRules);
         });
-    };
-    BackgroundCommunicator.prototype.execBadge = function (request) {
     };
     BackgroundCommunicator.prototype.execHighlight = function (request) {
         window.elementHighlighter.highlightRule(request.rule);

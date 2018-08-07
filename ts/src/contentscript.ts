@@ -16,12 +16,10 @@ class BackgroundCommunicator {
 	/**
 	 * Send message to background page
 	 */
-	sendRequest (command, param, nextAction) {
+	sendRequest (command, param) {
 		param.command = command;
-		param.nextAction = nextAction;
 		console.log("sendRequest");
 		console.log(param);
-		
 		this.bgPort.postMessage({command:command, param:param});
 	}
 
@@ -33,8 +31,6 @@ class BackgroundCommunicator {
 		switch (request.command) {
 			case 'init':
 				this.execInit(request); break;
-			case 'badge':
-				this.execBadge(request); break;
 			case 'highlight':
 				this.execHighlight(request); break;
 			case 'ruleEditor':
@@ -58,9 +54,6 @@ class BackgroundCommunicator {
 			rules = new Array();
 			RuleExecutor.checkRules(allRules);
 		});
-	}
-	
-	execBadge (request) {
 	}
 	
 	execHighlight (request) {

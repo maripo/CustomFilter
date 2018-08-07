@@ -241,7 +241,7 @@ var SmartRuleCreatorDialog = (function () {
         this.rule.hideNodes = null;
         this.rule.searchNodes = null;
         cbStorage.saveRule(this.rule, function () {
-            window.bgCommunicator.sendRequest('notifyUpdate', null, null);
+            window.bgCommunicator.sendRequest('notifyUpdate', null);
             this.rule.hideNodes = _hideNodes;
             this.rule.searchNodes = _searchNodes;
         });

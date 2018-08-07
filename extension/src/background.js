@@ -55,7 +55,7 @@ var CustomBlockerTab = (function () {
         });
     }
     CustomBlockerTab.prototype.execCallbackReload = function (param) {
-        this.postMessage({ rules: ruleList });
+        this.postMessage({ command: 'reload', rules: ruleList });
     };
     CustomBlockerTab.prototype.execCallbackDb = function (param) {
         console.log("TODO execCallbackDb");
@@ -163,34 +163,10 @@ function handleForegroundMessage(tabId, param) {
         case 'setApplied':
             break;
         case 'notifyUpdate':
-            useCallback = true;
-            execCallbackDb(tabId, param);
             break;
         case 'reload':
             useCallback = true;
             break;
-    }
-}
-function execCallbackDb(tabId, param) {
-    try {
-        var exPeer;
-        if ('save' == param.dbCommand) {
-            console.log("WARNING:execCallbackDb.save called.");
-            Analytics.trackEvent('save', 'save');
-            var rule_1 = param.obj;
-            rule_1.save(function () {
-                chrome.tabs.sendRequest(tabId, {
-                    command: param.nextAction,
-                    rules: ruleList,
-                    tabId: tabId,
-                    rule: rule_1
-                }, getForegroundCallback(tabId));
-                reloadLists();
-            });
-        }
-    }
-    catch (e) {
-        console.log(e);
     }
 }
 function getAppliedRules(callback) {

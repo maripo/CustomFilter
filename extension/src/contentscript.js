@@ -70,8 +70,6 @@ var BackgroundCommunicator = (function () {
         }
         window.ruleEditor.initialize(request.rule, request.appliedRuleList);
     };
-    BackgroundCommunicator.prototype.execRuleSaveDoneRuleEditorFrame = function (request) {
-    };
     BackgroundCommunicator.prototype.execRuleSaveDoneSmartEditor = function (request) {
         window.smartRuleCreatorDialog.onSaveDone(request.rule);
     };

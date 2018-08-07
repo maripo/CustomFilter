@@ -34,11 +34,11 @@ class CustomBlockerStorage {
  	
 		 	search_block_css: null,
  			search_block_xpath: null,
- 			search_block_by_css:false,
+ 			search_block_by_css: true,
  	
  			hide_block_css: null,
  			hide_block_xpath: null,
- 			hide_block_by_css: false,
+ 			hide_block_by_css: true,
  	
  			block_anyway: false,
  			specify_url_by_regexp: false,
@@ -92,7 +92,6 @@ class CustomBlockerStorage {
 	}
 	
 	public saveRule (rule:Rule, callback:()=>void) {
-		console.log("Rule save stub called.");
 		if (CustomBlockerUtil.isEmpty(rule.global_identifier)) {
 			rule.global_identifier = UUID.generate();
 		}

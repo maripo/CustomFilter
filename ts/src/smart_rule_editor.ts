@@ -315,15 +315,6 @@ class SmartRuleCreatorDialog {
 			this.showMessage(validateErrors.join('<br/>'));
 			return;
 		}
-		// set UUIDs
-		if (CustomBlockerUtil.isEmpty(this.rule.user_identifier))
-		{
-			this.rule.user_identifier = UUID.generate();
-		}
-		if (CustomBlockerUtil.isEmpty(this.rule.global_identifier))
-		{
-			this.rule.global_identifier = UUID.generate();
-		}
 		this.applyInput();	
 		// Save
 		var _hideNodes = this.rule.hideNodes;

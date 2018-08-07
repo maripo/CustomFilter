@@ -424,13 +424,6 @@ class PrefRuleEditor {
     this.rule.block_anyway = (document.getElementById('rule_editor_block_anyway') as HTMLInputElement).checked;
     this.rule.specify_url_by_regexp = (document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked;
     let self = this;
-    // set UUIDs
-    if (CustomBlockerUtil.isEmpty(this.rule.user_identifier)) {
-      this.rule.user_identifier = UUID.generate();
-    }
-    if (CustomBlockerUtil.isEmpty(this.rule.global_identifier)) {
-      this.rule.global_identifier = UUID.generate();
-    }
     cbStorage.saveRule(this.rule, function () {
       hideEmptyAlert();
       self.showMessage(chrome.i18n.getMessage('saveDone'));

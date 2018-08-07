@@ -29,9 +29,6 @@ var BackgroundCommunicator = (function () {
             case 'ruleEditor':
                 this.execRuleEditor(request);
                 break;
-            case 'ruleSaveDoneRuleEditor':
-                this.execRuleSaveDoneRuleEditorFrame(request);
-                break;
             case 'ruleSaveDoneRuleSmart':
                 this.execRuleSaveDoneSmartEditor(request);
                 break;

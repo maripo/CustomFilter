@@ -94,6 +94,7 @@ class CustomBlockerStorage {
 	public saveRule (rule:Rule, callback:()=>void) {
 		if (CustomBlockerUtil.isEmpty(rule.global_identifier)) {
 			rule.global_identifier = UUID.generate();
+			console.log("UUID is generated. " + rule.global_identifier);
 		}
 		let obj = {};
 		obj[this.getRuleJSONKey(rule)] = this.convertRuleToJSON(rule);

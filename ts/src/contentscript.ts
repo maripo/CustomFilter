@@ -39,8 +39,6 @@ class BackgroundCommunicator {
 				this.execHighlight(request); break;
 			case 'ruleEditor':
 				this.execRuleEditor(request); break;
-			case 'ruleSaveDoneRuleEditor':
-				this.execRuleSaveDoneRuleEditorFrame(request); break;
 			case 'ruleSaveDoneRuleSmart':
 				this.execRuleSaveDoneSmartEditor(request); break;
 			case 'stop':

@@ -235,12 +235,6 @@ var SmartRuleCreatorDialog = (function () {
             this.showMessage(validateErrors.join('<br/>'));
             return;
         }
-        if (CustomBlockerUtil.isEmpty(this.rule.user_identifier)) {
-            this.rule.user_identifier = UUID.generate();
-        }
-        if (CustomBlockerUtil.isEmpty(this.rule.global_identifier)) {
-            this.rule.global_identifier = UUID.generate();
-        }
         this.applyInput();
         var _hideNodes = this.rule.hideNodes;
         var _searchNodes = this.rule.searchNodes;

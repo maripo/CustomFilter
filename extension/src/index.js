@@ -119,12 +119,6 @@ var Popup = (function () {
             disableButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
             disableButton.className = (rule.is_disabled) ? 'buttonOff' : 'buttonOn';
             try {
-                if (CustomBlockerUtil.isEmpty(rule.user_identifier)) {
-                    rule.user_identifier = UUID.generate();
-                }
-                if (CustomBlockerUtil.isEmpty(rule.global_identifier)) {
-                    rule.global_identifier = UUID.generate();
-                }
                 cbStorage.saveRule(rule, function () {
                     var bgWindow = chrome.extension.getBackgroundPage();
                     bgWindow.reloadLists();

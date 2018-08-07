@@ -176,7 +176,7 @@ class RuleEditorFrame {
 		postMessageToParent({command:"customblocker_close"});
 	}
 	showAlertMessage (message) {
-		var div = document.getElementById('rule_editor_alert');
+		let div = document.getElementById('rule_editor_alert');
 		div.style.display = 'block';
 		div.innerHTML = message;
 		this.resize();

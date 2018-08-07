@@ -71,7 +71,6 @@ var BackgroundCommunicator = (function () {
         window.ruleEditor.initialize(request.rule, request.appliedRuleList);
     };
     BackgroundCommunicator.prototype.execRuleSaveDoneRuleEditorFrame = function (request) {
-        window.ruleEditor.onSaveDone(request.rule);
     };
     BackgroundCommunicator.prototype.execRuleSaveDoneSmartEditor = function (request) {
         window.smartRuleCreatorDialog.onSaveDone(request.rule);

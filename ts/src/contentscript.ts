@@ -78,7 +78,6 @@ class BackgroundCommunicator {
 	}
 	
 	execRuleSaveDoneRuleEditorFrame (request) {
-		window.ruleEditor.onSaveDone(request.rule);
 	}
 	
 	execRuleSaveDoneSmartEditor (request) {

@@ -80,7 +80,6 @@ class CustomBlockerStorage {
 			let rules = [] as [Rule];
 			for (let key in allObj) {
 				if (key.indexOf("R-")==0) {
-					console.log("Key found. " + key);
 					let rule = cbStorage.createRule();
 					scope.initRuleByJSON(rule, allObj[key]);
 					rules.push(rule);

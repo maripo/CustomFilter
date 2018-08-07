@@ -118,8 +118,10 @@ var RuleEditor = (function () {
             }
             case "customblocker_save_rule": {
                 console.log("customblocker_save_rule");
+                var scope_1 = this;
                 cbStorage.saveRule(data.rule, function () {
                     window.bgCommunicator.sendRequest('notifyUpdate', { dbCommand: 'save', type: 'rule', obj: data.rule }, 'ruleSaveDoneRuleEditor');
+                    scope_1.onSaveDone(data.rule);
                 });
                 break;
             }

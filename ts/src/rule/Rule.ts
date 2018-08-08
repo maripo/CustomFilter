@@ -6,6 +6,7 @@ interface Rule {
 	insert_date:number;
 	update_date:number;
 	delete_date:number;
+	updaterId:string;
 	
 	// Copied from legacy Rule
  	words:Word[];

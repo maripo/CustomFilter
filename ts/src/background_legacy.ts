@@ -36,19 +36,24 @@ function syncAll (rulesToSync: [Rule], callback) {
 
 }
 function migrateToChromeSync (onMingrationDone) {
-	(LegacyRulePeer.getInstance() as LegacyRulePeer).loadAll (
-		function (rules:[LegacyRule]) {
-			let rulesToSync = [] as [Rule];
-			for (let rule of rules) {
-				if (!rule.global_identifier || rule.global_identifier=="") {
-					rule.global_identifier = UUID.generate();
-					console.log("Rule has no UUID. Generated. " + rule.global_identifier);
+	cbStorage.getDeviceId(function(deviceId:string){
+		(LegacyRulePeer.getInstance() as LegacyRulePeer).loadAll (
+			function (rules:[LegacyRule]) {
+				let rulesToSync = [] as [Rule];
+				for (let rule of rules) {
+					if (!rule.global_identifier || rule.global_identifier=="") {
+						rule.global_identifier = UUID.generate();
+						console.log("Rule has no UUID. Generated. " + rule.global_identifier);
+					}
+					let ruleObj = rule.getRule();
+					ruleObj.updaterId = deviceId;
+					rulesToSync.push(ruleObj);
 				}
-				rulesToSync.push(rule.getRule());
+				syncAll (rulesToSync, onMingrationDone);
 			}
-			syncAll (rulesToSync, onMingrationDone);
-		}
-	);
+		);
+	});
+
 }
 
 chrome.runtime.onInstalled.addListener(function(details) {

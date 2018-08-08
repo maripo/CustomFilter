@@ -14,6 +14,7 @@ class CustomBlockerStorage {
 			insert_date: 0,
 			update_date: 0,
 			delete_date: 0,
+			updaterId: null,
 			words: [] as [Word],
 			wordGroups: [] as [WordGroup],
 			hideNodes: [] as [HTMLElement],
@@ -96,13 +97,20 @@ class CustomBlockerStorage {
 			rule.global_identifier = UUID.generate();
 			console.log("UUID is generated. " + rule.global_identifier);
 		}
-		let obj = {};
-		obj[this.getRuleJSONKey(rule)] = this.convertRuleToJSON(rule);
-		chrome.storage.sync.set(obj, function() {
-			console.log("Saved rule.");
-			if (callback) {
-				callback();
-			}
+		let scope = this;
+		this.getDeviceId(function(deviceId:string){
+			let obj = {};
+			rule.updaterId = deviceId;
+			console.log("Updater id set. " + rule.updaterId);
+			obj[scope.getRuleJSONKey(rule)] = scope.convertRuleToJSON(rule);
+			chrome.storage.sync.set(obj, function() {
+				console.log("Saved rule.");
+				if (callback) {
+					callback();
+				}
+			});
+		
+		
 		});
 	}
 	
@@ -259,6 +267,29 @@ class CustomBlockerStorage {
 		// TODO reload
 	}
 	
+	private deviceId = null; 
+	getDeviceId (callback:(string)=>void) {
+		if (this.deviceId) {
+			// deviceId is already loaded.
+			callback(this.deviceId);
+			return;
+		}
+		let scope = this;
+		chrome.storage.local.get(["deviceId"], function(result) {
+			if (result["deviceId"]) {
+				// Loaded existing deviceId
+				scope.deviceId = result["deviceId"];
+				callback(scope.deviceId);
+				return;
+			}
+			// deviceID does not exist. Generate...
+			scope.deviceId = UUID.generate();
+			chrome.storage.local.set({deviceId:scope.deviceId}, function(){
+				callback(scope.deviceId);
+			});
+		});
+	}
+	
 	// Initialize static fields
 	static init () {
 		CustomBlockerStorage.JSON_RULE_CONVERSION_RULE = [
@@ -274,8 +305,9 @@ class CustomBlockerStorage {
 			["hide_block_css", "hc"],
 			["hide_block_xpath", "hx"],
 			["hide_block_by_css", "ht"],
-			["insert_date:number", "di"],
-			["update_date:number", "du"],
+			["insert_date", "di"],
+			["update_date", "du"],
+			["updaterId", "ui"],
 			
 			["block_anyway", "b"]
 		];

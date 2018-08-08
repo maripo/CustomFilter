@@ -248,23 +248,63 @@ class CustomBlockerStorage {
 		return errors;
 	}
 	
+	private mergeRules (localObj:object, remoteObj:object): object {
+		let remoteWords = remoteObj["w"] as [any];
+		let localWords = localObj["w"] as [any];
+		for (let remoteWord of remoteWords) {
+			let duplicate = false;
+			for (let localWord of localWords) {
+				if (JSON.stringify(localWord)==JSON.stringify(remoteWord)) {
+					duplicate = true;
+				}
+			}
+			if (!duplicate) {
+				(localObj["w"] as [any]).push(remoteWord);
+			}
+		}
+		return localObj;
+	}
+	
+	private syncRule (deviceId:string, key:string, oldValue:object, newValue:object) {
+			console.log("Key=%s", key);
+			console.log(oldValue);
+			console.log(newValue);
+			if (newValue && newValue["ui"]==deviceId) {
+				console.log("Local change.");
+				// Received local change event. Just reload tabs.
+				return;
+			}
+			
+			if (newValue==null) {
+				// Deleted manually. Just accept it.
+			} else if (oldValue==null) {
+				// Added
+				// Just accept and keep sql flag.
+			} else {
+				// Updated
+				if (newValue["sql"]) {
+					// Migration on a remote device. Merge and save.
+					let merged =  this.mergeRules(oldValue, newValue);
+					merged["ui"] = deviceId;
+					let obj = {};
+					obj[key] = merged;
+					chrome.storage.sync.set(obj, function() {
+						console.log("Merged rule was saved.");
+					});
+				}
+			}
+	}
+	
 	sync (changes, namespace) {
 		console.log("Syncing namespace %s", namespace);
-		for (let key in changes) {
-			let change = changes[key];
-			console.log("Key=%s", key);
-			console.log(change.oldValue);
-			console.log(change.newValue);
-			// TODO case of deletion (newValue is null)
-			if (change.newValue && change.newValue.sql) {
-				// Changed by data migration from SQL version.
-				// Merge words and update.
-				// TODO
-				// remove "sql" flag
+		let scope = this;
+		this.getDeviceId(function(deviceId:string){
+			for (let key in changes) {
+				let change = changes[key];
+				scope.syncRule(deviceId, key, change.oldValue, change.newValue);
 			}
-			console.log(change);
-		}
-		// TODO reload
+			// TODO reload
+		});
 	}
 	
 	private deviceId = null; 

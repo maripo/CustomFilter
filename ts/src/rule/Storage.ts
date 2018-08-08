@@ -115,7 +115,12 @@ class CustomBlockerStorage {
 	}
 	
 	public deleteRule (rule:Rule, callback: ()=>void) {
-		// TODO
+		chrome.storage.sync.remove(this.getRuleJSONKey(rule), function() {
+			console.log("Deleted rule.");
+			if (callback) {
+				callback();
+			}
+		});
 	}
 	
 	public addWordToRule (rule:Rule, word:Word) {
@@ -235,6 +240,24 @@ class CustomBlockerStorage {
 		return errors;
 	}
 	
+	sync (changes, namespace) {
+		console.log("Syncing namespace %s", namespace);
+		for (let key in changes) {
+			let change = changes[key];
+			console.log("Key=%s", key);
+			console.log(change.oldValue);
+			console.log(change.newValue);
+			// TODO case of deletion (newValue is null)
+			if (change.newValue && change.newValue.sql) {
+				// Changed by data migration from SQL version.
+				// Merge words and update.
+				// TODO
+				// remove "sql" flag
+			}
+			console.log(change);
+		}
+		// TODO reload
+	}
 	
 	// Initialize static fields
 	static init () {
@@ -261,6 +284,8 @@ class CustomBlockerStorage {
 		CustomBlockerStorage.JSON_WORD_FLAG_CASE_SENSITIVE = 3;
 		CustomBlockerStorage.JSON_WORD_FLAG_INCLUDE_HREF = 4;
 	}
+	
+	
 }
 
 

@@ -102,7 +102,18 @@ class CustomBlockerStorage {
 			let obj = {};
 			rule.updaterId = deviceId;
 			console.log("Updater id set. " + rule.updaterId);
-			obj[scope.getRuleJSONKey(rule)] = scope.convertRuleToJSON(rule);
+			let jsonObj = scope.convertRuleToJSON(rule);
+			// TODO
+			console.log(document.getElementById('rule_editor_save_merge_checkbox'))
+			if (document.getElementById('rule_editor_save_merge_checkbox') && (document.getElementById('rule_editor_save_merge_checkbox') as HTMLInputElement).checked) {
+				console.log("rule is checked!");
+				jsonObj["sql"] = true;
+			}
+			console.log(jsonObj);
+			
+			obj[scope.getRuleJSONKey(rule)] = jsonObj;
+			
+			
 			chrome.storage.sync.set(obj, function() {
 				console.log("Saved rule.");
 				if (callback) {

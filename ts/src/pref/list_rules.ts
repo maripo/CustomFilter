@@ -459,14 +459,13 @@ class PrefRuleEditor {
     return function () {
       span.parentNode.removeChild(span);
       cbStorage.removeWordFromRule(self.rule, word);
-      cbStorage.saveRule(self.rule, null);
     }
   }
   getAddWordByEnterAction () {
     let self = this;
     return function (event) {
       if (13==event.keyCode) {
-        self.saveWord();
+        self.addWord();
       }
     }
   }
@@ -474,15 +473,14 @@ class PrefRuleEditor {
   getAddWordAction () {
     let self = this;
     return function () {
-      self.saveWord();
+      self.addWord();
     }
   }
   
-  saveWord () {
+  addWord () {
     let self = this;
     let str = (document.getElementById('rule_editor_keyword') as HTMLInputElement).value;
-    if (!str || ''==str)
-    {
+    if (!str || ''==str) {
       return;
     }
     let word = cbStorage.createWord();
@@ -497,10 +495,8 @@ class PrefRuleEditor {
       (document.getElementById('rule_editor_keyword_include_href_checkbox') as HTMLInputElement).checked;
     word.rule_id = self.rule.rule_id;
     cbStorage.addWordToRule(self.rule, word);
-    cbStorage.saveRule(self.rule, function(){
-      document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
-      (document.getElementById('rule_editor_keyword') as HTMLInputElement).value = '';
-    });
+    document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
+    (document.getElementById('rule_editor_keyword') as HTMLInputElement).value = '';
   }
 }
 

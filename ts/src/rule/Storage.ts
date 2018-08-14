@@ -107,7 +107,7 @@ class CustomBlockerStorage {
 			console.log(document.getElementById('rule_editor_save_merge_checkbox'))
 			if (document.getElementById('rule_editor_save_merge_checkbox') && (document.getElementById('rule_editor_save_merge_checkbox') as HTMLInputElement).checked) {
 				console.log("rule is checked!");
-				jsonObj["sql"] = true;
+				jsonObj["merge"] = true;
 			}
 			console.log(jsonObj);
 			
@@ -293,7 +293,7 @@ class CustomBlockerStorage {
 				// Just accept and keep sql flag.
 			} else {
 				// Updated
-				if (newValue["sql"]) {
+				if (newValue["merge"]) {
 					// Migration on a remote device. Merge and save.
 					let merged =  this.mergeRules(oldValue, newValue);
 					merged["ui"] = deviceId;

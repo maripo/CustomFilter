@@ -27,7 +27,7 @@ function syncAll (rulesToSync: [Rule], callback) {
 			let obj = {};
 			let storage = cbStorage;
 			let json = storage.convertRuleToJSON(rule);
-			json["sql"] = true;
+			json["merge"] = true;
 			obj[storage.getRuleJSONKey(rule)] = json;
 			chrome.storage.sync.set(obj, function(){
 				scope.syncAll(rulesToSync, callback);

@@ -115,18 +115,10 @@ var Popup = (function () {
     };
     Popup.prototype.getDisableAction = function (rule, disableButton) {
         return function (event) {
-            rule.is_disabled = !rule.is_disabled;
-            disableButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
-            disableButton.className = (rule.is_disabled) ? 'buttonOff' : 'buttonOn';
-            try {
-                cbStorage.saveRule(rule, function () {
-                    var bgWindow = chrome.extension.getBackgroundPage();
-                    bgWindow.reloadLists();
-                });
-            }
-            catch (ex) {
-                document.write(ex);
-            }
+            cbStorage.toggleRule(rule, function () {
+                disableButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
+                disableButton.className = (rule.is_disabled) ? 'buttonOff' : 'buttonOn';
+            });
         };
     };
     return Popup;

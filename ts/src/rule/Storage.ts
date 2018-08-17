@@ -88,8 +88,72 @@ class CustomBlockerStorage {
 					console.log("Invalid key: " + key);
 				}
 			}
-			callback(rules);
+			
+			scope.getDisabledRuleIDList(function(ids) {
+				// Load disabled rule list (if needed) from local storage and set is_disabled values
+				for (let rule of rules) {
+					for (let ruleId of ids) {
+						if (rule.global_identifier==ruleId) {
+							rule.is_disabled = true;
+							break;
+						}
+					}
+				}
+				callback(rules);
+			
+			});
 		});
+	}
+	
+	
+	disabledRuleIDList:[string];
+	private getDisabledRuleIDList (callback:([string])=>void) {
+		if (this.disabledRuleIDList) {
+			callback(this.disabledRuleIDList);
+			return;
+		}
+		let scope = this;
+		chrome.storage.local.get(["disabledRules"], function(result) {
+			if (result["disabledRules"]) {
+				scope.disabledRuleIDList = result["disabledRules"];
+			} else {
+				// Set empty array to tell that storage is already read.
+				scope.disabledRuleIDList = [] as [string];
+			}
+			callback(scope.disabledRuleIDList);
+		});
+	}
+	
+	public disableRule (rule:Rule, callback:()=>void) {
+		let scope = this;
+		rule.is_disabled = true;
+		this.getDisabledRuleIDList(function(ids) {
+			scope.disabledRuleIDList.push(rule.global_identifier);
+			console.log("disabledRuleIdList=");
+			console.log(scope.disabledRuleIDList);
+			chrome.storage.local.set({disabledRules:scope.disabledRuleIDList}, callback);
+		});
+	}
+	public enableRule (rule:Rule, callback:()=>void) {
+		let scope = this;
+		rule.is_disabled = false;
+		this.getDisabledRuleIDList(function(ids) {
+			for (let i=scope.disabledRuleIDList.length-1; i>=0; i--) {
+				if (scope.disabledRuleIDList[i]===rule.global_identifier) {
+					scope.disabledRuleIDList.splice(i, 1); break;
+				}
+			}
+			console.log("disabledRuleIdList=");
+			console.log(scope.disabledRuleIDList);
+			chrome.storage.local.set({disabledRules:scope.disabledRuleIDList}, callback);
+		});
+	}
+	public toggleRule (rule:Rule, callback:()=>void) {
+		if (rule.is_disabled) {
+			this.enableRule(rule, callback);
+		} else {
+			this.disableRule(rule, callback);
+		}
 	}
 	
 	public saveRule (rule:Rule, callback:()=>void) {
@@ -113,15 +177,12 @@ class CustomBlockerStorage {
 			
 			obj[scope.getRuleJSONKey(rule)] = jsonObj;
 			
-			
 			chrome.storage.sync.set(obj, function() {
 				console.log("Saved rule.");
 				if (callback) {
 					callback();
 				}
 			});
-		
-		
 		});
 	}
 	
@@ -144,7 +205,6 @@ class CustomBlockerStorage {
 	
 	public addWordToRule (rule:Rule, word:Word) {
 		rule.words.push(word);	
-	
 	}
 	
 	public removeWordFromRule (rule:Rule, word:Word) {
@@ -152,12 +212,10 @@ class CustomBlockerStorage {
 		if (wordIndex >= 0) {
 		  rule.words.splice(wordIndex, 1);
 		}
-	
 	}
 	
 	public getRuleJSONKey (rule:Rule): string {
 		return "R-" + rule.global_identifier;
-	
 	}
 	
 	public convertRuleToJSON (rule:Rule): object {

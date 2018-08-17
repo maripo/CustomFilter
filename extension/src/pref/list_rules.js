@@ -214,10 +214,10 @@ var RuleContainer = (function () {
     RuleContainer.prototype.getDisableAction = function (inputButton) {
         var rule = this.rule;
         return function (event) {
-            rule.is_disabled = !rule.is_disabled;
-            inputButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
-            inputButton.className = (rule.is_disabled) ? 'uiButton buttonOff' : 'uiButton buttonOn';
-            cbStorage.saveRule(rule, function () { reloadBackground(); });
+            cbStorage.toggleRule(rule, function () {
+                inputButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
+                inputButton.className = (rule.is_disabled) ? 'uiButton buttonOff' : 'uiButton buttonOn';
+            });
         };
     };
     RuleContainer.prototype.getSelectAction = function () {

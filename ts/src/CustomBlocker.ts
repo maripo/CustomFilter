@@ -10,7 +10,7 @@ function getCustomBlockerSrcPath (): [string, HTMLElement] {
 }
 (function (){
 	let scriptPath = getCustomBlockerSrcPath();
-	let files = ["db/DbInit.js", "db/DbObj.js", "db/Rule.js", "db/Word.js",
+	let files = [ /*"db/DbInit.js", "db/DbObj.js", "db/Rule.js", "db/Word.js",*/
 		"rule/Storage.js", "rule/Rule.js", "rule/Word.js", "rule/WordGroup.js", "util.js", "uuid.js" ];
 	for (let file of files) {
 		let path = scriptPath[0] + file;

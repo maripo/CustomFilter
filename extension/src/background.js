@@ -54,9 +54,6 @@ var CustomBlockerTab = (function () {
             self.onMessage(msg);
         });
     }
-    CustomBlockerTab.prototype.execCallbackReload = function (param) {
-        this.postMessage({ command: 'reload', rules: ruleList });
-    };
     CustomBlockerTab.prototype.execCallbackDb = function (param) {
         console.log("TODO execCallbackDb");
     };
@@ -109,9 +106,6 @@ var CustomBlockerTab = (function () {
             case 'notifyUpdate':
                 this.execCallbackDb(message.param);
                 break;
-            case 'reload':
-                this.execCallbackReload(message.param);
-                break;
         }
     };
     CustomBlockerTab.postMessage = function (tabId, message) {
@@ -121,6 +115,11 @@ var CustomBlockerTab = (function () {
             return;
         }
         tabInfo.postMessage(message);
+    };
+    CustomBlockerTab.postMessageToAllTabs = function (message) {
+        for (var tabId in tabMap) {
+            CustomBlockerTab.postMessage(tabId, message);
+        }
     };
     return CustomBlockerTab;
 }());
@@ -163,9 +162,6 @@ function handleForegroundMessage(tabId, param) {
         case 'setApplied':
             break;
         case 'notifyUpdate':
-            break;
-        case 'reload':
-            useCallback = true;
             break;
     }
 }
@@ -303,6 +299,10 @@ window.onload = function () {
     onStartBackground();
 };
 chrome.storage.onChanged.addListener(function (changes, namespace) {
-    cbStorage.sync(changes, namespace);
+    cbStorage.sync(changes, namespace, function () {
+        cbStorage.loadAll(function (rules) {
+            CustomBlockerTab.postMessageToAllTabs({ command: 'reload', rules: rules });
+        });
+    });
 });
 //# sourceMappingURL=background.js.map

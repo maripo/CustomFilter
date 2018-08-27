@@ -178,7 +178,6 @@ var SmartRuleCreatorDialog = (function () {
             window.elementHighlighter.highlightRule(null);
             self.div.style.display = 'none';
             self.cancelEditing();
-            RuleExecutor.reloadRules();
         };
     };
     SmartRuleCreatorDialog.prototype.getCancelAction = function () {

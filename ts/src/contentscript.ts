@@ -42,6 +42,7 @@ class BackgroundCommunicator {
 			case 'resume':
 				this.execResume(request); break;
 			case 'reload':
+				console.log("Reloaded.");
 				this.execReload(request); break;
 			case 'quickRuleCreation':
 				this.execQuickRuleCreation(request); break;

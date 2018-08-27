@@ -172,7 +172,6 @@ class RuleEditor {
 		CustomBlockerUtil.removeCss('/css/rule_editor_cursor.css');
 		testNodeList.restoreStyles();
 		hiddenNodeList.applyStyles();
-		RuleExecutor.reloadRules();
 	}
 	validateSelector (selectorType, isSearch, selector): {isValid:boolean, nodes:[HTMLElement]} {
 		try {

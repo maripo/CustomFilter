@@ -114,9 +114,6 @@ class RuleExecutor {
 			}
 		}
 	}
-	static reloadRules ():void {
-		window.bgCommunicator.sendRequest('reload', {});
-	}
 	static applyRule (rule:Rule, ignoreHidden:boolean, onHide:(HTMLElement)=>void, isTesting:boolean) {
 		var needRefreshBadge = false;
 		var hideNodes = (rule.hide_block_by_css)?

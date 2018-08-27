@@ -111,9 +111,6 @@ var RuleExecutor = (function () {
             _loop_1(rule);
         }
     };
-    RuleExecutor.reloadRules = function () {
-        window.bgCommunicator.sendRequest('reload', {});
-    };
     RuleExecutor.applyRule = function (rule, ignoreHidden, onHide, isTesting) {
         var needRefreshBadge = false;
         var hideNodes = (rule.hide_block_by_css) ?

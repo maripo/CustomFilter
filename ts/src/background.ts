@@ -12,7 +12,7 @@ function onStartBackground(): void {
 }
 
 function removeFromExistingTabList (tabIdToRemove): void {
-	for (var id in existingTabs) {
+	for (let id in existingTabs) {
 		if (tabIdToRemove==id) existingTabs[id] = null;
 	}
 }
@@ -100,10 +100,6 @@ class CustomBlockerTab {
 		});
 	}
 	
-	execCallbackReload (param): void {
-		this.postMessage({command:'reload', rules: ruleList});
-	}
-	
 	execCallbackDb (param): void {
 		console.log("TODO execCallbackDb");
 	}
@@ -159,12 +155,9 @@ class CustomBlockerTab {
 			case 'notifyUpdate':
 				this.execCallbackDb(message.param);
 				break;
-			case 'reload':
-				this.execCallbackReload(message.param);
-				break;
 		}
 	}
-	static postMessage (tabId:number, message:object) {
+	static postMessage (tabId, message:object) {
 		let tabInfo = tabMap[tabId];
 		if (!tabInfo) {
 			console.warn("CustomBlockerTab.postMessage tab not found.");
@@ -172,20 +165,25 @@ class CustomBlockerTab {
 		}
 		tabInfo.postMessage(message);
 	}
+	static postMessageToAllTabs ( message:object) {
+		for (let tabId in tabMap) {
+			CustomBlockerTab.postMessage(tabId, message);
+		}
+	}
 }
 
 let tabMap = {};
 
 
-var tabOnUpdate = function(tabId:number, changeInfo, tab): void {
+let tabOnUpdate = function(tabId:number, changeInfo, tab): void {
 	addToExistingTabList(tabId);
 	// ON/OFF
-	var isDisabled = ('true' == localStorage.blockDisabled);
+	let isDisabled = ('true' == localStorage.blockDisabled);
 	_setIconDisabled(isDisabled, tabId);
 	if (isDisabled) {
 		return;
 	}
-	var url = tab.url;
+	let url = tab.url;
 	if (isValidURL(url)/* && changeInfo.status == "complete"*/) {
 		tabMap[tabId] = new CustomBlockerTab(tabId, tab);
 		// Legacy communication channel. Replace it with a long-lived connection
@@ -196,7 +194,7 @@ var tabOnUpdate = function(tabId:number, changeInfo, tab): void {
 		});
 	}
 }
-var VALID_URL_REGEX = new RegExp('^https?:');
+let VALID_URL_REGEX = new RegExp('^https?:');
 function isValidURL (url: string) : boolean {
 	return  url!=null && VALID_URL_REGEX.test(url);
 }
@@ -212,7 +210,7 @@ function handleForegroundMessage (tabId, param) {
 	console.log("Foreground message received.");
 	console.log(param);
 	if (!param) return;
-	var useCallback = false;
+	let useCallback = false;
 	switch (param.command) {
 		case 'badge': 
 			//execCallbackBadge(tabId, param);
@@ -223,10 +221,6 @@ function handleForegroundMessage (tabId, param) {
 		case 'notifyUpdate':
 			//useCallback = true;
 			//execCallbackDb(tabId, param);
-			break;
-		case 'reload':
-			useCallback = true;
-			// execCallbackReload(tabId, param);
 			break;
 	}
 }
@@ -241,9 +235,8 @@ function getAppliedRules (callback): void {
 	});
 	
 }
-var smartRuleEditorSrc = '';
-function loadSmartRuleEditorSrc()
-{
+let smartRuleEditorSrc = '';
+function loadSmartRuleEditorSrc() {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function()
 	{
@@ -383,5 +376,10 @@ window.onload = function() {
 	onStartBackground();
 }
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-		cbStorage.sync(changes, namespace);
+		cbStorage.sync(changes, namespace, function () {
+			// onLocalChange
+			cbStorage.loadAll(function(rules:[Rule]){
+				CustomBlockerTab.postMessageToAllTabs({command:'reload', rules: rules});
+			});
+		});
 });

@@ -334,13 +334,14 @@ class CustomBlockerStorage {
 		return localObj;
 	}
 	
-	private syncRule (deviceId:string, key:string, oldValue:object, newValue:object) {
+	private syncRule (deviceId:string, key:string, oldValue:object, newValue:object, onLocalChange:()=>void) {
 			console.log("Key=%s", key);
 			console.log(oldValue);
 			console.log(newValue);
 			if (newValue && newValue["ui"]==deviceId) {
 				console.log("Local change.");
 				// Received local change event. Just reload tabs.
+				onLocalChange();
 				return;
 			}
 			
@@ -364,13 +365,13 @@ class CustomBlockerStorage {
 			}
 	}
 	
-	sync (changes, namespace) {
+	sync (changes, namespace, onLocalChange:()=>void) {
 		console.log("Syncing namespace %s", namespace);
 		let scope = this;
 		this.getDeviceId(function(deviceId:string){
 			for (let key in changes) {
 				let change = changes[key];
-				scope.syncRule(deviceId, key, change.oldValue, change.newValue);
+				scope.syncRule(deviceId, key, change.oldValue, change.newValue, onLocalChange);
 			}
 			// TODO reload
 		});

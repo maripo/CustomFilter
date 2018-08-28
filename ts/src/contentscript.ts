@@ -49,12 +49,11 @@ class BackgroundCommunicator {
 		}
 	}
 	execInit (request) {
-		cbStorage.loadAll(function(allRules:[Rule]){
-			if (window.customBlockerInitDone) return;
-			window.customBlockerInitDone = true;
-			rules = new Array();
-			RuleExecutor.checkRules(allRules);
-		});
+		let allRules = request.rules;
+		if (window.customBlockerInitDone) return;
+		window.customBlockerInitDone = true;
+		rules = new Array();
+		RuleExecutor.checkRules(allRules);
 	}
 	
 	execHighlight (request) {

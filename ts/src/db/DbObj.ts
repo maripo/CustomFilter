@@ -5,7 +5,6 @@ class DbColumn {
 	version:any;
 	properties:any;
 	
-	// TODO replace with enum
 	static readonly TYPE_PKEY = 1;
 	static readonly TYPE_INTEGER = 2;
 	static readonly TYPE_TEXT = 3;

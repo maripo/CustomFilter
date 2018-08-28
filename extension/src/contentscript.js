@@ -44,13 +44,12 @@ var BackgroundCommunicator = (function () {
         }
     };
     BackgroundCommunicator.prototype.execInit = function (request) {
-        cbStorage.loadAll(function (allRules) {
-            if (window.customBlockerInitDone)
-                return;
-            window.customBlockerInitDone = true;
-            rules = new Array();
-            RuleExecutor.checkRules(allRules);
-        });
+        var allRules = request.rules;
+        if (window.customBlockerInitDone)
+            return;
+        window.customBlockerInitDone = true;
+        rules = new Array();
+        RuleExecutor.checkRules(allRules);
     };
     BackgroundCommunicator.prototype.execHighlight = function (request) {
         window.elementHighlighter.highlightRule(request.rule);

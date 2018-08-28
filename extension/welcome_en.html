@@ -10,43 +10,19 @@
 	<body>
 		<div id="header">
 			<h1><img src="img/top_title.png" alt="CustomBlocker for Google Chrome"/></h1>
-			<h2>What's New in CustomBlocker 2.4</h2>
-			<h3>Simplified Interfaces</h3>
+			<h2>What's New in CustomBlocker 3.0</h2>
+			<h3>Remote sync</h3>
 			<p>
-				The user interfaces of CustomBlocker 2.3.x was too complicated.
-				We simplified them by removing some rarely used fields and restructuring the form.
+				Now CustomBlocker has "Remote sync" feature!
 			</p>
-			<table>
-				<tr>
-					<td>Old</td>
-					<td>New</td>
-				</tr>
-				<tr>
-					<td style="padding:4px">
-						<img src="img/help/old_ui.png"/>
-					</td>
-					<td style="padding:4px">
-						<img src="img/help/new_ui.png"/>
-					</td>
-				</tr>
-			</table>
-			<h3>Wildcards</h3>
 			<p>
-				Previous versions of CustomBlocker used regular expressions for URL matching.
-				Regular expressions are hard to read for people other than programmers and computer geeks.
-				Now, you can use wildcards to specify URLs.
+				Your rules are synchronized across multiple machines.
+				 When you are logged in with your Google account and "<a href="chrome://settings/syncSetup">Extensions sync</a>" is on, 
+				 CustomBlocker syncs your rules automatically.
+				 On/Off states of individual rules and CustomBlocker itself are not synced. 
 			</p>
-			<dl style="font-size:90%">
-				<dt style="font-weight:bold">Regular Expression</dt>
-				<dd>https:\/\/twitter\.com\/.*\/following</dd>
-				<dt style="font-weight:bold">Wildcard</dt>
-				<dd>https://twitter.com/*/following</dd>
-			</dl>
-			<h3>"Search Range" is Optional</h3>
 			<p>
-				Previous versions requires fields named "Elements to Hide" and "Search Range" when you create a rule.
-				The latter field is now optional.
-				If "Search Range" is empty, CustomBlocker will search for keywords from whole elements specified with "Elements to Hide"."
+				"Import/Export" functionalities were removed because they are no longer useful.
 			</p>
 		<script type="text/javascript" src="../src/analytics.js"></script>
 	</body>

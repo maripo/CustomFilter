@@ -291,7 +291,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
         console.log("New install.");
         window.open(chrome.extension.getURL('/welcome_install_' + chrome.i18n.getMessage("extLocale") + '.html?install'));
     }
-    else if (details.reason == "update" && details.previousVersion && details.previousVersion.match(/^2\.3\./)) {
+    else if (details.reason == "update" && details.previousVersion && details.previousVersion.match(/^2\./)) {
         window.open(chrome.extension.getURL('/welcome_' + chrome.i18n.getMessage("extLocale") + '.html'));
     }
 });

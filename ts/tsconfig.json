@@ -40,6 +40,7 @@
         "src/welcome/welcome.ts",
         "src/welcome/preset_en.ts",
         "src/welcome/preset_ja.ts",
+        "src/pref/word_group.ts",
         "src/pref/help.ts",
         "src/pref/list_rules.ts"
     ]

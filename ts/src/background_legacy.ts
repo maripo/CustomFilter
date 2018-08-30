@@ -57,10 +57,12 @@ function migrateToChromeSync (onMingrationDone) {
 }
 
 chrome.runtime.onInstalled.addListener(function(details) {
-	if (details.reason=="update" && details.previousVersion && 
-		( details.previousVersion.match(/^2\./)|| details.previousVersion.match(/^1\./)) ) {
-		console.log("DATA MIGRATION NEEDED");
-		
+	if (details.reason=="install") {
+		chrome.storage.local.set({migrationDone:true}, function () {
+			console.log("Migration flag set.");
+		});
+	} else if (details.reason=="update" ) {
+		console.log("DATA MIGRATION NEEDED? Checking...");
 		chrome.storage.local.get(["migrationDone"], function(result) {
 			console.log("migrationDone=" + result["migrationDone"]);
 			if (!result["migrationDone"]) {

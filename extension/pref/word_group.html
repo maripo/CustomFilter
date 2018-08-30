@@ -3,9 +3,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Word Groups | CustomBlocker</title>
-		<link rel="stylesheet" type="text/css" href="../css/rule_editor.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/keywords.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/pref/list_rules.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/rule_editor.css" />
+		<link rel="stylesheet" type="text/css" href="../css/rule_editor_common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/keywords.css" />
+		<link rel="stylesheet" type="text/css" href="../css/pref/list_rules.css" />
 		
 		<script type="text/javascript" src="../src/CustomBlocker.js"></script>
 		<script type="text/javascript" src="../src/pref/word_group.js"></script>
@@ -26,6 +27,54 @@
 			</ul>
 		</div>
 		
+		<div id="prefMain">
+			<div id="rule_editor_body" class="customblocker_rule_dialog">
+				<div class="section">
+					<h3>
+							<span class="custom_filter_localize_sectionRuleTitle">Title</span>
+					</h3>
+					<input type="text" id="rule_editor_title" />
+				</div>
+				<div class="section">
+					<h3>
+						<span class="custom_filter_localize_sectionWord text">Words</span>
+					</h3>
+					<div>
+						<input type="text" id="rule_editor_keyword" /><input type="button"
+							id="rule_editor_add_keyword_button" value="ADD" class="uiButton" />
+					</div>
+					<div>
+						<!-- Complete Matching -->
+						<input type="checkbox" id="rule_editor_keyword_complete_matching_checkbox" /><label
+							for="rule_editor_keyword_complete_matching_checkbox"><span
+							class="custom_filter_localize_complete_matching">Complete Match</span></label>
+						<!-- RegExp -->
+						<input type="checkbox" id="rule_editor_keyword_regexp_checkbox" /><label
+							for="rule_editor_keyword_regexp_checkbox"><span
+							class="custom_filter_localize_regex">RegEx</span></label>
+						<!-- Ignore Case -->
+						<input type="checkbox" id="rule_editor_keyword_case_sensitive_checkbox" /><label
+							for="rule_editor_keyword_case_sensitive_checkbox"><span
+							class="custom_filter_localize_case_sensitive">Case Sensitive</span></label>
+						<!-- Include link URL -->
+						<input type="checkbox" id="rule_editor_keyword_include_href_checkbox" /><label
+							for="rule_editor_keyword_include_href_checkbox"><span
+							class="custom_filter_localize_include_href">Include URL</span></label>
+					</div>
+					<div id="rule_editor_keywords" class="smart_rule_editor_keywords"></div>
+				</div>
+				<div class="bottom_button_container">
+					<input type="button" value="Save" class="uiButton"
+							id="rule_editor_save_button" />
+				</div>
+			</div>
+			<div id="ruleListContainer">
+				<ul id="ruleList">
+					<li>Group 0</li>
+					<li>Group 1</li>
+				</ul>
+			</div>
+		</div>
 		
 		<script type="text/javascript" src="../src/analytics.js"></script>
 	</body>

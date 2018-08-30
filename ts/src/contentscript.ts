@@ -1,5 +1,5 @@
 /*
- 2011 Maripo GODA
+ 2011-2018 Maripo GODA
 
  */
 let timeZero = new Date().getTime();
@@ -43,7 +43,7 @@ class BackgroundCommunicator {
 				this.execResume(request); break;
 			case 'reload':
 				console.log("Reloaded.");
-				this.execReload(request); break;
+				this.execReloadDelayed(request); break;
 			case 'quickRuleCreation':
 				this.execQuickRuleCreation(request); break;
 		}
@@ -68,7 +68,6 @@ class BackgroundCommunicator {
 		window.ruleEditor.initialize(request.rule, request.appliedRuleList);
 	}
 	
-	
 	execRuleSaveDoneSmartEditor (request) {
 		window.smartRuleCreatorDialog.onSaveDone(request.rule);
 	}
@@ -83,10 +82,28 @@ class BackgroundCommunicator {
 			RuleExecutor.blockInterval = window.setInterval(RuleExecutor.execBlock, 2000);
 	}
 	
-	execReload (request) {
-		rules = new Array();
-		RuleExecutor.checkRules(request.rules);
+	pendingRules:[Rule];
+	execReloadDelayed (request) {
+		this.pendingRules = request.rules;
+		if (!document.hidden) {
+			// Apply immediately if the tab is foreground
+			this.execReload();
+		}
 	}
+	execReload () {
+		if (this.pendingRules == null) {
+			return;
+		}
+		rules = new Array();
+		RuleExecutor.checkRules(this.pendingRules);
+		this.pendingRules = null;
+	}
+	onVisibilityChange (isHidden: boolean) {
+		if (!isHidden) {
+			this.execReload();
+		}
+	}
+	//onVisibilityChange
 	
 	execQuickRuleCreation (request) {
 		if (!window.smartRuleCreatorDialog) {
@@ -121,6 +138,10 @@ if (!window.bgCommunicator) {
 	window.bgCommunicator.start();
 }
 
+document.addEventListener('visibilitychange', function() {
+	window.bgCommunicator.onVisibilityChange(document.hidden);
+});
+
 chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
 		console.warn("WARNING: Legacy request type.");
 		console.warn(request);
@@ -131,4 +152,7 @@ chrome.extension.onRequest.addListener(function (request, sender, sendResponse) 
 // Right-clicked event source
 let lastRightClickedElement = null;
 let lastRightClickEvent = null; 
-document.body.oncontextmenu = function(event){lastRightClickedElement=event.srcElement; lastRightClickEvent=event};
+document.body.oncontextmenu = function(event){
+	lastRightClickedElement=event.srcElement; 
+	lastRightClickEvent=event
+};

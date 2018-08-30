@@ -36,7 +36,7 @@ var BackgroundCommunicator = (function () {
                 break;
             case 'reload':
                 console.log("Reloaded.");
-                this.execReload(request);
+                this.execReloadDelayed(request);
                 break;
             case 'quickRuleCreation':
                 this.execQuickRuleCreation(request);
@@ -73,9 +73,24 @@ var BackgroundCommunicator = (function () {
         if (!RuleExecutor.blockInterval)
             RuleExecutor.blockInterval = window.setInterval(RuleExecutor.execBlock, 2000);
     };
-    BackgroundCommunicator.prototype.execReload = function (request) {
+    BackgroundCommunicator.prototype.execReloadDelayed = function (request) {
+        this.pendingRules = request.rules;
+        if (!document.hidden) {
+            this.execReload();
+        }
+    };
+    BackgroundCommunicator.prototype.execReload = function () {
+        if (this.pendingRules == null) {
+            return;
+        }
         rules = new Array();
-        RuleExecutor.checkRules(request.rules);
+        RuleExecutor.checkRules(this.pendingRules);
+        this.pendingRules = null;
+    };
+    BackgroundCommunicator.prototype.onVisibilityChange = function (isHidden) {
+        if (!isHidden) {
+            this.execReload();
+        }
     };
     BackgroundCommunicator.prototype.execQuickRuleCreation = function (request) {
         if (!window.smartRuleCreatorDialog) {
@@ -105,6 +120,9 @@ if (!window.bgCommunicator) {
     window.bgCommunicator = new BackgroundCommunicator();
     window.bgCommunicator.start();
 }
+document.addEventListener('visibilitychange', function () {
+    window.bgCommunicator.onVisibilityChange(document.hidden);
+});
 chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
     console.warn("WARNING: Legacy request type.");
     console.warn(request);
@@ -112,5 +130,8 @@ chrome.extension.onRequest.addListener(function (request, sender, sendResponse) 
 });
 var lastRightClickedElement = null;
 var lastRightClickEvent = null;
-document.body.oncontextmenu = function (event) { lastRightClickedElement = event.srcElement; lastRightClickEvent = event; };
+document.body.oncontextmenu = function (event) {
+    lastRightClickedElement = event.srcElement;
+    lastRightClickEvent = event;
+};
 //# sourceMappingURL=contentscript.js.map

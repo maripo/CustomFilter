@@ -67,8 +67,9 @@ function applyFilter(filterString) {
         var matched = isMatched(container.rule, filterString);
         container.filtered = !matched;
         container.applyClassName(visibleIndex);
-        if (matched)
+        if (matched) {
             visibleIndex++;
+        }
     }
     showCount();
 }
@@ -128,9 +129,7 @@ var RuleContainer = (function () {
         this.selected = false;
     };
     RuleContainer.prototype.applyClassName = function () {
-        if (this.filtered) {
-            this.liElement.className = 'filtered';
-        }
+        this.liElement.className = (this.filtered) ? 'filtered' : null;
     };
     RuleContainer.prototype.getLiElement = function () {
         if (this.liElement)

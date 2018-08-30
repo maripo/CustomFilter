@@ -81,7 +81,9 @@ function applyFilter (filterString: string) {
 		let matched = isMatched(container.rule, filterString);
 		container.filtered = !matched;
 		container.applyClassName(visibleIndex);
-		if (matched) visibleIndex++;
+		if (matched) {
+			visibleIndex++;
+		}
 	}
 	showCount();
 }
@@ -158,7 +160,8 @@ class RuleContainer {
     this.selected = false;
   }
   applyClassName () {
-    if (this.filtered) { this.liElement.className = 'filtered'; }
+    this.liElement.className = (this.filtered)?'filtered':null;
+    //if (this.filtered) { this.liElement.className = 'filtered'; }
   }
   
   getLiElement (): HTMLElement {

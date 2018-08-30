@@ -69,5 +69,8 @@
 	"alreadyInstalled":{"message":"INSTALLED"},
 	"showBadge":{"message":"Show number of blocked elements on app icon"},
 	"installPreset":{"message":"<a href=\"../welcome_install_en.html?add=true\">Install preset rules</a>"},
-	"donate":{"message":"Donate"}
+	"donate":{"message":"Donate"},
+	
+	"migrationFlagNotFound": {"message":"It seems that something went wrong when CustomBlocker tried to upgrade rules you created on version 2.x."},
+	"migrationLink": {"message":"Click to retry data upgrade manually"}
 }

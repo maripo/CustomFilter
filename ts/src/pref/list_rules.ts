@@ -3,6 +3,19 @@ let allRules = [] as [Rule];
 let ruleContainerList = new Array();
 let ruleEditor: PrefRuleEditor;
 
+function manualMigration () {
+		chrome.storage.local.get(["migrationDone"], function(result) {
+			console.log("migrationDone=" + result["migrationDone"]);
+			if (!result["migrationDone"]) {
+				document.getElementById("manualMigrationSection").style.display = "block";
+				document.getElementById("manualMigrationLink").addEventListener("click", function(){
+					let bgWindow = chrome.extension.getBackgroundPage();
+					bgWindow.manualDataMigration();
+				}, false);
+			}
+		});
+}
+
 function onStart () {
 	// Localize
 	document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
@@ -40,6 +53,7 @@ function onStart () {
 			renderRules();
 			showCount();
 		});
+	window.setTimeout(manualMigration, 1000);
 }
 
 function refreshBadgeEnabled () {

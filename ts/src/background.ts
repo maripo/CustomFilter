@@ -25,6 +25,7 @@ interface ElementHighlighter {
 }
 interface Window {
 	reloadLists: ()=>void;
+	manualDataMigration: ()=>void;
 	elementHighlighter: any;
 	smartRuleCreatorDialog: any;
 	bgCommunicator: BackgroundCommunicator;

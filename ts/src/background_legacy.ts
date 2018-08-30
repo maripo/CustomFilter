@@ -77,3 +77,12 @@ chrome.runtime.onInstalled.addListener(function(details) {
 		});
 	} 
 });
+function manualDataMigration() {
+	console.log("manualDataMigration");
+	migrateToChromeSync (function(){
+		console.log("Migration done.");
+		chrome.storage.local.set({migrationDone:true}, function () {
+			console.log("Migration flag set.");
+		});
+	});
+}

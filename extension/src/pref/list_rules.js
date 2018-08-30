@@ -1,6 +1,18 @@
 var allRules = [];
 var ruleContainerList = new Array();
 var ruleEditor;
+function manualMigration() {
+    chrome.storage.local.get(["migrationDone"], function (result) {
+        console.log("migrationDone=" + result["migrationDone"]);
+        if (!result["migrationDone"]) {
+            document.getElementById("manualMigrationSection").style.display = "block";
+            document.getElementById("manualMigrationLink").addEventListener("click", function () {
+                var bgWindow = chrome.extension.getBackgroundPage();
+                bgWindow.manualDataMigration();
+            }, false);
+        }
+    });
+}
 function onStart() {
     document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
     document.getElementById('donate_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate');
@@ -32,6 +44,7 @@ function onStart() {
         renderRules();
         showCount();
     });
+    window.setTimeout(manualMigration, 1000);
 }
 function refreshBadgeEnabled() {
     var isBadgeOn = document.getElementById('buttonBadgeOn').checked;

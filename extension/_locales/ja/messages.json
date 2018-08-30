@@ -68,5 +68,8 @@
 	"alreadyInstalled":{"message":"インストール済"},
 	"showBadge":{"message":"ブロックした数をアイコンの上に表示する"},
 	"installPreset":{"message":"<a href=\"../welcome_install_ja.html?add=true\">おすすめルールをインストールする</a>"},
-	"donate":{"message":"開発者に寄付をする"}
+	"donate":{"message":"開発者に寄付をする"},
+		
+	"migrationFlagNotFound": {"message":"バージョン2.xからのルールの移行中にトラブルが起こった可能性があります。"},
+	"migrationLink": {"message":"ここをクリックすると移行をやり直せます (現在保存されているルールは消えません)。"}
 }

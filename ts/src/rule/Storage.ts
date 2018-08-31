@@ -72,6 +72,13 @@ class CustomBlockerStorage {
 		};
 	}
 	
+	public createWordGroup (): WordGroup {
+		return {
+			name:null,
+			words:[] as [Word]
+		}
+	}
+	
 	// Save & load
 	public loadAll (callback:([Rule])=>void): void {
 		console.log("loadAll TODO");

@@ -105,8 +105,6 @@ var BackgroundCommunicator = (function () {
             console.log(port);
             scope.bgPort = port;
             port.onMessage.addListener(function (msg) {
-                console.log("port.onMessage: ");
-                console.log(msg);
                 scope.processBackgroundRequest(msg, null, null);
             });
         });

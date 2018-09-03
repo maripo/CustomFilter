@@ -101,14 +101,14 @@ class CustomBlockerStorage {
 				}
 				callback(rules);
 			
-			});
+			}, false);
 		});
 	}
 	
 	
 	disabledRuleIDList:[string];
-	private getDisabledRuleIDList (callback:([string])=>void) {
-		if (this.disabledRuleIDList) {
+	private getDisabledRuleIDList (callback:([string])=>void, useCache: boolean) {
+		if (this.disabledRuleIDList && useCache) {
 			callback(this.disabledRuleIDList);
 			return;
 		}
@@ -132,7 +132,7 @@ class CustomBlockerStorage {
 			console.log("disabledRuleIdList=");
 			console.log(scope.disabledRuleIDList);
 			chrome.storage.local.set({disabledRules:scope.disabledRuleIDList}, callback);
-		});
+		}, true);
 	}
 	public enableRule (rule:Rule, callback:()=>void) {
 		let scope = this;
@@ -146,7 +146,7 @@ class CustomBlockerStorage {
 			console.log("disabledRuleIdList=");
 			console.log(scope.disabledRuleIDList);
 			chrome.storage.local.set({disabledRules:scope.disabledRuleIDList}, callback);
-		});
+		}, true);
 	}
 	public toggleRule (rule:Rule, callback:()=>void) {
 		if (rule.is_disabled) {
@@ -368,12 +368,17 @@ class CustomBlockerStorage {
 	sync (changes, namespace, onLocalChange:()=>void) {
 		console.log("Syncing namespace %s", namespace);
 		let scope = this;
-		this.getDeviceId(function(deviceId:string){
+		this.getDeviceId(function(deviceId:string) {
 			for (let key in changes) {
 				let change = changes[key];
-				scope.syncRule(deviceId, key, change.oldValue, change.newValue, onLocalChange);
+				if (key=="disabledRules") {
+					if (onLocalChange) {
+						onLocalChange();
+					}
+				} else {
+					scope.syncRule(deviceId, key, change.oldValue, change.newValue, onLocalChange);
+				}
 			}
-			// TODO reload
 		});
 	}
 	

@@ -112,6 +112,16 @@ class CustomBlockerStorage {
 		});
 	}
 	
+	public loadWordGroupsDummy (callback:([WordGroup])=>void): void {
+		// Dummy
+		let groups = [] as [WordGroup];
+		for (let i=0; i<8; i++) {
+			let group = cbStorage.createWordGroup();
+			group.name = "Word Group "+ i;
+			groups.push(group);
+		}
+		callback(groups);
+	}
 	
 	disabledRuleIDList:[string];
 	private getDisabledRuleIDList (callback:([string])=>void, useCache: boolean) {

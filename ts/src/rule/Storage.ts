@@ -118,6 +118,11 @@ class CustomBlockerStorage {
 		for (let i=0; i<8; i++) {
 			let group = cbStorage.createWordGroup();
 			group.name = "Word Group "+ i;
+			for (let j=0; j<3; j++) {
+				let wordObj = this.createWord();
+				wordObj.word = "Word" + i + "_" + j;
+				group.words.push(wordObj);
+			}
 			groups.push(group);
 		}
 		callback(groups);

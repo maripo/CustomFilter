@@ -42,6 +42,7 @@
         "src/welcome/preset_ja.ts",
         "src/pref/word_group.ts",
         "src/pref/help.ts",
-        "src/pref/list_rules.ts"
+        "src/pref/list_rules.ts",
+        "src/pref/word_editor.ts"
     ]
 }

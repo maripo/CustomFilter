@@ -33,17 +33,7 @@ function onStart() {
     }
     ruleEditor = new PrefRuleEditor();
     CustomBlockerUtil.localize();
-    cbStorage.loadAll(function (rules) {
-        if (!rules || rules.length == 0) {
-            showEmptyAlert();
-        }
-        allRules = rules;
-        for (var i = 0; i < allRules.length; i++) {
-            ruleContainerList.push(new RuleContainer(allRules[i]));
-        }
-        renderRules();
-        showCount();
-    });
+    ruleEditor.init();
     window.setTimeout(manualMigration, 1000);
 }
 function refreshBadgeEnabled() {
@@ -277,17 +267,39 @@ var reloadBackground = function () {
 var PrefRuleEditor = (function () {
     function PrefRuleEditor() {
         this.rule = null;
+        this.wordEditor = new WordEditor();
         this.saveButton = document.getElementById('rule_editor_save_button');
         this.saveButton.addEventListener('click', this.getSaveAction(), true);
         this.addWordButton = document.getElementById('rule_editor_add_keyword_button');
-        this.addWordButton.addEventListener('click', this.getAddWordAction(), true);
-        document.getElementById('rule_editor_keyword').addEventListener('keydown', this.getAddWordByEnterAction(), true);
+        this.addWordButton.addEventListener('click', this.wordEditor.getAddWordAction(), true);
+        document.getElementById('rule_editor_keyword').addEventListener('keydown', this.wordEditor.getAddWordByEnterAction(), true);
         this.alertDiv = document.getElementById('rule_editor_alert');
         document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click', PrefRuleEditor.changeKeywordColor, false);
         document.getElementById('rule_editor_block_anyway').addEventListener('change', PrefRuleEditor.setVisibilityOfConditionDetail, false);
         document.getElementById('rule_editor_block_anyway_false').addEventListener('change', PrefRuleEditor.setVisibilityOfConditionDetail, false);
         PrefRuleEditor.changeKeywordColor(null);
+        var self = this;
+        this.wordEditor.addWordHandler = function (word) {
+            word.rule_id = self.rule.rule_id;
+            cbStorage.addWordToRule(self.rule, word);
+        };
+        this.wordEditor.deleteWordHandler = function (word) {
+            cbStorage.removeWordFromRule(self.rule, word);
+        };
     }
+    PrefRuleEditor.prototype.init = function () {
+        cbStorage.loadAll(function (rules) {
+            if (!rules || rules.length == 0) {
+                showEmptyAlert();
+            }
+            allRules = rules;
+            for (var i = 0; i < allRules.length; i++) {
+                ruleContainerList.push(new RuleContainer(allRules[i]));
+            }
+            renderRules();
+            showCount();
+        });
+    };
     PrefRuleEditor.changeKeywordColor = function (sender) {
         document.getElementById('rule_editor_keyword').style.backgroundColor =
             (document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked) ? '#fed3de!important' : '#cdedf8!important';
@@ -303,9 +315,8 @@ var PrefRuleEditor = (function () {
         };
     };
     PrefRuleEditor.prototype.selectRule = function (rule) {
-        console.log("Rule selected: " + rule.title);
         this.rule = rule;
-        document.getElementById('rule_editor_keywords').innerHTML = '';
+        this.wordEditor.setWords(rule.words);
         if (rule) {
             document.getElementById('rule_editor_title').value = rule.title;
             document.getElementById('rule_editor_site_regexp').value = rule.site_regexp;
@@ -323,10 +334,6 @@ var PrefRuleEditor = (function () {
             document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway) ? 'none' : 'block';
             document.getElementById('specify_url_by_regexp_checkbox').checked = rule.specify_url_by_regexp;
             refreshPathSections();
-        }
-        for (var i = 0, l = rule.words.length; i < l; i++) {
-            var word = rule.words[i];
-            document.getElementById('rule_editor_keywords').appendChild(this.getWordElement(word));
         }
     };
     PrefRuleEditor.prototype.showMessage = function (str) {
@@ -367,68 +374,6 @@ var PrefRuleEditor = (function () {
             self.showMessage(chrome.i18n.getMessage('saveDone'));
             reloadBackground();
         });
-    };
-    PrefRuleEditor.prototype.getWordElement = function (word) {
-        var span = document.createElement('SPAN');
-        var suffix = word.is_complete_matching ? 'red' : 'blue';
-        if (word.is_regexp) {
-            span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_regexp", suffix, "regex"));
-        }
-        if (word.is_case_sensitive) {
-            span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_case_sensitive", suffix, "case_sensitive"));
-        }
-        if (word.is_include_href) {
-            span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_include_href", suffix, "include_href"));
-        }
-        span.innerHTML += CustomBlockerUtil.escapeHTML(word.word);
-        span.className = 'word '
-            + ((word.is_complete_matching) ? 'complete_matching' : 'not_complete_matching');
-        var deleteButton = CustomBlockerUtil.createDeleteButton();
-        deleteButton.addEventListener('click', this.getDeleteWordAction(word, span), true);
-        span.appendChild(deleteButton);
-        return span;
-    };
-    PrefRuleEditor.prototype.getDeleteWordAction = function (word, span) {
-        var self = this;
-        return function () {
-            span.parentNode.removeChild(span);
-            cbStorage.removeWordFromRule(self.rule, word);
-        };
-    };
-    PrefRuleEditor.prototype.getAddWordByEnterAction = function () {
-        var self = this;
-        return function (event) {
-            if (13 == event.keyCode) {
-                self.addWord();
-            }
-        };
-    };
-    PrefRuleEditor.prototype.getAddWordAction = function () {
-        var self = this;
-        return function () {
-            self.addWord();
-        };
-    };
-    PrefRuleEditor.prototype.addWord = function () {
-        var self = this;
-        var str = document.getElementById('rule_editor_keyword').value;
-        if (!str || '' == str) {
-            return;
-        }
-        var word = cbStorage.createWord();
-        word.word = str;
-        word.is_regexp =
-            document.getElementById('rule_editor_keyword_regexp_checkbox').checked;
-        word.is_complete_matching =
-            document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked;
-        word.is_case_sensitive =
-            document.getElementById('rule_editor_keyword_case_sensitive_checkbox').checked;
-        word.is_include_href =
-            document.getElementById('rule_editor_keyword_include_href_checkbox').checked;
-        word.rule_id = self.rule.rule_id;
-        cbStorage.addWordToRule(self.rule, word);
-        document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
-        document.getElementById('rule_editor_keyword').value = '';
     };
     return PrefRuleEditor;
 }());

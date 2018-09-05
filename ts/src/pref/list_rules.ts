@@ -1,4 +1,3 @@
-
 let allRules = [] as [Rule];
 let ruleContainerList = new Array();
 let ruleEditor: PrefRuleEditor;
@@ -41,18 +40,7 @@ function onStart () {
 	
 	ruleEditor = new PrefRuleEditor();
 	CustomBlockerUtil.localize();
-	cbStorage.loadAll (
-		function (rules:[Rule]) {
-			if (!rules || rules.length==0) {
-				showEmptyAlert();
-			}	
-			allRules = rules;
-			for (let i=0; i<allRules.length; i++) {
-				ruleContainerList.push(new RuleContainer(allRules[i]));
-			}
-			renderRules();
-			showCount();
-		});
+	ruleEditor.init();
 	window.setTimeout(manualMigration, 1000);
 }
 
@@ -338,23 +326,46 @@ let reloadBackground = function ()
 }
 
 class PrefRuleEditor {
-  rule: Rule;
+  private rule: Rule;
   alertDiv: HTMLElement;
   saveButton: HTMLInputElement;
   addWordButton: HTMLInputElement;
-  constructor () 
-  {
+  wordEditor: WordEditor;
+  constructor ()  {
     this.rule = null;
+    this.wordEditor = new WordEditor();
     this.saveButton = document.getElementById('rule_editor_save_button') as HTMLInputElement;
     this.saveButton.addEventListener('click', this.getSaveAction(), true);
     this.addWordButton = document.getElementById('rule_editor_add_keyword_button') as HTMLInputElement;
-    this.addWordButton.addEventListener('click', this.getAddWordAction(), true);
-    document.getElementById('rule_editor_keyword').addEventListener('keydown', this.getAddWordByEnterAction(), true);
+    this.addWordButton.addEventListener('click', this.wordEditor.getAddWordAction(), true);
+    document.getElementById('rule_editor_keyword').addEventListener('keydown', this.wordEditor.getAddWordByEnterAction(), true);
     this.alertDiv = document.getElementById('rule_editor_alert');
     document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click',PrefRuleEditor.changeKeywordColor, false);
     document.getElementById('rule_editor_block_anyway').addEventListener('change',PrefRuleEditor.setVisibilityOfConditionDetail, false);
     document.getElementById('rule_editor_block_anyway_false').addEventListener('change',PrefRuleEditor.setVisibilityOfConditionDetail, false);
     PrefRuleEditor.changeKeywordColor(null);
+    let self = this;
+    this.wordEditor.addWordHandler = function (word:Word) {
+			word.rule_id = self.rule.rule_id;
+			cbStorage.addWordToRule(self.rule, word);
+    };
+    this.wordEditor.deleteWordHandler = function (word:Word) {
+			cbStorage.removeWordFromRule(self.rule, word);
+    };
+  }
+  init () {
+		cbStorage.loadAll (
+			function (rules:[Rule]) {
+				if (!rules || rules.length==0) {
+					showEmptyAlert();
+				}	
+				allRules = rules;
+				for (let i=0; i<allRules.length; i++) {
+					ruleContainerList.push(new RuleContainer(allRules[i]));
+				}
+				renderRules();
+				showCount();
+			});
   }
   static changeKeywordColor (sender)
   {
@@ -376,9 +387,8 @@ class PrefRuleEditor {
   }
   
   selectRule (rule: Rule) {
-    console.log("Rule selected: " + rule.title);
     this.rule = rule;
-    document.getElementById('rule_editor_keywords').innerHTML = '';
+  		this.wordEditor.setWords(rule.words as [Word]);
     if (rule) {
       (document.getElementById('rule_editor_title') as HTMLInputElement).value = rule.title;
       (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value = rule.site_regexp;
@@ -397,11 +407,6 @@ class PrefRuleEditor {
       document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway)?'none':'block';
       (document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked = rule.specify_url_by_regexp;
       refreshPathSections();
-    }
-    for (let i=0, l=rule.words.length; i<l; i++) 
-    {
-      let word = rule.words[i];
-      document.getElementById('rule_editor_keywords').appendChild(this.getWordElement(word));
     }
   }
   showMessage (str: string): void {
@@ -448,73 +453,6 @@ class PrefRuleEditor {
     });
   }
   
-  getWordElement (word: Word) : HTMLElement
-  {
-    let span = document.createElement('SPAN');
-    let suffix = word.is_complete_matching? 'red':'blue';
-    if (word.is_regexp) {
-      span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_regexp",suffix,"regex"));
-    }
-    if (word.is_case_sensitive) {
-      span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_case_sensitive",suffix,"case_sensitive"));
-    }
-    if (word.is_include_href) {
-      span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_include_href",suffix,"include_href"));
-    }
-    span.innerHTML += CustomBlockerUtil.escapeHTML(word.word);
-    span.className = 'word ' 
-      + ((word.is_complete_matching)?'complete_matching':'not_complete_matching');
-    let deleteButton = CustomBlockerUtil.createDeleteButton();
-    deleteButton.addEventListener('click', this.getDeleteWordAction(word, span), true);
-    
-    span.appendChild(deleteButton);
-    
-    return span;
-  }
-  getDeleteWordAction (word:Word, span:HTMLElement) {
-    let self = this;
-    return function () {
-      span.parentNode.removeChild(span);
-      cbStorage.removeWordFromRule(self.rule, word);
-    }
-  }
-  getAddWordByEnterAction () {
-    let self = this;
-    return function (event) {
-      if (13==event.keyCode) {
-        self.addWord();
-      }
-    }
-  }
-  
-  getAddWordAction () {
-    let self = this;
-    return function () {
-      self.addWord();
-    }
-  }
-  
-  addWord () {
-    let self = this;
-    let str = (document.getElementById('rule_editor_keyword') as HTMLInputElement).value;
-    if (!str || ''==str) {
-      return;
-    }
-    let word = cbStorage.createWord();
-    word.word = str;
-    word.is_regexp = 
-      (document.getElementById('rule_editor_keyword_regexp_checkbox') as HTMLInputElement).checked;
-    word.is_complete_matching = 
-      (document.getElementById('rule_editor_keyword_complete_matching_checkbox') as HTMLInputElement).checked;
-    word.is_case_sensitive = 
-      (document.getElementById('rule_editor_keyword_case_sensitive_checkbox') as HTMLInputElement).checked;
-    word.is_include_href = 
-      (document.getElementById('rule_editor_keyword_include_href_checkbox') as HTMLInputElement).checked;
-    word.rule_id = self.rule.rule_id;
-    cbStorage.addWordToRule(self.rule, word);
-    document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
-    (document.getElementById('rule_editor_keyword') as HTMLInputElement).value = '';
-  }
 }
 
 window.onload = onStart;

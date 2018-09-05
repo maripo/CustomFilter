@@ -9,10 +9,12 @@ class WordGroupPage {
 	groups: [WordGroup];
 	wrappers: [WordGroupWrapper];
 	listContainer: HTMLElement;
+	editor: WordGroupEditor;
 	constructor () {
 	}
 	init ():void {
 		this.listContainer = document.getElementById("ruleList");
+		this.editor = new WordGroupEditor();
 	}
 	load () {
 		let scope = this;
@@ -24,15 +26,30 @@ class WordGroupPage {
 				console.log(group.name);
 				let wrapper = new WordGroupWrapper(group);
 				scope.wrappers.push(wrapper);
-				scope.listContainer.appendChild(wrapper.getInterface());
+				let li = wrapper.getInterface();
+				li.addEventListener('click', function(){scope.selectWordGroup(wrapper.group)});
+				scope.listContainer.appendChild(li);
 			}
 		});
 	
 	}
+	selectWordGroup (group: WordGroup) {
+		this.editor.setGroup(group);
+	}
 }
 
 class WordGroupEditor {
-
+	uiTitle: HTMLInputElement;
+	wordEditor: WordEditor;
+	constructor () {
+		this.uiTitle = document.getElementById("rule_editor_title") as HTMLInputElement;
+		this.wordEditor = new WordEditor();
+	}
+	setGroup (group: WordGroup) {
+		console.log(group);
+		this.uiTitle.value = group.name;
+		this.wordEditor.setWords(group.words);
+	}
 }
 
 class WordGroupWrapper {

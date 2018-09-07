@@ -379,7 +379,7 @@ window.onload = function() {
 chrome.storage.onChanged.addListener(function(changes, namespace) {
 		cbStorage.sync(changes, namespace, function () {
 			// onLocalChange
-			cbStorage.loadAll(function(rules:[Rule]){
+			cbStorage.loadAll(function(rules:[Rule], groups:[WordGroup]){
 				CustomBlockerTab.postMessageToAllTabs({command:'reload', rules: rules});
 			});
 		});

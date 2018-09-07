@@ -267,17 +267,12 @@ var reloadBackground = function () {
 var PrefRuleEditor = (function () {
     function PrefRuleEditor() {
         this.rule = null;
-        this.wordEditor = new WordEditor();
         this.saveButton = document.getElementById('rule_editor_save_button');
         this.saveButton.addEventListener('click', this.getSaveAction(), true);
-        this.addWordButton = document.getElementById('rule_editor_add_keyword_button');
-        this.addWordButton.addEventListener('click', this.wordEditor.getAddWordAction(), true);
-        document.getElementById('rule_editor_keyword').addEventListener('keydown', this.wordEditor.getAddWordByEnterAction(), true);
         this.alertDiv = document.getElementById('rule_editor_alert');
-        document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click', PrefRuleEditor.changeKeywordColor, false);
         document.getElementById('rule_editor_block_anyway').addEventListener('change', PrefRuleEditor.setVisibilityOfConditionDetail, false);
         document.getElementById('rule_editor_block_anyway_false').addEventListener('change', PrefRuleEditor.setVisibilityOfConditionDetail, false);
-        PrefRuleEditor.changeKeywordColor(null);
+        this.wordEditor = new WordEditor();
         var self = this;
         this.wordEditor.addWordHandler = function (word) {
             word.rule_id = self.rule.rule_id;
@@ -288,7 +283,7 @@ var PrefRuleEditor = (function () {
         };
     }
     PrefRuleEditor.prototype.init = function () {
-        cbStorage.loadAll(function (rules) {
+        cbStorage.loadAll(function (rules, groups) {
             if (!rules || rules.length == 0) {
                 showEmptyAlert();
             }
@@ -299,10 +294,6 @@ var PrefRuleEditor = (function () {
             renderRules();
             showCount();
         });
-    };
-    PrefRuleEditor.changeKeywordColor = function (sender) {
-        document.getElementById('rule_editor_keyword').style.backgroundColor =
-            (document.getElementById('rule_editor_keyword_complete_matching_checkbox').checked) ? '#fed3de!important' : '#cdedf8!important';
     };
     PrefRuleEditor.setVisibilityOfConditionDetail = function () {
         document.getElementById('rule_editor_hide_detail').style.display =
@@ -317,24 +308,22 @@ var PrefRuleEditor = (function () {
     PrefRuleEditor.prototype.selectRule = function (rule) {
         this.rule = rule;
         this.wordEditor.setWords(rule.words);
-        if (rule) {
-            document.getElementById('rule_editor_title').value = rule.title;
-            document.getElementById('rule_editor_site_regexp').value = rule.site_regexp;
-            document.getElementById('rule_editor_example_url').value = rule.example_url;
-            document.getElementById('rule_editor_search_block_xpath').value = rule.search_block_xpath;
-            document.getElementById('rule_editor_search_block_css').value = rule.search_block_css;
-            var searchRadio = document.getElementById('rule_editor_radio_search_' + ((rule.search_block_by_css) ? 'css' : 'xpath'));
-            searchRadio.checked = true;
-            document.getElementById('rule_editor_hide_block_xpath').value = rule.hide_block_xpath;
-            document.getElementById('rule_editor_hide_block_css').value = rule.hide_block_css;
-            var hideRadio = document.getElementById('rule_editor_radio_hide_' + ((rule.hide_block_by_css) ? 'css' : 'xpath'));
-            hideRadio.checked = true;
-            var blockAnywayCheckbox = document.getElementById((rule.block_anyway) ? 'rule_editor_block_anyway' : 'rule_editor_block_anyway_false');
-            blockAnywayCheckbox.checked = true;
-            document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway) ? 'none' : 'block';
-            document.getElementById('specify_url_by_regexp_checkbox').checked = rule.specify_url_by_regexp;
-            refreshPathSections();
-        }
+        document.getElementById('rule_editor_title').value = rule.title;
+        document.getElementById('rule_editor_site_regexp').value = rule.site_regexp;
+        document.getElementById('rule_editor_example_url').value = rule.example_url;
+        document.getElementById('rule_editor_search_block_xpath').value = rule.search_block_xpath;
+        document.getElementById('rule_editor_search_block_css').value = rule.search_block_css;
+        var searchRadio = document.getElementById('rule_editor_radio_search_' + ((rule.search_block_by_css) ? 'css' : 'xpath'));
+        searchRadio.checked = true;
+        document.getElementById('rule_editor_hide_block_xpath').value = rule.hide_block_xpath;
+        document.getElementById('rule_editor_hide_block_css').value = rule.hide_block_css;
+        var hideRadio = document.getElementById('rule_editor_radio_hide_' + ((rule.hide_block_by_css) ? 'css' : 'xpath'));
+        hideRadio.checked = true;
+        var blockAnywayCheckbox = document.getElementById((rule.block_anyway) ? 'rule_editor_block_anyway' : 'rule_editor_block_anyway_false');
+        blockAnywayCheckbox.checked = true;
+        document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway) ? 'none' : 'block';
+        document.getElementById('specify_url_by_regexp_checkbox').checked = rule.specify_url_by_regexp;
+        refreshPathSections();
     };
     PrefRuleEditor.prototype.showMessage = function (str) {
         this.alertDiv.style.display = 'block';

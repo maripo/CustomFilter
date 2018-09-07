@@ -5,6 +5,7 @@ class CustomBlockerStorage {
 	static JSON_WORD_FLAG_CASE_SENSITIVE: number;
 	static JSON_WORD_FLAG_INCLUDE_HREF: number;
 	static JSON_RULE_CONVERSION_RULE: [[string]];
+	static JSON_WORD_GROUP_CONVERSION_RULE: [[string]];
 	
 	public createRule (): Rule {
 		return {
@@ -75,26 +76,35 @@ class CustomBlockerStorage {
 	public createWordGroup (): WordGroup {
 		return {
 			name:null,
+ 			global_identifier: null,
+			updaterId: null,
 			words:[] as [Word]
 		}
 	}
 	
 	// Save & load
-	public loadAll (callback:([Rule])=>void): void {
+	public loadAll (callback:([Rule], [WordGroup])=>void): void {
 		console.log("loadAll TODO");
 		let scope = this;
 		chrome.storage.sync.get(null, function (allObj) {
 			console.log(allObj);
 			let rules = [] as [Rule];
+			let groups = [] as [WordGroup];
 			for (let key in allObj) {
 				if (key.indexOf("R-")==0) {
 					let rule = cbStorage.createRule();
 					scope.initRuleByJSON(rule, allObj[key]);
 					rules.push(rule);
+				} if (key.indexOf("G-")==0) {
+					let group = cbStorage.createWordGroup();
+					scope.initWordGroupByJSON(group, allObj[key]);
+					groups.push(group);
 				} else {
 					console.log("Invalid key: " + key);
 				}
 			}
+			
+			// TODO add word groups to rules
 			
 			scope.getDisabledRuleIDList(function(ids) {
 				// Load disabled rule list (if needed) from local storage and set is_disabled values
@@ -106,26 +116,10 @@ class CustomBlockerStorage {
 						}
 					}
 				}
-				callback(rules);
+				callback(rules, groups);
 			
 			}, false);
 		});
-	}
-	
-	public loadWordGroupsDummy (callback:([WordGroup])=>void): void {
-		// Dummy
-		let groups = [] as [WordGroup];
-		for (let i=0; i<8; i++) {
-			let group = cbStorage.createWordGroup();
-			group.name = "Word Group "+ i;
-			for (let j=0; j<3; j++) {
-				let wordObj = this.createWord();
-				wordObj.word = "Word" + i + "_" + j;
-				group.words.push(wordObj);
-			}
-			groups.push(group);
-		}
-		callback(groups);
 	}
 	
 	disabledRuleIDList:[string];
@@ -184,18 +178,16 @@ class CustomBlockerStorage {
 			console.log("UUID is generated. " + rule.global_identifier);
 		}
 		let scope = this;
-		this.getDeviceId(function(deviceId:string){
+		this.getDeviceId(function(deviceId:string) {
 			let obj = {};
 			rule.updaterId = deviceId;
-			console.log("Updater id set. " + rule.updaterId);
 			let jsonObj = scope.convertRuleToJSON(rule);
-			// TODO
+			// TODO forced merge test
 			console.log(document.getElementById('rule_editor_save_merge_checkbox'))
 			if (document.getElementById('rule_editor_save_merge_checkbox') && (document.getElementById('rule_editor_save_merge_checkbox') as HTMLInputElement).checked) {
 				console.log("rule is checked!");
 				jsonObj["merge"] = true;
 			}
-			console.log(jsonObj);
 			
 			obj[scope.getRuleJSONKey(rule)] = jsonObj;
 			
@@ -206,6 +198,28 @@ class CustomBlockerStorage {
 				}
 			});
 		});
+	}
+	
+	public saveWordGroup (group:WordGroup, callback:()=>void) {
+		if (CustomBlockerUtil.isEmpty(group.global_identifier)) {
+			group.global_identifier = UUID.generate();
+			console.log("UUID is generated. " + group.global_identifier);
+		}
+		let scope = this;
+		this.getDeviceId(function(deviceId:string) {
+			group.updaterId = deviceId;
+			let jsonObj = scope.convertWordGroupToJSON(group);
+			console.log(jsonObj);
+			let obj = {};
+			obj[scope.getWordGroupJSONKey(group)] = jsonObj;
+			chrome.storage.sync.set(obj, function() {
+				console.log("Saved rule.");
+				if (callback) {
+					callback();
+				}
+			});
+		});
+	
 	}
 	
 	public static createWordInstance (url:string, title:string): Rule {
@@ -229,15 +243,30 @@ class CustomBlockerStorage {
 		rule.words.push(word);	
 	}
 	
-	public removeWordFromRule (rule:Rule, word:Word) {
-		let wordIndex = rule.words.indexOf(word);
+	public removeWordFromRule (group:Rule, word:Word) {
+		let wordIndex = group.words.indexOf(word);
 		if (wordIndex >= 0) {
-		  rule.words.splice(wordIndex, 1);
+		  group.words.splice(wordIndex, 1);
+		}
+	}
+	
+	public addWordToWordGroup (group:WordGroup, word:Word) {
+		group.words.push(word);	
+	}
+	
+	public removeWordFromWordGroup (group:WordGroup, word:Word) {
+		let wordIndex = group.words.indexOf(word);
+		if (wordIndex >= 0) {
+		  group.words.splice(wordIndex, 1);
 		}
 	}
 	
 	public getRuleJSONKey (rule:Rule): string {
 		return "R-" + rule.global_identifier;
+	}
+	
+	public getWordGroupJSONKey (group:WordGroup): string {
+		return "G-" + group.global_identifier;
 	}
 	
 	public convertRuleToJSON (rule:Rule): object {
@@ -250,13 +279,20 @@ class CustomBlockerStorage {
 		for (let word of rule.words) {
 			obj["w"].push(this.convertWordToJSON(word));
 		}
-		/*
-		
-		for (let wordGroup of this.wordGroups) {
-			obj["wg"].push(wordGroup.getJSON();
-		}
-		*/
 		return obj;
+	}
+	
+	public convertWordGroupToJSON (group:WordGroup): object {
+		let obj = {};
+		for (let prop of CustomBlockerStorage.JSON_WORD_GROUP_CONVERSION_RULE) {
+			obj[prop[1]] = (group as object)[prop[0]];
+		}
+		obj["w"] = []; // Words
+		for (let word of group.words) {
+			obj["w"].push(this.convertWordToJSON(word));
+		}
+		return obj;
+	
 	}
 	
 	public convertWordToJSON (word:Word): any {
@@ -280,8 +316,7 @@ class CustomBlockerStorage {
 		let rule = cbStorage.createRule();
 		return rule;
 	}
-	public initRuleByJSON (rule:Rule, json:object): Rule {
-		// TODO
+	private initRuleByJSON (rule:Rule, json:object): Rule {
 		for (let prop of CustomBlockerStorage.JSON_RULE_CONVERSION_RULE) {
 			(rule as object)[prop[0]] = json[prop[1]]; 
 		}
@@ -289,15 +324,34 @@ class CustomBlockerStorage {
 		rule.wordGroups = [];
 		let words = json["w"] as [any];
 		let wordGroups = json["wg"] as [any];
-		for (let word of words) {
-			let wordObj = this.createWord();
-			this.initWordByJSON(wordObj, word);
-			rule.words.push(wordObj);
+		if (words) {
+			for (let word of words) {
+				let wordObj = this.createWord();
+				this.initWordByJSON(wordObj, word);
+				rule.words.push(wordObj);
+			}
+		}
+		if (wordGroups) {
+			// TODO
 		}
 		return rule;
 	}
 	
-	public initWordByJSON (word:Word, obj:any): void {
+	private initWordGroupByJSON (group:WordGroup, json:object): WordGroup {
+		for (let prop of CustomBlockerStorage.JSON_WORD_GROUP_CONVERSION_RULE) {
+			(group as object)[prop[0]] = json[prop[1]]; 
+		}
+		group.words = [] as [Word];
+		let words = json["w"] as [any];
+		for (let word of words) {
+			let wordObj = this.createWord();
+			this.initWordByJSON(wordObj, word);
+			group.words.push(wordObj);
+		}
+		return group;
+	}
+	
+	private initWordByJSON (word:Word, obj:any): void {
 		if (typeof(obj)=="string") {
 			word.word = obj as string;
 		} else {
@@ -447,6 +501,10 @@ class CustomBlockerStorage {
 			["updaterId", "ui"],
 			
 			["block_anyway", "b"]
+		];
+		CustomBlockerStorage.JSON_WORD_GROUP_CONVERSION_RULE = [
+ 			["global_identifier","g"],
+ 			["name","n"]
 		];
 		CustomBlockerStorage.JSON_WORD_FLAG_REGEXP = 1;
 		CustomBlockerStorage.JSON_WORD_FLAG_COMPLETE_MATCHING = 2;

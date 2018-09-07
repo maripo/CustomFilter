@@ -2,6 +2,15 @@ class WordEditor {
 	// TODO deleteWordHandler
 	deleteWordHandler: (Word)=>void
 	addWordHandler: (Word)=>void
+	
+	constructor () {
+		let addWordButton = document.getElementById('rule_editor_add_keyword_button') as HTMLInputElement;
+		addWordButton.addEventListener('click', this.getAddWordAction(), true);
+		document.getElementById('rule_editor_keyword').addEventListener('keydown', this.getAddWordByEnterAction(), true);
+		WordEditor.changeKeywordColor(null);
+		document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click',WordEditor.changeKeywordColor, false);
+	}
+	
 	getWordElement (word: Word) : HTMLElement {
 		let span = document.createElement('SPAN');
 		let suffix = word.is_complete_matching? 'red':'blue';
@@ -81,5 +90,9 @@ class WordEditor {
 		}
 		document.getElementById('rule_editor_keywords').appendChild(self.getWordElement(word));
 		(document.getElementById('rule_editor_keyword') as HTMLInputElement).value = '';
+	}
+	static changeKeywordColor (sender) {
+		document.getElementById('rule_editor_keyword').style.backgroundColor =
+			((document.getElementById('rule_editor_keyword_complete_matching_checkbox') as HTMLInputElement).checked)?'#fed3de!important':'#cdedf8!important';
 	}
 }

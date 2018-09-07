@@ -46,7 +46,7 @@ function onStart () {
 
 function refreshBadgeEnabled () {
 	let isBadgeOn = (document.getElementById('buttonBadgeOn') as HTMLInputElement).checked;
-    localStorage.badgeDisabled = (isBadgeOn)?"false":"true";
+		localStorage.badgeDisabled = (isBadgeOn)?"false":"true";
 }
 
 function showEmptyAlert () {
@@ -125,183 +125,183 @@ function isMatchedByWords (rule:Rule, filterString:string) {
 
 function deselectAll ():void
 {
-  let visibleIndex = 0;
-  for (let i=0, l=ruleContainerList.length; i<l; i++)
-  {
-    ruleContainerList[i].deselect();
-    ruleContainerList[i].applyClassName(visibleIndex);
-    if (!ruleContainerList[i].filtered) visibleIndex++;
-  } 
+	let visibleIndex = 0;
+	for (let i=0, l=ruleContainerList.length; i<l; i++)
+	{
+		ruleContainerList[i].deselect();
+		ruleContainerList[i].applyClassName(visibleIndex);
+		if (!ruleContainerList[i].filtered) visibleIndex++;
+	} 
 }
 
 
 function removeElement (element):void {
-  for (let i=0; i<ruleContainerList.length; i++) {
-    if (ruleContainerList[i]==element)
-    {
-      ruleContainerList.splice(i, 1);
-      return;
-    }
-  }
+	for (let i=0; i<ruleContainerList.length; i++) {
+		if (ruleContainerList[i]==element)
+		{
+			ruleContainerList.splice(i, 1);
+			return;
+		}
+	}
 }
 
 class RuleContainer {
-  rule: Rule;
-  liElement: HTMLElement;
-  filtered: boolean;
-  selected: boolean;
-  disableBox: HTMLElement;
-  constructor (rule: Rule) 
-  {
-    this.rule = rule;
-    this.liElement = null;
-    this.filtered = false;
-  }
-  deselect ():void
-  {
-    this.selected = false;
-  }
-  applyClassName () {
-    this.liElement.className = (this.filtered)?'filtered':null;
-    //if (this.filtered) { this.liElement.className = 'filtered'; }
-  }
-  
-  getLiElement (): HTMLElement {
-    if (this.liElement) return this.liElement;
-    this.liElement = document.createElement('LI');
-    
-    let buttonContainer = document.createElement('DIV');
-    buttonContainer.className = 'buttonContainer';
-    buttonContainer.appendChild(this.createSelectButton());
-    this.disableBox = this.createDisableBox();
-    buttonContainer.appendChild(this.disableBox);
-    buttonContainer.appendChild(this.createDeleteButton());
-    
-    
-    this.liElement.appendChild(buttonContainer);
-    
-    let informationDiv = document.createElement('DIV');
-    informationDiv.className = 'information';
-    
-    this.liElement.appendChild(informationDiv);
-    
-    let titleDiv = document.createElement('DIV');
-    titleDiv.className = 'title';
-    
-    titleDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.title, 42);
-    
-    
-    let urlDiv = document.createElement('DIV');
-    urlDiv.className = 'url';
-    urlDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.site_regexp,36);
-    
-    let keywordsDiv = document.createElement('DIV');
-    keywordsDiv.className = 'keywords';
-    
-    let keywords = new Array();
-    if (this.rule.block_anyway)
-    {
-      let span = document.createElement('SPAN');
-      span.innerHTML = chrome.i18n.getMessage('blockAnyway');
-      span.className = 'blockAnyway';
-      keywordsDiv.appendChild(span);
-    }
-    else
-    {
-      for (let i=0, l=this.rule.words.length; i<l; i++) 
-      {
-        let keywordSpan = document.createElement('SPAN');
-        keywordSpan.className = (this.rule.words[i].is_regexp)?"keyword regex":"keyword normal";
-        keywordSpan.innerHTML = this.rule.words[i].word
-        keywordsDiv.appendChild(keywordSpan);
-      }
-    }
-    
-    
-    informationDiv.appendChild(titleDiv);
-    informationDiv.appendChild(urlDiv);
-    informationDiv.appendChild(keywordsDiv);
-    
-  
-    let exampleLink = document.createElement('A');
-    exampleLink.className = 'exampleUrl';
-    exampleLink.innerHTML = '[LINK]';
-    exampleLink.setAttribute("target", '_blank');
-    exampleLink.setAttribute("href", this.rule.example_url);
-    
-    let favicon = document.createElement('IMG');
-    let hrefValue = (this.rule.example_url)? 'chrome://favicon/' + this.rule.example_url : chrome.extension.getURL('img/world.png');
-    favicon.setAttribute("src", hrefValue);
-    favicon.className = 'favicon';
-    informationDiv.appendChild(favicon);
-    
-    informationDiv.appendChild(exampleLink);
-    
-    return this.liElement;
-  }
-  createDisableBox (): HTMLElement 
-  {
-    let span = document.createElement('SPAN');
-    let input = document.createElement('INPUT') as HTMLInputElement;
-    input.type = 'BUTTON';
-    input.value = (this.rule.is_disabled)?'OFF':'ON';
-    input.className = (this.rule.is_disabled)?'uiButton buttonOff':'uiButton buttonOn';
-    span.appendChild(input);
-    input.addEventListener('click', this.getDisableAction(input), true);
-    return span;
-  }
-  createSelectButton (): HTMLInputElement 
-  {
-    let button = document.createElement('INPUT') as HTMLInputElement;
-    button.type = 'BUTTON';
-    button.className = 'uiButton buttonEdit';
-    button.value = chrome.i18n.getMessage('buttonLabelEdit');
-    button.addEventListener('click', this.getSelectAction(), true);
-    return button;
-  }
-  createDeleteButton (): HTMLInputElement
-  {
-    let button = document.createElement('INPUT') as HTMLInputElement;
-    button.type = 'BUTTON';
-    button.className = 'uiButton buttonDelete';
-    button.value = chrome.i18n.getMessage('buttonLabelDelete');
-    button.addEventListener('click', this.getDeleteAction(), true);
-    return button;
-  }
-  
-  getDisableAction (inputButton: HTMLInputElement) {
-    let rule = this.rule;
-    return function (event) {
-  			cbStorage.toggleRule(rule, function() {
-	      // Toggle enabled flag and save
-	      inputButton.value = (rule.is_disabled)?'OFF':'ON';
-	      inputButton.className = (rule.is_disabled)?'uiButton buttonOff':'uiButton buttonOn';
-  			});
-    }
-  }
-  getSelectAction () {
-    let self = this;
-    return function () 
-    {
-      document.getElementById('rule_editor_alert').style.display = 'none';
-      ruleEditor.selectRule(self.rule);
-      deselectAll();
-      self.selected = true;
-      self.applyClassName();
-    };
-  }
-  getDeleteAction () {
-    let self = this;
-    return function () {
-      if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
-      		cbStorage.deleteRule(self.rule, function(){});
-        self.liElement.parentNode.removeChild(self.liElement);
-        removeElement (self);
-        showCount();
-        reloadBackground();
-      }
-    };
-  }
+	rule: Rule;
+	liElement: HTMLElement;
+	filtered: boolean;
+	selected: boolean;
+	disableBox: HTMLElement;
+	constructor (rule: Rule) 
+	{
+		this.rule = rule;
+		this.liElement = null;
+		this.filtered = false;
+	}
+	deselect ():void
+	{
+		this.selected = false;
+	}
+	applyClassName () {
+		this.liElement.className = (this.filtered)?'filtered':null;
+		//if (this.filtered) { this.liElement.className = 'filtered'; }
+	}
+	
+	getLiElement (): HTMLElement {
+		if (this.liElement) return this.liElement;
+		this.liElement = document.createElement('LI');
+		
+		let buttonContainer = document.createElement('DIV');
+		buttonContainer.className = 'buttonContainer';
+		buttonContainer.appendChild(this.createSelectButton());
+		this.disableBox = this.createDisableBox();
+		buttonContainer.appendChild(this.disableBox);
+		buttonContainer.appendChild(this.createDeleteButton());
+		
+		
+		this.liElement.appendChild(buttonContainer);
+		
+		let informationDiv = document.createElement('DIV');
+		informationDiv.className = 'information';
+		
+		this.liElement.appendChild(informationDiv);
+		
+		let titleDiv = document.createElement('DIV');
+		titleDiv.className = 'title';
+		
+		titleDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.title, 42);
+		
+		
+		let urlDiv = document.createElement('DIV');
+		urlDiv.className = 'url';
+		urlDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.site_regexp,36);
+		
+		let keywordsDiv = document.createElement('DIV');
+		keywordsDiv.className = 'keywords';
+		
+		let keywords = new Array();
+		if (this.rule.block_anyway)
+		{
+			let span = document.createElement('SPAN');
+			span.innerHTML = chrome.i18n.getMessage('blockAnyway');
+			span.className = 'blockAnyway';
+			keywordsDiv.appendChild(span);
+		}
+		else
+		{
+			for (let i=0, l=this.rule.words.length; i<l; i++) 
+			{
+				let keywordSpan = document.createElement('SPAN');
+				keywordSpan.className = (this.rule.words[i].is_regexp)?"keyword regex":"keyword normal";
+				keywordSpan.innerHTML = this.rule.words[i].word
+				keywordsDiv.appendChild(keywordSpan);
+			}
+		}
+		
+		
+		informationDiv.appendChild(titleDiv);
+		informationDiv.appendChild(urlDiv);
+		informationDiv.appendChild(keywordsDiv);
+		
+	
+		let exampleLink = document.createElement('A');
+		exampleLink.className = 'exampleUrl';
+		exampleLink.innerHTML = '[LINK]';
+		exampleLink.setAttribute("target", '_blank');
+		exampleLink.setAttribute("href", this.rule.example_url);
+		
+		let favicon = document.createElement('IMG');
+		let hrefValue = (this.rule.example_url)? 'chrome://favicon/' + this.rule.example_url : chrome.extension.getURL('img/world.png');
+		favicon.setAttribute("src", hrefValue);
+		favicon.className = 'favicon';
+		informationDiv.appendChild(favicon);
+		
+		informationDiv.appendChild(exampleLink);
+		
+		return this.liElement;
+	}
+	createDisableBox (): HTMLElement 
+	{
+		let span = document.createElement('SPAN');
+		let input = document.createElement('INPUT') as HTMLInputElement;
+		input.type = 'BUTTON';
+		input.value = (this.rule.is_disabled)?'OFF':'ON';
+		input.className = (this.rule.is_disabled)?'uiButton buttonOff':'uiButton buttonOn';
+		span.appendChild(input);
+		input.addEventListener('click', this.getDisableAction(input), true);
+		return span;
+	}
+	createSelectButton (): HTMLInputElement 
+	{
+		let button = document.createElement('INPUT') as HTMLInputElement;
+		button.type = 'BUTTON';
+		button.className = 'uiButton buttonEdit';
+		button.value = chrome.i18n.getMessage('buttonLabelEdit');
+		button.addEventListener('click', this.getSelectAction(), true);
+		return button;
+	}
+	createDeleteButton (): HTMLInputElement
+	{
+		let button = document.createElement('INPUT') as HTMLInputElement;
+		button.type = 'BUTTON';
+		button.className = 'uiButton buttonDelete';
+		button.value = chrome.i18n.getMessage('buttonLabelDelete');
+		button.addEventListener('click', this.getDeleteAction(), true);
+		return button;
+	}
+	
+	getDisableAction (inputButton: HTMLInputElement) {
+		let rule = this.rule;
+		return function (event) {
+				cbStorage.toggleRule(rule, function() {
+				// Toggle enabled flag and save
+				inputButton.value = (rule.is_disabled)?'OFF':'ON';
+				inputButton.className = (rule.is_disabled)?'uiButton buttonOff':'uiButton buttonOn';
+				});
+		}
+	}
+	getSelectAction () {
+		let self = this;
+		return function () 
+		{
+			document.getElementById('rule_editor_alert').style.display = 'none';
+			ruleEditor.selectRule(self.rule);
+			deselectAll();
+			self.selected = true;
+			self.applyClassName();
+		};
+	}
+	getDeleteAction () {
+		let self = this;
+		return function () {
+			if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
+					cbStorage.deleteRule(self.rule, function(){});
+				self.liElement.parentNode.removeChild(self.liElement);
+				removeElement (self);
+				showCount();
+				reloadBackground();
+			}
+		};
+	}
 }
 
 function refreshPathSections (): void{
@@ -326,36 +326,35 @@ let reloadBackground = function ()
 }
 
 class PrefRuleEditor {
-  private rule: Rule;
-  alertDiv: HTMLElement;
-  saveButton: HTMLInputElement;
-  addWordButton: HTMLInputElement;
-  wordEditor: WordEditor;
-  constructor ()  {
-    this.rule = null;
-    this.wordEditor = new WordEditor();
-    this.saveButton = document.getElementById('rule_editor_save_button') as HTMLInputElement;
-    this.saveButton.addEventListener('click', this.getSaveAction(), true);
-    this.addWordButton = document.getElementById('rule_editor_add_keyword_button') as HTMLInputElement;
-    this.addWordButton.addEventListener('click', this.wordEditor.getAddWordAction(), true);
-    document.getElementById('rule_editor_keyword').addEventListener('keydown', this.wordEditor.getAddWordByEnterAction(), true);
-    this.alertDiv = document.getElementById('rule_editor_alert');
-    document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click',PrefRuleEditor.changeKeywordColor, false);
-    document.getElementById('rule_editor_block_anyway').addEventListener('change',PrefRuleEditor.setVisibilityOfConditionDetail, false);
-    document.getElementById('rule_editor_block_anyway_false').addEventListener('change',PrefRuleEditor.setVisibilityOfConditionDetail, false);
-    PrefRuleEditor.changeKeywordColor(null);
-    let self = this;
-    this.wordEditor.addWordHandler = function (word:Word) {
+	private rule: Rule;
+	alertDiv: HTMLElement;
+	saveButton: HTMLInputElement;
+	wordEditor: WordEditor;
+	constructor ()	{
+		this.rule = null;
+		this.saveButton = document.getElementById('rule_editor_save_button') as HTMLInputElement;
+		this.saveButton.addEventListener('click', this.getSaveAction(), true);
+
+		this.alertDiv = document.getElementById('rule_editor_alert');
+		document.getElementById('rule_editor_block_anyway').addEventListener('change',PrefRuleEditor.setVisibilityOfConditionDetail, false);
+		document.getElementById('rule_editor_block_anyway_false').addEventListener('change',PrefRuleEditor.setVisibilityOfConditionDetail, false);
+
+		
+		this.wordEditor = new WordEditor();
+		// Add WordEditor handlers
+		let self = this;
+		this.wordEditor.addWordHandler = function (word:Word) {
 			word.rule_id = self.rule.rule_id;
 			cbStorage.addWordToRule(self.rule, word);
-    };
-    this.wordEditor.deleteWordHandler = function (word:Word) {
+		};
+		this.wordEditor.deleteWordHandler = function (word:Word) {
 			cbStorage.removeWordFromRule(self.rule, word);
-    };
-  }
-  init () {
+		};
+	}
+	
+	init () {
 		cbStorage.loadAll (
-			function (rules:[Rule]) {
+			function (rules:[Rule], groups:[WordGroup]) {
 				if (!rules || rules.length==0) {
 					showEmptyAlert();
 				}	
@@ -366,93 +365,86 @@ class PrefRuleEditor {
 				renderRules();
 				showCount();
 			});
-  }
-  static changeKeywordColor (sender)
-  {
-    document.getElementById('rule_editor_keyword').style.backgroundColor =
-      ((document.getElementById('rule_editor_keyword_complete_matching_checkbox') as HTMLInputElement).checked)?'#fed3de!important':'#cdedf8!important';
-  
-  }
-  static setVisibilityOfConditionDetail () {
-    document.getElementById('rule_editor_hide_detail').style.display = 
-      ((document.getElementById('rule_editor_block_anyway') as HTMLInputElement).checked)?'none':'block';
-  }
-  getSaveAction () {
-    let self = this;
-    
-    return function () 
-    {
-      self.saveRule();
-    };
-  }
-  
-  selectRule (rule: Rule) {
-    this.rule = rule;
-  		this.wordEditor.setWords(rule.words as [Word]);
-    if (rule) {
-      (document.getElementById('rule_editor_title') as HTMLInputElement).value = rule.title;
-      (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value = rule.site_regexp;
-      (document.getElementById('rule_editor_example_url') as HTMLInputElement).value = rule.example_url;
-      (document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement).value = rule.search_block_xpath;
-      (document.getElementById('rule_editor_search_block_css') as HTMLInputElement).value = rule.search_block_css;
-      let searchRadio = document.getElementById('rule_editor_radio_search_'+((rule.search_block_by_css)?'css':'xpath')) as HTMLInputElement
-      searchRadio.checked   = true;
-      (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value = rule.hide_block_xpath;
-      (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value = rule.hide_block_css;
-      let hideRadio = document.getElementById('rule_editor_radio_hide_'+((rule.hide_block_by_css)?'css':'xpath')) as HTMLInputElement
-      hideRadio.checked = true;
-      
-      let blockAnywayCheckbox = document.getElementById((rule.block_anyway)?'rule_editor_block_anyway':'rule_editor_block_anyway_false') as HTMLInputElement
-      blockAnywayCheckbox.checked = true;
-      document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway)?'none':'block';
-      (document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked = rule.specify_url_by_regexp;
-      refreshPathSections();
-    }
-  }
-  showMessage (str: string): void {
-    this.alertDiv.style.display = 'block';
-    this.alertDiv.innerHTML = str;
-  }
-  
-  hideMessage (): void{
-    this.alertDiv.style.display = 'none';
-  }
-  
-  saveRule () {
-    //Validation  
-    let validateErrors = cbStorage.validateRule({
-      title : (document.getElementById('rule_editor_title') as HTMLInputElement).value,
-      site_regexp : (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value,
-      example_url : (document.getElementById('rule_editor_example_url') as HTMLInputElement).value,
-      search_block_xpath : (document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement).value,
-      search_block_css : (document.getElementById('rule_editor_search_block_css') as HTMLInputElement).value,
-      hide_block_xpath : (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value,
-      hide_block_css : (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value,
-    });
-    if (validateErrors.length>0)
-    {
-      this.showMessage(validateErrors.join('<br/>'));
-      return;
-    }
-    this.rule.title = (document.getElementById('rule_editor_title') as HTMLInputElement).value;
-    this.rule.site_regexp = (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value;
-    this.rule.example_url = (document.getElementById('rule_editor_example_url') as HTMLInputElement).value;
-    this.rule.search_block_xpath = (document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement).value;
-    this.rule.search_block_css = (document.getElementById('rule_editor_search_block_css') as HTMLInputElement).value;
-    this.rule.search_block_by_css = (document.getElementById('rule_editor_radio_search_css') as HTMLInputElement).checked;
-    this.rule.hide_block_xpath = (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value;
-    this.rule.hide_block_css = (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value;
-    this.rule.hide_block_by_css = (document.getElementById('rule_editor_radio_hide_css') as HTMLInputElement).checked;
-    this.rule.block_anyway = (document.getElementById('rule_editor_block_anyway') as HTMLInputElement).checked;
-    this.rule.specify_url_by_regexp = (document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked;
-    let self = this;
-    cbStorage.saveRule(this.rule, function () {
-      hideEmptyAlert();
-      self.showMessage(chrome.i18n.getMessage('saveDone'));
-      reloadBackground();
-    });
-  }
-  
+	}
+	
+	static setVisibilityOfConditionDetail () {
+		document.getElementById('rule_editor_hide_detail').style.display = 
+			((document.getElementById('rule_editor_block_anyway') as HTMLInputElement).checked)?'none':'block';
+	}
+	getSaveAction () {
+		let self = this;
+		
+		return function () 
+		{
+			self.saveRule();
+		};
+	}
+
+	selectRule (rule: Rule) {
+		this.rule = rule;
+		this.wordEditor.setWords(rule.words as [Word]);
+		(document.getElementById('rule_editor_title') as HTMLInputElement).value = rule.title;
+		(document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value = rule.site_regexp;
+		(document.getElementById('rule_editor_example_url') as HTMLInputElement).value = rule.example_url;
+		(document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement).value = rule.search_block_xpath;
+		(document.getElementById('rule_editor_search_block_css') as HTMLInputElement).value = rule.search_block_css;
+		let searchRadio = document.getElementById('rule_editor_radio_search_'+((rule.search_block_by_css)?'css':'xpath')) as HTMLInputElement
+		searchRadio.checked	 = true;
+		(document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value = rule.hide_block_xpath;
+		(document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value = rule.hide_block_css;
+		let hideRadio = document.getElementById('rule_editor_radio_hide_'+((rule.hide_block_by_css)?'css':'xpath')) as HTMLInputElement
+		hideRadio.checked = true;
+		
+		let blockAnywayCheckbox = document.getElementById((rule.block_anyway)?'rule_editor_block_anyway':'rule_editor_block_anyway_false') as HTMLInputElement
+		blockAnywayCheckbox.checked = true;
+		document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway)?'none':'block';
+		(document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked = rule.specify_url_by_regexp;
+		refreshPathSections();
+	}
+	showMessage (str: string): void {
+		this.alertDiv.style.display = 'block';
+		this.alertDiv.innerHTML = str;
+	}
+	
+	hideMessage (): void{
+		this.alertDiv.style.display = 'none';
+	}
+	
+	saveRule () {
+		//Validation	
+		let validateErrors = cbStorage.validateRule({
+			title : (document.getElementById('rule_editor_title') as HTMLInputElement).value,
+			site_regexp : (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value,
+			example_url : (document.getElementById('rule_editor_example_url') as HTMLInputElement).value,
+			search_block_xpath : (document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement).value,
+			search_block_css : (document.getElementById('rule_editor_search_block_css') as HTMLInputElement).value,
+			hide_block_xpath : (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value,
+			hide_block_css : (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value,
+		});
+		if (validateErrors.length>0)
+		{
+			this.showMessage(validateErrors.join('<br/>'));
+			return;
+		}
+		this.rule.title = (document.getElementById('rule_editor_title') as HTMLInputElement).value;
+		this.rule.site_regexp = (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value;
+		this.rule.example_url = (document.getElementById('rule_editor_example_url') as HTMLInputElement).value;
+		this.rule.search_block_xpath = (document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement).value;
+		this.rule.search_block_css = (document.getElementById('rule_editor_search_block_css') as HTMLInputElement).value;
+		this.rule.search_block_by_css = (document.getElementById('rule_editor_radio_search_css') as HTMLInputElement).checked;
+		this.rule.hide_block_xpath = (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value;
+		this.rule.hide_block_css = (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value;
+		this.rule.hide_block_by_css = (document.getElementById('rule_editor_radio_hide_css') as HTMLInputElement).checked;
+		this.rule.block_anyway = (document.getElementById('rule_editor_block_anyway') as HTMLInputElement).checked;
+		this.rule.specify_url_by_regexp = (document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked;
+		let self = this;
+		cbStorage.saveRule(this.rule, function () {
+			hideEmptyAlert();
+			self.showMessage(chrome.i18n.getMessage('saveDone'));
+			reloadBackground();
+		});
+	}
+	
 }
 
 window.onload = onStart;

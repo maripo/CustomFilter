@@ -300,7 +300,7 @@ window.onload = function () {
 };
 chrome.storage.onChanged.addListener(function (changes, namespace) {
     cbStorage.sync(changes, namespace, function () {
-        cbStorage.loadAll(function (rules) {
+        cbStorage.loadAll(function (rules, groups) {
             CustomBlockerTab.postMessageToAllTabs({ command: 'reload', rules: rules });
         });
     });

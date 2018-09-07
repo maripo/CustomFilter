@@ -9,7 +9,7 @@ function createRuleTable (): void {
 
 function loadLists (): void {
 	cbStorage.loadAll (
-		function (rules:[Rule]) {
+		function (rules:[Rule], groups:[WordGroup]) {
 			ruleList = rules;
 			loadSmartRuleEditorSrc();
 			// saveUuidIfNotSet();

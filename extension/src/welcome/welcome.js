@@ -7,7 +7,7 @@ var Welcome = (function () {
         document.getElementById("buttonUse").addEventListener('click', Welcome.useChecked, false);
         document.getElementById("checkAll").checked = true;
         document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
-        cbStorage.loadAll(function (rules) {
+        cbStorage.loadAll(function (rules, groups) {
             for (var ruleIndex = 0; ruleIndex < rules.length; ruleIndex++) {
                 Welcome.disableDuplicateRules(rules[ruleIndex]);
             }

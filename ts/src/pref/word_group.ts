@@ -20,7 +20,8 @@ class WordGroupPage {
 		let scope = this;
 		this.wrappers = [] as [WordGroupWrapper];
 		console.log(this.wrappers);
-		cbStorage.loadWordGroupsDummy (function (groups:[WordGroup]):void {
+		
+		cbStorage.loadAll(function(rules:[Rule], groups:[WordGroup]){
 			scope.groups = groups;
 			for (let group of groups) {
 				console.log(group.name);
@@ -41,13 +42,38 @@ class WordGroupPage {
 class WordGroupEditor {
 	uiTitle: HTMLInputElement;
 	wordEditor: WordEditor;
+	group:WordGroup;
 	constructor () {
 		this.uiTitle = document.getElementById("rule_editor_title") as HTMLInputElement;
 		this.wordEditor = new WordEditor();
+		// Add WordEditor handlers
+		let self = this;
+		this.wordEditor.addWordHandler = function (word:Word) {
+			cbStorage.addWordToWordGroup(self.group, word);
+		};
+		this.wordEditor.deleteWordHandler = function (word:Word) {
+			console.log("TODO addWordHandler");
+			cbStorage.removeWordFromWordGroup(self.group, word);
+		};
+		document.getElementById("rule_editor_save_button").addEventListener("click", function () {
+			console.log("save");
+			if (self.group) {
+				cbStorage.saveWordGroup(self.group, function () {
+					console.log("Group was saved.");
+				});
+			}
+		});
+		document.getElementById("word_group_create_button").addEventListener("click", function(){
+			console.log("create new rule");
+			let group = cbStorage.createWordGroup();
+			group.name = "New Group";
+			self.setGroup(group);
+		});
 	}
 	setGroup (group: WordGroup) {
 		console.log(group);
 		this.uiTitle.value = group.name;
+		this.group = group;
 		this.wordEditor.setWords(group.words);
 	}
 }

@@ -8,7 +8,7 @@ class Welcome {
 		document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
 		
 		cbStorage.loadAll (
-			function (rules:[Rule]) {
+			function (rules:[Rule], groups:[WordGroup]) {
 				for (let ruleIndex = 0; ruleIndex<rules.length; ruleIndex++) {
 					Welcome.disableDuplicateRules(rules[ruleIndex]);
 				}

@@ -283,14 +283,17 @@ var PrefRuleEditor = (function () {
         };
     }
     PrefRuleEditor.prototype.init = function () {
+        var self = this;
         cbStorage.loadAll(function (rules, groups) {
             if (!rules || rules.length == 0) {
                 showEmptyAlert();
             }
             allRules = rules;
+            self.wordGroups = groups;
             for (var i = 0; i < allRules.length; i++) {
                 ruleContainerList.push(new RuleContainer(allRules[i]));
             }
+            self.populateWordGroupDropdown();
             renderRules();
             showCount();
         });
@@ -324,6 +327,24 @@ var PrefRuleEditor = (function () {
         document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway) ? 'none' : 'block';
         document.getElementById('specify_url_by_regexp_checkbox').checked = rule.specify_url_by_regexp;
         refreshPathSections();
+    };
+    PrefRuleEditor.prototype.createOption = function (label, value) {
+        var option = document.createElement("option");
+        option.innerHTML = label;
+        if (value) {
+            option.value = value;
+        }
+        return option;
+    };
+    PrefRuleEditor.prototype.populateWordGroupDropdown = function () {
+        var select = document.getElementById("select_word_groups");
+        select.innerHTML = "";
+        select.appendChild(this.createOption("----", null));
+        for (var _i = 0, _a = this.wordGroups; _i < _a.length; _i++) {
+            var group = _a[_i];
+            var option = this.createOption(group.name, group.global_identifier);
+            select.appendChild(option);
+        }
     };
     PrefRuleEditor.prototype.showMessage = function (str) {
         this.alertDiv.style.display = 'block';

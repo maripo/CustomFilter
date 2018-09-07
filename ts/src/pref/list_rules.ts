@@ -330,6 +330,7 @@ class PrefRuleEditor {
 	alertDiv: HTMLElement;
 	saveButton: HTMLInputElement;
 	wordEditor: WordEditor;
+	wordGroups: [WordGroup];
 	constructor ()	{
 		this.rule = null;
 		this.saveButton = document.getElementById('rule_editor_save_button') as HTMLInputElement;
@@ -353,15 +354,18 @@ class PrefRuleEditor {
 	}
 	
 	init () {
+		let self = this;
 		cbStorage.loadAll (
 			function (rules:[Rule], groups:[WordGroup]) {
 				if (!rules || rules.length==0) {
 					showEmptyAlert();
 				}	
 				allRules = rules;
+				self.wordGroups = groups;
 				for (let i=0; i<allRules.length; i++) {
 					ruleContainerList.push(new RuleContainer(allRules[i]));
 				}
+				self.populateWordGroupDropdown();
 				renderRules();
 				showCount();
 			});
@@ -400,6 +404,24 @@ class PrefRuleEditor {
 		document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway)?'none':'block';
 		(document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked = rule.specify_url_by_regexp;
 		refreshPathSections();
+	}
+	private createOption (label:string, value:string): HTMLElement {
+		let option = document.createElement("option");
+		option.innerHTML = label;
+		if (value) {
+			option.value = value;
+		}
+		return option;
+	}
+	private populateWordGroupDropdown () {
+		let select = document.getElementById("select_word_groups") as HTMLInputElement;
+		select.innerHTML = "";
+		select.appendChild(this.createOption("----", null));
+		for (let group of this.wordGroups) {
+			// TODO omit already selected groups
+			let option = this.createOption(group.name, group.global_identifier);
+			select.appendChild(option);
+		}
 	}
 	showMessage (str: string): void {
 		this.alertDiv.style.display = 'block';

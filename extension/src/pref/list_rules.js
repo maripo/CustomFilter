@@ -326,6 +326,12 @@ var PrefRuleEditor = (function () {
         blockAnywayCheckbox.checked = true;
         document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway) ? 'none' : 'block';
         document.getElementById('specify_url_by_regexp_checkbox').checked = rule.specify_url_by_regexp;
+        var select = document.getElementById("select_word_groups");
+        var self = this;
+        select.addEventListener("change", function () {
+            var value = select.getElementsByTagName("option")[select.selectedIndex].value;
+            console.log(select.selectedIndex);
+        });
         refreshPathSections();
     };
     PrefRuleEditor.prototype.createOption = function (label, value) {

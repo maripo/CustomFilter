@@ -30,14 +30,14 @@ function onStart () {
 
 	document.getElementById('buttonBadgeOn').addEventListener('change', refreshBadgeEnabled, false);
 	document.getElementById('buttonBadgeOff').addEventListener('change', refreshBadgeEnabled, false);
-	
+
 	if ("true"==localStorage.badgeDisabled) {
 		document.getElementById('buttonBadgeOff').setAttribute("checked", "true");
 	} else {
 		document.getElementById('buttonBadgeOn').setAttribute("checked", "true");
-		
+
 	}
-	
+
 	ruleEditor = new PrefRuleEditor();
 	CustomBlockerUtil.localize();
 	ruleEditor.init();
@@ -131,7 +131,7 @@ function deselectAll ():void
 		ruleContainerList[i].deselect();
 		ruleContainerList[i].applyClassName(visibleIndex);
 		if (!ruleContainerList[i].filtered) visibleIndex++;
-	} 
+	}
 }
 
 
@@ -151,7 +151,7 @@ class RuleContainer {
 	filtered: boolean;
 	selected: boolean;
 	disableBox: HTMLElement;
-	constructor (rule: Rule) 
+	constructor (rule: Rule)
 	{
 		this.rule = rule;
 		this.liElement = null;
@@ -165,39 +165,39 @@ class RuleContainer {
 		this.liElement.className = (this.filtered)?'filtered':null;
 		//if (this.filtered) { this.liElement.className = 'filtered'; }
 	}
-	
+
 	getLiElement (): HTMLElement {
 		if (this.liElement) return this.liElement;
 		this.liElement = document.createElement('LI');
-		
+
 		let buttonContainer = document.createElement('DIV');
 		buttonContainer.className = 'buttonContainer';
 		buttonContainer.appendChild(this.createSelectButton());
 		this.disableBox = this.createDisableBox();
 		buttonContainer.appendChild(this.disableBox);
 		buttonContainer.appendChild(this.createDeleteButton());
-		
-		
+
+
 		this.liElement.appendChild(buttonContainer);
-		
+
 		let informationDiv = document.createElement('DIV');
 		informationDiv.className = 'information';
-		
+
 		this.liElement.appendChild(informationDiv);
-		
+
 		let titleDiv = document.createElement('DIV');
 		titleDiv.className = 'title';
-		
+
 		titleDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.title, 42);
-		
-		
+
+
 		let urlDiv = document.createElement('DIV');
 		urlDiv.className = 'url';
 		urlDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.site_regexp,36);
-		
+
 		let keywordsDiv = document.createElement('DIV');
 		keywordsDiv.className = 'keywords';
-		
+
 		let keywords = new Array();
 		if (this.rule.block_anyway)
 		{
@@ -208,7 +208,7 @@ class RuleContainer {
 		}
 		else
 		{
-			for (let i=0, l=this.rule.words.length; i<l; i++) 
+			for (let i=0, l=this.rule.words.length; i<l; i++)
 			{
 				let keywordSpan = document.createElement('SPAN');
 				keywordSpan.className = (this.rule.words[i].is_regexp)?"keyword regex":"keyword normal";
@@ -216,30 +216,30 @@ class RuleContainer {
 				keywordsDiv.appendChild(keywordSpan);
 			}
 		}
-		
-		
+
+
 		informationDiv.appendChild(titleDiv);
 		informationDiv.appendChild(urlDiv);
 		informationDiv.appendChild(keywordsDiv);
-		
-	
+
+
 		let exampleLink = document.createElement('A');
 		exampleLink.className = 'exampleUrl';
 		exampleLink.innerHTML = '[LINK]';
 		exampleLink.setAttribute("target", '_blank');
 		exampleLink.setAttribute("href", this.rule.example_url);
-		
+
 		let favicon = document.createElement('IMG');
 		let hrefValue = (this.rule.example_url)? 'chrome://favicon/' + this.rule.example_url : chrome.extension.getURL('img/world.png');
 		favicon.setAttribute("src", hrefValue);
 		favicon.className = 'favicon';
 		informationDiv.appendChild(favicon);
-		
+
 		informationDiv.appendChild(exampleLink);
-		
+
 		return this.liElement;
 	}
-	createDisableBox (): HTMLElement 
+	createDisableBox (): HTMLElement
 	{
 		let span = document.createElement('SPAN');
 		let input = document.createElement('INPUT') as HTMLInputElement;
@@ -250,7 +250,7 @@ class RuleContainer {
 		input.addEventListener('click', this.getDisableAction(input), true);
 		return span;
 	}
-	createSelectButton (): HTMLInputElement 
+	createSelectButton (): HTMLInputElement
 	{
 		let button = document.createElement('INPUT') as HTMLInputElement;
 		button.type = 'BUTTON';
@@ -268,7 +268,7 @@ class RuleContainer {
 		button.addEventListener('click', this.getDeleteAction(), true);
 		return button;
 	}
-	
+
 	getDisableAction (inputButton: HTMLInputElement) {
 		let rule = this.rule;
 		return function (event) {
@@ -281,7 +281,7 @@ class RuleContainer {
 	}
 	getSelectAction () {
 		let self = this;
-		return function () 
+		return function ()
 		{
 			document.getElementById('rule_editor_alert').style.display = 'none';
 			ruleEditor.selectRule(self.rule);
@@ -314,7 +314,7 @@ function refreshPathSections (): void{
 };
 
 let reloadBackground = function ()
-{	
+{
 	try {
 		let bgWindow = chrome.extension.getBackgroundPage();
 		bgWindow.reloadLists();
@@ -340,7 +340,7 @@ class PrefRuleEditor {
 		document.getElementById('rule_editor_block_anyway').addEventListener('change',PrefRuleEditor.setVisibilityOfConditionDetail, false);
 		document.getElementById('rule_editor_block_anyway_false').addEventListener('change',PrefRuleEditor.setVisibilityOfConditionDetail, false);
 
-		
+
 		this.wordEditor = new WordEditor();
 		// Add WordEditor handlers
 		let self = this;
@@ -352,14 +352,14 @@ class PrefRuleEditor {
 			cbStorage.removeWordFromRule(self.rule, word);
 		};
 	}
-	
+
 	init () {
 		let self = this;
 		cbStorage.loadAll (
 			function (rules:[Rule], groups:[WordGroup]) {
 				if (!rules || rules.length==0) {
 					showEmptyAlert();
-				}	
+				}
 				allRules = rules;
 				self.wordGroups = groups;
 				for (let i=0; i<allRules.length; i++) {
@@ -370,15 +370,15 @@ class PrefRuleEditor {
 				showCount();
 			});
 	}
-	
+
 	static setVisibilityOfConditionDetail () {
-		document.getElementById('rule_editor_hide_detail').style.display = 
+		document.getElementById('rule_editor_hide_detail').style.display =
 			((document.getElementById('rule_editor_block_anyway') as HTMLInputElement).checked)?'none':'block';
 	}
 	getSaveAction () {
 		let self = this;
-		
-		return function () 
+
+		return function ()
 		{
 			self.saveRule();
 		};
@@ -398,11 +398,21 @@ class PrefRuleEditor {
 		(document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value = rule.hide_block_css;
 		let hideRadio = document.getElementById('rule_editor_radio_hide_'+((rule.hide_block_by_css)?'css':'xpath')) as HTMLInputElement
 		hideRadio.checked = true;
-		
+
 		let blockAnywayCheckbox = document.getElementById((rule.block_anyway)?'rule_editor_block_anyway':'rule_editor_block_anyway_false') as HTMLInputElement
 		blockAnywayCheckbox.checked = true;
 		document.getElementById('rule_editor_hide_detail').style.display = (rule.block_anyway)?'none':'block';
 		(document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked = rule.specify_url_by_regexp;
+
+		let select = document.getElementById("select_word_groups") as HTMLSelectElement;
+		let self = this;
+		select.addEventListener ("change", function() {
+			let value = (select.getElementsByTagName("option")[select.selectedIndex] as HTMLOptionElement).value;
+			//self.onSelectWordGroup(value);
+			console.log(select.selectedIndex);
+		});
+
+
 		refreshPathSections();
 	}
 	private createOption (label:string, value:string): HTMLElement {
@@ -427,13 +437,13 @@ class PrefRuleEditor {
 		this.alertDiv.style.display = 'block';
 		this.alertDiv.innerHTML = str;
 	}
-	
+
 	hideMessage (): void{
 		this.alertDiv.style.display = 'none';
 	}
-	
+
 	saveRule () {
-		//Validation	
+		//Validation
 		let validateErrors = cbStorage.validateRule({
 			title : (document.getElementById('rule_editor_title') as HTMLInputElement).value,
 			site_regexp : (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value,
@@ -466,7 +476,7 @@ class PrefRuleEditor {
 			reloadBackground();
 		});
 	}
-	
+
 }
 
 window.onload = onStart;

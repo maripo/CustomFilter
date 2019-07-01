@@ -20,7 +20,7 @@ class WordGroupPage {
 		let scope = this;
 		this.wrappers = [] as [WordGroupWrapper];
 		console.log(this.wrappers);
-		
+
 		cbStorage.loadAll(function(rules:[Rule], groups:[WordGroup]){
 			scope.groups = groups;
 			for (let group of groups) {
@@ -32,8 +32,8 @@ class WordGroupPage {
 				scope.listContainer.appendChild(li);
 			}
 		});
-	
 	}
+
 	selectWordGroup (group: WordGroup) {
 		this.editor.setGroup(group);
 	}
@@ -88,6 +88,20 @@ class WordGroupWrapper {
 		if (!this.li) {
 			this.li = document.createElement("li");
 			this.li.innerHTML = this.group.name;
+			// TODO add words
+
+			let keywordsDiv = document.createElement('DIV');
+			keywordsDiv.className = 'keywords';
+
+			let keywords = new Array();
+			console.log("words.length=" + String(this.group.words.length));
+			for (let i=0, l=this.group.words.length; i<l; i++) {
+				let keywordSpan = document.createElement('SPAN');
+				keywordSpan.className = (this.group.words[i].is_regexp)?"keyword regex":"keyword normal";
+				keywordSpan.innerHTML = this.group.words[i].word
+				keywordsDiv.appendChild(keywordSpan);
+			}
+			this.li.appendChild(keywordsDiv);
 		}
 		return this.li;
 	}

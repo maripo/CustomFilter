@@ -98,6 +98,7 @@ function showCount ():void {
 	document.getElementById('activeRuleCount').innerHTML = String(visibleCount);
 	document.getElementById('totalRuleCount').innerHTML = String(ruleContainerList.length);
 }
+
 function isMatched (rule:Rule, filterString:string) {
 	if (null==filterString || ''==filterString) return true;
 	filterString = filterString.toLowerCase();
@@ -123,8 +124,7 @@ function isMatchedByWords (rule:Rule, filterString:string) {
 }
 
 
-function deselectAll ():void
-{
+function deselectAll ():void {
 	let visibleIndex = 0;
 	for (let i=0, l=ruleContainerList.length; i<l; i++)
 	{

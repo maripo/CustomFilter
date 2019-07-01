@@ -6,7 +6,7 @@ class Welcome {
 		document.getElementById("buttonUse").addEventListener('click',Welcome.useChecked, false);
 		(document.getElementById("checkAll") as HTMLInputElement).checked = true;
 		document.getElementById("checkAll").addEventListener('change', Welcome.toggleAll, false);
-		
+
 		cbStorage.loadAll (
 			function (rules:[Rule], groups:[WordGroup]) {
 				for (let ruleIndex = 0; ruleIndex<rules.length; ruleIndex++) {
@@ -14,7 +14,7 @@ class Welcome {
 				}
 			});
 	}
-	
+
 	static disableDuplicateRules (existingRule:Rule): void {
 		for (let siteIndex = 0; siteIndex < Welcome.siteWrappers.length; siteIndex++) {
 			let site = Welcome.siteWrappers[siteIndex];
@@ -44,7 +44,7 @@ class Welcome {
 				site.disable();
 			}
 		}
-		
+
 	}
 	static renderPreset (): void {
 		let listElement = document.getElementById("sites");

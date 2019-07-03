@@ -17,7 +17,7 @@ body {
 <body style="width: 400px;">
 <div id="rule_editor_outline">
 	<div id="rule_editor_body" class="customblocker_rule_dialog">
-		<!-- 
+		<!--
 		<div id="rule_editor_body_drag" class="header">
 			<a id="rule_editor_closer" class="close" href="javascript:void(0)">
 			</a>
@@ -143,7 +143,6 @@ body {
 					<div id="rule_editor_keywords" style="margin-left: 0;"></div>
 					<!-- New word -->
 					<div>
-						<!-- <div class="label">Word</div> -->
 						<div class="rule_editor_content_for_label">
 							<input type="text" class="rule_editor_textbox"
 								id="rule_editor_keyword"> <a href="keywords.html"
@@ -168,6 +167,14 @@ body {
 								for="rule_editor_keyword_include_href_checkbox">Include
 								Link URL</label>
 						</div>
+					</div>
+					<h4>Keyword groups</h4>
+					<div id="rule_editor_keyword_groups" style="margin-left: 0;"></div>
+					<div>
+						<select id="rule_editor_keyword_group_select">
+							<option>-----</option>
+							<option>Create new group</option>
+						</select>
 					</div>
 					<h4>Search Range</h4>
 					<div class="input_section" id="rule_editor_section_search_xpath"

@@ -4,7 +4,7 @@ let pathInputFields = [
                        {pickButton:"rule_editor_button_hide_block_xpath", field:"rule_editor_hide_block_xpath", type:"hide_xpath"},
                        {pickButton:"rule_editor_button_hide_block_css", field:"rule_editor_hide_block_css", type:"hide_css"}
                        ];
-                       
+
 class RuleEditorFrame {
 	url:string;
 	rule:Rule;
@@ -28,9 +28,9 @@ class RuleEditorFrame {
 		this.url = null;
 		this.rule = null;
 		this.height = 0;
-		
+
 		let self = this;
-		
+
 		// Init UI widgets
 		this.title = document.getElementById('rule_editor_title') as HTMLInputElement;
 		this.site_regexp = document.getElementById('rule_editor_site_regexp') as HTMLInputElement;
@@ -47,13 +47,13 @@ class RuleEditorFrame {
 		this.block_anyway = document.getElementById('rule_editor_block_anyway') as HTMLInputElement;
 		this.block_anyway_false = document.getElementById('rule_editor_block_anyway_false') as HTMLInputElement;
 		this.hide_detail = document.getElementById('rule_editor_hide_detail') as HTMLInputElement;
-		
+
 		var pathTextChangeHandler = this.getRefreshPathSecionsAction();
 		this.radio_hide_xpath.addEventListener('change', pathTextChangeHandler, false);
 		this.radio_hide_css.addEventListener('change', pathTextChangeHandler, false);
 		this.radio_search_xpath.addEventListener('change', pathTextChangeHandler, false);
 		this.radio_search_css.addEventListener('change', pathTextChangeHandler, false);
-	
+
 		var refreshHideBlockFunc = this.getRefreshHideBlockXPathAction();
 		var refreshSearchBlockFunc = this.getRefreshSearchBlockXPathAction();
 		this.hide_block_xpath.addEventListener ('keyup',refreshHideBlockFunc, false);
@@ -64,7 +64,7 @@ class RuleEditorFrame {
 		this.search_block_css.addEventListener ('keyup',refreshSearchBlockFunc, false);
 		this.hide_block_css.addEventListener ('change',refreshHideBlockFunc, false);
 		this.search_block_css.addEventListener ('change',refreshSearchBlockFunc, false);
-		
+
 		var changeHandler = this.getChangedAction()
 		this.title.addEventListener('change', changeHandler, false);
 		this.site_regexp.addEventListener('change', changeHandler, false);
@@ -80,13 +80,13 @@ class RuleEditorFrame {
 		this.block_anyway.addEventListener('change', changeHandler, false);
 		this.block_anyway_false.addEventListener('change', changeHandler, false);
 		this.specify_url_by_regexp_checkbox.addEventListener('change', changeHandler, false);
-	
+
 		for (var i=0; i<pathInputFields.length; i++) {
 			document.getElementById(pathInputFields[i].pickButton).addEventListener('click',
 					this.getPickPathAction(pathInputFields[i].type), false);
 		}
-	
-		document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click', 
+
+		document.getElementById('rule_editor_keyword_complete_matching_checkbox').addEventListener('click',
 			function(){RuleEditorFrame.changeKeywordColor()}, false);
 		RuleEditorFrame.changeKeywordColor();
 		var helpLinks = CustomBlockerUtil.getElementsByXPath('id("rule_editor_body")//a[@class="help"]');
@@ -105,15 +105,15 @@ class RuleEditorFrame {
 			function() {
 				self.addWord();
 			}, true);
-		
+
 		document.getElementById('rule_editor_site_regexp')
 			.addEventListener('keyup', this.displaySiteExpressionMatchResult(), false);
-	
+
 		document.getElementById('rule_editor_save_button').addEventListener('click',
 				function() { self.saveRule(); }, true);
-		document.getElementById('rule_editor_test_button').addEventListener('click', 
+		document.getElementById('rule_editor_test_button').addEventListener('click',
 				function () { self.testRule(); }, false);
-		document.getElementById('rule_editor_close_button').addEventListener('click', 
+		document.getElementById('rule_editor_close_button').addEventListener('click',
 				function() { self.close() }, false);
 	}
 	renderRule (data) {
@@ -127,18 +127,18 @@ class RuleEditorFrame {
 			var span = CustomBlockerUtil.createWordElement(word, this.getWordDeleteAction(word));
 			document.getElementById('rule_editor_keywords').appendChild(span);
 		}
-	
+
 		// Hide all alert elements
 		document.getElementById("rule_editor_alert_site_regexp").style.display = "none";
 		document.getElementById("rule_editor_alert").style.display = "none";
 		document.getElementById("rule_editor_alert_search_block_xpath").style.display = "none";
 		document.getElementById("rule_editor_alert_hide_block_xpath").style.display = "none";
-		
+
 		// Populate form
 		this.title.value = rule.title;
 		this.site_regexp.value = rule.site_regexp;
 		this.example_url.value = rule.example_url;
-		
+
 		this.search_block_xpath.value = rule.search_block_xpath;
 		this.search_block_css.value = rule.search_block_css;
 		((rule.search_block_by_css)?this.radio_search_css:this.radio_search_xpath).checked = true;
@@ -147,7 +147,7 @@ class RuleEditorFrame {
 		((rule.hide_block_by_css)?this.radio_hide_css:this.radio_hide_xpath).checked = true;
 		((rule.block_anyway)?this.block_anyway:this.block_anyway_false).checked = true;
 		this.specify_url_by_regexp_checkbox.checked = rule.specify_url_by_regexp;
-		
+
 		// Set visibility
 		this.setBlockAnywayStyle(this.block_anyway.checked);
 		document.getElementById('rule_editor_keyword').focus();
@@ -238,20 +238,20 @@ class RuleEditorFrame {
 		console.log("addWord word=" + wordStr);
 		if (!wordStr || ''==wordStr) return; //Empty
 		let word = cbStorage.createWord();
-		
+
 		word.word = wordStr;
 		word.isNew = true;
-		
+
 		// Apply options
-		word.is_regexp = 
+		word.is_regexp =
 			(document.getElementById('rule_editor_keyword_regexp_checkbox') as HTMLInputElement).checked;
-		word.is_complete_matching = 
+		word.is_complete_matching =
 			(document.getElementById('rule_editor_keyword_complete_matching_checkbox') as HTMLInputElement).checked;
-		word.is_case_sensitive = 
+		word.is_case_sensitive =
 			(document.getElementById('rule_editor_keyword_case_sensitive_checkbox') as HTMLInputElement).checked;
-		word.is_include_href = 
+		word.is_include_href =
 			(document.getElementById('rule_editor_keyword_include_href_checkbox') as HTMLInputElement).checked;
-		
+
 		if (word.is_regexp) {
 			// Check if received RegExp is valid
 			try {
@@ -261,14 +261,14 @@ class RuleEditorFrame {
 				return;
 			}
 		}
-		
+
 		word.dirty = true;
 		var span = this.getWordElement(word)
 		document.getElementById('rule_editor_keywords').appendChild(span);
 		this.resize();
-		
+
 		this.rule.words.push(word);
-		
+
 		if (this.rule.rule_id > 0) {
 			word.rule_id = this.rule.rule_id;
 		}
@@ -342,29 +342,29 @@ class RuleEditorFrame {
 				command:"customblocker_validate_selectors",
 				hide_type: null,
 				hide_selector: null,
-				search_type:null, 
+				search_type:null,
 				search_selector: null
 			};
-	
+
 		if ((document.getElementById('rule_editor_radio_hide_xpath') as HTMLInputElement).checked) {
 			options.hide_type = "xpath";
 			options.hide_selector = (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value;
 		} else {
-			options.hide_type = "css"; 
+			options.hide_type = "css";
 			options.hide_selector = (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value;
 		}
 		if ((document.getElementById('rule_editor_radio_search_xpath') as HTMLInputElement).checked) {
 			options.search_type = "xpath";
 			options.search_selector = (document.getElementById('rule_editor_search_block_xpath') as HTMLInputElement).value;
 		} else {
-			options.search_type = "css"; 
+			options.search_type = "css";
 			options.search_selector = (document.getElementById('rule_editor_search_block_css') as HTMLInputElement).value;
 		}
 		this.resize();
 		postMessageToParent(options);
 	}
 	showSelectorValidationResult (data) {
-		var searchCountLabel = data.searchType=="xpath" ? 
+		var searchCountLabel = data.searchType=="xpath" ?
 				document.getElementById('rule_editor_count_search_block_xpath'):document.getElementById('rule_editor_count_search_block_css');
 		if (data.hideValid) {
 			document.getElementById('rule_editor_alert_search_block_xpath').style.display = "none";
@@ -372,10 +372,10 @@ class RuleEditorFrame {
 		} else {
 			searchCountLabel.innerHTML = "-";
 			document.getElementById('rule_editor_alert_search_block_xpath').style.display = "block";
-			document.getElementById('rule_editor_alert_search_block_xpath').innerHTML = 
+			document.getElementById('rule_editor_alert_search_block_xpath').innerHTML =
 				"Invalid " + (data.searchType=="xpath" ? "XPath":"CSS selector");
 		}
-		var hideCountLabel = data.hideType=="xpath" ? 
+		var hideCountLabel = data.hideType=="xpath" ?
 				document.getElementById('rule_editor_count_hide_block_xpath'):document.getElementById('rule_editor_count_hide_block_css');
 		if (data.hideValid) {
 			document.getElementById('rule_editor_alert_hide_block_xpath').style.display = "none";
@@ -383,7 +383,7 @@ class RuleEditorFrame {
 		} else {
 			hideCountLabel.innerHTML = "-";
 			document.getElementById('rule_editor_alert_hide_block_xpath').style.display = "block";
-			document.getElementById('rule_editor_alert_hide_block_xpath').innerHTML = 
+			document.getElementById('rule_editor_alert_hide_block_xpath').innerHTML =
 				"Invalid " + (data.hideType=="xpath" ? "XPath":"CSS selector");
 		}
 		this.resize();
@@ -424,10 +424,21 @@ function handleReceivedMessage(event) {
 
 function postMessageToParent (message) {
 	window.parent.postMessage(message, "*");
-	
+
 }
 function initRuleEditor () {
 	console.log("initRuleEditor");
+	let scope = this;
+	cbStorage.loadAll(function(rules:[Rule], groups:[WordGroup]){
+		scope.groups = groups;
+		let select = document.getElementById("rule_editor_keyword_group_select");
+		for (let group of groups) {
+			console.log(group.name);
+			let option = document.createElement("option");
+			option.innerHTML = group.name;
+			select.appendChild(option);
+		}
+	});
 	postMessageToParent({command:"customblocker_frame_ready"});
 }
 

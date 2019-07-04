@@ -378,6 +378,18 @@ function postMessageToParent(message) {
 }
 function initRuleEditor() {
     console.log("initRuleEditor");
+    var scope = this;
+    cbStorage.loadAll(function (rules, groups) {
+        scope.groups = groups;
+        var select = document.getElementById("rule_editor_keyword_group_select");
+        for (var _i = 0, groups_1 = groups; _i < groups_1.length; _i++) {
+            var group = groups_1[_i];
+            console.log(group.name);
+            var option = document.createElement("option");
+            option.innerHTML = group.name;
+            select.appendChild(option);
+        }
+    });
     postMessageToParent({ command: "customblocker_frame_ready" });
 }
 var editor;

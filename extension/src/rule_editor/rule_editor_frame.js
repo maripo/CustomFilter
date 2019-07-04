@@ -4,11 +4,43 @@ var pathInputFields = [
     { pickButton: "rule_editor_button_hide_block_xpath", field: "rule_editor_hide_block_xpath", type: "hide_xpath" },
     { pickButton: "rule_editor_button_hide_block_css", field: "rule_editor_hide_block_css", type: "hide_css" }
 ];
+var WordGroupPicker = (function () {
+    function WordGroupPicker(select) {
+        var _this = this;
+        this.select = select;
+        var scope = this;
+        this.select.addEventListener("change", function () {
+            var index = _this.select.selectedIndex;
+            console.log(_this.select.selectedIndex);
+            if (index > 0) {
+                var group = scope.groups[index - 1];
+                console.log(group);
+                scope.onSelectGroup(group);
+            }
+        });
+    }
+    WordGroupPicker.prototype.setGroups = function (groups) {
+        this.groups = groups;
+        for (var _i = 0, groups_1 = groups; _i < groups_1.length; _i++) {
+            var group = groups_1[_i];
+            console.log(group.name);
+            var option = document.createElement("option");
+            option.innerHTML = group.name;
+            this.select.appendChild(option);
+        }
+    };
+    return WordGroupPicker;
+}());
 var RuleEditorFrame = (function () {
     function RuleEditorFrame() {
         this.url = null;
         this.rule = null;
         this.height = 0;
+        this.group_picker = new WordGroupPicker(document.getElementById("rule_editor_keyword_group_select"));
+        this.group_picker.onSelectGroup = function (group) {
+            console.log("RuleEditor group selected.");
+            console.log(group);
+        };
         var self = this;
         this.title = document.getElementById('rule_editor_title');
         this.site_regexp = document.getElementById('rule_editor_site_regexp');
@@ -377,18 +409,9 @@ function postMessageToParent(message) {
     window.parent.postMessage(message, "*");
 }
 function initRuleEditor() {
-    console.log("initRuleEditor");
     var scope = this;
     cbStorage.loadAll(function (rules, groups) {
-        scope.groups = groups;
-        var select = document.getElementById("rule_editor_keyword_group_select");
-        for (var _i = 0, groups_1 = groups; _i < groups_1.length; _i++) {
-            var group = groups_1[_i];
-            console.log(group.name);
-            var option = document.createElement("option");
-            option.innerHTML = group.name;
-            select.appendChild(option);
-        }
+        editor.group_picker.setGroups(groups);
     });
     postMessageToParent({ command: "customblocker_frame_ready" });
 }

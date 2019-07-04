@@ -5,6 +5,36 @@ let pathInputFields = [
                        {pickButton:"rule_editor_button_hide_block_css", field:"rule_editor_hide_block_css", type:"hide_css"}
                        ];
 
+class WordGroupPicker {
+	select:HTMLSelectElement;
+	groups:[WordGroup];
+	onSelectGroup: (group:WordGroup) => void;
+	constructor(select:HTMLSelectElement) {
+		this.select = select;
+		let scope = this;
+		this.select.addEventListener("change", ()=>{
+			let index = this.select.selectedIndex;
+			console.log(this.select.selectedIndex);
+			if (index > 0) {
+				let group = scope.groups[index-1];
+				scope.onSelectGroup(group);
+			}
+		});
+	}
+
+	// TODO set onSelect callback
+	setGroups(groups:[WordGroup]) {
+		this.groups = groups;
+		for (let group of groups) {
+			console.log(group.name);
+			let option = document.createElement("option");
+			option.innerHTML = group.name;
+			this.select.appendChild(option);
+		}
+
+	}
+}
+
 class RuleEditorFrame {
 	url:string;
 	rule:Rule;
@@ -24,11 +54,17 @@ class RuleEditorFrame {
 	block_anyway_false: HTMLInputElement;
 	block_anyway: HTMLInputElement;
 	hide_detail: HTMLInputElement;
+	group_picker:WordGroupPicker;
 	constructor () {
 		this.url = null;
 		this.rule = null;
 		this.height = 0;
 
+		this.group_picker = new WordGroupPicker(document.getElementById("rule_editor_keyword_group_select") as HTMLSelectElement);
+		this.group_picker.onSelectGroup = (group:WordGroup) => {
+			console.log("RuleEditor group selected.");
+			console.log(group);
+		};
 		let self = this;
 
 		// Init UI widgets
@@ -427,17 +463,9 @@ function postMessageToParent (message) {
 
 }
 function initRuleEditor () {
-	console.log("initRuleEditor");
 	let scope = this;
 	cbStorage.loadAll(function(rules:[Rule], groups:[WordGroup]){
-		scope.groups = groups;
-		let select = document.getElementById("rule_editor_keyword_group_select");
-		for (let group of groups) {
-			console.log(group.name);
-			let option = document.createElement("option");
-			option.innerHTML = group.name;
-			select.appendChild(option);
-		}
+		editor.group_picker.setGroups(groups);
 	});
 	postMessageToParent({command:"customblocker_frame_ready"});
 }

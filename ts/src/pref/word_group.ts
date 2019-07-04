@@ -56,10 +56,11 @@ class WordGroupEditor {
 			cbStorage.removeWordFromWordGroup(self.group, word);
 		};
 		document.getElementById("rule_editor_save_button").addEventListener("click", function () {
-			console.log("save");
 			if (self.group) {
+				self.group.name = self.uiTitle.value;
 				cbStorage.saveWordGroup(self.group, function () {
-					console.log("Group was saved.");
+					console.log("Group was saved. name=" + self.group.name);
+					// TODO reload left list
 				});
 			}
 		});

@@ -42,6 +42,7 @@ var RuleEditorFrame = (function () {
             _this.rule.wordGroups.push(group);
             console.log(_this.rule.wordGroups);
             _this.renderGroups(_this.rule.wordGroups);
+            _this.resize();
         };
         var self = this;
         this.title = document.getElementById('rule_editor_title');

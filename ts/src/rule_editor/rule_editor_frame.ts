@@ -86,6 +86,7 @@ class RuleEditorFrame {
 			this.rule.wordGroups.push(group);
 			console.log(this.rule.wordGroups);
 			this.renderGroups(this.rule.wordGroups);
+			this.resize();
 		};
 		let self = this;
 

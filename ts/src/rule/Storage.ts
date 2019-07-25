@@ -95,7 +95,7 @@ class CustomBlockerStorage {
 					let rule = cbStorage.createRule();
 					scope.initRuleByJSON(rule, allObj[key]);
 					rules.push(rule);
-				} if (key.indexOf("G-")==0) {
+				} else if (key.indexOf("G-")==0) {
 					let group = cbStorage.createWordGroup();
 					scope.initWordGroupByJSON(group, allObj[key]);
 					groups.push(group);

@@ -302,9 +302,13 @@ var RuleEditorFrame = (function () {
         var self = this;
         return function (span) {
             span.parentNode.removeChild(span);
-            word.deleted = true;
-            word.dirty = true;
-            self.resize();
+            for (var wordId = 0; wordId < self.rule.words.length; wordId++) {
+                if (self.rule.words[wordId] == word) {
+                    self.rule.words.splice(wordId, 1);
+                    self.resize();
+                    return;
+                }
+            }
         };
     };
     RuleEditorFrame.prototype.getChangedAction = function () {

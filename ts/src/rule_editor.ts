@@ -32,13 +32,13 @@ class RuleEditor {
 		}
 		this.appliedRuleList = appliedRuleList;
 		this.maxZIndex = 0;
-		
+
 		var nodes = document.body.getElementsByTagName('*');
 		this.maxZIndex = RuleEditor.getMaxZIndex();
 		RuleExecutor.stopBlocking();
-		
+
 		// For path picker
-		for (var i=0; i<nodes.length; i++) {		
+		for (var i=0; i<nodes.length; i++) {
 			var node = nodes[i] as HTMLElement;
 			if (node.getAttribute("avoidStyle")) {
 				continue;
@@ -52,7 +52,7 @@ class RuleEditor {
 			this.pathPickerEventHandlers.push(
 				{
 					node:node,
-					mouseoverHandler:mouseoverHandler, 
+					mouseoverHandler:mouseoverHandler,
 					mouseoutHandler:mouseoutHandler,
 					clickHandler:clickHandler
 				}
@@ -63,8 +63,8 @@ class RuleEditor {
 		CustomBlockerUtil.applyCss('/css/rule_editor.css');
 		CustomBlockerUtil.applyCss('/css/rule_editor_common.css');
 		CustomBlockerUtil.applyCss('/css/keywords.css');
-		CustomBlockerUtil.applyCss('/css/rule_editor_cursor.css');	
-		
+		CustomBlockerUtil.applyCss('/css/rule_editor_cursor.css');
+
 		if (!this.pathPickerDialog) {
 			this.pathPickerDialog = new PathPickerDialog(this.maxZIndex + 2, this);
 		}
@@ -85,7 +85,7 @@ class RuleEditor {
 	pickPath (data) {
 		window.elementHighlighter.highlightHideElements (null);
 		this.hideCover();
-	
+
 		//search_xpath, search_css, hide_xpath, hide_css
 		let target = data.target as string;
 		switch (target) {
@@ -200,7 +200,7 @@ class RuleEditor {
 		var options = {command:'customblocker_validate_selectors_result',
 				hideType: data.hide_type,
 				hideValid: hideResult.isValid,
-				hideCount: hideResult.nodes.length, 
+				hideCount: hideResult.nodes.length,
 				searchType: data.search_type,
 				searchValid: searchResult.isValid,
 				searchCount: searchResult.nodes.length
@@ -216,10 +216,10 @@ class RuleEditor {
 			self.handleReceivedMessage(event.data);
 		}
 	}
-	
+
 	/* Mouse dragging */
 	moving:boolean; // TODO rename
-	
+
 	origEventX:number; // TODO use object
 	origEventY:number;
 	origDivX:number;
@@ -240,7 +240,7 @@ class RuleEditor {
 			if (!self.moving) return;
 			self.frameContainer.style.right = (self.origDivX-(event.pageX - self.origEventX)) + 'px';
 			self.frameContainer.style.top = (self.origDivY+(event.pageY - self.origEventY)) + 'px';
-			
+
 		}
 	}
 	getOnMouseupAction = function () {
@@ -254,7 +254,7 @@ class RuleEditor {
 		}
 	}
 	processSelection (event:Event) {
-		if (null==document.getSelection()) 
+		if (null==document.getSelection())
 			return;
 		if (document.getElementById('rule_editor_keyword') == event.srcElement)
 			return;
@@ -299,14 +299,14 @@ class RuleEditor {
 		dragger.addEventListener('mousedown', this.getOnMousedownAction(), false);
 		document.body.addEventListener('mousemove', this.getOnMousemoveAction(), false);
 		document.body.addEventListener('mouseup', this.getOnMouseupAction(), false);
-		
+
 		dragger.style.backgroundColor = "#fff";
 		dragger.style.height = "18px";
 		dragger.style.width = "100%";
 		dragger.style.display = "block";
 		dragger.style.textAlign = "right";
 		dragger.style.cursor = "move";
-		
+
 		var scope = this;
 		var closeIcon = document.createElement("A");
 		closeIcon.style.backgroundImage = "url(" + chrome.extension.getURL("/img/rule_editor_close.png") + ")";
@@ -321,12 +321,12 @@ class RuleEditor {
 		closeIcon.setAttribute("href", "javascript:void(0)");
 		closeIcon.addEventListener("click",function(){scope.closeFrame()}, false);
 		dragger.appendChild(closeIcon);
-		
+
 		dragger.setAttribute("avoidStyle", "true");
 		frameContainer.setAttribute("avoidStyle", "true");
 		iframe.setAttribute("avoidStyle", "true");
 		closeIcon.setAttribute("avoidStyle", "true");
-		
+
 		frameContainer.appendChild(dragger);
 		frameContainer.appendChild(iframe);
 		document.body.appendChild(frameContainer);
@@ -338,7 +338,7 @@ class RuleEditor {
 	onSaveDone (rule:Rule){
 		this.rule.rule_id = rule.rule_id;
 		for (var i=0, l=this.rule.words.length; i<l; i++) {
-			this.rule.words[i].word_id = rule.words[i].word_id;
+			// this.rule.words[i].word_id = rule.words[i].word_id;
 		}
 		var options = {command:'customblocker_rule_saved',
 				rule:rule
@@ -353,7 +353,7 @@ class RuleEditor {
 	}
 	openPathPicker (event:Event, node:HTMLElement) {
 		if (!window.ruleEditor || !this.pathPickerTarget || this.pathPickerTarget.none) {
-			console.log("openPathPicker return. ruleEditor=" + window.ruleEditor 
+			console.log("openPathPicker return. ruleEditor=" + window.ruleEditor
 					+ ", pathPickerTarget=" + this.pathPickerTarget);
 			return;
 		}
@@ -368,7 +368,7 @@ class RuleEditor {
 				click:this.getOnClickActionForFrame(upper as HTMLElement, event as MouseEvent)
 			};
 			console.log("Calling this.pathPickerDialog.show()");
-			this.pathPickerDialog.show(event as MouseEvent, node, paths, this.pathPickerTarget, 
+			this.pathPickerDialog.show(event as MouseEvent, node, paths, this.pathPickerTarget,
 					upperNodeHandlers,
 				function (target, path) {
 					var options = {
@@ -416,7 +416,7 @@ class RuleEditor {
 			selectedNode.style.outline = origStyle;
 			selectedNode.href = origHref;
 		}
-		selectedNode = null;	
+		selectedNode = null;
 	}
 	getOnMouseoutActionForFrame (node:HTMLElement):(Event)=>void {
 		var scope = this;
@@ -437,7 +437,7 @@ class PathPickerDialog {
 	currentSearchFilter:any;
 	currentHideFilter:any;
 	currentFilter:any;
-	
+
 	constructor (_zIndex:number, ruleEditor:RuleEditor) {
 		this.ruleEditor = ruleEditor;
 		this.div = document.createElement('DIV');
@@ -460,7 +460,7 @@ class PathPickerDialog {
 		this.currentHideFilter = null;
 		this.currentFilter = null;
 	}
-	show (event:MouseEvent, originNode:HTMLElement, paths, 
+	show (event:MouseEvent, originNode:HTMLElement, paths,
 			/* PathPickerDialog.target... */target, uppseNodeHandlers, onSelect) {
 		this.ul.innerHTML = '';
 		if (originNode.parentNode && originNode.parentNode!=document.body) {
@@ -474,51 +474,51 @@ class PathPickerDialog {
 			li.appendChild(a);
 			this.ul.appendChild(li);
 		}
-		
+
 		for (var i=0, l=paths.length; i<l; i++) {
 			var li = document.createElement('LI');
 			li.setAttribute("avoidStyle", "true");
-			
+
 			var a = document.createElement('A');
 			a.setAttribute("avoidStyle", "true");
 			a.setAttribute("href", 'javascript:void(0)');
-			
+
 			var span = document.createElement('SPAN');
 			span.className = 'xpath';
 			span.innerHTML = CustomBlockerUtil.escapeHTML(CustomBlockerUtil.trim(paths[i].path));
-			
+
 			var badge = document.createElement('SPAN');
 			badge.className = 'badge';
 			badge.innerHTML = paths[i].elements.length;
-			
+
 			a.appendChild(badge);
 			a.appendChild(span);
-			
+
 			a.addEventListener('click', this.getOnclickAction(paths[i], target, onSelect), false);
 			a.addEventListener('mouseover', this.getOnmouseoverAction(paths[i], target), false);
 			li.appendChild(a);
 			this.ul.appendChild(li);
 		}
-		
+
 		this.div.style.display = 'block';
 		console.log("PathPicker content = " + this.div.innerHTML);
-		
+
     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
 		var _left = event.clientX + scrollLeft;
 		var _top = event.clientY + scrollTop;
-		
+
 		if (_left + this.div.clientWidth > scrollLeft + window.innerWidth) {
 			_left = scrollLeft + window.innerWidth - this.div.clientWidth;
 		}
-		
+
 		if (_top + this.div.clientHeight > scrollTop + window.innerHeight)  {
 			_top = scrollTop + window.innerHeight - this.div.clientHeight;
 		}
-		
+
 		this.div.style.left = _left + 'px';
 		this.div.style.top = _top + 'px';
-	
+
 		var currentFilter = (target.isToHide)?self.currentHideFilter:self.currentSearchFilter;
 		if (this.currentFilter!=currentFilter) {
 			var elements = this.currentFilter.elements;
@@ -536,9 +536,9 @@ class PathPickerDialog {
 				elements[i].style.outline = '';
 			}
 		}
-		
+
 	}
-	
+
 	deselectAllTargets (): void {
 		this.deselectFilterTargets(this.currentHideFilter);
 		this.deselectFilterTargets(this.currentSearchFilter);
@@ -558,7 +558,7 @@ class PathPickerDialog {
 						else  pathNodes[i].tmpSelectForSearch();
 					}
 				}
-			} 
+			}
 			catch (e) {
 				console.log(e)
 			}
@@ -577,14 +577,14 @@ class PathPickerDialog {
 		return function (event:Event) {
 			var currentFilter = (target.isToHide)? self.currentHideFilter:self.currentHideFilter;
 			var path = CustomBlockerUtil.trim(filter.path);
-	
+
 			if (onSelect) {
 				onSelect(target.label, path);
 			}
-			
+
 			if (target.isToHide) self.currentHideFilter = filter;
 			else self.currentSearchFilter = filter;
-			
+
 			self.currentFilter = filter;
 			self.close();
 		}
@@ -648,7 +648,7 @@ interface PathPickerTarget {
 	getPathBuilder?: ()=>PathBuilder;
 	getPathNodes?:(any)=>HTMLElement[];
 	label:string;
-	
+
 }
 PathPickerDialog.initializeTargets();
 
@@ -661,7 +661,7 @@ class RuleElement
 		element.isTmpSelectedForSearch = false;
 		element.isSelectedForHide = false;
 		element.isSelectedForSearch = false;
-		
+
 		// mouseover & out
 		element.focusForHide = RuleElement.getFocusForHideFunc(element);
 		element.focusForSearch = RuleElement.getFocusForSearchFunc(element);
@@ -688,9 +688,9 @@ class RuleElement
 	static getUnfocusFunc (element:HTMLElement) :(Event)=>void {
 		return function()
 		{
-			if (element.isSelectedForHide) 
+			if (element.isSelectedForHide)
 				element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_HIDE;
-			else if (element.isSelectedForSearch) 
+			else if (element.isSelectedForSearch)
 				element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_SEARCH;
 			selectedNode.style.outline = element.originalStyle;
 		};
@@ -705,7 +705,7 @@ class RuleElement
 			element.style.outline = ElementHighlighter.STYLE_TMP_SELECT_FOR_HIDE;
 		};
 	}
-	static getTmpSelectForSearchFunc (element:HTMLElement):(Event)=>void 
+	static getTmpSelectForSearchFunc (element:HTMLElement):(Event)=>void
 	{
 		return function(event:Event)
 		{
@@ -721,12 +721,11 @@ class RuleElement
 		{
 			element.isTmpSelectedForHide = false;
 			element.isTmpSelectedForSearch = false;
-			if (element.isSelectedForHide) 
+			if (element.isSelectedForHide)
 				element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_HIDE;
-			else if (element.isSelectedForSearch) 
+			else if (element.isSelectedForSearch)
 				element.style.outline = ElementHighlighter.STYLE_SELECT_FOR_SEARCH;
 			element.style.outline = element.originalStyle;
 		};
 	}
 }
-

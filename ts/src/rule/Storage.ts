@@ -278,6 +278,9 @@ class CustomBlockerStorage {
 		for (let word of rule.words) {
 			obj["w"].push(this.convertWordToJSON(word));
 		}
+		for (let word of rule.wordGroups) {
+			obj["wg"].push(this.convertWordGroupToJSON(word));
+		}
 		return obj;
 	}
 
@@ -331,7 +334,11 @@ class CustomBlockerStorage {
 			}
 		}
 		if (wordGroups) {
-			// TODO
+			for (let group of wordGroups) {
+				let groupObj = this.createWordGroup();
+				this.initWordGroupByJSON(groupObj, group);
+				rule.wordGroups.push(groupObj);
+			}
 		}
 		return rule;
 	}

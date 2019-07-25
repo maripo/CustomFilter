@@ -101,8 +101,6 @@ var BackgroundCommunicator = (function () {
     BackgroundCommunicator.prototype.start = function () {
         var scope = this;
         chrome.runtime.onConnect.addListener(function (port) {
-            console.log("Connection established.");
-            console.log(port);
             scope.bgPort = port;
             port.onMessage.addListener(function (msg) {
                 scope.processBackgroundRequest(msg, null, null);

@@ -14,7 +14,6 @@ var WordGroupPicker = (function () {
             console.log(_this.select.selectedIndex);
             if (index > 0) {
                 var group = scope.groups[index - 1];
-                console.log(group);
                 scope.onSelectGroup(group);
             }
         });
@@ -33,13 +32,16 @@ var WordGroupPicker = (function () {
 }());
 var RuleEditorFrame = (function () {
     function RuleEditorFrame() {
+        var _this = this;
         this.url = null;
         this.rule = null;
         this.height = 0;
         this.group_picker = new WordGroupPicker(document.getElementById("rule_editor_keyword_group_select"));
         this.group_picker.onSelectGroup = function (group) {
             console.log("RuleEditor group selected.");
-            console.log(group);
+            _this.rule.wordGroups.push(group);
+            console.log(_this.rule.wordGroups);
+            _this.renderGroups(_this.rule.wordGroups);
         };
         var self = this;
         this.title = document.getElementById('rule_editor_title');
@@ -112,10 +114,33 @@ var RuleEditorFrame = (function () {
         document.getElementById('rule_editor_test_button').addEventListener('click', function () { self.testRule(); }, false);
         document.getElementById('rule_editor_close_button').addEventListener('click', function () { self.close(); }, false);
     }
+    RuleEditorFrame.prototype.removeGroup = function (group) {
+        for (var groupId = 0; groupId < this.rule.wordGroups.length; groupId++) {
+            if (this.rule.wordGroups[groupId].global_identifier == group.global_identifier) {
+                this.rule.wordGroups.splice(groupId, 1);
+                this.renderGroups(this.rule.wordGroups);
+                return;
+            }
+        }
+    };
+    RuleEditorFrame.prototype.renderGroups = function (groups) {
+        var _this = this;
+        document.getElementById("rule_editor_keyword_groups").innerHTML = "";
+        groups.forEach(function (group) {
+            var span = document.createElement("SPAN");
+            span.className = "group";
+            span.innerHTML = group.name;
+            var deleteButton = CustomBlockerUtil.createDeleteButton();
+            deleteButton.addEventListener('click', function () { _this.removeGroup(group); }, true);
+            span.appendChild(deleteButton);
+            document.getElementById("rule_editor_keyword_groups").appendChild(span);
+        });
+    };
     RuleEditorFrame.prototype.renderRule = function (data) {
         var rule = data.rule;
         this.url = data.url;
         this.rule = rule;
+        this.renderGroups(this.rule.wordGroups);
         document.getElementById('rule_editor_title').value = rule.title;
         document.getElementById('rule_editor_keywords').innerHTML = '';
         for (var i = 0, l = rule.words.length; i < l; i++) {

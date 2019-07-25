@@ -55,11 +55,11 @@ class BackgroundCommunicator {
 		rules = new Array();
 		RuleExecutor.checkRules(allRules);
 	}
-	
+
 	execHighlight (request) {
 		window.elementHighlighter.highlightRule(request.rule);
 	}
-	
+
 	execRuleEditor (request) {
 		if (!window.ruleEditor) {
 			console.log("window.ruleEditor not found.");
@@ -67,21 +67,21 @@ class BackgroundCommunicator {
 		}
 		window.ruleEditor.initialize(request.rule, request.appliedRuleList);
 	}
-	
+
 	execRuleSaveDoneSmartEditor (request) {
 		window.smartRuleCreatorDialog.onSaveDone(request.rule);
 	}
-	
+
 	execStop (request) {
 		if (RuleExecutor.blockInterval) window.clearInterval(RuleExecutor.blockInterval);
 		RuleExecutor.blockInterval = null;
 	}
-	
+
 	execResume (request) {
 		if (!RuleExecutor.blockInterval)
 			RuleExecutor.blockInterval = window.setInterval(RuleExecutor.execBlock, 2000);
 	}
-	
+
 	pendingRules:[Rule];
 	execReloadDelayed (request) {
 		this.pendingRules = request.rules;
@@ -104,20 +104,18 @@ class BackgroundCommunicator {
 		}
 	}
 	//onVisibilityChange
-	
+
 	execQuickRuleCreation (request) {
 		if (!window.smartRuleCreatorDialog) {
 			window.smartRuleCreatorDialog = new SmartRuleCreatorDialog(RuleEditor.getMaxZIndex() + 1, request.src);
 		}
 		var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText, request.needSuggestion);
 	}
-	
+
 	bgPort:any/* Port */;
 	start () {
 		let scope = this;
 		chrome.runtime.onConnect.addListener(function(port) {
-			console.log("Connection established.");
-			console.log(port);
 			scope.bgPort = port;
 			port.onMessage.addListener(function(msg) {
 				scope.processBackgroundRequest(msg, null, null);
@@ -149,8 +147,8 @@ chrome.extension.onRequest.addListener(function (request, sender, sendResponse) 
 
 // Right-clicked event source
 let lastRightClickedElement = null;
-let lastRightClickEvent = null; 
+let lastRightClickEvent = null;
 document.body.oncontextmenu = function(event){
-	lastRightClickedElement=event.srcElement; 
+	lastRightClickedElement=event.srcElement;
 	lastRightClickEvent=event
 };

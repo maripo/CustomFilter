@@ -6,7 +6,7 @@ class CustomBlockerStorage {
 	static JSON_WORD_FLAG_INCLUDE_HREF: number;
 	static JSON_RULE_CONVERSION_RULE: [[string]];
 	static JSON_WORD_GROUP_CONVERSION_RULE: [[string]];
-	
+
 	public createRule (): Rule {
 		return {
 			dirty: false,
@@ -22,10 +22,10 @@ class CustomBlockerStorage {
 			searchNodes: [] as [HTMLElement],
 			hiddenCount: 0,
 			staticXpath: null,
-			
+
 			appliedWords:null,
 			is_disabled:false,
- 	
+
  			rule_id: 0,
  			user_identifier: null,
  			global_identifier: null,
@@ -33,46 +33,46 @@ class CustomBlockerStorage {
  			url: null,
  			site_regexp: null,
  			example_url: null,
- 	
+
 		 	search_block_css: null,
  			search_block_xpath: null,
  			search_block_by_css: true,
- 	
+
  			hide_block_css: null,
  			hide_block_xpath: null,
  			hide_block_by_css: true,
- 	
+
  			block_anyway: false,
  			specify_url_by_regexp: false,
  			existing: false
 		};
 	}
-	
+
 	public createWord (): Word {
 		return {
 			word_id:0,
 			rule_id:0,
 			word:null,
 			newWord: null,
-			
+
 			is_regexp:false,
 			is_complete_matching:false,
 			is_case_sensitive:false,
 			is_include_href:false,
-			
+
 			dirty:false,
 			isNew:false,
 			deleted:false,
 			insert_date:0,
 			update_date:0,
 			delete_date:0,
-			
-		 	regExp:null, 
-		 	
+
+		 	regExp:null,
+
 		 	checkedNodes: [] as [HTMLElement]
 		};
 	}
-	
+
 	public createWordGroup (): WordGroup {
 		return {
 			name:null,
@@ -81,7 +81,7 @@ class CustomBlockerStorage {
 			words:[] as [Word]
 		}
 	}
-	
+
 	// Save & load
 	public loadAll (callback:([Rule], [WordGroup])=>void): void {
 		console.log("loadAll TODO");
@@ -103,9 +103,9 @@ class CustomBlockerStorage {
 					console.log("Invalid key: " + key);
 				}
 			}
-			
+
 			// TODO add word groups to rules
-			
+
 			scope.getDisabledRuleIDList(function(ids) {
 				// Load disabled rule list (if needed) from local storage and set is_disabled values
 				for (let rule of rules) {
@@ -117,11 +117,11 @@ class CustomBlockerStorage {
 					}
 				}
 				callback(rules, groups);
-			
+
 			}, false);
 		});
 	}
-	
+
 	disabledRuleIDList:[string];
 	private getDisabledRuleIDList (callback:([string])=>void, useCache: boolean) {
 		if (this.disabledRuleIDList && useCache) {
@@ -139,7 +139,7 @@ class CustomBlockerStorage {
 			callback(scope.disabledRuleIDList);
 		});
 	}
-	
+
 	public disableRule (rule:Rule, callback:()=>void) {
 		let scope = this;
 		rule.is_disabled = true;
@@ -171,7 +171,7 @@ class CustomBlockerStorage {
 			this.disableRule(rule, callback);
 		}
 	}
-	
+
 	public saveRule (rule:Rule, callback:()=>void) {
 		if (CustomBlockerUtil.isEmpty(rule.global_identifier)) {
 			rule.global_identifier = UUID.generate();
@@ -182,15 +182,14 @@ class CustomBlockerStorage {
 			let obj = {};
 			rule.updaterId = deviceId;
 			let jsonObj = scope.convertRuleToJSON(rule);
-			// TODO forced merge test
 			console.log(document.getElementById('rule_editor_save_merge_checkbox'))
 			if (document.getElementById('rule_editor_save_merge_checkbox') && (document.getElementById('rule_editor_save_merge_checkbox') as HTMLInputElement).checked) {
 				console.log("rule is checked!");
 				jsonObj["merge"] = true;
 			}
-			
+
 			obj[scope.getRuleJSONKey(rule)] = jsonObj;
-			
+
 			chrome.storage.sync.set(obj, function() {
 				console.log("Saved rule.");
 				if (callback) {
@@ -199,7 +198,7 @@ class CustomBlockerStorage {
 			});
 		});
 	}
-	
+
 	public saveWordGroup (group:WordGroup, callback:()=>void) {
 		if (CustomBlockerUtil.isEmpty(group.global_identifier)) {
 			group.global_identifier = UUID.generate();
@@ -219,9 +218,9 @@ class CustomBlockerStorage {
 				}
 			});
 		});
-	
+
 	}
-	
+
 	public static createWordInstance (url:string, title:string): Rule {
 		let rule = cbStorage.createRule();
 		rule.title = title;
@@ -229,7 +228,7 @@ class CustomBlockerStorage {
 		rule.example_url = url;
 		return rule;
 	}
-	
+
 	public deleteRule (rule:Rule, callback: ()=>void) {
 		chrome.storage.sync.remove(this.getRuleJSONKey(rule), function() {
 			console.log("Deleted rule.");
@@ -238,37 +237,37 @@ class CustomBlockerStorage {
 			}
 		});
 	}
-	
+
 	public addWordToRule (rule:Rule, word:Word) {
-		rule.words.push(word);	
+		rule.words.push(word);
 	}
-	
+
 	public removeWordFromRule (group:Rule, word:Word) {
 		let wordIndex = group.words.indexOf(word);
 		if (wordIndex >= 0) {
 		  group.words.splice(wordIndex, 1);
 		}
 	}
-	
+
 	public addWordToWordGroup (group:WordGroup, word:Word) {
-		group.words.push(word);	
+		group.words.push(word);
 	}
-	
+
 	public removeWordFromWordGroup (group:WordGroup, word:Word) {
 		let wordIndex = group.words.indexOf(word);
 		if (wordIndex >= 0) {
 		  group.words.splice(wordIndex, 1);
 		}
 	}
-	
+
 	public getRuleJSONKey (rule:Rule): string {
 		return "R-" + rule.global_identifier;
 	}
-	
+
 	public getWordGroupJSONKey (group:WordGroup): string {
 		return "G-" + group.global_identifier;
 	}
-	
+
 	public convertRuleToJSON (rule:Rule): object {
 		let obj = {};
 		for (let prop of CustomBlockerStorage.JSON_RULE_CONVERSION_RULE) {
@@ -281,7 +280,7 @@ class CustomBlockerStorage {
 		}
 		return obj;
 	}
-	
+
 	public convertWordGroupToJSON (group:WordGroup): object {
 		let obj = {};
 		for (let prop of CustomBlockerStorage.JSON_WORD_GROUP_CONVERSION_RULE) {
@@ -292,16 +291,16 @@ class CustomBlockerStorage {
 			obj["w"].push(this.convertWordToJSON(word));
 		}
 		return obj;
-	
+
 	}
-	
+
 	public convertWordToJSON (word:Word): any {
 		let flags = [] as [number];
 		if (word.is_regexp) { flags.push(CustomBlockerStorage.JSON_WORD_FLAG_REGEXP); }
 		if (word.is_complete_matching) { flags.push(CustomBlockerStorage.JSON_WORD_FLAG_COMPLETE_MATCHING); }
 		if (word.is_case_sensitive) { flags.push(CustomBlockerStorage.JSON_WORD_FLAG_CASE_SENSITIVE); }
 		if (word.is_include_href) { flags.push(CustomBlockerStorage.JSON_WORD_FLAG_INCLUDE_HREF); }
-		
+
 		if (flags.length > 0) {
 			let obj = {};
 			obj["w"] = word.word;
@@ -311,14 +310,14 @@ class CustomBlockerStorage {
 			return word.word;
 		}
 	}
-	
+
 	public createRuleByJSON (json:object): Rule {
 		let rule = cbStorage.createRule();
 		return rule;
 	}
 	private initRuleByJSON (rule:Rule, json:object): Rule {
 		for (let prop of CustomBlockerStorage.JSON_RULE_CONVERSION_RULE) {
-			(rule as object)[prop[0]] = json[prop[1]]; 
+			(rule as object)[prop[0]] = json[prop[1]];
 		}
 		rule.words = [];
 		rule.wordGroups = [];
@@ -336,10 +335,10 @@ class CustomBlockerStorage {
 		}
 		return rule;
 	}
-	
+
 	private initWordGroupByJSON (group:WordGroup, json:object): WordGroup {
 		for (let prop of CustomBlockerStorage.JSON_WORD_GROUP_CONVERSION_RULE) {
-			(group as object)[prop[0]] = json[prop[1]]; 
+			(group as object)[prop[0]] = json[prop[1]];
 		}
 		group.words = [] as [Word];
 		let words = json["w"] as [any];
@@ -350,7 +349,7 @@ class CustomBlockerStorage {
 		}
 		return group;
 	}
-	
+
 	private initWordByJSON (word:Word, obj:any): void {
 		if (typeof(obj)=="string") {
 			word.word = obj as string;
@@ -369,7 +368,7 @@ class CustomBlockerStorage {
 			}
 		}
 	}
-	
+
 	public validateRule (params:RuleValidation): string[] {
 		let errors:string[] = [];
 		if (''==params.title) errors.push(chrome.i18n.getMessage('errorTitleEmpty'));
@@ -392,7 +391,7 @@ class CustomBlockerStorage {
 		}
 		return errors;
 	}
-	
+
 	private mergeRules (localObj:object, remoteObj:object): object {
 		let remoteWords = remoteObj["w"] as [any];
 		let localWords = localObj["w"] as [any];
@@ -409,7 +408,7 @@ class CustomBlockerStorage {
 		}
 		return localObj;
 	}
-	
+
 	private syncRule (deviceId:string, key:string, oldValue:object, newValue:object, onLocalChange:()=>void) {
 			console.log("Key=%s", key);
 			console.log(oldValue);
@@ -420,7 +419,7 @@ class CustomBlockerStorage {
 				onLocalChange();
 				return;
 			}
-			
+
 			if (newValue==null) {
 				// Deleted manually. Just accept it.
 			} else if (oldValue==null) {
@@ -440,7 +439,7 @@ class CustomBlockerStorage {
 				}
 			}
 	}
-	
+
 	sync (changes, namespace, onLocalChange:()=>void) {
 		console.log("Syncing namespace %s", namespace);
 		let scope = this;
@@ -457,8 +456,8 @@ class CustomBlockerStorage {
 			}
 		});
 	}
-	
-	private deviceId = null; 
+
+	private deviceId = null;
 	getDeviceId (callback:(string)=>void) {
 		if (this.deviceId) {
 			// deviceId is already loaded.
@@ -480,7 +479,7 @@ class CustomBlockerStorage {
 			});
 		});
 	}
-	
+
 	// Initialize static fields
 	static init () {
 		CustomBlockerStorage.JSON_RULE_CONVERSION_RULE = [
@@ -499,7 +498,7 @@ class CustomBlockerStorage {
 			["insert_date", "di"],
 			["update_date", "du"],
 			["updaterId", "ui"],
-			
+
 			["block_anyway", "b"]
 		];
 		CustomBlockerStorage.JSON_WORD_GROUP_CONVERSION_RULE = [
@@ -511,8 +510,8 @@ class CustomBlockerStorage {
 		CustomBlockerStorage.JSON_WORD_FLAG_CASE_SENSITIVE = 3;
 		CustomBlockerStorage.JSON_WORD_FLAG_INCLUDE_HREF = 4;
 	}
-	
-	
+
+
 }
 
 

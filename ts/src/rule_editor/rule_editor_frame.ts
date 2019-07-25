@@ -22,7 +22,6 @@ class WordGroupPicker {
 		});
 	}
 
-	// TODO set onSelect callback
 	setGroups(groups:[WordGroup]) {
 		this.groups = groups;
 		for (let group of groups) {
@@ -55,6 +54,27 @@ class RuleEditorFrame {
 	block_anyway: HTMLInputElement;
 	hide_detail: HTMLInputElement;
 	group_picker:WordGroupPicker;
+	removeGroup (group:WordGroup) {
+		for (let groupId=0; groupId < this.rule.wordGroups.length; groupId++) {
+			if (this.rule.wordGroups[groupId].global_identifier == group.global_identifier) {
+				this.rule.wordGroups.splice(groupId, 1);
+				this.renderGroups(this.rule.wordGroups);
+				return;
+			}
+		}
+	}
+	renderGroups (groups:WordGroup[]) {
+		document.getElementById("rule_editor_keyword_groups").innerHTML = "";
+		groups.forEach((group)=>{
+			let span = document.createElement("SPAN");
+			span.className = "group";
+			span.innerHTML = group.name;
+			let deleteButton = CustomBlockerUtil.createDeleteButton();
+			deleteButton.addEventListener('click', ()=>{ this.removeGroup(group) }, true);
+			span.appendChild(deleteButton);
+			document.getElementById("rule_editor_keyword_groups").appendChild(span);
+		});
+	}
 	constructor () {
 		this.url = null;
 		this.rule = null;
@@ -63,7 +83,9 @@ class RuleEditorFrame {
 		this.group_picker = new WordGroupPicker(document.getElementById("rule_editor_keyword_group_select") as HTMLSelectElement);
 		this.group_picker.onSelectGroup = (group:WordGroup) => {
 			console.log("RuleEditor group selected.");
-			console.log(group);
+			this.rule.wordGroups.push(group);
+			console.log(this.rule.wordGroups);
+			this.renderGroups(this.rule.wordGroups);
 		};
 		let self = this;
 
@@ -156,6 +178,7 @@ class RuleEditorFrame {
 		var rule = data.rule;
 		this.url = data.url;
 		this.rule = rule;
+		this.renderGroups(this.rule.wordGroups);
 		(document.getElementById('rule_editor_title') as HTMLInputElement).value = rule.title;
 		document.getElementById('rule_editor_keywords').innerHTML = '';
 		for (var i = 0, l = rule.words.length; i < l; i++) {

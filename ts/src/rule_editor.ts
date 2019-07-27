@@ -337,9 +337,6 @@ class RuleEditor {
 	}
 	onSaveDone (rule:Rule){
 		this.rule.rule_id = rule.rule_id;
-		for (var i=0, l=this.rule.words.length; i<l; i++) {
-			// this.rule.words[i].word_id = rule.words[i].word_id;
-		}
 		var options = {command:'customblocker_rule_saved',
 				rule:rule
 				};

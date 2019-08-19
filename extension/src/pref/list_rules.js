@@ -283,7 +283,14 @@ var PrefRuleEditor = (function () {
         };
     }
     PrefRuleEditor.prototype.init = function () {
+        var _this = this;
         var self = this;
+        this.group_picker = new WordGroupPicker(document.getElementById("select_word_groups"));
+        this.group_picker.onSelectGroup = function (group) {
+            console.log("list_rules group selected.");
+            _this.rule.wordGroups.push(group);
+            _this.renderGroups(_this.rule.wordGroups);
+        };
         cbStorage.loadAll(function (rules, groups) {
             if (!rules || rules.length == 0) {
                 showEmptyAlert();
@@ -293,9 +300,26 @@ var PrefRuleEditor = (function () {
             for (var i = 0; i < allRules.length; i++) {
                 ruleContainerList.push(new RuleContainer(allRules[i]));
             }
-            self.populateWordGroupDropdown();
+            self.group_picker.setGroups(groups);
             renderRules();
             showCount();
+        });
+    };
+    PrefRuleEditor.prototype.removeGroup = function (group) {
+        for (var groupId = 0; groupId < this.rule.wordGroups.length; groupId++) {
+            if (this.rule.wordGroups[groupId].global_identifier == group.global_identifier) {
+                this.rule.wordGroups.splice(groupId, 1);
+                this.renderGroups(this.rule.wordGroups);
+                return;
+            }
+        }
+    };
+    PrefRuleEditor.prototype.renderGroups = function (groups) {
+        var _this = this;
+        document.getElementById("rule_editor_keyword_groups").innerHTML = "";
+        groups.forEach(function (group) {
+            CustomBlockerUtil.createWordGroupElement(group, function () { _this.removeGroup(group); });
+            document.getElementById("rule_editor_keyword_groups").appendChild(CustomBlockerUtil.createWordGroupElement(group, function () { _this.removeGroup(group); }));
         });
     };
     PrefRuleEditor.setVisibilityOfConditionDetail = function () {
@@ -332,7 +356,16 @@ var PrefRuleEditor = (function () {
             var value = select.getElementsByTagName("option")[select.selectedIndex].value;
             console.log(select.selectedIndex);
         });
+        this.renderGroups(this.rule.wordGroups);
         refreshPathSections();
+    };
+    PrefRuleEditor.prototype.renderGroups = function (groups) {
+        var _this = this;
+        document.getElementById("rule_editor_keyword_groups").innerHTML = "";
+        groups.forEach(function (group) {
+            CustomBlockerUtil.createWordGroupElement(group, function () { _this.removeGroup(group); });
+            document.getElementById("rule_editor_keyword_groups").appendChild(CustomBlockerUtil.createWordGroupElement(group, function () { _this.removeGroup(group); }));
+        });
     };
     PrefRuleEditor.prototype.createOption = function (label, value) {
         var option = document.createElement("option");
@@ -341,16 +374,6 @@ var PrefRuleEditor = (function () {
             option.value = value;
         }
         return option;
-    };
-    PrefRuleEditor.prototype.populateWordGroupDropdown = function () {
-        var select = document.getElementById("select_word_groups");
-        select.innerHTML = "";
-        select.appendChild(this.createOption("----", null));
-        for (var _i = 0, _a = this.wordGroups; _i < _a.length; _i++) {
-            var group = _a[_i];
-            var option = this.createOption(group.name, group.global_identifier);
-            select.appendChild(option);
-        }
     };
     PrefRuleEditor.prototype.showMessage = function (str) {
         this.alertDiv.style.display = 'block';

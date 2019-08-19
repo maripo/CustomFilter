@@ -28,7 +28,7 @@ class CustomBlockerUtil {
 		CustomBlockerUtil.LOCALIZE_CLASS_REGEXP = new RegExp('custom_filter_localize_([^ ]+)');
 		CustomBlockerUtil.REGEX_FILE_NAME = new RegExp('/([a-zA-Z0-9_]+\.html)$');
 		CustomBlockerUtil.CSS_CLASS = "customblocker-css";
-	
+
 	}
 	public static escapeHTML (str:string) {
 		return str
@@ -59,7 +59,7 @@ class CustomBlockerUtil {
 		}
 	}
 	public static wildcardToRegExp (str:string): string {
-		var result = ".*" 
+		var result = ".*"
 			+ str.replace(REGEX_WILDCARD_TO_REGEXP, '\\$1').replace(REGEX_WILDCARD, '.*')
 			+ ".*";
 		return result;
@@ -99,17 +99,17 @@ class CustomBlockerUtil {
 	 }
 	 public static getRelativeElementsByXPath (targetNode:HTMLElement, xpath:string) {
 		var list = new Array();
-		try 
+		try
 		{
 			var result = document.evaluate(xpath, targetNode, null, XPathResult.ANY_TYPE, null);
 			var node;
-			
-			while (node = result.iterateNext()) 
+
+			while (node = result.iterateNext())
 			{
 				list.push(node);
 			}
-		} 
-		catch (e) 
+		}
+		catch (e)
 		{
 			console.log(e)
 		}
@@ -122,8 +122,8 @@ class CustomBlockerUtil {
 		if (null==rule.words || 0==rule.words.length)
 			return null;
 		var wordStrings = new Array();
-		
-	
+
+
 		for (var i=0, l=rule.words.length; i<l; i++)
 		{
 			var word = rule.words[i];
@@ -133,11 +133,11 @@ class CustomBlockerUtil {
 				if (rule.appliedWords && rule.appliedWords[word.word_id] > 0) {
 					token += ("("+rule.appliedWords[word.word_id]+")")
 				}
-				
+
 			} catch (e) {
 				console.log(e);
 			}
-			wordStrings.push(token); 
+			wordStrings.push(token);
 		}
 		return wordStrings.join(', ');
 	}
@@ -180,7 +180,7 @@ class CustomBlockerUtil {
 		let tags = [];
 		CustomBlockerUtil.addAll(tags, document.getElementsByTagName('SPAN'));
 		CustomBlockerUtil.addAll(tags, document.getElementsByTagName('LABEL'));
-		
+
 		let buttons = document.getElementsByTagName('INPUT');
 		for (var i=0, l=tags.length; i<l; i++) {
 			let element = tags[i];
@@ -257,7 +257,7 @@ class CustomBlockerUtil {
 	public static isContained (targetNode:HTMLElement, ancestorNode:HTMLElement): boolean {
 		if (!ancestorNode || !targetNode) return false;
 		var node = targetNode;
-		while (node && document.body!=node) 
+		while (node && document.body!=node)
 		{
 			if (node == ancestorNode) return true;
 			node = <HTMLElement>node.parentNode;
@@ -276,7 +276,7 @@ class CustomBlockerUtil {
 					containsAll = false;
 			}
 			if (containsAll) return element;
-			element = <HTMLElement>element.parentNode; 
+			element = <HTMLElement>element.parentNode;
 		}
 		return document.body;
 	}
@@ -317,7 +317,7 @@ class CustomBlockerUtil {
 					break;
 				}
 			}
-		}	 
+		}
 		return containedElements;
 	}
 	public static getSuggestedSiteRegexp (): string {
@@ -332,10 +332,22 @@ class CustomBlockerUtil {
 		var deleteButton = CustomBlockerUtil.createDeleteButton();
 		deleteButton.addEventListener('click', function(){deleteCallback(span)}, true);
 		span.appendChild(deleteButton);
-		
+
 		return span;
 	}
-	
+	public static createWordGroupElement (group, deleteCallback /* function(span) */) {
+		let span = document.createElement("SPAN");
+		span.className = "group";
+		span.innerHTML = group.name;
+		let deleteButton = CustomBlockerUtil.createDeleteButton();
+		if (group.words.length > 0) {
+			span.title = group.words.map(word => word.word).join(",");
+		}
+		deleteButton.addEventListener('click', deleteCallback, true);
+		span.appendChild(deleteButton);
+		return span;
+	}
+
 	/* Create [x] button (without function) */
 	public static createDeleteButton = function () {
 		var span = document.createElement('SPAN');
@@ -346,7 +358,7 @@ class CustomBlockerUtil {
 		button.setAttribute("href", 'javascript:void(0)');
 		return button;
 	}
-	
+
 	public static createSimpleWordElement (word) {
 		var span = document.createElement('SPAN');
 		var suffix = word.is_complete_matching? 'red':'blue';
@@ -379,7 +391,7 @@ class CustomBlockerUtil {
 			{
 				embed.parentNode.appendChild(param);
 			}
-			else 
+			else
 			{
 				// Wrap <embed> element with <object> element
 				var object = document.createElement('OBJECT');

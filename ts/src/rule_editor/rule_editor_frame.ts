@@ -5,35 +5,6 @@ let pathInputFields = [
                        {pickButton:"rule_editor_button_hide_block_css", field:"rule_editor_hide_block_css", type:"hide_css"}
                        ];
 
-class WordGroupPicker {
-	select:HTMLSelectElement;
-	groups:[WordGroup];
-	onSelectGroup: (group:WordGroup) => void;
-	constructor(select:HTMLSelectElement) {
-		this.select = select;
-		let scope = this;
-		this.select.addEventListener("change", ()=>{
-			let index = this.select.selectedIndex;
-			console.log(this.select.selectedIndex);
-			if (index > 0) {
-				let group = scope.groups[index-1];
-				scope.onSelectGroup(group);
-			}
-		});
-	}
-
-	setGroups(groups:[WordGroup]) {
-		this.groups = groups;
-		for (let group of groups) {
-			console.log(group.name);
-			let option = document.createElement("option");
-			option.innerHTML = group.name;
-			this.select.appendChild(option);
-		}
-
-	}
-}
-
 class RuleEditorFrame {
 	url:string;
 	rule:Rule;
@@ -54,27 +25,6 @@ class RuleEditorFrame {
 	block_anyway: HTMLInputElement;
 	hide_detail: HTMLInputElement;
 	group_picker:WordGroupPicker;
-	removeGroup (group:WordGroup) {
-		for (let groupId=0; groupId < this.rule.wordGroups.length; groupId++) {
-			if (this.rule.wordGroups[groupId].global_identifier == group.global_identifier) {
-				this.rule.wordGroups.splice(groupId, 1);
-				this.renderGroups(this.rule.wordGroups);
-				return;
-			}
-		}
-	}
-	renderGroups (groups:WordGroup[]) {
-		document.getElementById("rule_editor_keyword_groups").innerHTML = "";
-		groups.forEach((group)=>{
-			let span = document.createElement("SPAN");
-			span.className = "group";
-			span.innerHTML = group.name;
-			let deleteButton = CustomBlockerUtil.createDeleteButton();
-			deleteButton.addEventListener('click', ()=>{ this.removeGroup(group) }, true);
-			span.appendChild(deleteButton);
-			document.getElementById("rule_editor_keyword_groups").appendChild(span);
-		});
-	}
 	constructor () {
 		this.url = null;
 		this.rule = null;
@@ -84,7 +34,6 @@ class RuleEditorFrame {
 		this.group_picker.onSelectGroup = (group:WordGroup) => {
 			console.log("RuleEditor group selected.");
 			this.rule.wordGroups.push(group);
-			console.log(this.rule.wordGroups);
 			this.renderGroups(this.rule.wordGroups);
 			this.resize();
 		};
@@ -175,17 +124,36 @@ class RuleEditorFrame {
 		document.getElementById('rule_editor_close_button').addEventListener('click',
 				function() { self.close() }, false);
 	}
+	removeGroup (group:WordGroup) {
+		for (let groupId=0; groupId < this.rule.wordGroups.length; groupId++) {
+			if (this.rule.wordGroups[groupId].global_identifier == group.global_identifier) {
+				this.rule.wordGroups.splice(groupId, 1);
+				this.renderGroups(this.rule.wordGroups);
+				return;
+			}
+		}
+	}
+	renderGroups (groups:WordGroup[]) {
+		document.getElementById("rule_editor_keyword_groups").innerHTML = "";
+		groups.forEach((group)=>{
+			CustomBlockerUtil.createWordGroupElement(group, ()=>{ this.removeGroup(group) });
+			document.getElementById("rule_editor_keyword_groups").appendChild(
+				CustomBlockerUtil.createWordGroupElement(group, ()=>{ this.removeGroup(group) })
+			);
+		});
+	}
+
 	renderRule (data) {
-		var rule = data.rule;
+		let rule = data.rule;
 		this.url = data.url;
 		this.rule = rule;
 		this.renderGroups(this.rule.wordGroups);
 		(document.getElementById('rule_editor_title') as HTMLInputElement).value = rule.title;
 		document.getElementById('rule_editor_keywords').innerHTML = '';
-		for (var i = 0, l = rule.words.length; i < l; i++) {
-			var word = rule.words[i];
-			var span = CustomBlockerUtil.createWordElement(word, this.getWordDeleteAction(word));
-			document.getElementById('rule_editor_keywords').appendChild(span);
+		for (let word of rule.words) {
+			document.getElementById('rule_editor_keywords').appendChild(
+				CustomBlockerUtil.createWordElement(word, this.getWordDeleteAction(word))
+			);
 		}
 
 		// Hide all alert elements
@@ -215,8 +183,8 @@ class RuleEditorFrame {
 		this.refreshXPathSelectedStyles();
 	}
 	saveRule () {
-		var dialog = this;
-		var validateErrors = this.validateInput();
+		let dialog = this;
+		let validateErrors = this.validateInput();
 		if (validateErrors.length>0) {
 			this.showAlertMessage(validateErrors.join('<br/>'));
 			return;
@@ -260,7 +228,7 @@ class RuleEditorFrame {
 	}
 	testRule () {
 		var validateErrors = this.validateInput();
-		if (validateErrors.length>0) {
+		if (validateErrors.length > 0) {
 			this.showAlertMessage(validateErrors.join('<br/>'));
 			return;
 		}
@@ -268,26 +236,24 @@ class RuleEditorFrame {
 		postMessageToParent({command:"customblocker_test_rule", rule:this.rule});
 	}
 	displaySiteExpressionMatchResult () {
-		var self = this;
+		let self = this;
 		return function () {
-			var regex;
+			let regex;
 			if ((document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked) {
 				// Use RegExp
 				regex = new RegExp((document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value);
 			} else {
 				regex = new RegExp(CustomBlockerUtil.wildcardToRegExp((document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value));
 			}
-			var matched = regex.test(self.url);
+			let matched = regex.test(self.url);
 			document.getElementById('rule_editor_alert_site_regexp').style.display = (matched)?'none':'block';
 			self.resize();
 		}
 	}
 	onPathPick (data): void {
-		console.log("onPathPick");
-		console.log(data)
-		for (var i=0; i<pathInputFields.length; i++) {
-			if (pathInputFields[i].type==data.target) {
-				(document.getElementById(pathInputFields[i].field) as HTMLInputElement).value = data.path;
+		for (let field of pathInputFields) {
+			if (field.type==data.target) {
+				(document.getElementById(field.field) as HTMLInputElement).value = data.path;
 				break;
 			}
 		}
@@ -363,20 +329,20 @@ class RuleEditorFrame {
 		};
 	}
 	getChangedAction (): (Event)=>void {
-		var self = this;
+		let self = this;
 		return function (event:Event) {
 			self.setBlockAnywayStyle(self.block_anyway.checked);
 			self.displaySiteExpressionMatchResult();
 		}
 	}
 	getRefreshHideBlockXPathAction (): (Event)=>void {
-		var self = this;
+		let self = this;
 		return function (event:Event) {
 			self.refreshXPathSelectedStyles();
 		}
 	}
 	getRefreshSearchBlockXPathAction (): (Event)=>void {
-		var self = this;
+		let self = this;
 		return function (event:Event) {
 			self.refreshXPathSelectedStyles();
 		}
@@ -394,15 +360,15 @@ class RuleEditorFrame {
 		}
 	}
 	refreshPathSections () {
-		var hideByXPath = (document.getElementById('rule_editor_radio_hide_xpath') as HTMLInputElement).checked;
-		var searchByXPath = (document.getElementById('rule_editor_radio_search_xpath') as HTMLInputElement).checked;
+		let hideByXPath = (document.getElementById('rule_editor_radio_hide_xpath') as HTMLInputElement).checked;
+		let searchByXPath = (document.getElementById('rule_editor_radio_search_xpath') as HTMLInputElement).checked;
 		document.getElementById('rule_editor_section_hide_xpath').style.display = (hideByXPath)?'block':'none';
 		document.getElementById('rule_editor_section_hide_css').style.display = (hideByXPath)?'none':'block';
 		document.getElementById('rule_editor_section_search_xpath').style.display = (searchByXPath)?'block':'none';
 		document.getElementById('rule_editor_section_search_css').style.display = (searchByXPath)?'none':'block';
 	}
 	refreshXPathSelectedStyles () {
-		var options = {
+		let options = {
 				command:"customblocker_validate_selectors",
 				hide_type: null,
 				hide_selector: null,
@@ -460,8 +426,6 @@ class RuleEditorFrame {
 		}
 	}
 }
-
-
 
 function handleReceivedMessage(event) {
 	switch (event.data.command) {

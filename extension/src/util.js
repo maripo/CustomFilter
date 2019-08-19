@@ -280,6 +280,18 @@ var CustomBlockerUtil = (function () {
         span.appendChild(deleteButton);
         return span;
     };
+    CustomBlockerUtil.createWordGroupElement = function (group, deleteCallback) {
+        var span = document.createElement("SPAN");
+        span.className = "group";
+        span.innerHTML = group.name;
+        var deleteButton = CustomBlockerUtil.createDeleteButton();
+        if (group.words.length > 0) {
+            span.title = group.words.map(function (word) { return word.word; }).join(",");
+        }
+        deleteButton.addEventListener('click', deleteCallback, true);
+        span.appendChild(deleteButton);
+        return span;
+    };
     CustomBlockerUtil.createSimpleWordElement = function (word) {
         var span = document.createElement('SPAN');
         var suffix = word.is_complete_matching ? 'red' : 'blue';

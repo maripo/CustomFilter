@@ -4,32 +4,6 @@ var pathInputFields = [
     { pickButton: "rule_editor_button_hide_block_xpath", field: "rule_editor_hide_block_xpath", type: "hide_xpath" },
     { pickButton: "rule_editor_button_hide_block_css", field: "rule_editor_hide_block_css", type: "hide_css" }
 ];
-var WordGroupPicker = (function () {
-    function WordGroupPicker(select) {
-        var _this = this;
-        this.select = select;
-        var scope = this;
-        this.select.addEventListener("change", function () {
-            var index = _this.select.selectedIndex;
-            console.log(_this.select.selectedIndex);
-            if (index > 0) {
-                var group = scope.groups[index - 1];
-                scope.onSelectGroup(group);
-            }
-        });
-    }
-    WordGroupPicker.prototype.setGroups = function (groups) {
-        this.groups = groups;
-        for (var _i = 0, groups_1 = groups; _i < groups_1.length; _i++) {
-            var group = groups_1[_i];
-            console.log(group.name);
-            var option = document.createElement("option");
-            option.innerHTML = group.name;
-            this.select.appendChild(option);
-        }
-    };
-    return WordGroupPicker;
-}());
 var RuleEditorFrame = (function () {
     function RuleEditorFrame() {
         var _this = this;
@@ -40,7 +14,6 @@ var RuleEditorFrame = (function () {
         this.group_picker.onSelectGroup = function (group) {
             console.log("RuleEditor group selected.");
             _this.rule.wordGroups.push(group);
-            console.log(_this.rule.wordGroups);
             _this.renderGroups(_this.rule.wordGroups);
             _this.resize();
         };
@@ -128,13 +101,8 @@ var RuleEditorFrame = (function () {
         var _this = this;
         document.getElementById("rule_editor_keyword_groups").innerHTML = "";
         groups.forEach(function (group) {
-            var span = document.createElement("SPAN");
-            span.className = "group";
-            span.innerHTML = group.name;
-            var deleteButton = CustomBlockerUtil.createDeleteButton();
-            deleteButton.addEventListener('click', function () { _this.removeGroup(group); }, true);
-            span.appendChild(deleteButton);
-            document.getElementById("rule_editor_keyword_groups").appendChild(span);
+            CustomBlockerUtil.createWordGroupElement(group, function () { _this.removeGroup(group); });
+            document.getElementById("rule_editor_keyword_groups").appendChild(CustomBlockerUtil.createWordGroupElement(group, function () { _this.removeGroup(group); }));
         });
     };
     RuleEditorFrame.prototype.renderRule = function (data) {
@@ -144,10 +112,9 @@ var RuleEditorFrame = (function () {
         this.renderGroups(this.rule.wordGroups);
         document.getElementById('rule_editor_title').value = rule.title;
         document.getElementById('rule_editor_keywords').innerHTML = '';
-        for (var i = 0, l = rule.words.length; i < l; i++) {
-            var word = rule.words[i];
-            var span = CustomBlockerUtil.createWordElement(word, this.getWordDeleteAction(word));
-            document.getElementById('rule_editor_keywords').appendChild(span);
+        for (var _i = 0, _a = rule.words; _i < _a.length; _i++) {
+            var word = _a[_i];
+            document.getElementById('rule_editor_keywords').appendChild(CustomBlockerUtil.createWordElement(word, this.getWordDeleteAction(word)));
         }
         document.getElementById("rule_editor_alert_site_regexp").style.display = "none";
         document.getElementById("rule_editor_alert").style.display = "none";
@@ -238,11 +205,10 @@ var RuleEditorFrame = (function () {
         };
     };
     RuleEditorFrame.prototype.onPathPick = function (data) {
-        console.log("onPathPick");
-        console.log(data);
-        for (var i = 0; i < pathInputFields.length; i++) {
-            if (pathInputFields[i].type == data.target) {
-                document.getElementById(pathInputFields[i].field).value = data.path;
+        for (var _i = 0, pathInputFields_1 = pathInputFields; _i < pathInputFields_1.length; _i++) {
+            var field = pathInputFields_1[_i];
+            if (field.type == data.target) {
+                document.getElementById(field.field).value = data.path;
                 break;
             }
         }

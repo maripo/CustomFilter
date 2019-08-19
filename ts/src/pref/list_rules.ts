@@ -134,7 +134,6 @@ function deselectAll ():void {
 	}
 }
 
-
 function removeElement (element):void {
 	for (let i=0; i<ruleContainerList.length; i++) {
 		if (ruleContainerList[i]==element)
@@ -331,6 +330,7 @@ class PrefRuleEditor {
 	saveButton: HTMLInputElement;
 	wordEditor: WordEditor;
 	wordGroups: [WordGroup];
+	group_picker:WordGroupPicker;
 	constructor ()	{
 		this.rule = null;
 		this.saveButton = document.getElementById('rule_editor_save_button') as HTMLInputElement;
@@ -355,6 +355,12 @@ class PrefRuleEditor {
 
 	init () {
 		let self = this;
+		this.group_picker = new WordGroupPicker(document.getElementById("select_word_groups") as HTMLSelectElement);
+		this.group_picker.onSelectGroup = (group:WordGroup) => {
+			console.log("list_rules group selected.");
+			this.rule.wordGroups.push(group);
+			this.renderGroups(this.rule.wordGroups);
+		};
 		cbStorage.loadAll (
 			function (rules:[Rule], groups:[WordGroup]) {
 				if (!rules || rules.length==0) {
@@ -365,10 +371,29 @@ class PrefRuleEditor {
 				for (let i=0; i<allRules.length; i++) {
 					ruleContainerList.push(new RuleContainer(allRules[i]));
 				}
-				self.populateWordGroupDropdown();
+				self.group_picker.setGroups(groups);
 				renderRules();
 				showCount();
 			});
+	}
+
+	removeGroup (group:WordGroup) {
+		for (let groupId=0; groupId < this.rule.wordGroups.length; groupId++) {
+			if (this.rule.wordGroups[groupId].global_identifier == group.global_identifier) {
+				this.rule.wordGroups.splice(groupId, 1);
+				this.renderGroups(this.rule.wordGroups);
+				return;
+			}
+		}
+	}
+	renderGroups (groups:WordGroup[]) {
+		document.getElementById("rule_editor_keyword_groups").innerHTML = "";
+		groups.forEach((group)=>{
+			CustomBlockerUtil.createWordGroupElement(group, ()=>{ this.removeGroup(group) });
+			document.getElementById("rule_editor_keyword_groups").appendChild(
+				CustomBlockerUtil.createWordGroupElement(group, ()=>{ this.removeGroup(group) })
+			);
+		});
 	}
 
 	static setVisibilityOfConditionDetail () {
@@ -406,14 +431,24 @@ class PrefRuleEditor {
 
 		let select = document.getElementById("select_word_groups") as HTMLSelectElement;
 		let self = this;
-		select.addEventListener ("change", function() {
+		select.addEventListener ("change", () => {
 			let value = (select.getElementsByTagName("option")[select.selectedIndex] as HTMLOptionElement).value;
-			//self.onSelectWordGroup(value);
 			console.log(select.selectedIndex);
 		});
 
+		this.renderGroups(this.rule.wordGroups);
+
 
 		refreshPathSections();
+	}
+	private renderGroups (groups:WordGroup[]) {
+		document.getElementById("rule_editor_keyword_groups").innerHTML = "";
+		groups.forEach((group)=>{
+			CustomBlockerUtil.createWordGroupElement(group, ()=>{ this.removeGroup(group) });
+			document.getElementById("rule_editor_keyword_groups").appendChild(
+				CustomBlockerUtil.createWordGroupElement(group, ()=>{ this.removeGroup(group) })
+			);
+		});
 	}
 	private createOption (label:string, value:string): HTMLElement {
 		let option = document.createElement("option");
@@ -423,6 +458,7 @@ class PrefRuleEditor {
 		}
 		return option;
 	}
+	/*
 	private populateWordGroupDropdown () {
 		let select = document.getElementById("select_word_groups") as HTMLInputElement;
 		select.innerHTML = "";
@@ -433,6 +469,7 @@ class PrefRuleEditor {
 			select.appendChild(option);
 		}
 	}
+	*/
 	showMessage (str: string): void {
 		this.alertDiv.style.display = 'block';
 		this.alertDiv.innerHTML = str;

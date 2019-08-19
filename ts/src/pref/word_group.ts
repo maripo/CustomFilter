@@ -15,6 +15,10 @@ class WordGroupPage {
 	init ():void {
 		this.listContainer = document.getElementById("ruleList");
 		this.editor = new WordGroupEditor();
+		this.editor.onSave = () => {
+			this.listContainer.innerHTML = "";
+			this.load();
+		};
 	}
 	load () {
 		let scope = this;
@@ -43,6 +47,7 @@ class WordGroupEditor {
 	uiTitle: HTMLInputElement;
 	wordEditor: WordEditor;
 	group:WordGroup;
+	onSave:() => void;
 	constructor () {
 		this.uiTitle = document.getElementById("rule_editor_title") as HTMLInputElement;
 		this.wordEditor = new WordEditor();
@@ -60,7 +65,15 @@ class WordGroupEditor {
 				self.group.name = self.uiTitle.value;
 				cbStorage.saveWordGroup(self.group, function () {
 					console.log("Group was saved. name=" + self.group.name);
-					// TODO reload left list
+					try {
+						var bgWindow = chrome.extension.getBackgroundPage();
+						bgWindow.reloadLists();
+					} catch (ex) {
+						alert(ex)
+					}
+					if (self.onSave) {
+						self.onSave();
+					}
 				});
 			}
 		});

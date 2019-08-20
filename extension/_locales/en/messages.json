@@ -16,13 +16,13 @@
 	"sectionSearch":{"message":"Search Region"},
 	"sectionHide":{"message":"Elements to Hide"},
 	"sectionWord":{"message":"Words"},
-	
+
 	"selectOuterElement":{"message": "Select parent element"},
 	"regex":{"message":"RegEx"},
 	"complete_matching":{"message":"Complete Match"},
 	"case_sensitive":{"message":"Case Sensitive"},
 	"include_href":{"message":"Include Link URL"},
-	
+
 	"exampleUrl":{"message":"Example URL"},
 	"description":{"message":"Description"},
 	"descriptionHide":{"message":"Matched elements will disappear if they meet the condition."},
@@ -39,6 +39,7 @@
 	"errorHideXpathInvalid":{"message":"XPath for \"Elements to Hide\" is invalid"},
 	"errorSearchXpathInvalid":{"message":"XPath for \"Search Region\" is invalid"},
 	"saveDone":{"message":"The rule is successfully saved."},
+	"wordGroupSaveDone":{"message":"The group is successfully saved."},
 	"descriptionEmpty":{"message":"There is no rule. Make rules for your favorite sites or <a href=\"../welcome_install_en.html?pref\">import preset rules</a>"},
 	"helpEmpty":{"message":"[Learn how to make rules]"},
 	"ruleEditorExistingRules":{"message":"Existing Rules"},
@@ -64,7 +65,7 @@
 	"showBadge":{"message":"Show number of blocked elements on app icon"},
 	"installPreset":{"message":"<a href=\"../welcome_install_en.html?add=true\">Install preset rules</a>"},
 	"donate":{"message":"Donate"},
-	
+
 	"migrationFlagNotFound": {"message":"It seems that something went wrong when CustomBlocker tried to upgrade rules you created on version 2.x."},
 	"migrationLink": {"message":"Click to retry data upgrade manually"}
 }

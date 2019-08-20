@@ -12,7 +12,7 @@ class WordGroupPage {
 	editor: WordGroupEditor;
 	constructor () {
 	}
-	init ():void {
+	init (): void {
 		this.listContainer = document.getElementById("ruleList");
 		this.editor = new WordGroupEditor();
 		this.editor.onSave = () => {
@@ -48,9 +48,11 @@ class WordGroupEditor {
 	wordEditor: WordEditor;
 	group:WordGroup;
 	onSave:() => void;
+	alertDiv: HTMLElement;
 	constructor () {
 		this.uiTitle = document.getElementById("rule_editor_title") as HTMLInputElement;
 		this.wordEditor = new WordEditor();
+		this.alertDiv = document.getElementById('rule_editor_alert');
 		// Add WordEditor handlers
 		let self = this;
 		this.wordEditor.addWordHandler = function (word:Word) {
@@ -60,13 +62,15 @@ class WordGroupEditor {
 			console.log("TODO addWordHandler");
 			cbStorage.removeWordFromWordGroup(self.group, word);
 		};
-		document.getElementById("rule_editor_save_button").addEventListener("click", function () {
+		document.getElementById("rule_editor_save_button").addEventListener("click", () => {
 			if (self.group) {
+				// TODO validation
 				self.group.name = self.uiTitle.value;
-				cbStorage.saveWordGroup(self.group, function () {
+				cbStorage.saveWordGroup(self.group, () => {
 					console.log("Group was saved. name=" + self.group.name);
 					try {
 						var bgWindow = chrome.extension.getBackgroundPage();
+						self.showMessage(chrome.i18n.getMessage('wordGroupSaveDone'));
 						bgWindow.reloadLists();
 					} catch (ex) {
 						alert(ex)
@@ -85,10 +89,18 @@ class WordGroupEditor {
 		});
 	}
 	setGroup (group: WordGroup) {
-		console.log(group);
 		this.uiTitle.value = group.name;
 		this.group = group;
 		this.wordEditor.setWords(group.words);
+		this.hideMessage();
+	}
+	showMessage (str: string): void {
+		this.alertDiv.style.display = 'block';
+		this.alertDiv.innerHTML = str;
+	}
+
+	hideMessage (): void{
+		this.alertDiv.style.display = 'none';
 	}
 }
 

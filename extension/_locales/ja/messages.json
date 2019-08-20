@@ -16,7 +16,7 @@
 	"sectionSearch":{"message":"検索範囲"},
 	"sectionHide":{"message":"隠す要素"},
 	"sectionWord":{"message":"キーワード"},
-	
+
 	"selectOuterElement":{"message": "外側の要素を選択"},
 	"regex":{"message":"正規表現"},
 	"complete_matching":{"message":"完全一致"},
@@ -37,7 +37,8 @@
 	"errorSiteRegexEmpty":{"message":"サイトの正規表現が空です。"},
 	"errorHideXpathInvalid":{"message":"ブロック対象XPathが不正です。"},
 	"errorSearchXpathInvalid":{"message":"検索対象XPathが不正です。"},
-	"saveDone":{"message":"セーブしました"},
+	"saveDone":{"message":"ルールをセーブしました。"},
+	"wordGroupSaveDone":{"message":"グループをセーブしました。"},
 	"descriptionEmpty":{"message":"まだルールが1件もありません。<br/>お気に入りのサイトでルールを作るか、<a href=\"../welcome_install_ja.html?pref\">フィルタリスト</a>からお好みのフィルタをインストールしてご利用ください。"},
 	"helpEmpty":{"message":"[ルールの作り方]"},
 	"ruleEditorExistingRules":{"message":"既存のルールに追加"},
@@ -63,7 +64,7 @@
 	"showBadge":{"message":"ブロックした数をアイコンの上に表示する"},
 	"installPreset":{"message":"<a href=\"../welcome_install_ja.html?add=true\">おすすめルールをインストールする</a>"},
 	"donate":{"message":"開発者に寄付をする"},
-		
+
 	"migrationFlagNotFound": {"message":"バージョン2.xからのルールの移行中にトラブルが起こった可能性があります。"},
 	"migrationLink": {"message":"ここをクリックすると移行をやり直せます (現在保存されているルールは消えません)。"}
 }

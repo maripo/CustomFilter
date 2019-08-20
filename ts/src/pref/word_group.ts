@@ -64,7 +64,10 @@ class WordGroupEditor {
 		};
 		document.getElementById("rule_editor_save_button").addEventListener("click", () => {
 			if (self.group) {
-				// TODO validation
+				if (self.uiTitle.value == "") {
+					self.showMessage(chrome.i18n.getMessage('errorWordGroupNameEmpty'));
+					return;
+				}
 				self.group.name = self.uiTitle.value;
 				cbStorage.saveWordGroup(self.group, () => {
 					console.log("Group was saved. name=" + self.group.name);

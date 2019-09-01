@@ -4,9 +4,24 @@ var RuleExecutor = (function () {
     RuleExecutor.initialize = function () {
         RuleExecutor.blockedCount = 0;
     };
+    RuleExecutor.eachWords = function (rule, func) {
+        for (var _i = 0, _a = rule.words; _i < _a.length; _i++) {
+            var word = _a[_i];
+            console.log("[W]");
+            func(word);
+        }
+        for (var _b = 0, _c = rule.wordGroups; _b < _c.length; _b++) {
+            var group = _c[_b];
+            for (var _d = 0, _e = group.words; _d < _e.length; _d++) {
+                var word = _e[_d];
+                console.log("[G]");
+                func(word);
+            }
+        }
+    };
     RuleExecutor.checkRules = function (list) {
-        for (var i = 0, l = list.length; i < l; i++) {
-            var rule = list[i];
+        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+            var rule = list_1[_i];
             try {
                 var regex;
                 if (rule.specify_url_by_regexp) {
@@ -17,8 +32,6 @@ var RuleExecutor = (function () {
                 }
                 if (regex.test(location.href)) {
                     rules.push(rule);
-                }
-                else {
                 }
             }
             catch (e) {
@@ -31,8 +44,8 @@ var RuleExecutor = (function () {
         }
     };
     RuleExecutor.startBlocking = function () {
-        for (var i = 0, l = rules.length; i < l; i++) {
-            var rule = rules[i];
+        for (var _i = 0, rules_1 = rules; _i < rules_1.length; _i++) {
+            var rule = rules_1[_i];
             if (rule.block_anyway && !rule.is_disabled) {
                 var cssSelector = (rule.hide_block_by_css) ?
                     rule.hide_block_css : CustomBlockerUtil.xpathToCss(rule.hide_block_xpath);
@@ -41,8 +54,11 @@ var RuleExecutor = (function () {
                     rule.staticXpath = cssSelector;
                 }
             }
-            for (var j = 0; j < rule.words.length; j++) {
-                var word = rule.words[j];
+            RuleExecutor.eachWords(rule, function (word) {
+                console.log(word.word);
+            });
+            for (var _a = 0, _b = rule.words; _a < _b.length; _a++) {
+                var word = _b[_a];
                 if (word.is_regexp) {
                     try {
                         if (word.is_complete_matching) {
@@ -106,8 +122,8 @@ var RuleExecutor = (function () {
                 }, false);
             }
         };
-        for (var _i = 0, rules_1 = rules; _i < rules_1.length; _i++) {
-            var rule = rules_1[_i];
+        for (var _i = 0, rules_2 = rules; _i < rules_2.length; _i++) {
+            var rule = rules_2[_i];
             _loop_1(rule);
         }
     };

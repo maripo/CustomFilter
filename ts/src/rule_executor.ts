@@ -1,4 +1,3 @@
-
 class RuleExecutor {
 	static blockTimeout:any;
 	static blockInterval:any;
@@ -7,9 +6,20 @@ class RuleExecutor {
 	static initialize(): void {
 		RuleExecutor.blockedCount = 0;
 	}
+	static eachWords(rule:Rule, func:(word:Word)=>void) {
+		for (let word of rule.words) {
+			func(word);
+		}
+		for (let group of rule.wordGroups) {
+			for (let word of group.words) {
+				func(word);
+			}
+		}
+	}
 	static checkRules (list:Rule[]) {
-		for (var i = 0, l = list.length; i < l; i++)  {
-			var rule = list[i];
+		for (let rule of list) {
+		//for (var i = 0, l = list.length; i < l; i++)  {
+			//var rule = list[i];
 			try  {
 				var regex;
 				if (rule.specify_url_by_regexp)  {
@@ -18,12 +28,9 @@ class RuleExecutor {
 					regex = new RegExp(CustomBlockerUtil.wildcardToRegExp(rule.site_regexp), 'i');
 				}
 				if (regex.test(location.href))  {
-					// console.info("Rule is applied." + location.href + "<=>" + rule.site_regexp);
 					rules.push(rule);
-				} else {
-					// console.info("Rule is NOT applied." + location.href + "<=>" + rule.site_regexp);
 				}
-			} 
+			}
 			catch (e)  {
 				console.log(e);
 			}
@@ -34,8 +41,9 @@ class RuleExecutor {
 		}
 	}
 	static startBlocking () :void {
-		for (var i=0, l=rules.length; i<l; i++) {
-			var rule = rules[i];
+		for (let rule of rules) {
+		//for (var i=0, l=rules.length; i<l; i++) {
+			//var rule = rules[i];
 			if (rule.block_anyway && !rule.is_disabled)
 			{
 				var cssSelector = (rule.hide_block_by_css)?
@@ -46,8 +54,10 @@ class RuleExecutor {
 					rule.staticXpath = cssSelector;
 				}
 			}
-			for (var j=0; j< rule.words.length; j++) {
-				var word = rule.words[j];
+			RuleExecutor.eachWords(rule, (word:Word)=>{
+				console.log(word.word);
+			});
+			for (let word of rule.words) {
 				if (word.is_regexp) {
 					try {
 						if (word.is_complete_matching) {
@@ -57,10 +67,10 @@ class RuleExecutor {
 							expression += ((word.word.charAt(word.word.length-1)!='$')?'$':'');
 							if (word.is_case_sensitive) {
 								word.regExp = new RegExp(expression);
-								
+
 							} else {
 								word.regExp = new RegExp(expression, 'i');
-								
+
 							}
 						} else {
 							if (word.is_case_sensitive) {
@@ -68,7 +78,7 @@ class RuleExecutor {
 							} else {
 								word.regExp = new RegExp(word.word, 'i');
 							}
-							
+
 						}
 					} catch (ex) {
 						console.log("Invalid RegExp: \"" + word.word+"\"");
@@ -100,10 +110,10 @@ class RuleExecutor {
 		if (!rules) return;
 		for (let rule of rules) {
 			if (!rule.is_disabled) {
-				
-				RuleExecutor.applyRule(rule, false, 
+
+				RuleExecutor.applyRule(rule, false,
 					function (node:HTMLElement) {
-						hiddenNodeList.add(node);	
+						hiddenNodeList.add(node);
 						RuleExecutor.blockedCount++;
 						if (!rule.staticXpath) {
 							hiddenNodeList.apply(node);
@@ -121,7 +131,7 @@ class RuleExecutor {
 				:
 				CustomBlockerUtil.getElementsByXPath(rule.hide_block_xpath);
 		var searchNodes;
-		if ( (rule.search_block_by_css && CustomBlockerUtil.isEmpty(rule.search_block_css)) || 
+		if ( (rule.search_block_by_css && CustomBlockerUtil.isEmpty(rule.search_block_css)) ||
 				(!rule.search_block_by_css && CustomBlockerUtil.isEmpty(rule.search_block_xpath) )) {
 			searchNodes = [];
 			for (var i=0; i<hideNodes.length; i++) {
@@ -160,9 +170,9 @@ class RuleExecutor {
 					shouldBeHidden = true;
 				}
 			}
-			if ((ignoreHidden||!node.hideDone) && shouldBeHidden) 
+			if ((ignoreHidden||!node.hideDone) && shouldBeHidden)
 			{
-				if (!node.defaultStyles) 
+				if (!node.defaultStyles)
 				{
 					node.defaultStyles = {
 						backgroundColor : node.style.backgroundColor,
@@ -196,7 +206,7 @@ class RuleExecutor {
 		}
 		if (needRefreshBadge && RuleExecutor.blockedCount > 0) {
 			window.bgCommunicator.sendRequest('badge', { rules:rules, count: RuleExecutor.blockedCount });
-		}	
+		}
 	}
 	static findFlaggedChild (hideNode, list) {
 		for (var i=0, l=list.length; i<l; i++) {
@@ -224,7 +234,7 @@ class RuleExecutor {
 			if (!(_text.length>0)) {
 				return null;
 			}
-			for (var i = 0, l = words.length; i < l; i++) 
+			for (var i = 0, l = words.length; i < l; i++)
 			{
 				let word = words[i];
 				if (!word.checkedNodes) {
@@ -261,14 +271,14 @@ class RuleExecutor {
 					}
 				}
 				else {
-					if (word.is_complete_matching) 
-					{ 
+					if (word.is_complete_matching)
+					{
 						if (text == w) {
 							return word;
-						} 
-					} 
+						}
+					}
 					else
-					{ 
+					{
 						if (text.indexOf(w)>-1) {
 							return word;
 						}
@@ -304,7 +314,7 @@ let rules:Rule[];
 interface NodeContainer {
 	node:HTMLElement;
 	origValue:string;
-	
+
 }
 class StyleProcessor {
 	attribute:string;
@@ -342,4 +352,3 @@ class StyleProcessor {
 
 let hiddenNodeList = new StyleProcessor("display", "display", "none");
 let testNodeList = new StyleProcessor("background-color", "backgroundColor", "#888");
-

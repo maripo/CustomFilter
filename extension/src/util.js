@@ -101,23 +101,28 @@ var CustomBlockerUtil = (function () {
     CustomBlockerUtil.getRuleDetailTip = function (rule) {
         if (rule.block_anyway)
             return chrome.i18n.getMessage('blockAnyway');
-        if (null == rule.words || 0 == rule.words.length)
+        if (null == rule.words || rule.words.length == 0)
             return null;
+        var lines = new Array();
         var wordStrings = new Array();
-        for (var i = 0, l = rule.words.length; i < l; i++) {
-            var word = rule.words[i];
-            var token = word.word;
-            try {
-                if (rule.appliedWords && rule.appliedWords[word.word_id] > 0) {
-                    token += ("(" + rule.appliedWords[word.word_id] + ")");
-                }
+        var getWordTip = function (word, map) {
+            if (map && map[word.word_id] > 0) {
+                return word.word + ("(" + map[word.word_id] + ")");
             }
-            catch (e) {
-                console.log(e);
-            }
-            wordStrings.push(token);
+            return word.word;
+        };
+        for (var _i = 0, _a = rule.words; _i < _a.length; _i++) {
+            var word = _a[_i];
+            wordStrings.push(getWordTip(word, rule.appliedWordsMap));
         }
-        return wordStrings.join(', ');
+        lines.push(wordStrings.join(', '));
+        for (var _b = 0, _c = rule.wordGroups; _b < _c.length; _b++) {
+            var group = _c[_b];
+            var str = "[" + group.name + "]"
+                + group.words.map(function (word) { return getWordTip(word, rule.appliedWordsMap); }).join(",");
+            lines.push(str);
+        }
+        return lines.join(" / ");
     };
     CustomBlockerUtil.arrayEquals = function (array0, array1) {
         if (!array0 || !array1 || array0.length != array1.length) {

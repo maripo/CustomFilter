@@ -104,42 +104,40 @@ class CustomBlockerUtil {
 			var result = document.evaluate(xpath, targetNode, null, XPathResult.ANY_TYPE, null);
 			var node;
 
-			while (node = result.iterateNext())
-			{
+			while (node = result.iterateNext()) {
 				list.push(node);
 			}
 		}
-		catch (e)
-		{
+		catch (e) {
 			console.log(e)
 		}
 		return list;
 	}
+
 	// TODO move to Rule class
 	public static getRuleDetailTip (rule:Rule): string {
 		if (rule.block_anyway)
 			return chrome.i18n.getMessage('blockAnyway');
-		if (null==rule.words || 0==rule.words.length)
+		if (null==rule.words || rule.words.length == 0)
 			return null;
-		var wordStrings = new Array();
-
-
-		for (var i=0, l=rule.words.length; i<l; i++)
-		{
-			var word = rule.words[i];
-			var token = word.word;
-			// Map of found keywords
-			try {
-				if (rule.appliedWords && rule.appliedWords[word.word_id] > 0) {
-					token += ("("+rule.appliedWords[word.word_id]+")")
-				}
-
-			} catch (e) {
-				console.log(e);
+		let lines = new Array();
+		let wordStrings = new Array();
+		const getWordTip = (word, map) => {
+			if (map && map[word.word_id] > 0) {
+				return word.word + ("(" + map[word.word_id]+")")
 			}
-			wordStrings.push(token);
+			return word.word;
+		};
+		for (let word of rule.words) {
+			wordStrings.push(getWordTip(word, rule.appliedWordsMap));
 		}
-		return wordStrings.join(', ');
+		lines.push(wordStrings.join(', '));
+		for (let group of rule.wordGroups) {
+			let str = "[" + group.name +"]"
+			+ group.words.map((word)=>{return getWordTip(word, rule.appliedWordsMap)}).join(",");
+			lines.push(str);
+		}
+		return lines.join(" / ");
 	}
 	public static arrayEquals (array0:any[], array1:any[]): boolean {
 		if (!array0 || !array1 || array0.length!=array1.length) {

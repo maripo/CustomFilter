@@ -91,7 +91,8 @@ var LegacyRule = (function (_super) {
         _this.hide_block_description = "";
         _this.block_anyway = false;
         _this.specify_url_by_regexp = false;
-        _this.appliedWords = {};
+        _this.appliedWords = [];
+        _this.appliedWordsMap = {};
         return _this;
     }
     LegacyRule.prototype.addWord = function (word) {
@@ -137,6 +138,7 @@ var LegacyRule = (function (_super) {
             this.rule.hiddenCount = this.hiddenCount;
             this.rule.staticXpath = this.staticXpath;
             this.rule.appliedWords = this.appliedWords;
+            this.rule.appliedWordsMap = this.appliedWordsMap;
             this.rule.is_disabled = this.is_disabled;
             this.rule.global_identifier = this.global_identifier;
             this.rule.title = this.title;

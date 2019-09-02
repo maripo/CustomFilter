@@ -1,23 +1,23 @@
 /**
- * Peer
- */
+* Peer
+*/
 class LegacyRulePeer extends DbPeer {
 	private static instance:LegacyRulePeer;
 	constructor () {
 		super();
 		this.tableName = 'rule';
 		this.addColumn('rule_id', DbColumn.TYPE_PKEY, 1.0, null);
-		
+
 		this.addColumn('title', DbColumn.TYPE_TEXT, 1.0, null);
 		this.addColumn('is_disabled', DbColumn.TYPE_BOOLEAN, 1.0, null);
-		
+
 		// Site Matcher
 		this.addColumn('site_regexp', DbColumn.TYPE_TEXT, 1.0, null);
 		this.addColumn('example_url', DbColumn.TYPE_TEXT, 1.0, null);
 		this.addColumn('site_description', DbColumn.TYPE_TEXT, 1.0, null);
-	
+
 		this.addColumn('specify_url_by_regexp', DbColumn.TYPE_BOOLEAN, 2.0, null);
-		
+
 		// Element Matcher
 		this.addColumn('search_block_xpath', DbColumn.TYPE_TEXT, 1.0, null);
 		this.addColumn('search_block_css', DbColumn.TYPE_TEXT, 2.0, null);
@@ -27,12 +27,12 @@ class LegacyRulePeer extends DbPeer {
 		this.addColumn('hide_block_css', DbColumn.TYPE_TEXT, 2.0, null);
 		this.addColumn('hide_block_by_css', DbColumn.TYPE_BOOLEAN, 2.0, null);
 		this.addColumn('hide_block_description', DbColumn.TYPE_TEXT, 1.0, null);
-	
+
 		this.addColumn('user_identifier', DbColumn.TYPE_TEXT, 3.0, null);
 		this.addColumn('global_identifier', DbColumn.TYPE_TEXT, 3.0, null);
-		
+
 		this.addColumn('block_anyway', DbColumn.TYPE_BOOLEAN, 1.0, null);
-		
+
 		this.addColumn('insert_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
 		this.addColumn('update_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
 		this.addColumn('delete_date', DbColumn.TYPE_TIMESTAMP, 1.0, null);
@@ -77,73 +77,75 @@ class LegacyRulePeer extends DbPeer {
 	}
 }
 /**
- * Object
- */
- class LegacyRule extends DbObject {
- 	words:LegacyWord[];
- 	
- 	// TODO move to wrapper class!
- 	hideNodes: HTMLElement[];
- 	searchNodes: HTMLElement[];
- 	hiddenCount:number;
- 	staticXpath:any; // TODO What's this?
- 	
- 	appliedWords:object; 
- 	is_disabled:boolean;
- 	
- 	rule_id:number; // Primary key
- 	user_identifier:string;
- 	global_identifier:string;
- 	title:string;
- 	url:string;
- 	site_regexp:string;
- 	example_url: string;
- 	site_description:string;
- 	
- 	search_block_css:string;
- 	search_block_xpath:string;
- 	search_block_by_css:boolean;
- 	search_block_description:string;
- 	hide_block_css:string;
- 	hide_block_xpath:string;
- 	hide_block_by_css:boolean;
- 	hide_block_description:string;
- 	
- 	block_anyway:boolean;
- 	specify_url_by_regexp:boolean;
- 	
- 	existing: boolean; // TODO for import/export
- 	
- 	public addWord (word:LegacyWord) {
-		this.words.push(word);	
+* Object
+*/
+class LegacyRule extends DbObject {
+	words:LegacyWord[];
+
+	// TODO move to wrapper class!
+	hideNodes: HTMLElement[];
+	searchNodes: HTMLElement[];
+	hiddenCount:number;
+	staticXpath:any; // TODO What's this?
+
+	appliedWords:any[];
+	appliedWordsMap: object;
+	is_disabled:boolean;
+
+	rule_id:number; // Primary key
+	user_identifier:string;
+	global_identifier:string;
+	title:string;
+	url:string;
+	site_regexp:string;
+	example_url: string;
+	site_description:string;
+
+	search_block_css:string;
+	search_block_xpath:string;
+	search_block_by_css:boolean;
+	search_block_description:string;
+	hide_block_css:string;
+	hide_block_xpath:string;
+	hide_block_by_css:boolean;
+	hide_block_description:string;
+
+	block_anyway:boolean;
+	specify_url_by_regexp:boolean;
+
+	existing: boolean; // TODO for import/export
+
+	public addWord (word:LegacyWord) {
+		this.words.push(word);
 	}
-	
-	
+
+
 	constructor () {
 		super();
- 		this.words = [];
+		this.words = [];
 		this.title = "";
 		this.site_regexp = "";
 		this.example_url = "";
 		this.site_description = "";
-	
+
 		this.search_block_css = "";
 		this.search_block_xpath = "";
 		this.search_block_by_css = true;
 		this.search_block_description = "";
-	
+
 		this.hide_block_css = "";
 		this.hide_block_xpath = "";
 		this.hide_block_by_css = true;
 		this.hide_block_description = "";
-		
+
 		this.block_anyway = false;
 		this.specify_url_by_regexp = false;
-		this.appliedWords = {};
-	
+		this.appliedWords = [];
+		this.appliedWordsMap = {};
+
 	}
-	
-	
+
+
 	public static createInstance (url:string, title:string): LegacyRule {
 		let rule = new LegacyRule();
 		rule.title = title;
@@ -152,7 +154,7 @@ class LegacyRulePeer extends DbPeer {
 		rule.site_description = title;
 		return rule;
 	}
-	
+
 	public static validate (params:RuleValidation): string[] {
 		let errors:string[] = [];
 		if (''==params.title) errors.push(chrome.i18n.getMessage('errorTitleEmpty'));
@@ -175,7 +177,7 @@ class LegacyRulePeer extends DbPeer {
 		}
 		return errors;
 	}
-	
+
 	// Convert legacy rule to new rule
 	rule: Rule;
 	getRule () : Rule {
@@ -187,9 +189,10 @@ class LegacyRulePeer extends DbPeer {
 			this.rule.hiddenCount = this.hiddenCount;
 			this.rule.staticXpath = this.staticXpath;
 			this.rule.appliedWords = this.appliedWords;
-			
+			this.rule.appliedWordsMap = this.appliedWordsMap;
+
 			this.rule.is_disabled = this.is_disabled;
-			
+
 			// this.rule.rule_id = this.rule_id;
 			// this.rule.user_identifier = this.user_identifier;
 			this.rule.global_identifier = this.global_identifier;
@@ -206,12 +209,12 @@ class LegacyRulePeer extends DbPeer {
 			this.rule.block_anyway = this.block_anyway;
 			this.rule.specify_url_by_regexp = this.specify_url_by_regexp;
 			this.rule.existing = this.existing;
-			
+
 			this.rule.words = [] as [Word];
 			for (let word of this.words) {
 				this.rule.words.push(word.getWord());
 			}
-			
+
 		}
 		return this.rule;
 	}
@@ -219,11 +222,11 @@ class LegacyRulePeer extends DbPeer {
 	}
 }
 interface RuleValidation {
-	title:string, 
-	site_regexp:string, 
-	search_block_xpath:string, 
+	title:string,
+	site_regexp:string,
+	search_block_xpath:string,
 	hide_block_xpath:string,
-	
+
 	example_url?:string;
 	site_description?:string;
 	search_block_css?:string;

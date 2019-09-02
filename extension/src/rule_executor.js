@@ -4,19 +4,6 @@ var RuleExecutor = (function () {
     RuleExecutor.initialize = function () {
         RuleExecutor.blockedCount = 0;
     };
-    RuleExecutor.eachWords = function (rule, func) {
-        for (var _i = 0, _a = rule.words; _i < _a.length; _i++) {
-            var word = _a[_i];
-            func(word);
-        }
-        for (var _b = 0, _c = rule.wordGroups; _b < _c.length; _b++) {
-            var group = _c[_b];
-            for (var _d = 0, _e = group.words; _d < _e.length; _d++) {
-                var word = _e[_d];
-                func(word);
-            }
-        }
-    };
     RuleExecutor.checkRules = function (list) {
         for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
             var rule = list_1[_i];
@@ -42,17 +29,29 @@ var RuleExecutor = (function () {
         }
     };
     RuleExecutor.startBlocking = function () {
-        for (var _i = 0, rules_1 = rules; _i < rules_1.length; _i++) {
-            var rule = rules_1[_i];
+        var _loop_1 = function (rule) {
             if (rule.block_anyway && !rule.is_disabled) {
-                var cssSelector = (rule.hide_block_by_css) ?
+                cssSelector = (rule.hide_block_by_css) ?
                     rule.hide_block_css : CustomBlockerUtil.xpathToCss(rule.hide_block_xpath);
                 if (cssSelector != null) {
                     RuleExecutor.addBlockCss(cssSelector);
                     rule.staticXpath = cssSelector;
                 }
             }
-            RuleExecutor.eachWords(rule, function (word) {
+            for (var _i = 0, _a = rule.words; _i < _a.length; _i++) {
+                var word = _a[_i];
+                word.label = String(word.word);
+            }
+            for (var _b = 0, _c = rule.wordGroups; _b < _c.length; _b++) {
+                var group = _c[_b];
+                for (var _d = 0, _e = group.words; _d < _e.length; _d++) {
+                    var word = _e[_d];
+                    word.label = String(group.name) + ">" + String(word.word);
+                }
+            }
+            var wordIdIncr = 0;
+            eachWords(rule, function (word) {
+                word.word_id = wordIdIncr++;
                 if (word.is_regexp) {
                     try {
                         if (word.is_complete_matching) {
@@ -80,6 +79,11 @@ var RuleExecutor = (function () {
                     }
                 }
             });
+        };
+        var cssSelector;
+        for (var _i = 0, rules_1 = rules; _i < rules_1.length; _i++) {
+            var rule = rules_1[_i];
+            _loop_1(rule);
         }
         var needBlocking = false;
         for (var _a = 0, rules_2 = rules; _a < rules_2.length; _a++) {
@@ -106,7 +110,7 @@ var RuleExecutor = (function () {
     RuleExecutor.execBlock = function () {
         if (!rules)
             return;
-        var _loop_1 = function (rule) {
+        var _loop_2 = function (rule) {
             if (!rule.is_disabled) {
                 RuleExecutor.applyRule(rule, false, function (node) {
                     hiddenNodeList.add(node);
@@ -119,7 +123,7 @@ var RuleExecutor = (function () {
         };
         for (var _i = 0, rules_3 = rules; _i < rules_3.length; _i++) {
             var rule = rules_3[_i];
-            _loop_1(rule);
+            _loop_2(rule);
         }
     };
     RuleExecutor.applyRule = function (rule, ignoreHidden, onHide, isTesting) {
@@ -151,8 +155,6 @@ var RuleExecutor = (function () {
             if (foundWord != null) {
                 node_1.containsNgWord = true;
                 node_1.setAttribute("containsNgWord", true);
-                console.log(foundWord);
-                console.log("Increment foundWord " + foundWord.word + "," + foundWord.word_id);
                 node_1.setAttribute("foundWord", foundWord.word_id);
             }
         }
@@ -180,11 +182,11 @@ var RuleExecutor = (function () {
                 needRefreshBadge = true;
                 rule.hiddenCount = (rule.hiddenCount) ? rule.hiddenCount + 1 : 1;
                 if (foundChild) {
-                    if (!rule.appliedWords) {
-                        rule.appliedWords = [];
+                    if (!rule.appliedWordsMap) {
+                        rule.appliedWordsMap = [];
                     }
-                    var wordId = parseInt(foundChild.getAttribute("foundWord"));
-                    rule.appliedWords[wordId] = (rule.appliedWords[wordId] > 0) ? rule.appliedWords[wordId] + 1 : 1;
+                    var wordId = foundChild.getAttribute("foundWord");
+                    rule.appliedWordsMap[wordId] = (rule.appliedWordsMap[wordId] > 0) ? rule.appliedWordsMap[wordId] + 1 : 1;
                 }
                 if (onHide) {
                     onHide(node);
@@ -201,6 +203,11 @@ var RuleExecutor = (function () {
             node = searchNodes_2[_a];
             node.containsNgWord = false;
         }
+        var appliedWords = [];
+        for (var key in rule.appliedWordsMap) {
+            appliedWords.push({ word: key, count: rule.appliedWordsMap[key] });
+        }
+        rule.appliedWords = appliedWords;
         if (needRefreshBadge && RuleExecutor.blockedCount > 0) {
             window.bgCommunicator.sendRequest('badge', { rules: rules, count: RuleExecutor.blockedCount });
         }
@@ -232,7 +239,7 @@ var RuleExecutor = (function () {
             if (!(_text.length > 0)) {
                 return null;
             }
-            RuleExecutor.eachWords(rule, function (word) {
+            eachWords(rule, function (word) {
                 if (!word.checkedNodes) {
                     word.checkedNodes = new Array();
                 }

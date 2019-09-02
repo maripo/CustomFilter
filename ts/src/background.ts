@@ -72,7 +72,7 @@ function openRulePicker (selectedRule:Rule): void {
 				appliedRuleList: appliedRules
 			});
 		});
-	} 
+	}
 	catch (ex) {console.log(ex)}
 }
 chrome.extension.onRequest.addListener(function(request, sender) {
@@ -86,12 +86,12 @@ class CustomBlockerTab {
 	tabId:number;
 	port;
 	appliedRules: [Rule];
-	
+
 	constructor(tabId:number, tab) {
 		this.tabId = tab.id;
 		this.url = tab.url;
 		this.appliedRules = [] as [Rule];
-		
+
 		// Open port (New background-to-contentscript channel)
 		// https://developer.chrome.com/apps/messaging#connect
 		this.port = chrome.tabs.connect(tabId, {});
@@ -100,11 +100,11 @@ class CustomBlockerTab {
 			self.onMessage(msg);
 		});
 	}
-	
+
 	execCallbackDb (param): void {
 		console.log("TODO execCallbackDb");
 	}
-	
+
 	execCallbackSetApplied (param): void {
 		this.appliedRules = param.list as [Rule];
 		try {
@@ -117,7 +117,7 @@ class CustomBlockerTab {
 			console.log(ex);
 		}
 	}
-	
+
 	execCallbackBadge (param): void {
 		let count = param.count;
 		try {
@@ -138,11 +138,11 @@ class CustomBlockerTab {
 			console.log(ex)
 		}
 	}
-	
+
 	postMessage (message:object) {
 		this.port.postMessage(message);
 	}
-	
+
 	onMessage (message) {
 		console.log("onMessage");
 		console.log(message);
@@ -150,7 +150,7 @@ class CustomBlockerTab {
 			case 'badge': 
 				this.execCallbackBadge(message.param);
 				break;
-			case 'setApplied': 
+			case 'setApplied':
 				this.execCallbackSetApplied(message.param);
 				break;
 			case 'notifyUpdate':
@@ -213,10 +213,10 @@ function handleForegroundMessage (tabId, param) {
 	if (!param) return;
 	let useCallback = false;
 	switch (param.command) {
-		case 'badge': 
+		case 'badge':
 			//execCallbackBadge(tabId, param);
 			break;
-		case 'setApplied': 
+		case 'setApplied':
 			//execCallbackSetApplied(tabId, param);
 			break;
 		case 'notifyUpdate':
@@ -231,19 +231,19 @@ function getAppliedRules (callback): void {
 		try {
 			let appliedRules = (tabMap[tab.id]) ? tabMap[tab.id].appliedRules : [];
 			callback(appliedRules);
-		} 
+		}
 		catch (ex) {console.log(ex)}
 	});
-	
+
 }
 let smartRuleEditorSrc = '';
 function loadSmartRuleEditorSrc() {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function()
 	{
-		if (xhr.readyState==4) 
+		if (xhr.readyState==4)
 		{
-			if (xhr.status==0 || xhr.status==200) 
+			if (xhr.status==0 || xhr.status==200)
 			{
 				smartRuleEditorSrc = xhr.responseText;
 			}
@@ -256,14 +256,14 @@ function loadSmartRuleEditorSrc() {
 //if (!chrome.tabs.customBlockerOnUpdateSet) {
 {
 	chrome.tabs.onRemoved.addListener
-		(function(tabId, removeInfo) 
+		(function(tabId, removeInfo)
 			{
 				removeFromExistingTabList(tabId);
 				tabMap[tabId] = null;
 			});
 	chrome.tabs.onSelectionChanged.addListener (function(_tabId:number, selectInfo) {
 				let tabId = _tabId;
-				for (let _index in existingTabs) { 
+				for (let _index in existingTabs) {
 					var tabIdToDisable = parseInt(_index);
 					if (tabIdToDisable && tabIdToDisable!=tabId) {
 						CustomBlockerTab.postMessage(tabIdToDisable, {command: 'stop' });
@@ -272,15 +272,15 @@ function loadSmartRuleEditorSrc() {
 				try {
 					if ('true' == localStorage.blockDisabled)
 						_setIconDisabled(!applied, tabId);
-					else {	
+					else {
 						let appliedRules = (tabMap[tabId]) ? tabMap[tabId].appliedRules : [];
 						var applied = appliedRules.length>0;
 						chrome.browserAction.setIcon(
 						{
 							path:(applied)?'icon.png':'icon_disabled.png',
 							tabId:tabId
-						});	
-							
+						});
+
 					}
 					CustomBlockerTab.postMessage(tabId, { command: 'resume' });
 					if (tabBadgeMap[tabId])
@@ -315,8 +315,8 @@ function _setIconDisabled (isDisabled, tabId): void
 	{
 		path:(isDisabled)?'icon_disabled.png':'icon.png',
 		tabId:tabId
-	});	
-	
+	});
+
 }
 function highlightRuleElements (rule: Rule): void {
 	chrome.tabs.getSelected(null, function (tab) {
@@ -346,7 +346,7 @@ function menuAddOnRightClick(clicked, tab): void {
 
 function sendQuickRuleCreationRequest (clicked, tab, needSuggestion:boolean): void {
 	let appliedRules = (tabMap[tab.id]) ? tabMap[tab.id].appliedRules: [];
-	CustomBlockerTab.postMessage(tab.id, 
+	CustomBlockerTab.postMessage(tab.id,
 			{
 				command: 'quickRuleCreation',
 				src: smartRuleEditorSrc,

@@ -18,7 +18,8 @@ interface Rule {
  	hiddenCount:number;
  	staticXpath:any; // TODO What's this?
 
- 	appliedWords:object;
+ 	appliedWords:any[];
+ 	appliedWordsMap:object;
  	is_disabled:boolean;
 
  	rule_id:number; // Primary key

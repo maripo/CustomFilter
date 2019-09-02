@@ -23,7 +23,8 @@ class CustomBlockerStorage {
 			hiddenCount: 0,
 			staticXpath: null,
 
-			appliedWords:null,
+			appliedWords:[],
+			appliedWordsMap:null,
 			is_disabled:false,
 
  			rule_id: 0,
@@ -68,6 +69,7 @@ class CustomBlockerStorage {
 			delete_date:0,
 
 		 	regExp:null,
+			label:null,
 
 		 	checkedNodes: [] as [HTMLElement]
 		};

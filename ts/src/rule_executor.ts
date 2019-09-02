@@ -6,10 +6,9 @@ class RuleExecutor {
 	static initialize(): void {
 		RuleExecutor.blockedCount = 0;
 	}
+	// Check if the URL filter matches the current page
 	static checkRules (list:Rule[]) {
 		for (let rule of list) {
-		//for (var i = 0, l = list.length; i < l; i++)  {
-			//var rule = list[i];
 			try  {
 				var regex;
 				if (rule.specify_url_by_regexp)  {
@@ -32,19 +31,26 @@ class RuleExecutor {
 	}
 	static startBlocking () :void {
 		for (let rule of rules) {
-		//for (var i=0, l=rules.length; i<l; i++) {
-			//var rule = rules[i];
-			if (rule.block_anyway && !rule.is_disabled)
-			{
+			if (rule.block_anyway && !rule.is_disabled) {
 				var cssSelector = (rule.hide_block_by_css)?
 					rule.hide_block_css:CustomBlockerUtil.xpathToCss(rule.hide_block_xpath);
-				if (cssSelector!=null)
-				{
+				if (cssSelector!=null) {
 					RuleExecutor.addBlockCss(cssSelector);
 					rule.staticXpath = cssSelector;
 				}
 			}
+			// Set labels for tooltips in pop-up window
+			for (let word of rule.words) {
+				word.label = String(word.word);
+			}
+			for (let group of rule.wordGroups) {
+				for (let word of group.words) {
+					word.label =  String(group.name) + ">" + String(word.word);
+				}
+			}
+			let wordIdIncr = 0;
 			eachWords(rule, (word:Word)=>{
+				word.word_id = wordIdIncr ++;
 				if (word.is_regexp) {
 					try {
 						if (word.is_complete_matching) {
@@ -138,8 +144,6 @@ class RuleExecutor {
 			if (foundWord != null) {
 				node.containsNgWord = true;
 				node.setAttribute("containsNgWord", true);
-				console.log(foundWord);
-				console.log("Increment foundWord " + foundWord.word + "," + foundWord.word_id);
 				node.setAttribute("foundWord", foundWord.word_id);
 			}
 		}
@@ -167,11 +171,11 @@ class RuleExecutor {
 				needRefreshBadge = true;
 				rule.hiddenCount = (rule.hiddenCount)?rule.hiddenCount+1:1;
 				if (foundChild) {
-					if (!rule.appliedWords) {
-						rule.appliedWords = [];
+					if (!rule.appliedWordsMap) {
+						rule.appliedWordsMap = [];
 					}
-					var wordId = parseInt(foundChild.getAttribute("foundWord"));
-					rule.appliedWords[wordId] = (rule.appliedWords[wordId]>0)?rule.appliedWords[wordId]+1 : 1;
+					let wordId = foundChild.getAttribute("foundWord");
+					rule.appliedWordsMap[wordId] = (rule.appliedWordsMap[wordId]>0)?rule.appliedWordsMap[wordId]+1 : 1;
 				}
 				// Exec callback
 				if (onHide) {
@@ -188,6 +192,11 @@ class RuleExecutor {
 		for (node of searchNodes) {
 			node.containsNgWord = false;
 		}
+		let appliedWords = [];
+		for (let key in rule.appliedWordsMap) {
+			appliedWords.push({word:key, count:rule.appliedWordsMap[key]});
+		}
+		rule.appliedWords = appliedWords;
 		if (needRefreshBadge && RuleExecutor.blockedCount > 0) {
 			window.bgCommunicator.sendRequest('badge', { rules:rules, count: RuleExecutor.blockedCount });
 		}

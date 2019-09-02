@@ -7,14 +7,12 @@ var RuleExecutor = (function () {
     RuleExecutor.eachWords = function (rule, func) {
         for (var _i = 0, _a = rule.words; _i < _a.length; _i++) {
             var word = _a[_i];
-            console.log("[W]");
             func(word);
         }
         for (var _b = 0, _c = rule.wordGroups; _b < _c.length; _b++) {
             var group = _c[_b];
             for (var _d = 0, _e = group.words; _d < _e.length; _d++) {
                 var word = _e[_d];
-                console.log("[G]");
                 func(word);
             }
         }
@@ -55,10 +53,6 @@ var RuleExecutor = (function () {
                 }
             }
             RuleExecutor.eachWords(rule, function (word) {
-                console.log(word.word);
-            });
-            for (var _a = 0, _b = rule.words; _a < _b.length; _a++) {
-                var word = _b[_a];
                 if (word.is_regexp) {
                     try {
                         if (word.is_complete_matching) {
@@ -85,11 +79,12 @@ var RuleExecutor = (function () {
                         console.log("Invalid RegExp: \"" + word.word + "\"");
                     }
                 }
-            }
+            });
         }
         var needBlocking = false;
-        for (var i = 0, l = rules.length; i < l; i++) {
-            if (!rules[i].is_disabled)
+        for (var _a = 0, rules_2 = rules; _a < rules_2.length; _a++) {
+            var rule = rules_2[_a];
+            if (!rule.is_disabled)
                 needBlocking = true;
         }
         if (needBlocking) {
@@ -122,8 +117,8 @@ var RuleExecutor = (function () {
                 }, false);
             }
         };
-        for (var _i = 0, rules_2 = rules; _i < rules_2.length; _i++) {
-            var rule = rules_2[_i];
+        for (var _i = 0, rules_3 = rules; _i < rules_3.length; _i++) {
+            var rule = rules_3[_i];
             _loop_1(rule);
         }
     };
@@ -152,10 +147,12 @@ var RuleExecutor = (function () {
             if (node_1.getAttribute("containsNgWord")) {
                 continue;
             }
-            var foundWord = RuleExecutor.nodeContains(node_1, rule.words);
+            var foundWord = RuleExecutor.findWord(node_1, rule);
             if (foundWord != null) {
                 node_1.containsNgWord = true;
                 node_1.setAttribute("containsNgWord", true);
+                console.log(foundWord);
+                console.log("Increment foundWord " + foundWord.word + "," + foundWord.word_id);
                 node_1.setAttribute("foundWord", foundWord.word_id);
             }
         }
@@ -228,19 +225,19 @@ var RuleExecutor = (function () {
         }
         return false;
     };
-    RuleExecutor.nodeContains = function (node, words) {
+    RuleExecutor.findWord = function (node, rule) {
+        var foundWord = null;
         try {
             var _text = node.textContent;
             if (!(_text.length > 0)) {
                 return null;
             }
-            for (var i = 0, l = words.length; i < l; i++) {
-                var word = words[i];
+            RuleExecutor.eachWords(rule, function (word) {
                 if (!word.checkedNodes) {
                     word.checkedNodes = new Array();
                 }
                 if (CustomBlockerUtil.arrayContains(word.checkedNodes, node)) {
-                    continue;
+                    return;
                 }
                 word.checkedNodes.push(node);
                 if (word.is_include_href) {
@@ -249,11 +246,12 @@ var RuleExecutor = (function () {
                         links.push(node);
                     }
                     var innerLinks = node.getElementsByTagName("A");
-                    for (var j = 0; j < innerLinks.length; j++) {
-                        links.push(innerLinks[j]);
+                    for (var i = 0; i < innerLinks.length; i++) {
+                        links.push(innerLinks[i]);
                     }
-                    for (var j = 0; j < links.length; j++) {
-                        var url = links[j].href;
+                    for (var _i = 0, links_1 = links; _i < links_1.length; _i++) {
+                        var link = links_1[_i];
+                        var url = link.href;
                         if (url) {
                             _text += (" " + url);
                         }
@@ -262,33 +260,36 @@ var RuleExecutor = (function () {
                 var text = (word.is_case_sensitive) ? _text : _text.toLowerCase();
                 var w = (word.is_case_sensitive) ? word.word : word.word.toLowerCase();
                 if (word.deleted) {
-                    continue;
+                    return;
                 }
                 if (word.is_regexp) {
                     if (word.regExp && word.regExp.test(text)) {
-                        return word;
+                        foundWord = word;
+                        return;
                     }
                 }
                 else {
                     if (word.is_complete_matching) {
                         if (text == w) {
-                            return word;
+                            foundWord = word;
+                            return;
                         }
                     }
                     else {
                         if (text.indexOf(w) > -1) {
-                            return word;
+                            foundWord = word;
+                            return;
                         }
                     }
                 }
-            }
+            });
         }
         catch (ex) {
             console.log("RuleEx ERROR");
             console.log(ex);
             return null;
         }
-        return null;
+        return foundWord;
     };
     RuleExecutor.addBlockCss = function (xpath) {
         if (RuleExecutor.styleTag == null) {

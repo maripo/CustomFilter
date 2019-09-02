@@ -6,16 +6,6 @@ class RuleExecutor {
 	static initialize(): void {
 		RuleExecutor.blockedCount = 0;
 	}
-	static eachWords(rule:Rule, func:(word:Word)=>void) {
-		for (let word of rule.words) {
-			func(word);
-		}
-		for (let group of rule.wordGroups) {
-			for (let word of group.words) {
-				func(word);
-			}
-		}
-	}
 	static checkRules (list:Rule[]) {
 		for (let rule of list) {
 		//for (var i = 0, l = list.length; i < l; i++)  {
@@ -54,10 +44,7 @@ class RuleExecutor {
 					rule.staticXpath = cssSelector;
 				}
 			}
-			RuleExecutor.eachWords(rule, (word:Word)=>{
-				console.log(word.word);
-			});
-			for (let word of rule.words) {
+			eachWords(rule, (word:Word)=>{
 				if (word.is_regexp) {
 					try {
 						if (word.is_complete_matching) {
@@ -67,10 +54,8 @@ class RuleExecutor {
 							expression += ((word.word.charAt(word.word.length-1)!='$')?'$':'');
 							if (word.is_case_sensitive) {
 								word.regExp = new RegExp(expression);
-
 							} else {
 								word.regExp = new RegExp(expression, 'i');
-
 							}
 						} else {
 							if (word.is_case_sensitive) {
@@ -78,17 +63,16 @@ class RuleExecutor {
 							} else {
 								word.regExp = new RegExp(word.word, 'i');
 							}
-
 						}
 					} catch (ex) {
 						console.log("Invalid RegExp: \"" + word.word+"\"");
 					}
 				}
-			}
+			});
 		}
-		var needBlocking = false;
-		for (var i=0, l=rules.length; i<l; i++) {
-			if (!rules[i].is_disabled) needBlocking = true;
+		let needBlocking = false;
+		for (let rule of rules) {
+			if (!rule.is_disabled) needBlocking = true;
 		}
 		if (needBlocking) {
 			for (var after=50; after<250; after+=50) {
@@ -150,10 +134,12 @@ class RuleExecutor {
 			if (node.getAttribute("containsNgWord")) {
 				continue;
 			}
-			var foundWord = RuleExecutor.nodeContains(node, rule.words);
+			var foundWord = RuleExecutor.findWord(node, rule);
 			if (foundWord != null) {
 				node.containsNgWord = true;
 				node.setAttribute("containsNgWord", true);
+				console.log(foundWord);
+				console.log("Increment foundWord " + foundWord.word + "," + foundWord.word_id);
 				node.setAttribute("foundWord", foundWord.word_id);
 			}
 		}
@@ -170,10 +156,8 @@ class RuleExecutor {
 					shouldBeHidden = true;
 				}
 			}
-			if ((ignoreHidden||!node.hideDone) && shouldBeHidden)
-			{
-				if (!node.defaultStyles)
-				{
+			if ((ignoreHidden||!node.hideDone) && shouldBeHidden) {
+				if (!node.defaultStyles) {
 					node.defaultStyles = {
 						backgroundColor : node.style.backgroundColor,
 						display : node.style.display
@@ -187,7 +171,7 @@ class RuleExecutor {
 						rule.appliedWords = [];
 					}
 					var wordId = parseInt(foundChild.getAttribute("foundWord"));
-					rule.appliedWords[wordId] = (rule.appliedWords[wordId]>0)?rule.appliedWords[wordId]+1:1;
+					rule.appliedWords[wordId] = (rule.appliedWords[wordId]>0)?rule.appliedWords[wordId]+1 : 1;
 				}
 				// Exec callback
 				if (onHide) {
@@ -227,21 +211,19 @@ class RuleExecutor {
 		}
 		return false;
 	}
-	// TODO bad name. (it returns found WORD!)
-	static nodeContains (node:HTMLElement, words:Word[]): Word {
+	static findWord (node:HTMLElement, rule:Rule): Word {
+		let foundWord:Word = null;
 		try {
 			var _text = node.textContent;
 			if (!(_text.length>0)) {
 				return null;
 			}
-			for (var i = 0, l = words.length; i < l; i++)
-			{
-				let word = words[i];
+			eachWords(rule, (word:Word)=>{
 				if (!word.checkedNodes) {
 					word.checkedNodes = new Array();
 				}
 				if (CustomBlockerUtil.arrayContains(word.checkedNodes, node)) {
-					continue;
+					return;
 				}
 				word.checkedNodes.push(node);
 				if (word.is_include_href) {
@@ -250,51 +232,50 @@ class RuleExecutor {
 						links.push(node);
 					}
 					var innerLinks = node.getElementsByTagName("A");
-					for (var j=0; j<innerLinks.length; j++) {
-						links.push(innerLinks[j]);
+					for (let i=0; i<innerLinks.length; i++) {
+						links.push(innerLinks[i]);
 					}
-					for (var j=0; j<links.length; j++) {
-						var url = links[j].href;
+					for (let link of links) {
+						var url = link.href;
 						if (url) {
 							_text += (" " + url);
 						}
 					}
 				}
-				var text = (word.is_case_sensitive)?_text:_text.toLowerCase();
-				var w = (word.is_case_sensitive)?word.word:word.word.toLowerCase();
+				let text = (word.is_case_sensitive)?_text:_text.toLowerCase();
+				let w = (word.is_case_sensitive)?word.word:word.word.toLowerCase();
 				if (word.deleted) {
-					continue;
+					return;
 				}
 				if (word.is_regexp) {
 					if (word.regExp && word.regExp.test(text)) {
-						return word;
+						foundWord = word;
+						return;
 					}
 				}
 				else {
-					if (word.is_complete_matching)
-					{
+					if (word.is_complete_matching) {
 						if (text == w) {
-							return word;
+							foundWord = word;
+							return;
 						}
-					}
-					else
-					{
+					} else {
 						if (text.indexOf(w)>-1) {
-							return word;
+							foundWord = word;
+							return;
 						}
 					}
 				}
-			}
+			});
 		} catch (ex) {
 			console.log("RuleEx ERROR");
 			console.log(ex);
 			return null;
 		}
-		return null;
+		return foundWord;
 	}
 	static addBlockCss (xpath:string) {
-		if (RuleExecutor.styleTag==null)
-		{
+		if (RuleExecutor.styleTag==null) {
 			RuleExecutor.styleTag = document.createElement('STYLE');
 			RuleExecutor.styleTag.type = 'text/css';
 			document.getElementsByTagName('HEAD')[0].appendChild(RuleExecutor.styleTag);

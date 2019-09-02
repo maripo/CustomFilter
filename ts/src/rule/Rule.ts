@@ -41,3 +41,20 @@ interface Rule {
  	specify_url_by_regexp:boolean;
  	existing: boolean; // TODO for import/export
 }
+/*
+  Iterate all words (single words and grouped words)
+  Usage:
+  eachWords(rule, (word:Word)=>{
+    ...
+  });
+*/
+const eachWords = (rule:Rule, func:(word:Word)=>void) => {
+  for (let word of rule.words) {
+    func(word);
+  }
+  for (let group of rule.wordGroups) {
+    for (let word of group.words) {
+      func(word);
+    }
+  }
+}

@@ -140,14 +140,18 @@ class CustomBlockerTab {
 	}
 
 	postMessage (message:object) {
-		this.port.postMessage(message);
+		try {
+			this.port.postMessage(message);
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	onMessage (message) {
 		console.log("onMessage");
 		console.log(message);
 		switch (message.command) {
-			case 'badge': 
+			case 'badge':
 				this.execCallbackBadge(message.param);
 				break;
 			case 'setApplied':
@@ -161,7 +165,7 @@ class CustomBlockerTab {
 	static postMessage (tabId, message:object) {
 		let tabInfo = tabMap[tabId];
 		if (!tabInfo) {
-			console.warn("CustomBlockerTab.postMessage tab not found.");
+			console.log("CustomBlockerTab.postMessage tab not found.");
 			return;
 		}
 		tabInfo.postMessage(message);

@@ -160,14 +160,22 @@ var RuleContainer = (function () {
         if (this.rule.block_anyway) {
             var span = document.createElement('SPAN');
             span.innerHTML = chrome.i18n.getMessage('blockAnyway');
-            span.className = 'blockAnyway';
+            span.className = 'keyword blockAnyway';
             keywordsDiv.appendChild(span);
         }
         else {
-            for (var i = 0, l = this.rule.words.length; i < l; i++) {
+            for (var _i = 0, _a = this.rule.words; _i < _a.length; _i++) {
+                var word = _a[_i];
                 var keywordSpan = document.createElement('SPAN');
-                keywordSpan.className = (this.rule.words[i].is_regexp) ? "keyword regex" : "keyword normal";
-                keywordSpan.innerHTML = this.rule.words[i].word;
+                keywordSpan.className = (word.is_regexp) ? "keyword regex" : "keyword normal";
+                keywordSpan.innerHTML = word.word;
+                keywordsDiv.appendChild(keywordSpan);
+            }
+            for (var _b = 0, _c = this.rule.wordGroups; _b < _c.length; _b++) {
+                var group = _c[_b];
+                var keywordSpan = document.createElement('SPAN');
+                keywordSpan.className = "keyword group";
+                keywordSpan.innerHTML = group.name;
                 keywordsDiv.appendChild(keywordSpan);
             }
         }

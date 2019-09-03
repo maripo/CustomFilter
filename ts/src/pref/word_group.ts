@@ -127,7 +127,7 @@ class WordGroupWrapper {
 			for (let i=0, l=this.group.words.length; i<l; i++) {
 				let keywordSpan = document.createElement('SPAN');
 				keywordSpan.className = (this.group.words[i].is_regexp)?"keyword regex":"keyword normal";
-				keywordSpan.innerHTML = this.group.words[i].word
+				keywordSpan.innerHTML = this.group.words[i].word;
 				keywordsDiv.appendChild(keywordSpan);
 			}
 			this.li.appendChild(keywordsDiv);

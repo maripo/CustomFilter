@@ -82,7 +82,7 @@
 	box-shadow: 0px 1px 1px rgba(0,0,0,0.5)!important;
 	color:#fff!important;
   /*width:40px;*/
-  height:20px!important;
+  height:16px!important;
   text-align:center;
 }
 #rule_editor_body .footer input.uiButton {
@@ -137,23 +137,23 @@
 }
 #rule_editor_site_description {
 	width:180px;
-	
+
 }
 #rule_editor_search_block_xpath, #rule_editor_search_block_css {
 	width:180px;
-	
+
 }
 #rule_editor_search_block_description {
 	width:180px;
-	
+
 }
 #rule_editor_hide_block_xpath, #rule_editor_hide_block_css {
 	width:180px;
-	
+
 }
 #rule_editor_hide_block_description {
 	width:180px;
-	
+
 }
 #rule_editor_keyword {
 	width:100px;
@@ -173,7 +173,7 @@
 	font-weight:normal!important;
 	text-align:left!important;
 	text-indent:0px!important;
-	-webkit-box-shadow: 1px 1px 2px #000; 
+	-webkit-box-shadow: 1px 1px 2px #000;
 }
 #xpath_picker_body ul,#xpath_picker_body li{
 	text-indent:0px!important;
@@ -275,7 +275,7 @@
 	font-size:85%;
 }
 #rule_editor_body div.bottom_button_container {
-	padding:2px!important;	
+	padding:2px!important;
 }
 input.xpath_picker {
 }

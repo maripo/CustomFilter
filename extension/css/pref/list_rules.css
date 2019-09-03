@@ -24,7 +24,7 @@ h2 {
 	font-size:120%;
 }
 #prefMain {
-	width:910px;	
+	width:910px;
 }
 #ruleListContainer {
 	width:auto;
@@ -83,7 +83,7 @@ h2 {
 	width:40px;
 	margin-right:2px;
 	text-align:center;
-	height:20px;
+	height:16px;
 	margin-top:auto;
 	margin-bottom:auto;
 }
@@ -106,7 +106,7 @@ h2 {
 	background-color:#0db3ea;
 }
 .buttonContainer input.buttonEdit:active {
-	background-color:#0d9fd1;	
+	background-color:#0d9fd1;
 }
 .buttonContainer input.buttonDelete {
 	background-color:#fe376c;
@@ -149,40 +149,48 @@ h2 {
 }
 #ruleList div.keywords span.keyword {
 	margin-right:4px;
-	padding:0px 2px;
+	padding:1px 4px;
 	border-radius:4px!important;
-	
+	font-size:0.6rem;
 }
+
 #ruleList div.keywords span.regex {
 	background-color:#fed3de!important;
 	border: solid 1px #fb5c86!important;
 }
+#ruleList div.keywords span.group {
+	background-color:#ffffff!important;
+	border: solid 1px #aaaaaa!important;
+}
+
 #ruleList div.keywords span.normal {
 	background-color:#cdedf8!important;
 	border: solid 1px #249bc3!important;
 }
+
 #ruleList li div.information a.exampleUrl {
 	position:absolute;
 	font-size:10px;
 	left:210px;
 	top:20px;
 }
+
 #ruleList li div.sub_import {
 	position:absolute;
 	left:50px;
 	top:0px;
-	width:400px;	
+	width:400px;
 }
 #ruleList li div.sub_export {
 	position:absolute;
 	left:36px;
 	top:0px;
-	width:400px;	
+	width:400px;
 }
 #ruleList li img.importIcon {
 	position:absolute;
 	left:34px;
-	top:2px;	
+	top:2px;
 }
 #ruleList li input.check {
 	position:absolute;
@@ -191,7 +199,7 @@ h2 {
 }
 #rule_editor_body {
 	border:solid 1px #888;
-	margin-left:4px;	
+	margin-left:4px;
 }
 #ruleEmptyAlert {
 	display:none;
@@ -236,14 +244,14 @@ h2 {
 }
 #header ul li.selected a {
 	color:white;
-	
+
 }
 #search_box {
 	background-image:url(../../img/search_icon.png);
 	background-repeat:no-repeat;
 	background-position:1px 1px;
 	padding-left:15px;
-	width:180px;	
+	width:180px;
 }
 span.word input.deleteButton {
 	width:16px!important;

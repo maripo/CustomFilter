@@ -189,7 +189,6 @@ class RuleContainer {
 
 		titleDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.title, 42);
 
-
 		let urlDiv = document.createElement('DIV');
 		urlDiv.className = 'url';
 		urlDiv.innerHTML = CustomBlockerUtil.shorten(this.rule.site_regexp,36);
@@ -198,24 +197,25 @@ class RuleContainer {
 		keywordsDiv.className = 'keywords';
 
 		let keywords = new Array();
-		if (this.rule.block_anyway)
-		{
+		if (this.rule.block_anyway) {
 			let span = document.createElement('SPAN');
 			span.innerHTML = chrome.i18n.getMessage('blockAnyway');
-			span.className = 'blockAnyway';
+			span.className = 'keyword blockAnyway';
 			keywordsDiv.appendChild(span);
-		}
-		else
-		{
-			for (let i=0, l=this.rule.words.length; i<l; i++)
-			{
+		} else {
+			for (let word of this.rule.words) {
 				let keywordSpan = document.createElement('SPAN');
-				keywordSpan.className = (this.rule.words[i].is_regexp)?"keyword regex":"keyword normal";
-				keywordSpan.innerHTML = this.rule.words[i].word
+				keywordSpan.className = (word.is_regexp)?"keyword regex":"keyword normal";
+				keywordSpan.innerHTML = word.word
+				keywordsDiv.appendChild(keywordSpan);
+			}
+			for (let group of this.rule.wordGroups) {
+				let keywordSpan = document.createElement('SPAN');
+				keywordSpan.className = "keyword group";
+				keywordSpan.innerHTML = group.name;
 				keywordsDiv.appendChild(keywordSpan);
 			}
 		}
-
 
 		informationDiv.appendChild(titleDiv);
 		informationDiv.appendChild(urlDiv);
@@ -437,10 +437,9 @@ class PrefRuleEditor {
 		});
 
 		this.renderGroups(this.rule.wordGroups);
-
-
 		refreshPathSections();
 	}
+
 	private renderGroups (groups:WordGroup[]) {
 		document.getElementById("rule_editor_keyword_groups").innerHTML = "";
 		groups.forEach((group)=>{
@@ -490,8 +489,7 @@ class PrefRuleEditor {
 			hide_block_xpath : (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value,
 			hide_block_css : (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value,
 		});
-		if (validateErrors.length>0)
-		{
+		if (validateErrors.length>0) {
 			this.showMessage(validateErrors.join('<br/>'));
 			return;
 		}

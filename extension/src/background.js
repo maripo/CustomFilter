@@ -91,7 +91,12 @@ var CustomBlockerTab = (function () {
         }
     };
     CustomBlockerTab.prototype.postMessage = function (message) {
-        this.port.postMessage(message);
+        try {
+            this.port.postMessage(message);
+        }
+        catch (e) {
+            console.log(e);
+        }
     };
     CustomBlockerTab.prototype.onMessage = function (message) {
         console.log("onMessage");
@@ -111,7 +116,7 @@ var CustomBlockerTab = (function () {
     CustomBlockerTab.postMessage = function (tabId, message) {
         var tabInfo = tabMap[tabId];
         if (!tabInfo) {
-            console.warn("CustomBlockerTab.postMessage tab not found.");
+            console.log("CustomBlockerTab.postMessage tab not found.");
             return;
         }
         tabInfo.postMessage(message);

@@ -1,6 +1,6 @@
 /*
- 2011-2018 Maripo GODA
-
+	contentscript.ts
+	2011-2018 Maripo GODA
  */
 let timeZero = new Date().getTime();
 function elapsed () {
@@ -18,8 +18,6 @@ class BackgroundCommunicator {
 	 */
 	sendRequest (command, param) {
 		param.command = command;
-		console.log("sendRequest");
-		console.log(param);
 		this.bgPort.postMessage({command:command, param:param});
 	}
 

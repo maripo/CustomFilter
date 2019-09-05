@@ -39,6 +39,7 @@
 	"errorSearchXpathInvalid":{"message":"検索対象XPathが不正です。"},
 	"saveDone":{"message":"ルールをセーブしました。"},
 	"wordGroupSaveDone":{"message":"グループをセーブしました。"},
+	"wordGroupDelete":{"message":"グループ \"___GROUP___\" を削除してもよろしいですか?"},
 	"errorWordGroupNameEmpty":{"message":"グループのタイトルを入力してください."},
 	"descriptionEmpty":{"message":"まだルールが1件もありません。<br/>お気に入りのサイトでルールを作るか、<a href=\"../welcome_install_ja.html?pref\">フィルタリスト</a>からお好みのフィルタをインストールしてご利用ください。"},
 	"helpEmpty":{"message":"[ルールの作り方]"},

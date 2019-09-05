@@ -86,27 +86,31 @@ class CustomBlockerStorage {
 
 	// Save & load
 	public loadAll (callback:([Rule], [WordGroup])=>void): void {
-		console.log("loadAll TODO");
 		let scope = this;
-		chrome.storage.sync.get(null, function (allObj) {
+		chrome.storage.sync.get(null, (allObj) => {
 			console.log(allObj);
 			let rules = [] as [Rule];
 			let groups = [] as [WordGroup];
+			let groupMap = [];
+
 			for (let key in allObj) {
-				if (key.indexOf("R-")==0) {
-					let rule = cbStorage.createRule();
-					scope.initRuleByJSON(rule, allObj[key]);
-					rules.push(rule);
-				} else if (key.indexOf("G-")==0) {
+				if (key.indexOf("G-")==0) {
 					let group = cbStorage.createWordGroup();
 					scope.initWordGroupByJSON(group, allObj[key]);
+					groupMap[group.global_identifier] = group;
 					groups.push(group);
-				} else {
-					console.log("Invalid key: " + key);
 				}
 			}
 
-			// TODO add word groups to rules
+			for (let key in allObj) {
+				if (key.indexOf("R-")==0) {
+					let rule = cbStorage.createRule();
+					scope.initRuleByJSON(rule, allObj[key], groupMap);
+					rules.push(rule);
+					console.log("RULE CREATED");
+					console.log(rule);
+				}
+			}
 
 			scope.getDisabledRuleIDList(function(ids) {
 				// Load disabled rule list (if needed) from local storage and set is_disabled values
@@ -213,14 +217,26 @@ class CustomBlockerStorage {
 			console.log(jsonObj);
 			let obj = {};
 			obj[scope.getWordGroupJSONKey(group)] = jsonObj;
-			chrome.storage.sync.set(obj, function() {
+			chrome.storage.sync.set(obj, () => {
 				console.log("Saved rule.");
 				if (callback) {
 					callback();
 				}
 			});
 		});
+	}
 
+	public deleteWordGroup (group:WordGroup, callback: ()=>void) {
+		console.log("deleteWordGroup " + this.getWordGroupJSONKey(group));
+		console.log("Find affected rules!");
+		/*
+		chrome.storage.sync.remove(this.getWordGroupJSONKey(group), () => {
+			console.log("Deleted rule.");
+			if (callback) {
+				callback();
+			}
+		});
+		*/
 	}
 
 	public static createWordInstance (url:string, title:string): Rule {
@@ -280,9 +296,11 @@ class CustomBlockerStorage {
 		for (let word of rule.words) {
 			obj["w"].push(this.convertWordToJSON(word));
 		}
-		for (let word of rule.wordGroups) {
-			obj["wg"].push(this.convertWordGroupToJSON(word));
+		for (let group of rule.wordGroups) {
+			obj["wg"].push(group.global_identifier);
 		}
+		console.log("ConvertRuleToJSON");
+		console.log(obj)	;
 		return obj;
 	}
 
@@ -316,18 +334,13 @@ class CustomBlockerStorage {
 		}
 	}
 
-	public createRuleByJSON (json:object): Rule {
-		let rule = cbStorage.createRule();
-		return rule;
-	}
-	private initRuleByJSON (rule:Rule, json:object): Rule {
+	private initRuleByJSON (rule:Rule, json:object, groupMap): Rule {
 		for (let prop of CustomBlockerStorage.JSON_RULE_CONVERSION_RULE) {
 			(rule as object)[prop[0]] = json[prop[1]];
 		}
 		rule.words = [];
 		rule.wordGroups = [];
 		let words = json["w"] as [any];
-		let wordGroups = json["wg"] as [any];
 		if (words) {
 			for (let word of words) {
 				let wordObj = this.createWord();
@@ -335,11 +348,14 @@ class CustomBlockerStorage {
 				rule.words.push(wordObj);
 			}
 		}
+		let wordGroups = json["wg"] as [any];
 		if (wordGroups) {
 			for (let group of wordGroups) {
-				let groupObj = this.createWordGroup();
-				this.initWordGroupByJSON(groupObj, group);
-				rule.wordGroups.push(groupObj);
+				if (groupMap[group]) {
+					rule.wordGroups.push(groupMap[group]);
+				} else {
+					console.log("WordGroup not found for ID:" + group);
+				}
 			}
 		}
 		return rule;

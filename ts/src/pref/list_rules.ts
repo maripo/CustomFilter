@@ -249,8 +249,7 @@ class RuleContainer {
 		input.addEventListener('click', this.getDisableAction(input), true);
 		return span;
 	}
-	createSelectButton (): HTMLInputElement
-	{
+	createSelectButton (): HTMLInputElement {
 		let button = document.createElement('INPUT') as HTMLInputElement;
 		button.type = 'BUTTON';
 		button.className = 'uiButton buttonEdit';
@@ -258,8 +257,7 @@ class RuleContainer {
 		button.addEventListener('click', this.getSelectAction(), true);
 		return button;
 	}
-	createDeleteButton (): HTMLInputElement
-	{
+	createDeleteButton (): HTMLInputElement {
 		let button = document.createElement('INPUT') as HTMLInputElement;
 		button.type = 'BUTTON';
 		button.className = 'uiButton buttonDelete';
@@ -293,7 +291,7 @@ class RuleContainer {
 		let self = this;
 		return function () {
 			if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
-					cbStorage.deleteRule(self.rule, function(){});
+				cbStorage.deleteRule(self.rule, function(){});
 				self.liElement.parentNode.removeChild(self.liElement);
 				removeElement (self);
 				showCount();

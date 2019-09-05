@@ -9,8 +9,6 @@ var BackgroundCommunicator = (function () {
     }
     BackgroundCommunicator.prototype.sendRequest = function (command, param) {
         param.command = command;
-        console.log("sendRequest");
-        console.log(param);
         this.bgPort.postMessage({ command: command, param: param });
     };
     BackgroundCommunicator.prototype.processBackgroundRequest = function (request, sender, sendResponse) {

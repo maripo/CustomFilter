@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name" : "CustomBlocker",
-  "version" : "3.0.5",
+  "version" : "4.0",
   "default_locale": "en",
   "description" : "__MSG_extDescription__",
   "browser_action": {
@@ -47,12 +47,12 @@
         "http://*/*",
         "https://*/*"
       ],
-      "js" : 
+      "js" :
       [
         "src/util.js","src/uuid.js",
         "src/element_highlighter.js",
         "src/db/DbObj.js","src/db/Rule.js", "src/db/Word.js",
-        "src/rule/Storage.js", "src/rule/Rule.js", "src/rule/Word.js", "src/rule/WordGroup.js", 
+        "src/rule/Storage.js", "src/rule/Rule.js", "src/rule/Word.js", "src/rule/WordGroup.js",
         "src/rule_executor.js", "src/contentscript.js",
         "src/smart_path_analyzer.js",
         "src/rule_editor.js",

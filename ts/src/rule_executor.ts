@@ -175,7 +175,9 @@ class RuleExecutor {
 						rule.appliedWordsMap = [];
 					}
 					let wordId = foundChild.getAttribute("foundWord");
-					rule.appliedWordsMap[wordId] = (rule.appliedWordsMap[wordId]>0)?rule.appliedWordsMap[wordId]+1 : 1;
+					if (wordId) {
+						rule.appliedWordsMap[wordId] = (rule.appliedWordsMap[wordId]>0)?rule.appliedWordsMap[wordId]+1 : 1;
+					}
 				}
 				// Exec callback
 				if (onHide) {

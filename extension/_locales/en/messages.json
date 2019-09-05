@@ -40,6 +40,7 @@
 	"errorSearchXpathInvalid":{"message":"XPath for \"Search Region\" is invalid"},
 	"saveDone":{"message":"The rule is successfully saved."},
 	"wordGroupSaveDone":{"message":"The group is successfully saved."},
+	"wordGroupDelete":{"message":"Are you sure you want to delete the group \"___GROUP___\"?"},
 	"errorWordGroupNameEmpty":{"message":"Title cannot be empty."},
 	"descriptionEmpty":{"message":"There is no rule. Make rules for your favorite sites or <a href=\"../welcome_install_en.html?pref\">import preset rules</a>"},
 	"helpEmpty":{"message":"[Learn how to make rules]"},

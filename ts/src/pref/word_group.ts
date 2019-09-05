@@ -87,6 +87,7 @@ class WordGroupPage {
 				} catch (ex) {
 					alert(ex)
 				}
+				this.init();
 				this.load();
 			});
 		}

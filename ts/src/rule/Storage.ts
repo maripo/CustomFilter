@@ -228,15 +228,11 @@ class CustomBlockerStorage {
 
 	public deleteWordGroup (group:WordGroup, callback: ()=>void) {
 		console.log("deleteWordGroup " + this.getWordGroupJSONKey(group));
-		console.log("Find affected rules!");
-		/*
 		chrome.storage.sync.remove(this.getWordGroupJSONKey(group), () => {
-			console.log("Deleted rule.");
 			if (callback) {
 				callback();
 			}
 		});
-		*/
 	}
 
 	public static createWordInstance (url:string, title:string): Rule {

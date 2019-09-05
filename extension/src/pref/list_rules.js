@@ -50,10 +50,10 @@ function hideEmptyAlert() {
 }
 var prevFilterString = null;
 function renderRules() {
-    for (var i = 0, l = ruleContainerList.length; i < l; i++) {
-        var container = ruleContainerList[i];
+    for (var _i = 0, ruleContainerList_1 = ruleContainerList; _i < ruleContainerList_1.length; _i++) {
+        var container = ruleContainerList_1[_i];
         var element = container.getLiElement();
-        container.applyClassName(i);
+        container.applyClassName();
         document.getElementById('ruleList').appendChild(element);
     }
 }
@@ -64,15 +64,11 @@ function applyFilter(filterString) {
     if (prevFilterString == filterString)
         return;
     prevFilterString = filterString;
-    var visibleIndex = 0;
     for (var i = 0, l = ruleContainerList.length; i < l; i++) {
         var container = ruleContainerList[i];
         var matched = isMatched(container.rule, filterString);
         container.filtered = !matched;
-        container.applyClassName(visibleIndex);
-        if (matched) {
-            visibleIndex++;
-        }
+        container.applyClassName();
     }
     showCount();
 }
@@ -106,12 +102,10 @@ function isMatchedByWords(rule, filterString) {
     return false;
 }
 function deselectAll() {
-    var visibleIndex = 0;
-    for (var i = 0, l = ruleContainerList.length; i < l; i++) {
-        ruleContainerList[i].deselect();
-        ruleContainerList[i].applyClassName(visibleIndex);
-        if (!ruleContainerList[i].filtered)
-            visibleIndex++;
+    for (var _i = 0, ruleContainerList_2 = ruleContainerList; _i < ruleContainerList_2.length; _i++) {
+        var container = ruleContainerList_2[_i];
+        container.deselect();
+        container.applyClassName();
     }
 }
 function removeElement(element) {

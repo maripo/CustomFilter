@@ -3,16 +3,16 @@ let ruleContainerList = new Array();
 let ruleEditor: PrefRuleEditor;
 
 function manualMigration () {
-		chrome.storage.local.get(["migrationDone"], function(result) {
-			console.log("migrationDone=" + result["migrationDone"]);
-			if (!result["migrationDone"]) {
-				document.getElementById("manualMigrationSection").style.display = "block";
-				document.getElementById("manualMigrationLink").addEventListener("click", function(){
-					let bgWindow = chrome.extension.getBackgroundPage();
-					bgWindow.manualDataMigration();
-				}, false);
-			}
-		});
+	chrome.storage.local.get(["migrationDone"], function(result) {
+		console.log("migrationDone=" + result["migrationDone"]);
+		if (!result["migrationDone"]) {
+			document.getElementById("manualMigrationSection").style.display = "block";
+			document.getElementById("manualMigrationLink").addEventListener("click", function(){
+				let bgWindow = chrome.extension.getBackgroundPage();
+				bgWindow.manualDataMigration();
+			}, false);
+		}
+	});
 }
 
 function onStart () {
@@ -61,10 +61,9 @@ function hideEmptyAlert () {
 let prevFilterString = null;
 
 function renderRules (): void {
-	for (let i = 0, l = ruleContainerList.length; i < l; i++) {
-		let container = ruleContainerList[i];
+	for (let container of ruleContainerList) {
 		let element = container.getLiElement();
-		container.applyClassName(i);
+		container.applyClassName();
 		document.getElementById('ruleList').appendChild(element);
 	}
 }
@@ -76,19 +75,15 @@ function search () {
 function applyFilter (filterString: string) {
 	if (prevFilterString == filterString) return;
 	prevFilterString = filterString;
-	let visibleIndex = 0;
-	for (let i = 0, l = ruleContainerList.length; i < l; i++)
-	{
+	for (let i = 0, l = ruleContainerList.length; i < l; i++) {
 		let container = ruleContainerList[i];
 		let matched = isMatched(container.rule, filterString);
 		container.filtered = !matched;
-		container.applyClassName(visibleIndex);
-		if (matched) {
-			visibleIndex++;
-		}
+		container.applyClassName();
 	}
 	showCount();
 }
+
 function showCount ():void {
 	let visibleCount = 0;
 	for (let i = 0, l = ruleContainerList.length; i < l; i++)
@@ -125,19 +120,15 @@ function isMatchedByWords (rule:Rule, filterString:string) {
 
 
 function deselectAll ():void {
-	let visibleIndex = 0;
-	for (let i=0, l=ruleContainerList.length; i<l; i++)
-	{
-		ruleContainerList[i].deselect();
-		ruleContainerList[i].applyClassName(visibleIndex);
-		if (!ruleContainerList[i].filtered) visibleIndex++;
+	for (let container of ruleContainerList) {
+		container.deselect();
+		container.applyClassName();
 	}
 }
 
 function removeElement (element):void {
 	for (let i=0; i<ruleContainerList.length; i++) {
-		if (ruleContainerList[i]==element)
-		{
+		if (ruleContainerList[i]==element) {
 			ruleContainerList.splice(i, 1);
 			return;
 		}
@@ -162,7 +153,6 @@ class RuleContainer {
 	}
 	applyClassName () {
 		this.liElement.className = (this.filtered)?'filtered':null;
-		//if (this.filtered) { this.liElement.className = 'filtered'; }
 	}
 
 	getLiElement (): HTMLElement {
@@ -455,18 +445,7 @@ class PrefRuleEditor {
 		}
 		return option;
 	}
-	/*
-	private populateWordGroupDropdown () {
-		let select = document.getElementById("select_word_groups") as HTMLInputElement;
-		select.innerHTML = "";
-		select.appendChild(this.createOption("----", null));
-		for (let group of this.wordGroups) {
-			// TODO omit already selected groups
-			let option = this.createOption(group.name, group.global_identifier);
-			select.appendChild(option);
-		}
-	}
-	*/
+
 	showMessage (str: string): void {
 		this.alertDiv.style.display = 'block';
 		this.alertDiv.innerHTML = str;

@@ -57,7 +57,7 @@ h2 {
 	display:none;
 }
 #ruleList li:hover {
-	background-color:#ffffc0;
+	background-color:#eef8ff;
 }
 #ruleList li.selected {
 	background-color:#fff080;
@@ -68,55 +68,64 @@ h2 {
 	float:right;
 	height:inherit;
 	line-height:17px;
-	visibility: hidden;
+	text-align: right;
 }
 #ruleList li:hover div.buttonContainer {
 	visibility: visible;
 }
 #ruleList li div.buttonContainer input {
-	width:55px;
+	/*width:55px;*/
 }
 #ruleList li div.information {
 	margin-right:100px;
 	height:inherit;
 }
-.buttonContainer input.uiButton  {
-	color:#fff;
+.buttonContainer input  {
 	border:none;
-	box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
-	width:40px;
-	margin-right:2px;
-	text-align:center;
-	height:16px;
-	margin-top:auto;
-	margin-bottom:auto;
+	text-indent:-9999px;
+	background: none;
+	margin: 0 0.2rem;
 }
 /*
 List Buttons
 */
 .buttonContainer input.buttonOn {
-	background-color:#2fb947;
-}
-.buttonContainer input.buttonOn:active {
-	background-color:#2aa440;
+	background-image:url("/img/button/on.png");
+	background-size: 42px 13px;
+	background-repeat: no-repeat;
+	width: 42px;
+	height: 13px;
 }
 .buttonContainer input.buttonOff {
-	background-color:#959595;
-}
-.buttonContainer input.buttonOff:active {
-	background-color:#727272;
+	background-image:url("/img/button/off.png");
+	background-size: 42px 13px;
+	background-repeat: no-repeat;
+	width: 42px;
+	height: 13px;
 }
 .buttonContainer input.buttonEdit {
-	background-color:#0db3ea;
-}
-.buttonContainer input.buttonEdit:active {
-	background-color:#0d9fd1;
+	background-image:url("/img/button/edit.png");
+	background-size: 14px 14px;
+	background-repeat: no-repeat;
+	width: 14px;
+	height: 14px;
 }
 .buttonContainer input.buttonDelete {
-	background-color:#fe376c;
+	background-image:url("/img/button/delete.png");
+	background-size: 14px 14px;
+	background-repeat: no-repeat;
+	width: 14px;
+	height: 14px;
 }
-.buttonContainer input.buttonDelete:active {
-	background-color:#e13160;
+#ruleList li div.buttonContainer .exampleUrl, 
+#ruleList li div.buttonContainer .buttonDelete,
+#ruleList li div.buttonContainer .buttonEdit {
+	visibility: hidden;
+}
+#ruleList li:hover div.buttonContainer .exampleUrl,
+#ruleList li:hover div.buttonContainer .buttonDelete,
+#ruleList li:hover div.buttonContainer .buttonEdit {
+	visibility:visible;
 }
 #ruleList li div.information img.favicon {
 	position:absolute;
@@ -172,11 +181,19 @@ List Buttons
 	border: solid 1px #249bc3!important;
 }
 
-#ruleList li div.information a.exampleUrl {
+#ruleList li a.exampleUrl {
+	/*
 	position:absolute;
 	font-size:10px;
 	left:210px;
 	top:20px;
+	*/
+	background-image:url("/img/button/link.png");
+	background-size: 14px 14px;
+	background-repeat: no-repeat;
+	width: 14px;
+	height: 14px;
+	display: inline-block;
 }
 
 #ruleList li div.sub_import {

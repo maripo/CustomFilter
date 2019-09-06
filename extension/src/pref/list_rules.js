@@ -132,12 +132,17 @@ var RuleContainer = (function () {
         if (this.liElement)
             return this.liElement;
         this.liElement = document.createElement('LI');
+        var exampleLink = document.createElement('A');
+        exampleLink.className = 'exampleUrl';
+        exampleLink.setAttribute("target", '_blank');
+        exampleLink.setAttribute("href", this.rule.example_url);
         var buttonContainer = document.createElement('DIV');
         buttonContainer.className = 'buttonContainer';
+        buttonContainer.appendChild(exampleLink);
         buttonContainer.appendChild(this.createSelectButton());
+        buttonContainer.appendChild(this.createDeleteButton());
         this.disableBox = this.createDisableBox();
         buttonContainer.appendChild(this.disableBox);
-        buttonContainer.appendChild(this.createDeleteButton());
         this.liElement.appendChild(buttonContainer);
         var informationDiv = document.createElement('DIV');
         informationDiv.className = 'information';
@@ -176,17 +181,11 @@ var RuleContainer = (function () {
         informationDiv.appendChild(titleDiv);
         informationDiv.appendChild(urlDiv);
         informationDiv.appendChild(keywordsDiv);
-        var exampleLink = document.createElement('A');
-        exampleLink.className = 'exampleUrl';
-        exampleLink.innerHTML = '[LINK]';
-        exampleLink.setAttribute("target", '_blank');
-        exampleLink.setAttribute("href", this.rule.example_url);
         var favicon = document.createElement('IMG');
         var hrefValue = (this.rule.example_url) ? 'chrome://favicon/' + this.rule.example_url : chrome.extension.getURL('img/world.png');
         favicon.setAttribute("src", hrefValue);
         favicon.className = 'favicon';
         informationDiv.appendChild(favicon);
-        informationDiv.appendChild(exampleLink);
         return this.liElement;
     };
     RuleContainer.prototype.createDisableBox = function () {

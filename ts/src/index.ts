@@ -3,8 +3,7 @@ class Popup {
 	constructor() {
 		this.prevHoverRule = null;
 	}
-	openRuleEditor()
-	{
+	openRuleEditor() {
 		this.removeHighlight();
 		let bgWindow = chrome.extension.getBackgroundPage();
 		bgWindow.openRulePicker(null);
@@ -22,17 +21,16 @@ class Popup {
 			return;
 		}
 		this.refreshButton();
-		
+
 		let bgWindow = chrome.extension.getBackgroundPage();
 		let scope = this;
 		bgWindow.getAppliedRules(function(list:Rule[]) {
 			try {
 				scope.renderApplierRules(list);
-			} 
+			}
 			catch (ex) {
 			}
 		});
-		
 	}
 	setBlockOn (on: boolean) {
 		localStorage.blockDisabled = (on)?'false':'true';
@@ -77,39 +75,39 @@ class Popup {
 				}
 				li.addEventListener ('mouseover',
 						this.getLiMouseoverAction(rule), true);
-				
+
 				let divTitle = document.createElement('DIV');
 				divTitle.className = 'title';
 				divTitle.innerHTML = CustomBlockerUtil.shorten(rule.title, 42);
 				let divCount = document.createElement('DIV');
 				divCount.className = 'count ' + ((rule.hiddenCount && rule.hiddenCount>0)?'hit':'noHit');
 				divCount.innerHTML = (rule.hiddenCount)?rule.hiddenCount.toString():'0';
-				
+
 				let buttonContainer = document.createElement('SPAN');
 				buttonContainer.className = 'buttonContainer';
-				
+
 				let editButton = document.createElement('INPUT') as HTMLInputElement;
 				editButton.type = 'BUTTON';
 				editButton.className = 'buttonEdit';
 				editButton.addEventListener('click', this.getEditRuleAction(rule), true);
 				editButton.value = chrome.i18n.getMessage('buttonLabelEdit');
-				
-				
+
+
 				let disableButton = document.createElement('input') as HTMLInputElement;
 				disableButton.type = 'BUTTON';
 				disableButton.value = (rule.is_disabled)?'OFF':'ON';
 				disableButton.className = (rule.is_disabled)?'buttonOff':'buttonOn';
 				disableButton.addEventListener ('click', this.getDisableAction(rule,disableButton), false);
-				
-				buttonContainer.appendChild(disableButton);
+
 				buttonContainer.appendChild(editButton);
+				buttonContainer.appendChild(disableButton);
 				li.appendChild(buttonContainer);
 				li.appendChild(divCount);
 				li.appendChild(divTitle);
 				ul.appendChild(li);
 			}
 		}
-		else 
+		else
 		{
 			let emptyLi = document.createElement('LI');
 			emptyLi.className = 'empty';
@@ -140,12 +138,12 @@ window.onload = function () {
 	let popup = new Popup();
 	popup.getAppliedRules();
 	document.getElementById('versionLabel').innerHTML = chrome.runtime.getManifest().version;
-	document.getElementById('buttonOn').addEventListener ('click', 
+	document.getElementById('buttonOn').addEventListener ('click',
 			function(){ popup.setBlockOn(true); }, false);
-	document.getElementById('buttonOff').addEventListener ('click', 
+	document.getElementById('buttonOff').addEventListener ('click',
 			function(){ popup.setBlockOn(false); }, false);
-	document.getElementById('buttonOpenPreferenceTop').addEventListener('click', 
-			function openPreference (){window.open('pref/index.html?p=i1');}, 
+	document.getElementById('buttonOpenPreferenceTop').addEventListener('click',
+			function openPreference (){window.open('pref/index.html?p=i1');},
 			false);
 	document.getElementById('buttonCreateRule').addEventListener('click', function(){popup.openRuleEditor()}, false);
 }

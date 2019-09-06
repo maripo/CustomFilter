@@ -89,8 +89,8 @@ var Popup = (function () {
                 disableButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
                 disableButton.className = (rule.is_disabled) ? 'buttonOff' : 'buttonOn';
                 disableButton.addEventListener('click', this.getDisableAction(rule, disableButton), false);
-                buttonContainer.appendChild(disableButton);
                 buttonContainer.appendChild(editButton);
+                buttonContainer.appendChild(disableButton);
                 li.appendChild(buttonContainer);
                 li.appendChild(divCount);
                 li.appendChild(divTitle);

@@ -159,10 +159,14 @@ class RuleContainer {
 		if (this.liElement) return this.liElement;
 		this.liElement = document.createElement('LI');
 
-		let exampleLink = document.createElement('A');
-		exampleLink.className = 'exampleUrl';
-		exampleLink.setAttribute("target", '_blank');
-		exampleLink.setAttribute("href", this.rule.example_url);
+		let exampleLink = document.createElement('INPUT');
+		exampleLink.className = 'uiButton exampleUrl';
+		exampleLink.value = "link";
+		//exampleLink.setAttribute("href", this.rule.example_url);
+		exampleLink.setAttribute("type", "button");
+		exampleLink.addEventListener("click", ()=>{
+			window.open(this.rule.example_url);
+		});
 		let buttonContainer = document.createElement('DIV');
 		buttonContainer.className = 'buttonContainer';
 		buttonContainer.appendChild(exampleLink);

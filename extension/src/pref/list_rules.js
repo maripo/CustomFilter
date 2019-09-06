@@ -129,13 +129,17 @@ var RuleContainer = (function () {
         this.liElement.className = (this.filtered) ? 'filtered' : null;
     };
     RuleContainer.prototype.getLiElement = function () {
+        var _this = this;
         if (this.liElement)
             return this.liElement;
         this.liElement = document.createElement('LI');
-        var exampleLink = document.createElement('A');
-        exampleLink.className = 'exampleUrl';
-        exampleLink.setAttribute("target", '_blank');
-        exampleLink.setAttribute("href", this.rule.example_url);
+        var exampleLink = document.createElement('INPUT');
+        exampleLink.className = 'uiButton exampleUrl';
+        exampleLink.value = "link";
+        exampleLink.setAttribute("type", "button");
+        exampleLink.addEventListener("click", function () {
+            window.open(_this.rule.example_url);
+        });
         var buttonContainer = document.createElement('DIV');
         buttonContainer.className = 'buttonContainer';
         buttonContainer.appendChild(exampleLink);

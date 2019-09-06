@@ -117,7 +117,7 @@ List Buttons
 	width: 14px;
 	height: 14px;
 }
-#ruleList li div.buttonContainer .exampleUrl, 
+#ruleList li div.buttonContainer .exampleUrl,
 #ruleList li div.buttonContainer .buttonDelete,
 #ruleList li div.buttonContainer .buttonEdit {
 	visibility: hidden;
@@ -181,7 +181,7 @@ List Buttons
 	border: solid 1px #249bc3!important;
 }
 
-#ruleList li a.exampleUrl {
+#ruleList li .exampleUrl {
 	/*
 	position:absolute;
 	font-size:10px;

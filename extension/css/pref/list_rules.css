@@ -53,29 +53,33 @@ h2 {
 	color:#444;
 	border-bottom:1px solid #ddd;
 }
- #ruleList li.filtered {
- 	display:none;
- }
- #ruleList li:hover {
- 	background-color:#ffffc0;
- }
- #ruleList li.selected {
- 	background-color:#fff080;
- }
- #ruleList li div.buttonContainer {
- 	width:175px;
- 	margin-top:2px;
+#ruleList li.filtered {
+	display:none;
+}
+#ruleList li:hover {
+	background-color:#ffffc0;
+}
+#ruleList li.selected {
+	background-color:#fff080;
+}
+#ruleList li div.buttonContainer {
+	width:175px;
+	margin-top:2px;
 	float:right;
 	height:inherit;
 	line-height:17px;
- }
- #ruleList li div.buttonContainer input {
- 	width:55px;
- }
- #ruleList li div.information {
- 	margin-right:100px;
+	visibility: hidden;
+}
+#ruleList li:hover div.buttonContainer {
+	visibility: visible;
+}
+#ruleList li div.buttonContainer input {
+	width:55px;
+}
+#ruleList li div.information {
+	margin-right:100px;
 	height:inherit;
- }
+}
 .buttonContainer input.uiButton  {
 	color:#fff;
 	border:none;
@@ -88,7 +92,7 @@ h2 {
 	margin-bottom:auto;
 }
 /*
-	List Buttons
+List Buttons
 */
 .buttonContainer input.buttonOn {
 	background-color:#2fb947;
@@ -115,12 +119,12 @@ h2 {
 	background-color:#e13160;
 }
 #ruleList li div.information img.favicon {
- 	position:absolute;
+	position:absolute;
 	left:2px;
 	top:2px;
 }
 #ruleList li div.information div.title {
- 	position:absolute;
+	position:absolute;
 	line-height:16px;
 	vertical-align:middle;
 	left:20px;
@@ -129,14 +133,14 @@ h2 {
 	font-size:12px;
 }
 #ruleList li div.information div.url {
- 	position:absolute;
+	position:absolute;
 	font-size:10px;
 	left:10px;
 	top:20px;
 	color:#444;
 }
 #ruleList li div.information div.keywords {
- 	position:absolute;
+	position:absolute;
 	font-size:9px;
 	left:250px;
 	top:22px;
@@ -208,7 +212,7 @@ h2 {
 	color:#888;
 }
 /*
-	Header & Footer
+Header & Footer
 */
 
 #header {

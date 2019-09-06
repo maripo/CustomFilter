@@ -291,7 +291,7 @@ class RuleContainer {
 	}
 }
 
-function refreshPathSections (): void{
+function refreshPathSections (): void {
 	let hideByXPath = (document.getElementById('rule_editor_radio_hide_xpath') as HTMLInputElement).checked;
 	let searchByXPath = (document.getElementById('rule_editor_radio_search_xpath') as HTMLInputElement).checked;
 	document.getElementById('rule_editor_section_hide_xpath').style.display = (hideByXPath)?'block':'none';
@@ -300,8 +300,7 @@ function refreshPathSections (): void{
 	document.getElementById('rule_editor_section_search_css').style.display = (searchByXPath)?'none':'block';
 };
 
-let reloadBackground = function ()
-{
+let reloadBackground = function () {
 	try {
 		let bgWindow = chrome.extension.getBackgroundPage();
 		bgWindow.reloadLists();
@@ -332,11 +331,11 @@ class PrefRuleEditor {
 		this.wordEditor = new WordEditor();
 		// Add WordEditor handlers
 		let self = this;
-		this.wordEditor.addWordHandler = function (word:Word) {
+		this.wordEditor.addWordHandler = (word:Word) => {
 			word.rule_id = self.rule.rule_id;
 			cbStorage.addWordToRule(self.rule, word);
 		};
-		this.wordEditor.deleteWordHandler = function (word:Word) {
+		this.wordEditor.deleteWordHandler = (word:Word) => {
 			cbStorage.removeWordFromRule(self.rule, word);
 		};
 	}
@@ -344,10 +343,12 @@ class PrefRuleEditor {
 	init () {
 		let self = this;
 		this.group_picker = new WordGroupPicker(document.getElementById("select_word_groups") as HTMLSelectElement);
+		this.group_picker.setRule(this.rule);
 		this.group_picker.onSelectGroup = (group:WordGroup) => {
 			console.log("list_rules group selected.");
 			this.rule.wordGroups.push(group);
 			this.renderGroups(this.rule.wordGroups);
+			this.group_picker.refresh();
 		};
 		cbStorage.loadAll (
 			function (rules:[Rule], groups:[WordGroup]) {
@@ -360,6 +361,7 @@ class PrefRuleEditor {
 					ruleContainerList.push(new RuleContainer(allRules[i]));
 				}
 				self.group_picker.setGroups(groups);
+				self.group_picker.refresh();
 				renderRules();
 				showCount();
 			});
@@ -370,6 +372,7 @@ class PrefRuleEditor {
 			if (this.rule.wordGroups[groupId].global_identifier == group.global_identifier) {
 				this.rule.wordGroups.splice(groupId, 1);
 				this.renderGroups(this.rule.wordGroups);
+				this.group_picker.refresh();
 				return;
 			}
 		}
@@ -391,8 +394,7 @@ class PrefRuleEditor {
 	getSaveAction () {
 		let self = this;
 
-		return function ()
-		{
+		return function () {
 			self.saveRule();
 		};
 	}
@@ -424,6 +426,8 @@ class PrefRuleEditor {
 			console.log(select.selectedIndex);
 		});
 
+		this.group_picker.setRule(this.rule);
+		this.group_picker.refresh();
 		this.renderGroups(this.rule.wordGroups);
 		refreshPathSections();
 	}
@@ -451,7 +455,7 @@ class PrefRuleEditor {
 		this.alertDiv.innerHTML = str;
 	}
 
-	hideMessage (): void{
+	hideMessage (): void {
 		this.alertDiv.style.display = 'none';
 	}
 
@@ -482,7 +486,7 @@ class PrefRuleEditor {
 		this.rule.block_anyway = (document.getElementById('rule_editor_block_anyway') as HTMLInputElement).checked;
 		this.rule.specify_url_by_regexp = (document.getElementById('specify_url_by_regexp_checkbox') as HTMLInputElement).checked;
 		let self = this;
-		cbStorage.saveRule(this.rule, function () {
+		cbStorage.saveRule(this.rule, () => {
 			hideEmptyAlert();
 			self.showMessage(chrome.i18n.getMessage('saveDone'));
 			reloadBackground();

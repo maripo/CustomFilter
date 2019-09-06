@@ -107,8 +107,6 @@ class CustomBlockerStorage {
 					let rule = cbStorage.createRule();
 					scope.initRuleByJSON(rule, allObj[key], groupMap);
 					rules.push(rule);
-					console.log("RULE CREATED");
-					console.log(rule);
 				}
 			}
 

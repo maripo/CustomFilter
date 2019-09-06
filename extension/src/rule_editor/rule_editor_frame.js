@@ -15,6 +15,7 @@ var RuleEditorFrame = (function () {
             console.log("RuleEditor group selected.");
             _this.rule.wordGroups.push(group);
             _this.renderGroups(_this.rule.wordGroups);
+            _this.group_picker.refresh();
             _this.resize();
         };
         var self = this;
@@ -93,6 +94,7 @@ var RuleEditorFrame = (function () {
             if (this.rule.wordGroups[groupId].global_identifier == group.global_identifier) {
                 this.rule.wordGroups.splice(groupId, 1);
                 this.renderGroups(this.rule.wordGroups);
+                this.group_picker.refresh();
                 return;
             }
         }
@@ -109,6 +111,8 @@ var RuleEditorFrame = (function () {
         var rule = data.rule;
         this.url = data.url;
         this.rule = rule;
+        this.group_picker.setRule(this.rule);
+        this.group_picker.refresh();
         this.renderGroups(this.rule.wordGroups);
         document.getElementById('rule_editor_title').value = rule.title;
         document.getElementById('rule_editor_keywords').innerHTML = '';
@@ -408,6 +412,7 @@ function initRuleEditor() {
     var scope = this;
     cbStorage.loadAll(function (rules, groups) {
         editor.group_picker.setGroups(groups);
+        editor.group_picker.refresh();
     });
     postMessageToParent({ command: "customblocker_frame_ready" });
 }

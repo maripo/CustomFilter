@@ -35,6 +35,7 @@ class RuleEditorFrame {
 			console.log("RuleEditor group selected.");
 			this.rule.wordGroups.push(group);
 			this.renderGroups(this.rule.wordGroups);
+			this.group_picker.refresh();
 			this.resize();
 		};
 		let self = this;
@@ -129,6 +130,7 @@ class RuleEditorFrame {
 			if (this.rule.wordGroups[groupId].global_identifier == group.global_identifier) {
 				this.rule.wordGroups.splice(groupId, 1);
 				this.renderGroups(this.rule.wordGroups);
+				this.group_picker.refresh();
 				return;
 			}
 		}
@@ -147,6 +149,8 @@ class RuleEditorFrame {
 		let rule = data.rule;
 		this.url = data.url;
 		this.rule = rule;
+		this.group_picker.setRule(this.rule);
+		this.group_picker.refresh();
 		this.renderGroups(this.rule.wordGroups);
 		(document.getElementById('rule_editor_title') as HTMLInputElement).value = rule.title;
 		document.getElementById('rule_editor_keywords').innerHTML = '';
@@ -458,6 +462,7 @@ function initRuleEditor () {
 	let scope = this;
 	cbStorage.loadAll(function(rules:[Rule], groups:[WordGroup]){
 		editor.group_picker.setGroups(groups);
+		editor.group_picker.refresh();
 	});
 	postMessageToParent({command:"customblocker_frame_ready"});
 }

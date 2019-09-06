@@ -288,10 +288,12 @@ var PrefRuleEditor = (function () {
         var _this = this;
         var self = this;
         this.group_picker = new WordGroupPicker(document.getElementById("select_word_groups"));
+        this.group_picker.setRule(this.rule);
         this.group_picker.onSelectGroup = function (group) {
             console.log("list_rules group selected.");
             _this.rule.wordGroups.push(group);
             _this.renderGroups(_this.rule.wordGroups);
+            _this.group_picker.refresh();
         };
         cbStorage.loadAll(function (rules, groups) {
             if (!rules || rules.length == 0) {
@@ -303,6 +305,7 @@ var PrefRuleEditor = (function () {
                 ruleContainerList.push(new RuleContainer(allRules[i]));
             }
             self.group_picker.setGroups(groups);
+            self.group_picker.refresh();
             renderRules();
             showCount();
         });
@@ -312,6 +315,7 @@ var PrefRuleEditor = (function () {
             if (this.rule.wordGroups[groupId].global_identifier == group.global_identifier) {
                 this.rule.wordGroups.splice(groupId, 1);
                 this.renderGroups(this.rule.wordGroups);
+                this.group_picker.refresh();
                 return;
             }
         }
@@ -358,6 +362,8 @@ var PrefRuleEditor = (function () {
             var value = select.getElementsByTagName("option")[select.selectedIndex].value;
             console.log(select.selectedIndex);
         });
+        this.group_picker.setRule(this.rule);
+        this.group_picker.refresh();
         this.renderGroups(this.rule.wordGroups);
         refreshPathSections();
     };

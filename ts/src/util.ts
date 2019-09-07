@@ -178,6 +178,7 @@ class CustomBlockerUtil {
 		let tags = [];
 		CustomBlockerUtil.addAll(tags, document.getElementsByTagName('SPAN'));
 		CustomBlockerUtil.addAll(tags, document.getElementsByTagName('LABEL'));
+		CustomBlockerUtil.addAll(tags, document.getElementsByTagName('A'));
 
 		let buttons = document.getElementsByTagName('INPUT');
 		for (var i=0, l=tags.length; i<l; i++) {
@@ -205,6 +206,33 @@ class CustomBlockerUtil {
 					Log.v("CustomBlockerUtil.localize " + element.getAttribute("value") + "->" + chrome.i18n.getMessage(key));
 				}
 			}
+		}
+		let keyPrefix = "customblocker_note_";
+		let notes = document.querySelectorAll(".note--dismissable");
+		if (notes) {
+			for (let i=0; i<notes.length; i++) {
+				let note = notes[i];
+				let noteKey = keyPrefix + note.getAttribute("note_key");
+				if (localStorage[noteKey]=="true") {
+					// Already dismissed.
+					console.log("Hide");
+					continue;
+				}
+				console.log("Show");
+				note.style.display = "block";
+				let links = note.getElementsByTagName("a");
+				for (let j=0; j<links.length; j++) {
+					let link = links[j];
+					if (link.className.indexOf("note__dismiss" >= 0)) {
+						link.addEventListener("click", ()=>{
+							console.log("Dismiss " + noteKey);
+							note.style.display = "none";
+							localStorage[noteKey] = "true";
+						});
+					}
+				}
+			}
+
 		}
 	}
 	public static showHelp (fileName: string) {

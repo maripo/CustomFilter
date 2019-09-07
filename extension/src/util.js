@@ -164,6 +164,7 @@ var CustomBlockerUtil = (function () {
         var tags = [];
         CustomBlockerUtil.addAll(tags, document.getElementsByTagName('SPAN'));
         CustomBlockerUtil.addAll(tags, document.getElementsByTagName('LABEL'));
+        CustomBlockerUtil.addAll(tags, document.getElementsByTagName('A'));
         var buttons = document.getElementsByTagName('INPUT');
         for (var i = 0, l = tags.length; i < l; i++) {
             var element = tags[i];
@@ -190,6 +191,34 @@ var CustomBlockerUtil = (function () {
                 else {
                     Log.v("CustomBlockerUtil.localize " + element.getAttribute("value") + "->" + chrome.i18n.getMessage(key));
                 }
+            }
+        }
+        var keyPrefix = "customblocker_note_";
+        var notes = document.querySelectorAll(".note--dismissable");
+        if (notes) {
+            var _loop_1 = function (i_1) {
+                var note = notes[i_1];
+                var noteKey = keyPrefix + note.getAttribute("note_key");
+                if (localStorage[noteKey] == "true") {
+                    console.log("Hide");
+                    return "continue";
+                }
+                console.log("Show");
+                note.style.display = "block";
+                var links = note.getElementsByTagName("a");
+                for (var j = 0; j < links.length; j++) {
+                    var link = links[j];
+                    if (link.className.indexOf("note__dismiss" >= 0)) {
+                        link.addEventListener("click", function () {
+                            console.log("Dismiss " + noteKey);
+                            note.style.display = "none";
+                            localStorage[noteKey] = "true";
+                        });
+                    }
+                }
+            };
+            for (var i_1 = 0; i_1 < notes.length; i_1++) {
+                _loop_1(i_1);
             }
         }
     };

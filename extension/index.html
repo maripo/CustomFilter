@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<link rel="stylesheet" type="text/css" href="./css/index.css"/>
-		
+
 		<script type="text/javascript" src="src/CustomBlocker.js"></script>
 		<title>CustomBlocker</title>
 	</head>
@@ -25,11 +25,17 @@
 				</div>
 				<ul id="activeRules">
 				</ul>
-				
+
 			</div>
 			<div id="version">Version <span id="versionLabel"></span></div>
 			<div>
-				<input id="buttonCreateRule" type="button" value="Create a new rule for this site" class="custom_filter_localize_newRuleForThisSite"/>
+				<a id="buttonCreateRule"
+					class="custom_filter_localize_newRuleForThisSite uiButtonAdd">Create a new rule for this site</a>
+			</div>
+
+			<div class="note note--dismissable" note_key="KeywordGroupHeadline">
+				<a href="pref/word_group.html" target="_blank" class="note__link custom_filter_localize_helpKeywordGroupHeadline">"Keyword groups" feature is supported in version 4.x!</a>
+				<a href="#" class="note__dismiss">x</a>
 			</div>
 		</div>
 		<script type="text/javascript" src="src/index.js"></script>

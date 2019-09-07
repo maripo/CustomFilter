@@ -110,6 +110,21 @@
 #rule_editor_close_button:active {
 	background-color:#858585!important;
 }
+.uiButtonAdd {
+	color: #666666;
+	background-image:url(../img/button/add.png)!important;
+	background-repeat: no-repeat;;
+	background-size: 16px 16px;
+	text-indent: 20px;
+	display:inline-block;
+	height:16px;
+	font-size:14px;
+	text-decoration: none;
+	margin: 0.5em 0;
+	&:hover {
+		text-decoration:underline;;
+	}
+}
 
 #rule_editor_body input[type="text"] {
 	border:solid 1px #888!important;

@@ -1,5 +1,5 @@
 function initWordGroup ():void {
-	CustomBlockerUtil.localize;
+	CustomBlockerUtil.localize();
 	document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
 	document.getElementById('donate_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate');
 	let page = new WordGroupPage();
@@ -23,6 +23,7 @@ class WordGroupPage {
 	}
 	load () {
 		let scope = this;
+		this.listContainer.innerHTML = "";
 		cbStorage.loadAll((rules:[Rule], groups:[WordGroup])=>{
 			this.groups = groups;
 			console.log(groups);
@@ -80,16 +81,13 @@ class WordGroupPage {
 	deleteWordGroup (group: WordGroup) {
 		let message = chrome.i18n.getMessage('wordGroupDelete').replace("___GROUP___", group.name);
 		if (window.confirm(message)) {
-			console.log("Delete...");
 			cbStorage.deleteWordGroup(group, () => {
-				console.log("Group was deleted.");
 				try {
 					let bgWindow = chrome.extension.getBackgroundPage();
 					bgWindow.reloadLists();
 				} catch (ex) {
 					alert(ex)
 				}
-				this.init();
 				this.load();
 			});
 		}

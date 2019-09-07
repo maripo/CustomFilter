@@ -141,14 +141,18 @@ h2 {
   padding: 0px; }
 
 #buttonCreateRule {
-  border: none;
+  color: #666666;
+  background-image: url(../img/button/add.png) !important;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  text-indent: 20px;
   display: inline-block;
-  border-image: initial;
-  margin-right: 2px;
-  text-align: center;
-  height: 20px;
-  color: #fff;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5); }
+  height: 16px;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 0.5em 0; }
+  #buttonCreateRule:hover {
+    text-decoration: underline; }
 
 .buttonContainer input {
   border: none;
@@ -190,9 +194,24 @@ li .buttonContainer .buttonDelete, li .buttonContainer .buttonEdit {
 li:hover .buttonContainer .buttonDelete, li:hover .buttonContainer .buttonEdit {
   visibility: visible; }
 
-#buttonCreateRule {
-  background-color: #0db3ea;
-  width: 240px; }
-
-#buttonCreateRule:active {
-  background-color: #0d9fd1; }
+.note {
+  background-color: #cdedf8 !important;
+  border: solid 1px #249bc3 !important;
+  padding: 0.5em;
+  position: relative;
+  color: #249bc3;
+  display: none; }
+  .note__link {
+    color: #249bc3; }
+  .note__dismiss {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url(../../img/keyword_delete.png) !important;
+    background-repeat: no-repeat;
+    background-position: 4px 4px;
+    background-size: 7px 7px !important;
+    text-indent: -9999px;
+    position: absolute;
+    top: 0;
+    right: 0; }

@@ -28,6 +28,10 @@
 			</ul>
 		</div>
 
+		<div class="note note--dismissable" note_key="KeywordGroupHeadline">
+			<span class="custom_filter_localize_helpKeywordGroupDetail">"Keyword groups" feature is supported in version 4.x!</span>
+			<a href="#" class="note__dismiss" id="js_note_close">x</a>
+		</div>
 		<div id="prefMain">
 			<div id="rule_editor_body" class="customblocker_rule_dialog">
 				<div class="section">
@@ -40,6 +44,7 @@
 					<h3>
 						<span class="custom_filter_localize_sectionWord text">Words</span>
 					</h3>
+
 					<div>
 						<input type="text" id="rule_editor_keyword" /><input type="button"
 							id="rule_editor_add_keyword_button" value="ADD" class="uiButton" />
@@ -74,7 +79,8 @@
 			</div>
 			<div>
 				<div>
-					<input type="button" type="button" value="New Group" class="uiButton" id="word_group_create_button"/>
+					<a href="javascript:void(0)" class="uiButton uiButtonAdd custom_filter_localize_newGroup"
+						id="word_group_create_button">New group</a>
 				</div>
 				<ul id="js_rule-list" class="rule-list">
 				</ul>

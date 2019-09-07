@@ -284,3 +284,25 @@ span.word img.option {
 div.rule_count {
   font-size: 80%;
   color: #444; }
+
+.note {
+  background-color: #cdedf8 !important;
+  border: solid 1px #249bc3 !important;
+  padding: 0.5em 1.5em 0.5em 0.5em;
+  position: relative;
+  margin-bottom: 1em;
+  display: none; }
+  .note__link {
+    color: #249bc3; }
+  .note__dismiss {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url(../../img/keyword_delete.png) !important;
+    background-repeat: no-repeat;
+    background-position: 4px 4px;
+    background-size: 7px 7px !important;
+    text-indent: -9999px;
+    position: absolute;
+    top: 0;
+    right: 0; }

@@ -291,7 +291,6 @@ var PrefRuleEditor = (function () {
         var _this = this;
         var self = this;
         this.group_picker = new WordGroupPicker(document.getElementById("select_word_groups"));
-        this.group_picker.setRule(this.rule);
         this.group_picker.onSelectGroup = function (group) {
             console.log("list_rules group selected.");
             _this.rule.wordGroups.push(group);

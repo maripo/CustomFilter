@@ -76,7 +76,7 @@ h2 {
 	margin:0px;
 	padding:0px;
 }
-#ruleList li {
+.rule-list li {
 	height:24px;
 	list-style-type:none;
 	margin:0px;

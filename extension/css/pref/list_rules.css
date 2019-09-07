@@ -26,14 +26,14 @@ h2 {
 #prefMain {
 	width:910px;
 }
-#ruleListContainer {
+.rule-listContainer {
 	width:auto;
 	height:457px;
 	padding:0px;
 	margin: 0px;
 	overflow-y:scroll;
 }
-#ruleList {
+.rule-list {
 	padding:0px;
 	margin:0px;
 	font-size:12px;
@@ -42,8 +42,8 @@ h2 {
 	width:340px;
 	float:right;
 }
-#ruleList li {
-	height:36px;
+.rule-list li {
+	height:38px;
 	list-style-type:none;
 	margin:0px;
 	padding:0px;
@@ -53,16 +53,16 @@ h2 {
 	color:#444;
 	border-bottom:1px solid #ddd;
 }
-#ruleList li.filtered {
+.rule-list li.filtered {
 	display:none;
 }
-#ruleList li:hover {
+.rule-list li:hover {
 	background-color:#eef8ff;
 }
-#ruleList li.selected {
+.rule-list li.selected {
 	background-color:#fff080;
 }
-#ruleList li div.buttonContainer {
+.rule-list li div.buttonContainer {
 	width:175px;
 	margin-top:2px;
 	float:right;
@@ -70,13 +70,13 @@ h2 {
 	line-height:17px;
 	text-align: right;
 }
-#ruleList li:hover div.buttonContainer {
+.rule-list li:hover div.buttonContainer {
 	visibility: visible;
 }
-#ruleList li div.buttonContainer input {
+.rule-list li div.buttonContainer input {
 	/*width:55px;*/
 }
-#ruleList li div.information {
+.rule-list li div.information {
 	margin-right:100px;
 	height:inherit;
 }
@@ -117,22 +117,22 @@ List Buttons
 	width: 14px;
 	height: 14px;
 }
-#ruleList li div.buttonContainer .exampleUrl,
-#ruleList li div.buttonContainer .buttonDelete,
-#ruleList li div.buttonContainer .buttonEdit {
+.rule-list li div.buttonContainer .exampleUrl,
+.rule-list li div.buttonContainer .buttonDelete,
+.rule-list li div.buttonContainer .buttonEdit {
 	visibility: hidden;
 }
-#ruleList li:hover div.buttonContainer .exampleUrl,
-#ruleList li:hover div.buttonContainer .buttonDelete,
-#ruleList li:hover div.buttonContainer .buttonEdit {
+.rule-list li:hover div.buttonContainer .exampleUrl,
+.rule-list li:hover div.buttonContainer .buttonDelete,
+.rule-list li:hover div.buttonContainer .buttonEdit {
 	visibility:visible;
 }
-#ruleList li div.information img.favicon {
+.rule-list li div.information img.favicon {
 	position:absolute;
 	left:2px;
 	top:2px;
 }
-#ruleList li div.information div.title {
+.rule-list li div.information div.title {
 	position:absolute;
 	line-height:16px;
 	vertical-align:middle;
@@ -141,47 +141,47 @@ List Buttons
 	height:16px;
 	font-size:12px;
 }
-#ruleList li div.information div.url {
+.rule-list li div.information div.url {
 	position:absolute;
 	font-size:10px;
 	left:10px;
 	top:20px;
 	color:#444;
 }
-#ruleList li div.information div.keywords {
+.rule-list li div.information div.keywords {
 	position:absolute;
 	font-size:9px;
 	left:250px;
 	top:22px;
 }
-#ruleList div.keywords span.blockAnyway {
+.rule-list div.keywords span.blockAnyway {
 	margin-right:4px;
 	padding:0px 2px;
 	background-color:#dfd!important;
 	border: solid 1px #4d4!important;
 }
-#ruleList div.keywords span.keyword {
+.rule-list div.keywords span.keyword {
 	margin-right:4px;
 	padding:1px 4px;
 	border-radius:4px!important;
 	font-size:0.6rem;
 }
 
-#ruleList div.keywords span.regex {
+.rule-list div.keywords span.regex {
 	background-color:#fed3de!important;
 	border: solid 1px #fb5c86!important;
 }
-#ruleList div.keywords span.group {
+.rule-list div.keywords span.group {
 	background-color:#ffffff!important;
 	border: solid 1px #aaaaaa!important;
 }
 
-#ruleList div.keywords span.normal {
+.rule-list div.keywords span.normal {
 	background-color:#cdedf8!important;
 	border: solid 1px #249bc3!important;
 }
 
-#ruleList li .exampleUrl {
+.rule-list li .exampleUrl {
 	/*
 	position:absolute;
 	font-size:10px;
@@ -196,24 +196,24 @@ List Buttons
 	display: inline-block;
 }
 
-#ruleList li div.sub_import {
+.rule-list li div.sub_import {
 	position:absolute;
 	left:50px;
 	top:0px;
 	width:400px;
 }
-#ruleList li div.sub_export {
+.rule-list li div.sub_export {
 	position:absolute;
 	left:36px;
 	top:0px;
 	width:400px;
 }
-#ruleList li img.importIcon {
+.rule-list li img.importIcon {
 	position:absolute;
 	left:34px;
 	top:2px;
 }
-#ruleList li input.check {
+.rule-list li input.check {
 	position:absolute;
 	left:10px;
 	top:10px;

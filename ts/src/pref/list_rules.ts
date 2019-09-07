@@ -344,7 +344,7 @@ class PrefRuleEditor {
 	init () {
 		let self = this;
 		this.group_picker = new WordGroupPicker(document.getElementById("select_word_groups") as HTMLSelectElement);
-		this.group_picker.setRule(this.rule);
+		
 		this.group_picker.onSelectGroup = (group:WordGroup) => {
 			console.log("list_rules group selected.");
 			this.rule.wordGroups.push(group);

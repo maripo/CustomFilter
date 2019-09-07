@@ -187,6 +187,10 @@ var RuleExecutor = (function () {
                     }
                     var wordId = foundChild.getAttribute("foundWord");
                     if (wordId) {
+                        if (!node.getAttribute("updateDate")) {
+                            node.setAttribute("updateDate", new Date().getTime());
+                        }
+                        console.log("Count up." + node.getAttribute("updateDate"));
                         rule.appliedWordsMap[wordId] = (rule.appliedWordsMap[wordId] > 0) ? rule.appliedWordsMap[wordId] + 1 : 1;
                     }
                 }

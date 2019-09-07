@@ -53,6 +53,15 @@ h2 {
   color: #444;
   border-bottom: 1px solid #ddd; }
 
+.editor-frame {
+  display: flex;
+  flex-direction: row-reverse; }
+  .editor-frame__editor {
+    width: 342px; }
+  .editor-frame__list {
+    flex: 1;
+    padding-right: 0.5em; }
+
 .rule-list li.filtered {
   display: none; }
 

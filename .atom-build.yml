@@ -1,1 +1,1 @@
-cmd: gulp sass; cd ts; tsc; cd ..;
+cmd: gulp; cd ts; tsc; cd ..;

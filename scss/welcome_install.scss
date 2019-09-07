@@ -1,0 +1,51 @@
+ul.sites {
+	border:1px solid #888;
+	height:420px;
+	overflow-y:auto;
+	list-style-type: none;
+	padding-left:8px;
+	line-height:100%;
+}
+ul.sites > li > ul {
+	list-style-type: none;
+	-webkit-transition: height .1s linear;
+	overflow-y: hidden;
+}
+ul.sites > li.duplicate {
+	color: #888;
+}
+ul.sites > li > ul > li {
+	height:18px;
+}
+ul.sites > li > ul > li.done,
+ul.sites > li > ul > li.duplicate {
+	color:#888;
+}
+ul.sites li span.installed{
+	background-color:#66f;
+	color:#fff;
+	margin-left:8px;
+	padding:1px;
+	font-size:60%;
+}
+input.openButton {
+	width:13px;
+	height:13px;
+	border:none;
+}
+input.plus {
+	background-image:url(../img/open_plus.png);
+}
+input.minus {
+	background-image:url(../img/open_minus.png);
+}
+div.presetSection {
+	padding:4px;
+}
+div.presetSection ul.sites {
+	margin:2px;
+}
+input.buttonUse {
+	font-size:120%;
+	margin-top:4px;
+}

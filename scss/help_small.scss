@@ -1,0 +1,37 @@
+body {
+	margin:0px;
+	padding:0px;
+	font-family:sans-serif;;
+}
+#header {
+	height:30px;
+	background-color:#ddd;
+	line-height:30px;
+}
+#header .menu {
+	width:260px;
+	height:inherit;
+	float:right;
+	text-align:right;
+}
+p {
+	margin:4px;
+}
+h1 {
+	font-size:110%;
+	border-bottom:solid 1px #888;
+	background-color:#eee;
+	font-weight:normal;
+	margin:0px;
+	padding: 0px 4px;
+	-webkit-box-shadow: 1px 0px 2px #444;
+}
+p {
+	font-size:90%;
+	color:#222;
+	padding:4px;
+}
+ul {
+	font-size:90%;
+	color:#222;
+}

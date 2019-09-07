@@ -2,252 +2,236 @@
  * Smart Rule Editor Dialog
  */
 #smart_rule_creator_dialog {
-	position: absolute;
-	font-family:sans-serif!important;
-	margin:0px!important;
-	margin-top:0px!important;
-	margin-right:0px!important;
-	margin-bottom:0px!important;
-	margin-left:0px!important;
-	color:black!important;
-	background-color:white!important;
-	font-size:12px!important;
-	font-weight:normal!important;
-	text-align:left!important;
-	text-indent:0px!important;
-	-webkit-box-shadow: 1px 1px 1px #000; 
-	width:184px;
-	border:solid 1px #888;
-}
+  position: absolute;
+  font-family: sans-serif !important;
+  margin: 0px !important;
+  margin-top: 0px !important;
+  margin-right: 0px !important;
+  margin-bottom: 0px !important;
+  margin-left: 0px !important;
+  color: black !important;
+  background-color: white !important;
+  font-size: 12px !important;
+  font-weight: normal !important;
+  text-align: left !important;
+  text-indent: 0px !important;
+  -webkit-box-shadow: 1px 1px 1px #000;
+  width: 184px;
+  border: solid 1px #888; }
+
 #smart_rule_creator_dialog * {
-	text-align:left;
-	background:none;
-	text-indent:0px!important;
-	position:static;
-	font-family:sans-serif!important;
-	margin:0px;
-	padding:0px!important;
-	margin:0px!important;
-	border-radius: 0px!important;
-	-webkit-border-radius: 0px!important;
-}
+  text-align: left;
+  background: none;
+  text-indent: 0px !important;
+  position: static;
+  font-family: sans-serif !important;
+  margin: 0px;
+  padding: 0px !important;
+  margin: 0px !important;
+  border-radius: 0px !important;
+  -webkit-border-radius: 0px !important; }
+
 /**
  * Rule List
 */
 #smart_rule_creator_dialog li.option {
-	text-indent:2px!important;
-	cursor:default!important;
-	padding-top:1px!important;
-	border-bottom:solid 1px #bbb!important;
-	background-color:#fff!important;
-}
-#smart_rule_creator_dialog li.option input[type="button"]{
-	display:none;
-	float:right;
-	height:16px!important;
-	font-size:10px!important;
-	line-height:16px!important;
-	
-}
-#smart_rule_creator_dialog li.option:hover input{
-	display:inline;
-}
+  text-indent: 2px !important;
+  cursor: default !important;
+  padding-top: 1px !important;
+  border-bottom: solid 1px #bbb !important;
+  background-color: #fff !important; }
+
+#smart_rule_creator_dialog li.option input[type="button"] {
+  display: none;
+  float: right;
+  height: 16px !important;
+  font-size: 10px !important;
+  line-height: 16px !important; }
+
+#smart_rule_creator_dialog li.option:hover input {
+  display: inline; }
+
 #smart_rule_creator_dialog ul.active li.option:hover {
-	background-color:#fbe496!important;
-}
+  background-color: #fbe496 !important; }
+
 #smart_rule_creator_dialog li.selected {
-	background-color:#fbe496!important;
-}
+  background-color: #fbe496 !important; }
+
 #smart_rule_creator_dialog li {
-	height:18px!important;
-	font-size:12px!important;
-	list-style-type:none!important;
-	list-style-image:none!important;
-}
+  height: 18px !important;
+  font-size: 12px !important;
+  list-style-type: none !important;
+  list-style-image: none !important; }
+
 /* Count badge */
 #smart_rule_creator_dialog li.option span.searchCount {
-	background-color:#0db3ea!important;
-	color:#fff!important;
-	font-size:9px!important;
-	border-radius:0px!important;
-	margin-right:2px!important;
-	padding:1px 2px!important;
-}
+  background-color: #0db3ea !important;
+  color: #fff !important;
+  font-size: 9px !important;
+  border-radius: 0px !important;
+  margin-right: 2px !important;
+  padding: 1px 2px !important; }
+
 #smart_rule_creator_dialog li.option span.hideCount {
-	background-color:#959595;
-	color:white;
-	font-size:9px;
-	height:11px;
-	border-radius:0px!important;
-	margin-right:2px!important;
-	padding:1px 2px!important;
-}
+  background-color: #959595;
+  color: white;
+  font-size: 9px;
+  height: 11px;
+  border-radius: 0px !important;
+  margin-right: 2px !important;
+  padding: 1px 2px !important; }
+
 #smart_rule_creator_dialog li.smartEditorSectionTitle {
-	outline-top: solid 1px #ffffff!important;
-	border-bottom:solid 1px #959595!important;
-	text-indent:4px!important;
-	line-height:18px;
-	height:18px;
-	background-color: #fff!important;
-	cursor:move!important;
-	color:#000;
-	padding-top:1px!important;
-}
+  outline-top: solid 1px #ffffff !important;
+  border-bottom: solid 1px #959595 !important;
+  text-indent: 4px !important;
+  line-height: 18px;
+  height: 18px;
+  background-color: #fff !important;
+  cursor: move !important;
+  color: #000;
+  padding-top: 1px !important; }
+
 #smart_rule_creator_dialog_edit {
-	background-color:white;
-	position:absolute!important;
-	width:360px;
-	border-radius:0px!important;
-	border:solid 1px #888;
-	-webkit-box-shadow: 1px 1px 1px #000;
-}
+  background-color: white;
+  position: absolute !important;
+  width: 360px;
+  border-radius: 0px !important;
+  border: solid 1px #888;
+  -webkit-box-shadow: 1px 1px 1px #000; }
 
 /**
 	Dialog Body
 */
-
-#smart_rule_editor_body {
-}
-
 #smart_rule_editor_body div.section div.input {
-	margin-left:120px;
-}
-#smart_rule_editor_body div.advanced {
-}
+  margin-left: 120px; }
+
 #smart_rule_creator_dialog input.uiButton, #smart_rule_editor_body input.uiButton {
-	border:none!important;
-	padding-right:2px!important;
-	padding-left:2px!important;
-	margin-left:2px!important;
-	height:initial!important;
-	text-align:center!important;
-	font-size:11px!important;
-	color:#fff;
-	box-shadow: 0px 1px 1px rgba(0,0,0,0.5)!important;
-}
+  border: none !important;
+  padding-right: 2px !important;
+  padding-left: 2px !important;
+  margin-left: 2px !important;
+  height: initial !important;
+  text-align: center !important;
+  font-size: 11px !important;
+  color: #fff;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) !important; }
+
 /* List buttons */
 #smart_rule_creator_dialog li input.uiButton {
-	background-color: #0db3ea!important;
-	
-}
+  background-color: #0db3ea !important; }
+
 #smart_rule_editor_body input[type="button"]:active, #smart_rule_creator_dialog input[type="button"]:active {
-	background-color: #0d9fd1!important;
-}
+  background-color: #0d9fd1 !important; }
 
 #smart_rule_editor_save {
-	background-color:#0db3ea!important;
-}
+  background-color: #0db3ea !important; }
+
 #smart_rule_editor_cancel {
-	background-color:#959595!important;
-	
-}
+  background-color: #959595 !important; }
+
 #smart_rule_editor_close {
-	background-color:#959595!important;
-}
+  background-color: #959595 !important; }
+
 #smart_rule_editor_keyword_add {
-	background-color:#0db3ea!important;
-}
+  background-color: #0db3ea !important; }
 
 #smart_rule_editor_alert {
-	background-color:#fea!important;
-	border: solid 1px #fc0!important;
-	border-radius:0px!important;
-	color:#444;
-	padding:2px 6px 2px 6px!important;
-	margin:3px!important;
-	font-size:12px;
-	display:none;
-}
+  background-color: #fea !important;
+  border: solid 1px #fc0 !important;
+  border-radius: 0px !important;
+  color: #444;
+  padding: 2px 6px 2px 6px !important;
+  margin: 3px !important;
+  font-size: 12px;
+  display: none; }
 
 /**
  Preview
  */
- /* Body */
+/* Body */
 #smart_rule_editor_preview {
-	position:relative;
-}
+  position: relative; }
+
 /* Rule Title */
 #smart_rule_editor_preview h3 {
-	color:black;
-	background:none;
-	margin:0px;
-	padding:0px;
-	font-size:14px;
-	font-weight:bold;
-}
+  color: black;
+  background: none;
+  margin: 0px;
+  padding: 0px;
+  font-size: 14px;
+  font-weight: bold; }
+
 #smart_rule_editor_preview div.detail {
-	position:relative;
-}
+  position: relative; }
+
 #smart_rule_editor_preview div.path_body {
-	position:relative;
-}
+  position: relative; }
+
 #smart_rule_editor_path_img {
-	position:absolute;
-	left:5px;
-	top:6px;
-	width:80px;
-	height:49px;
-	background-color:#888;
-}
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  width: 80px;
+  height: 49px;
+  background-color: #888; }
+
 #smart_rule_editor_preview div.path_section {
-	height:38px;
-	margin-left:88px!important;
-}
+  height: 38px;
+  margin-left: 88px !important; }
+
 #smart_rule_editor_preview div.path_section div.title {
-	color:black;
-	font-size:10px;
-	padding-right:2px;
-	font-weight:bold!important;
-	height:14px;
-}
+  color: black;
+  font-size: 10px;
+  padding-right: 2px;
+  font-weight: bold !important;
+  height: 14px; }
+
 /* Hit count */
 #smart_rule_editor_preview div.detail div.count {
-	position:absolute;
-	left:4px;
-	top:0px;
-	height:12px;
-	width:21px;
-	text-align:center;
-	color:white;
-	font-size:9px;
-	line-height:12px;
-	border-radius:0px!important;
-	font-weight:bold;
-}
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  height: 12px;
+  width: 21px;
+  text-align: center;
+  color: white;
+  font-size: 9px;
+  line-height: 12px;
+  border-radius: 0px !important;
+  font-weight: bold; }
+
 #smart_rule_editor_preview_hide_count {
-	background-color:#959595;
-}
+  background-color: #959595; }
+
 #smart_rule_editor_preview_search_count {
-	background-color:#0db3ea;
-}
+  background-color: #0db3ea; }
+
 /* Path expression */
 #smart_rule_editor_preview div.detail div.path {
-	position:absolute;
-	left:32px;
-	top:0px;
-	width:180px;
-	height:18px;
-	font-size:12px;
-}
+  position: absolute;
+  left: 32px;
+  top: 0px;
+  width: 180px;
+  height: 18px;
+  font-size: 12px; }
+
 #smart_rule_editor_advanced_link {
-	font-sie:11px;
-	color:blue!important;
-	font-weight:normal;
-}
+  font-sie: 11px;
+  color: blue !important;
+  font-weight: normal; }
+
 div.section_detail_link {
-	text-align:right!important;
-}
+  text-align: right !important; }
+
 /**
 	Input fields
 */
-
-#smart_rule_editor_title, #smart_rule_editor_url,#smart_rule_editor_example_url, #smart_rule_editor_site_description,
+#smart_rule_editor_title, #smart_rule_editor_url, #smart_rule_editor_example_url, #smart_rule_editor_site_description,
 #smart_rule_editor_search_block_css, #smart_rule_editor_search_block_xpath, #smart_rule_editor_search_block_description,
-#smart_rule_editor_hide_block_css, #smart_rule_editor_hide_block_xpath, #smart_rule_editor_hide_block_description
- {
-	width:216px;
-}
+#smart_rule_editor_hide_block_css, #smart_rule_editor_hide_block_xpath, #smart_rule_editor_hide_block_description {
+  width: 216px; }
+
 #smart_rule_editor_preview_suggested {
-	font-size:11px!important;
-	color:#0db3ea;
-}
+  font-size: 11px !important;
+  color: #0db3ea; }

@@ -1,138 +1,127 @@
 #smart_rule_editor_body div.section h2,
 #rule_editor_body div.section h2 {
-	color:#444!important;
-	font-size:12px!important;
-	line-height:110%!important;
-	text-indent:4px!important;
-	font-weight:bold!important;
-	margin-top:-6px!important;
-	margin-left:0px!important;
-	display:block!important;
-	border:none!important;
-}
+  color: #444 !important;
+  font-size: 12px !important;
+  line-height: 110% !important;
+  text-indent: 4px !important;
+  font-weight: bold !important;
+  margin-top: -6px !important;
+  margin-left: 0px !important;
+  display: block !important;
+  border: none !important; }
+
 #smart_rule_editor_body div.section h3,
 #rule_editor_body div.section h3 {
-	font-size:13px!important;
-	font-weight:bold!important;
-}
+  font-size: 13px !important;
+  font-weight: bold !important; }
+
 #smart_rule_editor_body div.section h4 {
-	font-size:12px!important;
-	font-weight:normal!important;
-	padding:0px 0px 0px 10px!important;
-}
+  font-size: 12px !important;
+  font-weight: normal !important;
+  padding: 0px 0px 0px 10px !important; }
+
 #rule_editor_body h4 {
-	font-size:12px!important;
-}
+  font-size: 12px !important; }
+
 #smart_rule_editor_body div.section h2 span.text,
-#rule_editor_body div.section h2 span.text{
-	background-color:white!important;
-}
+#rule_editor_body div.section h2 span.text {
+  background-color: white !important; }
 
 div.customblocker_rule_dialog {
-	font-size : small!important;
-}
+  font-size: small !important; }
 
-#smart_rule_editor_body  div.section div.label,
-#rule_editor_body  div.section div.label {
-	width:45px!important;
-	font-size:75%!important;
-	float:left!important;
-	text-align:right!important;
-	padding-right:4px!important;
-	font-weight:normal!important;
-	color:black!important;
-}
+#smart_rule_editor_body div.section div.label,
+#rule_editor_body div.section div.label {
+  width: 45px !important;
+  font-size: 75% !important;
+  float: left !important;
+  text-align: right !important;
+  padding-right: 4px !important;
+  font-weight: normal !important;
+  color: black !important; }
 
 #smart_rule_editor_body input[type="text"],
 #rule_editor_body input[type="text"] {
-	height:initial!important;
-	border:solid 1px #888!important;
-	float:none!important;
-	line-height:100%!important;
-	font-size:11px!important;
-	color:black!important;
-	box-shadow:inset 1px 1px 1px rgba(0,0,0,0.3)!important;
-	padding-left:2px!important;
-}
+  height: initial !important;
+  border: solid 1px #888 !important;
+  float: none !important;
+  line-height: 100% !important;
+  font-size: 11px !important;
+  color: black !important;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.3) !important;
+  padding-left: 2px !important; }
 
 #smart_rule_editor_body input[type="button"],
 #rule_editor_body input[type="button"] {
-	font-size:11px!important;
-}
+  font-size: 11px !important; }
 
 #rule_editor_body a.help,
-#smart_rule_editor_preview a.help {;
-	color:white!important;
-	text-decoration:none!important;
-	vertical-align:middle!important;
-	margin:0px 2px 0px 2px!important;
-	font-size:0px!important;
-	text-indent:-20px!important;
-	display:block!important;
-	float:right;
-	background-image:url(../img/help_icon.png)!important;
-	background-size:17px 17px!important;
-	width:17px!important;
-	height:17px!important;
-}
+#smart_rule_editor_preview a.help {
+  color: white !important;
+  text-decoration: none !important;
+  vertical-align: middle !important;
+  margin: 0px 2px 0px 2px !important;
+  font-size: 0px !important;
+  text-indent: -20px !important;
+  display: block !important;
+  float: right;
+  background-image: url(../img/help_icon.png) !important;
+  background-size: 17px 17px !important;
+  width: 17px !important;
+  height: 17px !important; }
 
 #smart_rule_editor_keyword {
-	width:100px!important;
-}
+  width: 100px !important; }
 
 #smart_rule_editor_body span.word, #smart_rule_editor_preview span.word {
-	font-size:11px!important;
-}
+  font-size: 11px !important; }
+
 #rule_editor_body div.section,
 #smart_rule_editor_body div.section {
-	clear:left;
-	margin:6px 8px 2px!important;
-	padding:2px 6px!important;
-	border:1px solid #bbb;
-	border-radius:0px!important;
-}
+  clear: left;
+  margin: 6px 8px 2px !important;
+  padding: 2px 6px !important;
+  border: 1px solid #bbb;
+  border-radius: 0px !important; }
 
 #rule_editor_body div.section div.content,
 #smart_rule_editor_body div.section div.content {
-	clear:left;
-	margin:0px!important;
-	padding:4px!important;
-}
+  clear: left;
+  margin: 0px !important;
+  padding: 4px !important; }
 
 #rule_editor_body div.selector_radio_container,
-#smart_rule_editor_body div.selector_radio_container
-{
-	font-size:10px!important;
-	line-height:10px!important;
-	text-align:left!important;
-	padding-left:49px!important;
-}
+#smart_rule_editor_body div.selector_radio_container {
+  font-size: 10px !important;
+  line-height: 10px !important;
+  text-align: left !important;
+  padding-left: 49px !important; }
+
 #rule_editor_body div.bottom_button_container,
 #smart_rule_editor_body div.bottom_button_container {
-	text-align:center!important;
-	padding:4px 4px!important;
-}
+  text-align: center !important;
+  padding: 4px 4px !important; }
+
 #rule_editor_body label,
 #smart_rule_editor_body label {
-	font-size:11px!important;
-	display:inline!important;
-	float:initial!important;
-	color:black!important;
-	font-weight:normal!important;
-}
+  font-size: 11px !important;
+  display: inline !important;
+  float: initial !important;
+  color: black !important;
+  font-weight: normal !important; }
+
 #rule_editor_body input.xpath_picker {
-	background-image:url(../img/wand_transparent.png)!important;
-	background-size: 14px 14px!important;
-	background-color: #2fb947!important;
-	background-repeat:no-repeat!important;
-	padding:3px 3px 3px 18px!important;
-	border:none!important;
-	color:#fff!important;
-	background-position: 3px 3px !important;	
-}
+  background-image: url(../img/wand_transparent.png) !important;
+  background-size: 14px 14px !important;
+  background-color: #2fb947 !important;
+  background-repeat: no-repeat !important;
+  padding: 3px 3px 3px 18px !important;
+  border: none !important;
+  color: #fff !important;
+  background-position: 3px 3px !important; }
+
 #rule_editor_body input.xpath_picker:active {
-	background-color: #2aa440!important;
-}
+  background-color: #2aa440 !important; }
+
 #rule_editor_body .rule_editor_condition_section {
-	margin-left:16px!important;
-}
+  margin-left: 16px !important; }

@@ -50,11 +50,11 @@ function refreshBadgeEnabled () {
 }
 
 function showEmptyAlert () {
-	document.getElementById('ruleList').style.display = 'none';
+	document.getElementById('js_rule-list').style.display = 'none';
 	document.getElementById('ruleEmptyAlert').style.display = 'block';
 }
 function hideEmptyAlert () {
-	document.getElementById('ruleList').style.display = 'block';
+	document.getElementById('js_rule-list').style.display = 'block';
 	document.getElementById('ruleEmptyAlert').style.display = 'none';
 }
 
@@ -64,7 +64,7 @@ function renderRules (): void {
 	for (let container of ruleContainerList) {
 		let element = container.getLiElement();
 		container.applyClassName();
-		document.getElementById('ruleList').appendChild(element);
+		document.getElementById('js_rule-list').appendChild(element);
 	}
 }
 
@@ -161,7 +161,7 @@ class RuleContainer {
 
 		let exampleLink = document.createElement('INPUT');
 		exampleLink.className = 'uiButton exampleUrl';
-		exampleLink.value = "link";
+		exampleLink.setAttribute("value", "link");
 		//exampleLink.setAttribute("href", this.rule.example_url);
 		exampleLink.setAttribute("type", "button");
 		exampleLink.addEventListener("click", ()=>{
@@ -344,7 +344,7 @@ class PrefRuleEditor {
 	init () {
 		let self = this;
 		this.group_picker = new WordGroupPicker(document.getElementById("select_word_groups") as HTMLSelectElement);
-		
+
 		this.group_picker.onSelectGroup = (group:WordGroup) => {
 			console.log("list_rules group selected.");
 			this.rule.wordGroups.push(group);

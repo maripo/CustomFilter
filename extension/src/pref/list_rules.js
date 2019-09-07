@@ -41,11 +41,11 @@ function refreshBadgeEnabled() {
     localStorage.badgeDisabled = (isBadgeOn) ? "false" : "true";
 }
 function showEmptyAlert() {
-    document.getElementById('ruleList').style.display = 'none';
+    document.getElementById('js_rule-list').style.display = 'none';
     document.getElementById('ruleEmptyAlert').style.display = 'block';
 }
 function hideEmptyAlert() {
-    document.getElementById('ruleList').style.display = 'block';
+    document.getElementById('js_rule-list').style.display = 'block';
     document.getElementById('ruleEmptyAlert').style.display = 'none';
 }
 var prevFilterString = null;
@@ -54,7 +54,7 @@ function renderRules() {
         var container = ruleContainerList_1[_i];
         var element = container.getLiElement();
         container.applyClassName();
-        document.getElementById('ruleList').appendChild(element);
+        document.getElementById('js_rule-list').appendChild(element);
     }
 }
 function search() {
@@ -135,7 +135,7 @@ var RuleContainer = (function () {
         this.liElement = document.createElement('LI');
         var exampleLink = document.createElement('INPUT');
         exampleLink.className = 'uiButton exampleUrl';
-        exampleLink.value = "link";
+        exampleLink.setAttribute("value", "link");
         exampleLink.setAttribute("type", "button");
         exampleLink.addEventListener("click", function () {
             window.open(_this.rule.example_url);

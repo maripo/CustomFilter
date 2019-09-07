@@ -149,9 +149,12 @@ class CustomBlockerStorage {
 		rule.is_disabled = true;
 		this.getDisabledRuleIDList(function(ids) {
 			scope.disabledRuleIDList.push(rule.global_identifier);
-			console.log("disabledRuleIdList=");
+			console.log("disableRule ids=");
 			console.log(scope.disabledRuleIDList);
-			chrome.storage.local.set({disabledRules:scope.disabledRuleIDList}, callback);
+			chrome.storage.local.set({disabledRules:scope.disabledRuleIDList}, ()=>{
+				chrome.extension.getBackgroundPage().reloadLists();
+				callback();
+			});
 		}, true);
 	}
 	public enableRule (rule:Rule, callback:()=>void) {
@@ -163,9 +166,12 @@ class CustomBlockerStorage {
 					scope.disabledRuleIDList.splice(i, 1); break;
 				}
 			}
-			console.log("disabledRuleIdList=");
+			console.log("enableRule ids=");
 			console.log(scope.disabledRuleIDList);
-			chrome.storage.local.set({disabledRules:scope.disabledRuleIDList}, callback);
+			chrome.storage.local.set({disabledRules:scope.disabledRuleIDList}, ()=>{
+				chrome.extension.getBackgroundPage().reloadLists();
+				callback();
+			});
 		}, true);
 	}
 	public toggleRule (rule:Rule, callback:()=>void) {
@@ -529,10 +535,7 @@ class CustomBlockerStorage {
 		CustomBlockerStorage.JSON_WORD_FLAG_CASE_SENSITIVE = 3;
 		CustomBlockerStorage.JSON_WORD_FLAG_INCLUDE_HREF = 4;
 	}
-
-
 }
-
 
 CustomBlockerStorage.init();
 let cbStorage = new CustomBlockerStorage();

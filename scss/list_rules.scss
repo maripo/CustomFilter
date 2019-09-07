@@ -33,62 +33,63 @@ h2 {
 	margin: 0px;
 	overflow-y:scroll;
 }
-.rule-list {
-	padding:0px;
-	margin:0px;
-	font-size:12px;
-}
 #rule_editor_body {
 	width:340px;
 	float:right;
 }
-.rule-list li {
-	height:38px;
-	list-style-type:none;
-	margin:0px;
+.rule-list {
 	padding:0px;
-	position:relative;
-	cursor:pointer;
-	overflow:hidden;
-	color:#444;
-	border-bottom:1px solid #ddd;
+	margin:0px;
+	font-size:12px;
+	li {
+		height:38px;
+		list-style-type:none;
+		margin:0px;
+		padding:0px;
+		position:relative;
+		cursor:pointer;
+		overflow:hidden;
+		color:#444;
+		border-bottom:1px solid #ddd;
+	}
+	li.filtered {
+		display:none;
+	}
+	li:hover {
+		background-color:#eef8ff;
+	}
+	li.selected {
+		background-color:#fff080;
+	}
+	li div.buttonContainer {
+		width:175px;
+		margin-top:2px;
+		float:right;
+		height:inherit;
+		line-height:17px;
+		text-align: right;
+	}
+	li:hover div.buttonContainer {
+		visibility: visible;
+	}
+	li div.buttonContainer input {
+		/*width:55px;*/
+	}
+	li div.information {
+		margin-right:100px;
+		height:inherit;
+	}
 }
-.rule-list li.filtered {
-	display:none;
-}
-.rule-list li:hover {
-	background-color:#eef8ff;
-}
-.rule-list li.selected {
-	background-color:#fff080;
-}
-.rule-list li div.buttonContainer {
-	width:175px;
-	margin-top:2px;
-	float:right;
-	height:inherit;
-	line-height:17px;
-	text-align: right;
-}
-.rule-list li:hover div.buttonContainer {
-	visibility: visible;
-}
-.rule-list li div.buttonContainer input {
-	/*width:55px;*/
-}
-.rule-list li div.information {
-	margin-right:100px;
-	height:inherit;
-}
+
+/*
+List Buttons
+*/
 .buttonContainer input  {
 	border:none;
 	text-indent:-9999px;
 	background: none;
 	margin: 0 0.2rem;
 }
-/*
-List Buttons
-*/
 .buttonContainer input.buttonOn {
 	background-image:url("/img/button/on.png");
 	background-size: 42px 13px;

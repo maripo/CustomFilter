@@ -14,7 +14,7 @@ class WordGroupPage {
 	constructor () {
 	}
 	init (): void {
-		this.listContainer = document.getElementById("ruleList");
+		this.listContainer = document.getElementById("js_rule-list");
 		this.editor = new WordGroupEditor();
 		this.editor.onSave = () => {
 			this.listContainer.innerHTML = "";

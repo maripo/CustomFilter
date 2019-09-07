@@ -200,17 +200,14 @@ var CustomBlockerUtil = (function () {
                 var note = notes[i_1];
                 var noteKey = keyPrefix + note.getAttribute("note_key");
                 if (localStorage[noteKey] == "true") {
-                    console.log("Hide");
                     return "continue";
                 }
-                console.log("Show");
                 note.style.display = "block";
                 var links = note.getElementsByTagName("a");
                 for (var j = 0; j < links.length; j++) {
                     var link = links[j];
                     if (link.className.indexOf("note__dismiss" >= 0)) {
                         link.addEventListener("click", function () {
-                            console.log("Dismiss " + noteKey);
                             note.style.display = "none";
                             localStorage[noteKey] = "true";
                         });

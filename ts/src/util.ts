@@ -215,17 +215,14 @@ class CustomBlockerUtil {
 				let noteKey = keyPrefix + note.getAttribute("note_key");
 				if (localStorage[noteKey]=="true") {
 					// Already dismissed.
-					console.log("Hide");
 					continue;
 				}
-				console.log("Show");
 				note.style.display = "block";
 				let links = note.getElementsByTagName("a");
 				for (let j=0; j<links.length; j++) {
 					let link = links[j];
 					if (link.className.indexOf("note__dismiss" >= 0)) {
 						link.addEventListener("click", ()=>{
-							console.log("Dismiss " + noteKey);
 							note.style.display = "none";
 							localStorage[noteKey] = "true";
 						});

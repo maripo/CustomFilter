@@ -12,7 +12,7 @@ var Import = (function () {
         document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
         document.getElementById('donate_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate');
         document.getElementById('help_link_empty').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
-        CustomBlockerUtil.localize();
+        CustomBlockerUtil.processPage();
     };
     Import.readFile = function (event) {
         console.log('Import.readFile');

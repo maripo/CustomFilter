@@ -1,1 +1,1 @@
-window.onload = CustomBlockerUtil.localize;
+window.onload = CustomBlockerUtil.processPage;

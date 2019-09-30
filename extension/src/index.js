@@ -14,7 +14,7 @@ var Popup = (function () {
     };
     Popup.prototype.getAppliedRules = function () {
         try {
-            CustomBlockerUtil.localize();
+            CustomBlockerUtil.processPage();
         }
         catch (ex) {
             document.write(ex);

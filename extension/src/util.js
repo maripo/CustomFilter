@@ -160,7 +160,7 @@ var CustomBlockerUtil = (function () {
             array.push(elementsToAdd[i]);
         }
     };
-    CustomBlockerUtil.localize = function () {
+    CustomBlockerUtil.processPage = function () {
         var tags = [];
         CustomBlockerUtil.addAll(tags, document.getElementsByTagName('SPAN'));
         CustomBlockerUtil.addAll(tags, document.getElementsByTagName('LABEL'));
@@ -171,7 +171,7 @@ var CustomBlockerUtil = (function () {
             if (null != element.className && element.className.match(CustomBlockerUtil.LOCALIZE_CLASS_REGEXP)) {
                 var key = RegExp.$1;
                 if (!!chrome.i18n.getMessage(key)) {
-                    Log.v("CustomBlockerUtil.localize " + element.innerHTML + "->" + chrome.i18n.getMessage(key));
+                    Log.v("CustomBlockerUtil.processPage " + element.innerHTML + "->" + chrome.i18n.getMessage(key));
                     element.innerHTML = chrome.i18n.getMessage(key);
                 }
                 else {
@@ -189,7 +189,7 @@ var CustomBlockerUtil = (function () {
                     element.setAttribute("value", chrome.i18n.getMessage(key));
                 }
                 else {
-                    Log.v("CustomBlockerUtil.localize " + element.getAttribute("value") + "->" + chrome.i18n.getMessage(key));
+                    Log.v("CustomBlockerUtil.processPage " + element.getAttribute("value") + "->" + chrome.i18n.getMessage(key));
                 }
             }
         }

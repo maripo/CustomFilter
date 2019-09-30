@@ -1,5 +1,5 @@
 function initWordGroup ():void {
-	CustomBlockerUtil.localize();
+	CustomBlockerUtil.processPage();
 	document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
 	document.getElementById('donate_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate');
 	let page = new WordGroupPage();

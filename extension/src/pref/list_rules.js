@@ -32,7 +32,7 @@ function onStart() {
         document.getElementById('buttonBadgeOn').setAttribute("checked", "true");
     }
     ruleEditor = new PrefRuleEditor();
-    CustomBlockerUtil.localize();
+    CustomBlockerUtil.processPage();
     ruleEditor.init();
     window.setTimeout(manualMigration, 1000);
 }

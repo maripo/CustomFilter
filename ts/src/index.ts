@@ -15,7 +15,7 @@ class Popup {
 	}
 	getAppliedRules() {
 		try {
-			CustomBlockerUtil.localize();
+			CustomBlockerUtil.processPage();
 		} catch (ex) {
 			document.write(ex);
 			return;

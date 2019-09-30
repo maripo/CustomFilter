@@ -1,2 +1,2 @@
-window.onload = CustomBlockerUtil.localize;
+window.onload = CustomBlockerUtil.processPage;
 //# sourceMappingURL=help.js.map

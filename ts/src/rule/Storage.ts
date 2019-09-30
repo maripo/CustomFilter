@@ -293,13 +293,16 @@ class CustomBlockerStorage {
 		}
 		obj["w"] = []; // Words
 		obj["wg"] = []; // Word group
-		for (let word of rule.words) {
-			obj["w"].push(this.convertWordToJSON(word));
+		if (rule.words) {
+			for (let word of rule.words) {
+				obj["w"].push(this.convertWordToJSON(word));
+			}
 		}
-		for (let group of rule.wordGroups) {
-			obj["wg"].push(group.global_identifier);
+		if (rule.wordGroups) {
+			for (let group of rule.wordGroups) {
+				obj["wg"].push(group.global_identifier);
+			}
 		}
-		console.log("ConvertRuleToJSON");
 		console.log(obj)	;
 		return obj;
 	}

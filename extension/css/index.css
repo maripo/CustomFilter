@@ -48,7 +48,7 @@ h2 {
   display: inline; }
 
 /*
-	Applied Rules
+Applied Rules
 */
 #ruleSection {
   margin-bottom: 6px; }
@@ -71,10 +71,6 @@ h2 {
   padding-right: 6px;
   text-decoration: none; }
 
-#activeRules {
-  margin: 0px;
-  padding: 0px; }
-
 .rule-list li {
   height: 24px;
   list-style-type: none;
@@ -83,45 +79,43 @@ h2 {
   position: relative;
   clear: both; }
 
-#activeRules li {
-  height: 27px;
-  line-height: 27px;
-  list-style-type: none;
-  clear: both;
-  font-size: 90%;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd; }
-
-#activeRules li.empty {
-  line-height: 24px;
-  font-size: 80%;
-  text-indent: 4px;
-  color: #444; }
-
-#activeRules li div.title {
-  margin-left: 25px;
-  margin-right: 122px;
-  vertical-align: middle;
-  height: inherit;
-  color: #222; }
-
-#activeRules li div.count {
-  height: 14px;
-  margin-top: 6px;
-  line-height: 14px;
-  margin-left: 2px;
-  margin-right: 2px;
-  width: 18px;
-  text-align: center;
-  color: white;
-  font-size: 10px;
-  float: left; }
-
-#activeRules li div.hit {
-  background-color: #fe376c; }
-
-#activeRules li div.noHit {
-  background-color: #959595; }
+#activeRules {
+  margin: 0px;
+  padding: 0px; }
+  #activeRules li {
+    height: 27px;
+    line-height: 27px;
+    list-style-type: none;
+    clear: both;
+    font-size: 90%;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd; }
+    #activeRules li .title {
+      margin-left: 25px;
+      margin-right: 122px;
+      vertical-align: middle;
+      height: inherit;
+      color: #222; }
+    #activeRules li .count {
+      height: 14px;
+      margin-top: 6px;
+      line-height: 14px;
+      margin-left: 2px;
+      margin-right: 2px;
+      width: 18px;
+      text-align: center;
+      color: white;
+      font-size: 10px;
+      float: left; }
+    #activeRules li .hit {
+      background-color: #fe376c; }
+    #activeRules li .noHit {
+      background-color: #959595; }
+  #activeRules li.empty {
+    line-height: 24px;
+    font-size: 80%;
+    text-indent: 4px;
+    color: #444; }
 
 #version {
   color: #444;
@@ -130,15 +124,6 @@ h2 {
   width: 100px;
   font-size: 80%;
   line-height: 150%; }
-
-.buttonContainer {
-  float: right;
-  width: 120px;
-  height: inherit;
-  text-align: right;
-  height: inherit;
-  margin: 0px;
-  padding: 0px; }
 
 #buttonCreateRule {
   color: #666666;
@@ -154,39 +139,43 @@ h2 {
   #buttonCreateRule:hover {
     text-decoration: underline; }
 
-.buttonContainer input {
-  border: none;
-  text-indent: -9999px;
-  background: none;
-  margin: 0 0.2rem; }
-
-.buttonContainer input.buttonOn {
-  background-image: url("/img/button/on.png");
-  background-size: 42px 13px;
-  background-repeat: no-repeat;
-  width: 42px;
-  height: 13px; }
-
-.buttonContainer input.buttonOff {
-  background-image: url("/img/button/off.png");
-  background-size: 42px 13px;
-  background-repeat: no-repeat;
-  width: 42px;
-  height: 13px; }
-
-.buttonContainer input.buttonEdit {
-  background-image: url("/img/button/edit.png");
-  background-size: 14px 14px;
-  background-repeat: no-repeat;
-  width: 14px;
-  height: 14px; }
-
-.buttonContainer input.buttonDelete {
-  background-image: url("/img/button/delete.png");
-  background-size: 14px 14px;
-  background-repeat: no-repeat;
-  width: 14px;
-  height: 14px; }
+.buttonContainer {
+  float: right;
+  width: 120px;
+  height: inherit;
+  text-align: right;
+  height: inherit;
+  margin: 0px;
+  padding: 0px; }
+  .buttonContainer input {
+    border: none;
+    text-indent: -9999px;
+    background: none;
+    margin: 0 0.2rem; }
+  .buttonContainer input.buttonOn {
+    background-image: url("/img/button/on.png");
+    background-size: 42px 13px;
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 13px; }
+  .buttonContainer input.buttonOff {
+    background-image: url("/img/button/off.png");
+    background-size: 42px 13px;
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 13px; }
+  .buttonContainer input.buttonEdit {
+    background-image: url("/img/button/edit.png");
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px; }
+  .buttonContainer input.buttonDelete {
+    background-image: url("/img/button/delete.png");
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px; }
 
 li .buttonContainer .buttonDelete, li .buttonContainer .buttonEdit {
   visibility: hidden; }

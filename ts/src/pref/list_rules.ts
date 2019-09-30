@@ -16,7 +16,7 @@ function manualMigration () {
 }
 
 function onStart () {
-	// Localize
+	// processPage
 	document.getElementById('help_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
 	document.getElementById('donate_link').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html#donate');
 	document.getElementById('help_link_empty').setAttribute("href", 'help_' + chrome.i18n.getMessage('extLocale') + '.html');
@@ -39,7 +39,7 @@ function onStart () {
 	}
 
 	ruleEditor = new PrefRuleEditor();
-	CustomBlockerUtil.localize();
+	CustomBlockerUtil.processPage();
 	ruleEditor.init();
 	window.setTimeout(manualMigration, 1000);
 }

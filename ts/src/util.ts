@@ -174,7 +174,7 @@ class CustomBlockerUtil {
 			(array as any[]).push(elementsToAdd[i]);
 		}
 	}
-	public static localize () {
+	public static processPage () {
 		let tags = [];
 		CustomBlockerUtil.addAll(tags, document.getElementsByTagName('SPAN'));
 		CustomBlockerUtil.addAll(tags, document.getElementsByTagName('LABEL'));
@@ -187,7 +187,7 @@ class CustomBlockerUtil {
 			{
 				var key = RegExp.$1;
 				if (!!chrome.i18n.getMessage(key)) {
-					Log.v("CustomBlockerUtil.localize " + element.innerHTML + "->" + chrome.i18n.getMessage(key));
+					Log.v("CustomBlockerUtil.processPage " + element.innerHTML + "->" + chrome.i18n.getMessage(key));
 					element.innerHTML = chrome.i18n.getMessage(key);
 				} else {
 					Log.e("Missing localization key: " + key + ", className=" + element.className);
@@ -203,7 +203,7 @@ class CustomBlockerUtil {
 				if (!!chrome.i18n.getMessage(key)) {
 					element.setAttribute("value", chrome.i18n.getMessage(key));
 				} else {
-					Log.v("CustomBlockerUtil.localize " + element.getAttribute("value") + "->" + chrome.i18n.getMessage(key));
+					Log.v("CustomBlockerUtil.processPage " + element.getAttribute("value") + "->" + chrome.i18n.getMessage(key));
 				}
 			}
 		}

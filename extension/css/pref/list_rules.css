@@ -17,11 +17,10 @@ h2 {
   position: absolute;
   top: 0px;
   right: 0px; }
-
-.donate a {
-  text-decoration: none;
-  color: #0db3ea;
-  font-size: 120%; }
+  .donate a {
+    text-decoration: none;
+    color: #0db3ea;
+    font-size: 120%; }
 
 #prefMain {
   width: 910px; }
@@ -33,25 +32,121 @@ h2 {
   margin: 0px;
   overflow-y: scroll; }
 
-.rule-list {
-  padding: 0px;
-  margin: 0px;
-  font-size: 12px; }
-
 #rule_editor_body {
   width: 340px;
   float: right; }
 
-.rule-list li {
-  height: 38px;
-  list-style-type: none;
-  margin: 0px;
+.rule-list {
   padding: 0px;
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-  color: #444;
-  border-bottom: 1px solid #ddd; }
+  margin: 0px;
+  font-size: 12px; }
+  .rule-list li {
+    height: 38px;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    color: #444;
+    border-bottom: 1px solid #ddd; }
+  .rule-list li.filtered {
+    display: none; }
+  .rule-list li:hover {
+    background-color: #eef8ff; }
+  .rule-list li.selected {
+    background-color: #fff080; }
+  .rule-list li div.buttonContainer {
+    width: 175px;
+    margin-top: 2px;
+    float: right;
+    height: inherit;
+    line-height: 17px;
+    text-align: right; }
+  .rule-list li:hover div.buttonContainer {
+    visibility: visible; }
+  .rule-list li div.buttonContainer input {
+    /*width:55px;*/ }
+  .rule-list li div.information {
+    margin-right: 100px;
+    height: inherit; }
+  .rule-list li div.information img.favicon {
+    position: absolute;
+    left: 2px;
+    top: 2px; }
+  .rule-list li div.information div.title {
+    position: absolute;
+    line-height: 16px;
+    vertical-align: middle;
+    left: 20px;
+    top: 2px;
+    height: 16px;
+    font-size: 12px; }
+  .rule-list li div.information div.url {
+    position: absolute;
+    font-size: 10px;
+    left: 10px;
+    top: 20px;
+    color: #444; }
+  .rule-list li div.information div.keywords {
+    position: absolute;
+    font-size: 9px;
+    left: 250px;
+    top: 22px; }
+  .rule-list div.keywords span.blockAnyway {
+    margin-right: 4px;
+    padding: 0px 2px;
+    background-color: #dfd !important;
+    border: solid 1px #4d4 !important; }
+  .rule-list div.keywords span.keyword {
+    margin-right: 4px;
+    padding: 1px 4px;
+    border-radius: 4px !important;
+    font-size: 0.6rem; }
+  .rule-list div.keywords span.regex {
+    background-color: #fed3de !important;
+    border: solid 1px #fb5c86 !important; }
+  .rule-list div.keywords span.group {
+    background-color: #ffffff !important;
+    border: solid 1px #aaaaaa !important; }
+  .rule-list div.keywords span.normal {
+    background-color: #cdedf8 !important;
+    border: solid 1px #249bc3 !important; }
+  .rule-list li .exampleUrl {
+    background-image: url("/img/button/link.png");
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px;
+    display: inline-block; }
+  .rule-list li div.sub_import {
+    position: absolute;
+    left: 50px;
+    top: 0px;
+    width: 400px; }
+  .rule-list li div.sub_export {
+    position: absolute;
+    left: 36px;
+    top: 0px;
+    width: 400px; }
+  .rule-list li img.importIcon {
+    position: absolute;
+    left: 34px;
+    top: 2px; }
+  .rule-list li input.check {
+    position: absolute;
+    left: 10px;
+    top: 10px; }
+
+.rule-list li div.buttonContainer .exampleUrl,
+.rule-list li div.buttonContainer .buttonDelete,
+.rule-list li div.buttonContainer .buttonEdit {
+  visibility: hidden; }
+
+.rule-list li:hover div.buttonContainer .exampleUrl,
+.rule-list li:hover div.buttonContainer .buttonDelete,
+.rule-list li:hover div.buttonContainer .buttonEdit {
+  visibility: visible; }
 
 .editor-frame {
   display: flex;
@@ -62,42 +157,15 @@ h2 {
     flex: 1;
     padding-right: 0.5em; }
 
-.rule-list li.filtered {
-  display: none; }
-
-.rule-list li:hover {
-  background-color: #eef8ff; }
-
-.rule-list li.selected {
-  background-color: #fff080; }
-
-.rule-list li div.buttonContainer {
-  width: 175px;
-  margin-top: 2px;
-  float: right;
-  height: inherit;
-  line-height: 17px;
-  text-align: right; }
-
-.rule-list li:hover div.buttonContainer {
-  visibility: visible; }
-
-.rule-list li div.buttonContainer input {
-  /*width:55px;*/ }
-
-.rule-list li div.information {
-  margin-right: 100px;
-  height: inherit; }
-
+/*
+List Buttons
+*/
 .buttonContainer input {
   border: none;
   text-indent: -9999px;
   background: none;
   margin: 0 0.2rem; }
 
-/*
-List Buttons
-*/
 .buttonContainer input.buttonOn {
   background-image: url("/img/button/on.png");
   background-size: 42px 13px;
@@ -126,103 +194,6 @@ List Buttons
   width: 14px;
   height: 14px; }
 
-.rule-list li div.buttonContainer .exampleUrl,
-.rule-list li div.buttonContainer .buttonDelete,
-.rule-list li div.buttonContainer .buttonEdit {
-  visibility: hidden; }
-
-.rule-list li:hover div.buttonContainer .exampleUrl,
-.rule-list li:hover div.buttonContainer .buttonDelete,
-.rule-list li:hover div.buttonContainer .buttonEdit {
-  visibility: visible; }
-
-.rule-list li div.information img.favicon {
-  position: absolute;
-  left: 2px;
-  top: 2px; }
-
-.rule-list li div.information div.title {
-  position: absolute;
-  line-height: 16px;
-  vertical-align: middle;
-  left: 20px;
-  top: 2px;
-  height: 16px;
-  font-size: 12px; }
-
-.rule-list li div.information div.url {
-  position: absolute;
-  font-size: 10px;
-  left: 10px;
-  top: 20px;
-  color: #444; }
-
-.rule-list li div.information div.keywords {
-  position: absolute;
-  font-size: 9px;
-  left: 250px;
-  top: 22px; }
-
-.rule-list div.keywords span.blockAnyway {
-  margin-right: 4px;
-  padding: 0px 2px;
-  background-color: #dfd !important;
-  border: solid 1px #4d4 !important; }
-
-.rule-list div.keywords span.keyword {
-  margin-right: 4px;
-  padding: 1px 4px;
-  border-radius: 4px !important;
-  font-size: 0.6rem; }
-
-.rule-list div.keywords span.regex {
-  background-color: #fed3de !important;
-  border: solid 1px #fb5c86 !important; }
-
-.rule-list div.keywords span.group {
-  background-color: #ffffff !important;
-  border: solid 1px #aaaaaa !important; }
-
-.rule-list div.keywords span.normal {
-  background-color: #cdedf8 !important;
-  border: solid 1px #249bc3 !important; }
-
-.rule-list li .exampleUrl {
-  /*
-	position:absolute;
-	font-size:10px;
-	left:210px;
-	top:20px;
-	*/
-  background-image: url("/img/button/link.png");
-  background-size: 14px 14px;
-  background-repeat: no-repeat;
-  width: 14px;
-  height: 14px;
-  display: inline-block; }
-
-.rule-list li div.sub_import {
-  position: absolute;
-  left: 50px;
-  top: 0px;
-  width: 400px; }
-
-.rule-list li div.sub_export {
-  position: absolute;
-  left: 36px;
-  top: 0px;
-  width: 400px; }
-
-.rule-list li img.importIcon {
-  position: absolute;
-  left: 34px;
-  top: 2px; }
-
-.rule-list li input.check {
-  position: absolute;
-  left: 10px;
-  top: 10px; }
-
 #rule_editor_body {
   border: solid 1px #888;
   margin-left: 4px; }
@@ -240,35 +211,29 @@ Header & Footer
   padding: 0px;
   margin-bottom: 6px;
   position: relative; }
-
-#header h1 {
-  font-weight: normal; }
-
-#header ul {
-  height: 24px;
-  padding: 0px;
-  margin: 8px 0px; }
-
-#header ul li {
-  display: block;
-  list-style-type: none;
-  width: 25%;
-  height: inherit;
-  float: left;
-  text-align: center; }
-
-#header ul li a {
-  height: inherit;
-  display: block;
-  text-decoration: none;
-  color: #666;
-  line-height: 24px; }
-
-#header ul li.selected {
-  background-color: #0db3ea; }
-
-#header ul li.selected a {
-  color: white; }
+  #header h1 {
+    font-weight: normal; }
+  #header ul {
+    height: 24px;
+    padding: 0px;
+    margin: 8px 0px; }
+  #header ul li {
+    display: block;
+    list-style-type: none;
+    width: 25%;
+    height: inherit;
+    float: left;
+    text-align: center; }
+  #header ul li a {
+    height: inherit;
+    display: block;
+    text-decoration: none;
+    color: #666;
+    line-height: 24px; }
+  #header ul li.selected {
+    background-color: #0db3ea; }
+  #header ul li.selected a {
+    color: white; }
 
 #search_box {
   background-image: url(../../img/search_icon.png);

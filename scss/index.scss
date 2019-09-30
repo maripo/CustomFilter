@@ -72,14 +72,17 @@ Applied Rules
 	padding-right:6px;
 	text-decoration:none;
 }
-.rule-list li {
-	height:24px;
-	list-style-type:none;
-	margin:0px;
-	padding:0px;
-	position:relative;
-	clear:both;
+.rule-list {
+	li {
+		height:24px;
+		list-style-type:none;
+		margin:0px;
+		padding:0px;
+		position:relative;
+		clear:both;
+	}
 }
+
 #activeRules {
 	margin:0px;
 	padding:0px;

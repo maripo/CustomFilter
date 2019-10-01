@@ -49,7 +49,9 @@ h2 {
     cursor: pointer;
     overflow: hidden;
     color: #444;
-    border-bottom: 1px solid #ddd; }
+    border-top: 1px solid #ddd; }
+    .rule-list li:last-child {
+      border-bottom: 1px solid #ddd; }
   .rule-list li.filtered {
     display: none; }
   .rule-list li:hover {

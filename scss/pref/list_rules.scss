@@ -51,7 +51,10 @@ h2 {
 		cursor:pointer;
 		overflow:hidden;
 		color:#444;
-		border-bottom:1px solid #ddd;
+		border-top:1px solid #ddd;
+		&:last-child {
+			border-bottom:1px solid #ddd;
+		}
 	}
 	li.filtered {
 		display:none;

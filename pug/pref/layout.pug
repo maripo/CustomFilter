@@ -22,14 +22,14 @@ html
         img(src='../img/top_title.png', alt='CustomBlocker for Google Chrome')
       .donate
         a#donate_link.custom_filter_localize_donate(href='#donate') Donate
-      ul
-        li(class=(tab=="index") ? "selected":"")
-          a(href='index.html?p=p4')
+      nav.tabs
+        .tabs__tab(class=(tab=="index") ? "tabs__tab--selected":"")
+          a.tabs__tab__link(href='index.html?p=p4')
             span.custom_filter_localize_prefTitle Manage Rules
-        li(class=(tab=="group") ? "selected":"")
-          a#word_group_link(href='word_group.html')
+        .tabs__tab(class=(tab=="group") ? "tabs__tab--selected":"")
+          a.tabs__tab__link#word_group_link(href='word_group.html')
             span.custom_filter_localize_word_group Word Groups
-        li(class=(tab=="help") ? "selected":"")
-          a#help_link(href='help_en.html')
+        .tabs__tab(class=(tab=="help") ? "tabs__tab--selected":"")
+          a.tabs__tab__link#help_link(href='help_en.html')
             span.custom_filter_localize_help Help
     block content

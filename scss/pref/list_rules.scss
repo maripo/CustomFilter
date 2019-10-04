@@ -249,32 +249,30 @@ Header & Footer
 	h1{
 		font-weight:normal;
 	}
-	ul {
-		height:24px;
-		padding:0px;
-		margin:8px 0px;
-	}
-	ul li {
+}
+.tabs {
+	height:24px;
+	padding:0px;
+	margin:8px 0px;
+	&__tab {
 		display:block;
 		list-style-type:none;
 		width:25%;
 		height:inherit;
 		float:left;
 		text-align:center;
-	}
-	ul li a {
-		height:inherit;
-		display:block;
-		text-decoration:none;
 		color: #666;
-		line-height:24px;
-	}
-	ul li.selected {
-		background-color:#0db3ea;
-	}
-	ul li.selected a {
-		color:white;
-
+		&__link {
+			height:inherit;
+			display:block;
+			text-decoration:none;
+			line-height:24px;
+			color: inherit;;
+		}
+		&--selected {
+			background-color:#0db3ea;
+			color:white;
+		}
 	}
 }
 

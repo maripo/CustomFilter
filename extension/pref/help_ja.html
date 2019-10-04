@@ -1,153 +1,108 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>ヘルプ | CustomBlocker</title>
-		<link rel="stylesheet" type="text/css" href="../css/rule_editor.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/pref/list_rules.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/pref/help.css"/>
-
-		<script type="text/javascript" src="../src/CustomBlocker.js"></script>
-		<script type="text/javascript" src="../src/pref/list_rules.js"></script>
-		<script type="text/javascript" src="../src/pref/help.js"></script>
-	</head>
-	<body>
-	<div id="header">
-			<h1><img src="../img/top_title.png" alt="CustomBlocker for Google Chrome"/></h1>
-			<div class="donate">
-				<a href="#donate" id="donate_link" class="custom_filter_localize_donate">Donate</a>
-			</div>
-		<ul>
-			<li><a href="index.html?p=p3"><span class="custom_filter_localize_prefTitle">ルールの管理</span></a></li>
-			<li><a href="word_group.html" id="word_group_link"><span
-				class="custom_filter_localize_word_group">Word Groups</span></a></li>
-			<li class="selected"><a href="help_ja.html" id="help_link"><span class="custom_filter_localize_help">Help</span></a></li>
-		</ul>
-	</div>
-		<div id="wrapper">
-		<h2>使い道は?</h2>
-		<p>
-			Webサイトの一部を、柔軟にカスタマイズできるルールによって非表示にすることのできる拡張です。
-			たとえば、「Twitterを見ているとき、投稿本文に◯◯という文字が含まれていたらツイート全体を非表示にする」「ソーシャルブックマークで、◯◯というタグのついているコメントを非表示にする」といったことができます。
-		</p>
-		<h2>まずは簡単にルールを作ってみたい</h2>
-		<ol>
-			<li>まずは好きなサイトに行ってアイコンをクリックします。</li>
-			<li>窓が出るので、新規作成します。</li>
-			<li>タイトルは、自分がわかりやすいように適当につけてください。</li>
-			<li>XPathでURLを指定します。</li>
-			<li>「どの要素に」「どんな文字が含まれていたら」「どの要素を非表示にする」というルールを設定します。</li>
-			<li>「どの要素に」を選びます。XPathを選択ボタンを選びます。</li>
-			<li>「この文字列が含まれていたら非表示にする」というキーワードを入力します。</li>
-			<li>セーブします。</li>
-		</ol>
-		<p>
-			<img src="../img/help/help1-ja.png"/>
-		</p>
-		<h2>XPathって?</h2>
-		<p>
-			XPathは、HTMLの構成要素の中から特定の条件を満たす要素をピックアップするための表現です。
-		</p>
-		<p>
-			XPathは、ソフトウェア開発の経験のない方にはとっつきにくいものですが、「XPathを取得」ボタンを押すことで、簡単にXPathの候補を表示することができます。
-			「XPathを取得」ボタンを押し、選択したい要素をクリックしてください。類似した要素をピックアップできるXPath候補がいくつか表示されます。
-		</p>
-		<p>
-			<img src="../img/help/help3.png"/>
-		</p>
-		<p>
-			左端に表示されている数字は、表示中のページの中でそのXPathにヒットする要素の数です。カーソルを合わせると、該当する要素がハイライトされますので、意図した通りの要素がヒットするようなXPathを選んでルールを作成してください。
-		</p>
-		<p>
-			更に詳しいことについては、以下の記事を参考にしてください。
-		</p>
-		<ul>
-			<li><a href="http://ja.wikipedia.org/wiki/XML_Path_Language">XML Path Language - Wikipedia</a></li>
-			<li><a href="http://www.w3.org/TR/xpath/">XML Path Language (XPath)</a></li>
-			<li><a href="http://www.atmarkit.co.jp/fxml/rensai/rexml08/rexml08.htmle">＠IT：XML文書内の位置を正確に指し示すXPath</a></li>
-		</ul>
-		<h2>キーワード追加時の「正規表現」のチェックボックスの意味は?</h2>
-		<p>
-			キーワードを含んでいるかどうかの判定を行う方法として、「単純にその文字列を含んでいるかどうかを判定する」というものと「正規表現と一致するかどうかを判定する」という2通りがあります。
-			チェックボックスにチェックを入れると、正規表現を使った判定を行います。チェックを入れない場合は、単純に一致するかどうかを判定します。
-			よくわからなかったらチェック無しで登録しても構いません。
-		</p>
-		<p>
-			<img src="/img/help/help4.png"/>
-		</p>
-		<h2>キーワードの有無にかかわらず特定の要素を非表示にしたい</h2>
-		<p>
-			「無条件で隠す」にチェックを入れます。キーワードや「検索範囲」と関係なく、無条件で「隠す要素」が表示になります。
-		</p>
-		<p>
-			<img src="../img/help/help2-ja.png"/>
-		</p>
-		<h2>アイコンの上に出ている数字の意味は?</h2>
-		<p>
-			表示中のページの中で、ルールに合致して非表示になった要素の数をあらわします。
-		</p>
-		<p>
-			<img src="../img/help/blocked.png"/>
-		</p>
-		<p>
-			これは設定画面で "ブロックした数をアイコンの上に表示する" のチェックを外すことで表示されなくなります。
-		</p>
-		<h2>一時的にルールをオフにするには?</h2>
-		<p>
-			拡張自体をオフにする方法と、一部のルールのみをオフにする方法があります。
-		</p>
-		<p>
-			拡張自体をオフにするには、ツールバーのアイコンをクリックしたときに出る小窓の「ON」「OFF」ボタンで切り替えます。
-		</p>
-		<p>
-			特定のルールのみのオン・オフを切り替えるには、ツールバーのアイコンをクリックしたときに表示される「適用中のルール」の「ON」「OFF」ボタンを使います。
-			もしくは、ルール一覧画面で「ON」「OFF」ボタンを押します。
-		</p>
-		<h2>インポートとエクスポート</h2>
-		<p>
-			「エクスポート」機能を利用すると、テキストファイルとしてルールを出力し、保存することができます。
-			エクスポートしたファイルをインポートすることもできます。
-			複数のマシンで共有する場合や、バックアップをとりたい場合に、この機能をお使いください。
-		</p>
-		<h2><a name="donate">開発者をサポートしたいのですが?</a></h2>
-		<p>
-			現在CustomBlockerの開発は1人で行っております。色々な形でのサポートをお待ちしております。
-		</p>
-		<p>
-			開発メンバーに加わりたい方、pull requestを送ってくださる方は <a href="https://github.com/maripo/CustomFilter">Githubリポジトリ</a> をご覧ください。
-		</p>
-		<p>
-			何か不具合を見つけた場合は、メール (goda.mariko@gmail.com) かTwitter (@MaripoGod) か<a href="https://github.com/maripo/CustomFilter">githubのissue</a>で開発者にお知らせください。
-		</p>
-		<p>
-			現在CustomBlockerは英語と日本語に対応しています。英語にはそんなに自信がありませんので、どこか英語が変なところがあったら教えてください。<br/>
-			また、他の言語への対応を手伝ってくださる方も募集しております。
-			日本・アメリカに次いで韓国でたくさん使っていただいているようなので、英語・日本語の次は韓国語に対応できたらいいなと思っています。
-		</p>
-		<p>
-			開発者に寄付をしてくださるととても嬉しいです。Amazon.co.jpのほしいものリストで受け付けております。
-		</p>
-		<ul>
-			<li><a href="https://www.amazon.co.jp/gp/registry/wishlist/2Y41EUS5A1FFW/ref=cm_wl_huc_view">
-			開発者のほしいものリスト @amazon.co.jp
-			</a></li>
-			<li>
-				<a href="https://www.amazon.co.jp/Amazon%E3%82%AE%E3%83%95%E3%83%88%E5%88%B8-1-JP-Email-Amazon%E3%82%AE%E3%83%95%E3%83%88%E5%88%B8-E%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%97-Amazon%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF/dp/B004N3APGO/ref=lp_3131877051_1_2?s=gift-cards&ie=UTF8&qid=1495266397&sr=1-2">
-					Amazon.co.jp ギフト券を
-				</a> を goda.mariko@gmail.com 宛に
-			</li>
-		</ul>
-		<h2>Credits/Contact</h2>
-			<dl>
-				<dt>Author</dt>
-				<dd>Maripo GODA &lt;goda.mariko@gmail.com&gt;</dd>
-				<dt>Blog</dt>
-				<dd><a href="http://blog.maripo.org">http://blog.maripo.org</a></dd>
-				<dt>Source</dt>
-				<dd><a href="https://github.com/maripo/CustomFilter">https://github.com/maripo/CustomFilter</a></dd><dt>Feedback</dt>
-				<dd>バグレポート・ご質問・ご要望などがありましたら<a href="https://docs.google.com/spreadsheet/viewform?formkey=dGRTeWxoSEVRa1J4a0NJU0dhQklsT1E6MQ">コンタクトフォーム</a>からお寄せください。</dd>
-			</dl>
-		</div>
-		<script type="text/javascript" src="../src/analytics.js"></script>
-	</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>ヘルプ | CustomBlocker</title>
+    <link rel="stylesheet" type="text/css" href="../css/rule_editor.css">
+    <link rel="stylesheet" type="text/css" href="../css/pref/list_rules.css">
+    <link rel="stylesheet" type="text/css" href="../css/pref/help.css">
+    <script type="text/javascript" src="../src/CustomBlocker.js"></script>
+    <script type="text/javascript" src="../src/pref/list_rules.js"></script>
+    <script type="text/javascript" src="../src/pref/help.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <h1><img src="../img/top_title.png" alt="CustomBlocker for Google Chrome"></h1>
+      <div class="donate"><a class="custom_filter_localize_donate" id="donate_link" href="#donate">Donate</a></div>
+      <ul>
+        <li><a href="index.html?p=p3"><span class="custom_filter_localize_prefTitle">ルールの管理</span></a></li>
+        <li><a id="word_group_link" href="word_group.html"><span class="custom_filter_localize_word_group">Word Groups</span></a></li>
+        <li class="selected"><a id="help_link" href="help_ja.html"><span class="custom_filter_localize_help">Help</span></a></li>
+      </ul>
+    </div>
+    <div id="wrapper">
+      <h2>使い道は?</h2>
+      <p>
+        Webサイトの一部を、柔軟にカスタマイズできるルールによって非表示にすることのできる拡張です。
+        たとえば、「Twitterを見ているとき、投稿本文に◯◯という文字が含まれていたらツイート全体を非表示にする」「ソーシャルブックマークで、◯◯というタグのついているコメントを非表示にする」といったことができます。
+      </p>
+      <h2>まずは簡単にルールを作ってみたい</h2>
+      <ol>
+        <li>まずは好きなサイトに行ってアイコンをクリックします。</li>
+        <li>窓が出るので、新規作成します。</li>
+        <li>タイトルは、自分がわかりやすいように適当につけてください。</li>
+        <li>XPathでURLを指定します。</li>
+        <li>「どの要素に」「どんな文字が含まれていたら」「どの要素を非表示にする」というルールを設定します。</li>
+        <li>「どの要素に」を選びます。XPathを選択ボタンを選びます。</li>
+        <li>「この文字列が含まれていたら非表示にする」というキーワードを入力します。</li>
+        <li>セーブします。</li>
+      </ol>
+      <p><img src="../img/help/help1-ja.png"></p>
+      <h2>XPathって?</h2>
+      <p>XPathは、HTMLの構成要素の中から特定の条件を満たす要素をピックアップするための表現です。</p>
+      <p>
+        XPathは、ソフトウェア開発の経験のない方にはとっつきにくいものですが、「XPathを取得」ボタンを押すことで、簡単にXPathの候補を表示することができます。
+        「XPathを取得」ボタンを押し、選択したい要素をクリックしてください。類似した要素をピックアップできるXPath候補がいくつか表示されます。
+      </p>
+      <p><img src="../img/help/help3.png"></p>
+      <p>左端に表示されている数字は、表示中のページの中でそのXPathにヒットする要素の数です。カーソルを合わせると、該当する要素がハイライトされますので、意図した通りの要素がヒットするようなXPathを選んでルールを作成してください。</p>
+      <p>更に詳しいことについては、以下の記事を参考にしてください。</p>
+      <ul>
+        <li><a href="http://ja.wikipedia.org/wiki/XML_Path_Language">XML Path Language - Wikipedia</a></li>
+        <li><a href="http://www.w3.org/TR/xpath/">XML Path Language (XPath)</a></li>
+        <li><a href="http://www.atmarkit.co.jp/fxml/rensai/rexml08/rexml08.htmle">＠IT：XML文書内の位置を正確に指し示すXPath</a></li>
+      </ul>
+      <h2>キーワード追加時の「正規表現」のチェックボックスの意味は?</h2>
+      <p>
+        キーワードを含んでいるかどうかの判定を行う方法として、「単純にその文字列を含んでいるかどうかを判定する」というものと「正規表現と一致するかどうかを判定する」という2通りがあります。
+        チェックボックスにチェックを入れると、正規表現を使った判定を行います。チェックを入れない場合は、単純に一致するかどうかを判定します。
+        よくわからなかったらチェック無しで登録しても構いません。
+      </p>
+      <p><img src="/img/help/help4.png"></p>
+      <h2>キーワードの有無にかかわらず特定の要素を非表示にしたい</h2>
+      <p>「無条件で隠す」にチェックを入れます。キーワードや「検索範囲」と関係なく、無条件で「隠す要素」が表示になります。</p>
+      <p><img src="../img/help/help2-ja.png"></p>
+      <h2>アイコンの上に出ている数字の意味は?</h2>
+      <p>表示中のページの中で、ルールに合致して非表示になった要素の数をあらわします。</p>
+      <p><img src="../img/help/blocked.png"></p>
+      <p>これは設定画面で "ブロックした数をアイコンの上に表示する" のチェックを外すことで表示されなくなります。</p>
+      <h2>一時的にルールをオフにするには?</h2>
+      <p>拡張自体をオフにする方法と、一部のルールのみをオフにする方法があります。</p>
+      <p>拡張自体をオフにするには、ツールバーのアイコンをクリックしたときに出る小窓の「ON」「OFF」ボタンで切り替えます。</p>
+      <p>
+        特定のルールのみのオン・オフを切り替えるには、ツールバーのアイコンをクリックしたときに表示される「適用中のルール」の「ON」「OFF」ボタンを使います。
+        もしくは、ルール一覧画面で「ON」「OFF」ボタンを押します。
+      </p>
+      <h2>インポートとエクスポート</h2>
+      <p>
+        「エクスポート」機能を利用すると、テキストファイルとしてルールを出力し、保存することができます。
+        エクスポートしたファイルをインポートすることもできます。
+        複数のマシンで共有する場合や、バックアップをとりたい場合に、この機能をお使いください。
+      </p>
+      <h2><a name="donate">開発者をサポートしたいのですが?</a></h2>
+      <p>現在CustomBlockerの開発は1人で行っております。色々な形でのサポートをお待ちしております。</p>
+      <p>開発メンバーに加わりたい方、pull requestを送ってくださる方は<a href="https://github.com/maripo/CustomFilter">Githubリポジトリ</a> をご覧ください。</p>
+      <p>何か不具合を見つけた場合は、メール (goda.mariko@gmail.com) かTwitter (@MaripoGod) か<a href="https://github.com/maripo/CustomFilter">githubのissue</a>で開発者にお知らせください。</p>
+      <p>現在CustomBlockerは英語と日本語に対応しています。英語にはそんなに自信がありませんので、どこか英語が変なところがあったら教えてください。<br>			また、他の言語への対応を手伝ってくださる方も募集しております。
+        			日本・アメリカに次いで韓国でたくさん使っていただいているようなので、英語・日本語の次は韓国語に対応できたらいいなと思っています。
+      </p>
+      <p>開発者に寄付をしてくださるととても嬉しいです。Amazon.co.jpのほしいものリストで受け付けております。</p>
+      <ul>
+        <li><a href="https://www.amazon.co.jp/gp/registry/wishlist/2Y41EUS5A1FFW/ref=cm_wl_huc_view">開発者のほしいものリスト @amazon.co.jp</a></li>
+        <li><a href="https://www.amazon.co.jp/Amazon%E3%82%AE%E3%83%95%E3%83%88%E5%88%B8-1-JP-Email-Amazon%E3%82%AE%E3%83%95%E3%83%88%E5%88%B8-E%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%97-Amazon%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF/dp/B004N3APGO/ref=lp_3131877051_1_2?s=gift-cards&amp;ie=UTF8&amp;qid=1495266397&amp;sr=1-2">Amazon.co.jp ギフト券を</a> を goda.mariko@gmail.com 宛に</li>
+      </ul>
+      <h2>Credits/Contact</h2>
+      <dl>
+        <dt>Author</dt>
+        <dd>Maripo GODA <goda.mariko@gmail.com></dd>
+        <dt>Blog</dt>
+        <dd><a href="http://blog.maripo.org">http://blog.maripo.org</a></dd>
+        <dt>Source</dt>
+        <dd><a href="https://github.com/maripo/CustomFilter">https://github.com/maripo/CustomFilter</a></dd>
+        <dt>Feedback</dt>
+        <dd>バグレポート・ご質問・ご要望などがありましたら<a href="https://docs.google.com/spreadsheet/viewform?formkey=dGRTeWxoSEVRa1J4a0NJU0dhQklsT1E6MQ">コンタクトフォーム</a>からお寄せください。</dd>
+      </dl>
+    </div>
+    <script type="text/javascript" src="../src/analytics.js"></script>
+  </body>
 </html>

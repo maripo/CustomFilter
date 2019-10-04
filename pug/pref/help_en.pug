@@ -1,0 +1,135 @@
+doctype html
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title Help | CustomBlocker
+    link(rel='stylesheet', type='text/css', href='../css/rule_editor.css')
+    link(rel='stylesheet', type='text/css', href='../css/pref/list_rules.css')
+    link(rel='stylesheet', type='text/css', href='../css/pref/help.css')
+    script(type='text/javascript', src='../src/CustomBlocker.js')
+    script(type='text/javascript', src='../src/pref/list_rules.js')
+    script(type='text/javascript', src='../src/pref/help.js')
+  body
+    #header
+      h1
+        img(src='../img/top_title.png', alt='CustomBlocker for Google Chrome')
+      .donate
+        a#donate_link.custom_filter_localize_donate(href='#donate') Donate
+      ul
+        li
+          a(href='index.html?p=p4')
+            span.custom_filter_localize_prefTitle Manage Rules
+        li
+          a#word_group_link(href='word_group.html')
+            span.custom_filter_localize_word_group Word Groups
+        li.selected
+          a#help_link(href='help_en.html')
+            span.custom_filter_localize_help Help
+    #wrapper
+      h2 What is CustomBlocker?
+      p
+        | This extension allows you create filters freely.
+        | For example....
+      ul
+        li Block tweets posted by specific apps on twitter
+        li Block comments which contain unpleasant words or tags on social bookmark sites
+        li Remove results on specific domains from Google search results
+      h2 Simple way to create rules
+      ol
+        li Visit your favorite site.
+        li Click the icon and open pref dialog.
+        li Click "New Rule for this Site"
+        li Edit site RegEx if necessary
+        li Click "Get XPath" button and select XPath which hits desired elements
+        li Input some keywords
+        li Save the rule and reload the page
+      p
+        img(src='../img/help/help1-en.png')
+      h2 What is XPath?
+      p
+        strong XPath
+        |  is a language for selecting nodes from XML documents.
+        | 			It works well for picking elements from web pages written in HTML.
+      p
+        | If you are not familiar with XPath, this extension helps you to get proper XPath and select specific elements as intended.
+        | Click "Get XPath" button and select one of target elements.
+        | Some XPath expressions are suggested.
+      p
+        img(src='../img/help/help3.png')
+      p
+        | When the mouse cursor is over one of suggested XPaths, elements selected by it are highlighted.
+        | Click an option which meets intended elements and you can use the selection when the rule is applied.
+      p
+        | Of course, you can write XPath manually.
+      p
+        | Learn more...
+      ul
+        li
+          a(href='http://en.wikipedia.org/wiki/XPath') XPath - Wikipedia
+        li
+          a(href='http://www.w3.org/TR/xpath20/') XML Path Language (XPath) 2.0 (Second Edition)
+      h2 What does the "RegEx" checkbox on the right hand of the keyword textbox?
+      p
+        | There are two type of keywords, "Simple Match" and "Regular Expression".
+        | The rule works when the content of an element contains simply "Simple Match" keywords or match "Regular Expression" keyword.
+        | Keywords which are input when "RegEx" checkbox is checked, they work as "Regular Expression".
+      h2 I want hide some elements whether they contain any keyword or not.
+      p
+        | When "Block Anyway" is checked, elements selected by XPath of "Elements to Hide" will be hidden, whether keywords are contained or not.
+      p
+        img(src='../img/help/help2-en.png')
+      h2 What does the number on the icon mean?
+      p
+        | It means how many elements are hidden on the current web page.
+      p
+        img(src='../img/help/blocked.png')
+      p
+        | This functionality can be disabled by unchecking "Show number of blocked elements on app icon" on the preferences page.
+      h2 How can I stop the extension temporarily?
+      p
+        | There is two ways to pause the extension.
+      dl
+        dt Pause all functions temporarily
+        dd
+          | Click the icon on the Chrome's menu bar and select radio buttons "ON/OFF".
+          | When "OFF" is checked, all rules are stopped.
+        dt Pause individual rules temporarily
+        dd
+          | Click the icon on the Chrome's menu bar  or show the preference page.
+          | You'll find "ON/OFF" buttons on the right side of the list of rules.
+      h2
+        a(name='donate') How can I support the developer?
+      p
+        | If you are interested in joining the development project or sending a pull request, please visit the
+        a(href='https://github.com/maripo/CustomFilter') Github repository
+        | .
+      p
+        | Currently CustomBlocker supports English and Japanese but I don't have strong confidence in my English skill.
+        | Please let me know if you find something wrong or unnatural.
+        | Now this app is gaining popularity in South Korea and I'm looking for contributor who is familiar with Korean language.
+      p
+        | I'd be very grateful and encouraged if you could donate on Amazon.co.jp.
+      ul
+        li
+          a(href='https://www.amazon.co.jp/gp/registry/wishlist/2Y41EUS5A1FFW/ref=cm_wl_huc_view')
+            | Developer's Wishlist @amazon.co.jp
+        li
+          a(href='https://www.amazon.co.jp/Amazon%E3%82%AE%E3%83%95%E3%83%88%E5%88%B8-1-JP-Email-Amazon%E3%82%AE%E3%83%95%E3%83%88%E5%88%B8-E%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%97-Amazon%E3%83%99%E3%83%BC%E3%82%B7%E3%83%83%E3%82%AF/dp/B004N3APGO/ref=lp_3131877051_1_2?s=gift-cards&ie=UTF8&qid=1495266397&sr=1-2')
+            | Amazon.co.jp eGift card
+          |  to goda.mariko@gmail.com
+      h2 Credits/Contact
+      dl
+        dt Author
+        dd Maripo GODA <goda.mariko@gmail.com>
+        dt Blog
+        dd
+          a(href='http://blog.maripo.org') http://blog.maripo.org
+        dt Source
+        dd
+          a(href='https://github.com/maripo/CustomFilter') https://github.com/maripo/CustomFilter
+        dt Feedback
+        dd
+          | If you have any questions, bug reports or suggestions, please let me know by the
+          a(href='https://docs.google.com/spreadsheet/viewform?formkey=dGRTeWxoSEVRa1J4a0NJU0dhQklsT1E6MQ') contact form
+          | .
+    script(type='text/javascript', src='../src/analytics.js')

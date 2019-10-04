@@ -1,6 +1,62 @@
-doctype html
-html
-  head
+extends ./layout.pug
+block conf
+  - let title = "Word Groups"
+  - let tab = "group"
+block extra_js
+  script(type='text/javascript' src='../src/pref/word_editor.js')
+  script(type='text/javascript' src='../src/pref/word_group.js')
+block content
+  .note.note--dismissable(note_key='KeywordGroupHeadline')
+    span.custom_filter_localize_helpKeywordGroupDetail "Keyword groups" feature is supported in version 4.x!
+    a.note__dismiss#js_note_close(href='#') x
+  #prefMain
+    //  List & Editor
+    .editor-frame
+      .editor-frame__editor
+        #rule_editor_body.customblocker_rule_dialog
+          .section
+            h3
+              span.custom_filter_localize_sectionRuleTitle Title
+            input#rule_editor_title(type='text')
+          .section
+            h3
+              span.custom_filter_localize_sectionWord.text Words
+            div
+              input#rule_editor_keyword(type='text')
+              input#rule_editor_add_keyword_button.uiButton(type='button' value='ADD')
+            div
+              //  Complete Matching
+              input#rule_editor_keyword_complete_matching_checkbox(type='checkbox')
+              label(for='rule_editor_keyword_complete_matching_checkbox')
+                span.custom_filter_localize_complete_matching Complete Match
+              //  RegExp
+              input#rule_editor_keyword_regexp_checkbox(type='checkbox')
+              label(for='rule_editor_keyword_regexp_checkbox')
+                span.custom_filter_localize_regex RegEx
+              //  Ignore Case
+              input#rule_editor_keyword_case_sensitive_checkbox(type='checkbox')
+              label(for='rule_editor_keyword_case_sensitive_checkbox')
+                span.custom_filter_localize_case_sensitive Case Sensitive
+              //  Include link URL
+              input#rule_editor_keyword_include_href_checkbox(type='checkbox')
+              label(for='rule_editor_keyword_include_href_checkbox')
+                span.custom_filter_localize_include_href Include URL
+            #rule_editor_keywords.smart_rule_editor_keywords
+          #rule_editor_alert
+            //  Alert Message
+          .bottom_button_container
+            input.uiButton#rule_editor_save_button(type='button' value='Save')
+        //  rule_editor_body
+      .editor-frame__list
+        div
+          a.uiButton.uiButtonAdd.custom_filter_localize_newGroup#word_group_create_button(href='javascript:void(0)') New group
+        ul#js_rule-list.rule-list.
+
+
+  script(type='text/javascript' src='../src/analytics.js')
+
+//- block content
+  //- head
     meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
     title Word Groups | CustomBlocker
     link(rel='stylesheet' type='text/css' href='../css/rule_editor.css')
@@ -10,7 +66,7 @@ html
     script(type='text/javascript' src='../src/CustomBlocker.js')
     script(type='text/javascript' src='../src/pref/word_editor.js')
     script(type='text/javascript' src='../src/pref/word_group.js')
-  body
+  //- body
     #header
       h1
         img(src='../img/top_title.png' alt='CustomBlocker for Google Chrome')
@@ -26,51 +82,3 @@ html
         li
           a#help_link(href='help.html')
             span.custom_filter_localize_help Help
-    .note.note--dismissable(note_key='KeywordGroupHeadline')
-      span.custom_filter_localize_helpKeywordGroupDetail "Keyword groups" feature is supported in version 4.x!
-      a.note__dismiss#js_note_close(href='#') x
-    #prefMain
-      //  List & Editor 
-      .editor-frame
-        .editor-frame__editor
-          #rule_editor_body.customblocker_rule_dialog
-            .section
-              h3
-                span.custom_filter_localize_sectionRuleTitle Title
-              input#rule_editor_title(type='text')
-            .section
-              h3
-                span.custom_filter_localize_sectionWord.text Words
-              div
-                input#rule_editor_keyword(type='text')
-                input#rule_editor_add_keyword_button.uiButton(type='button' value='ADD')
-              div
-                //  Complete Matching 
-                input#rule_editor_keyword_complete_matching_checkbox(type='checkbox')
-                label(for='rule_editor_keyword_complete_matching_checkbox')
-                  span.custom_filter_localize_complete_matching Complete Match
-                //  RegExp 
-                input#rule_editor_keyword_regexp_checkbox(type='checkbox')
-                label(for='rule_editor_keyword_regexp_checkbox')
-                  span.custom_filter_localize_regex RegEx
-                //  Ignore Case 
-                input#rule_editor_keyword_case_sensitive_checkbox(type='checkbox')
-                label(for='rule_editor_keyword_case_sensitive_checkbox')
-                  span.custom_filter_localize_case_sensitive Case Sensitive
-                //  Include link URL 
-                input#rule_editor_keyword_include_href_checkbox(type='checkbox')
-                label(for='rule_editor_keyword_include_href_checkbox')
-                  span.custom_filter_localize_include_href Include URL
-              #rule_editor_keywords.smart_rule_editor_keywords
-            #rule_editor_alert
-              //  Alert Message 
-            .bottom_button_container
-              input.uiButton#rule_editor_save_button(type='button' value='Save')
-          //  rule_editor_body 
-        .editor-frame__list
-          div
-            a.uiButton.uiButtonAdd.custom_filter_localize_newGroup#word_group_create_button(href='javascript:void(0)') New group
-          ul#js_rule-list.rule-list.
-            
-            
-    script(type='text/javascript' src='../src/analytics.js')

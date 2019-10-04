@@ -1,0 +1,35 @@
+block conf
+  //- title
+  //- tab
+doctype html
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title #{title} | CustomBlocker
+    link(rel='stylesheet', type='text/css', href='../css/rule_editor.css')
+    link(rel='stylesheet', type='text/css', href='../css/pref/list_rules.css')
+    link(rel='stylesheet', type='text/css', href='../css/pref/help.css')
+    link(rel='stylesheet' type='text/css' href='../css/rule_editor_common.css')
+    link(rel='stylesheet' type='text/css' href='../css/keywords.css')
+
+    script(type='text/javascript', src='../src/CustomBlocker.js')
+    script(type='text/javascript', src='../src/pref/list_rules.js')
+    block extra_js
+      // Extra JS
+  body
+    header.header
+      h1
+        img(src='../img/top_title.png', alt='CustomBlocker for Google Chrome')
+      .donate
+        a#donate_link.custom_filter_localize_donate(href='#donate') Donate
+      ul
+        li(class=(tab=="index") ? "selected":"")
+          a(href='index.html?p=p4')
+            span.custom_filter_localize_prefTitle Manage Rules
+        li(class=(tab=="group") ? "selected":"")
+          a#word_group_link(href='word_group.html')
+            span.custom_filter_localize_word_group Word Groups
+        li(class=(tab=="help") ? "selected":"")
+          a#help_link(href='help_en.html')
+            span.custom_filter_localize_help Help
+    block content

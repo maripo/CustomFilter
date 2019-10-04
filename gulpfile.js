@@ -14,7 +14,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('pug', () => {
-  return gulp.src(['./pug/**/*.pug'])
+  return gulp.src(['./pug/**/*.pug', '!**/layout*'])
   .pipe(pug({
     pretty: true
   }))

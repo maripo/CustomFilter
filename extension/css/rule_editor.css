@@ -18,26 +18,55 @@
   color: black !important;
   font-size: 12px !important;
   width: 400px; }
-
-#rule_editor_body * {
-  text-align: left;
-  background: none;
-  text-indent: 0px !important;
-  position: relative !important;
-  font-family: sans-serif !important;
-  margin: 0px !important;
-  padding: 0px !important;
-  margin: 0px !important;
-  border-radius: 0px !important;
-  -webkit-border-radius: 0px !important; }
-
-#rule_editor_body label {
-  float: none !important;
-  color: black !important;
-  font-size: 100% !important;
-  width: auto !important;
-  display: inline !important;
-  font-weight: normal !important; }
+  #rule_editor_body * {
+    text-align: left;
+    background: none;
+    text-indent: 0px !important;
+    position: relative !important;
+    font-family: sans-serif !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    border-radius: 0px !important;
+    -webkit-border-radius: 0px !important; }
+  #rule_editor_body label {
+    float: none !important;
+    color: black !important;
+    font-size: 100% !important;
+    width: auto !important;
+    display: inline !important;
+    font-weight: normal !important; }
+  #rule_editor_body a {
+    text-indent: 0px !important;
+    position: static !important;
+    font-family: sans-serif !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important; }
+  #rule_editor_body div.input_section {
+    clear: both !important;
+    height: 24px !important;
+    line-height: 24px !important; }
+  #rule_editor_body input {
+    height: auto !important;
+    color: black !important;
+    font-size: 12px !important;
+    line-height: normal !important;
+    font-weight: normal !important;
+    float: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border: initial !important; }
+  #rule_editor_body input.uiButton {
+    border-radius: 0px !important;
+    margin-left: 2px !important;
+    vertical-align: middle !important;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) !important;
+    color: #fff !important;
+    text-align: center; }
 
 #rule_editor_body div,
 #rule_editor_body h2 {
@@ -46,42 +75,18 @@
   left: auto !important;
   top: auto !important; }
 
-#rule_editor_body a {
-  text-indent: 0px !important;
-  position: static !important;
-  font-family: sans-serif !important;
-  margin: 0px !important;
-  padding: 0px !important;
-  margin-right: 0px !important;
-  margin-left: 0px !important;
-  margin-top: 0px !important;
-  margin-bottom: 0px !important; }
-
-#rule_editor_body div.input_section {
-  clear: both !important;
-  height: 24px !important;
-  line-height: 24px !important; }
-
-#rule_editor_body input {
-  height: auto !important;
-  color: black !important;
-  font-size: 12px !important;
-  line-height: normal !important;
-  font-weight: normal !important;
+#rule_editor_body input[type="text"] {
+  border: solid 1px #888 !important;
   float: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  border: initial !important; }
+  min-height: initial !important;
+  min-width: initial !important;
+  box-shadow: none !important; }
 
-#rule_editor_body input.uiButton {
-  border-radius: 0px !important;
-  margin-left: 2px !important;
-  vertical-align: middle !important;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) !important;
-  color: #fff !important;
-  /* width:40px; */
-  /* height:16px!important; */
-  text-align: center; }
+#rule_editor_body div.section div.description {
+  clear: both !important;
+  float: none !important;
+  font-size: 10px !important;
+  color: #444 !important; }
 
 #rule_editor_body .footer input.uiButton {
   padding: 3px 6px !important; }
@@ -120,19 +125,6 @@
   margin: 0.5em 0; }
   .uiButtonAdd:hover {
     text-decoration: underline; }
-
-#rule_editor_body input[type="text"] {
-  border: solid 1px #888 !important;
-  float: none !important;
-  min-height: initial !important;
-  min-width: initial !important;
-  box-shadow: none !important; }
-
-#rule_editor_body div.section div.description {
-  clear: both !important;
-  float: none !important;
-  font-size: 10px !important;
-  color: #444 !important; }
 
 #rule_editor_title {
   width: 210px; }

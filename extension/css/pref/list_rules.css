@@ -33,8 +33,7 @@ h2 {
   overflow-y: scroll; }
 
 #rule_editor_body {
-  width: 340px;
-  float: right; }
+  width: 340px; }
 
 .rule-list {
   padding: 0px;

@@ -135,7 +135,7 @@ class WordGroupEditor {
 				});
 			}
 		});
-		document.getElementById("word_group_create_button").addEventListener("click", ()=>{
+		document.getElementById("js_word_group_create_button").addEventListener("click", ()=>{
 			console.log("create new group");
 			let group = cbStorage.createWordGroup();
 			group.name = "New Group";
@@ -147,6 +147,7 @@ class WordGroupEditor {
 		this.group = group;
 		this.wordEditor.setWords(group.words);
 		this.hideMessage();
+		this.uiTitle.focus();
 	}
 	showMessage (str: string): void {
 		this.alertDiv.style.display = 'block';

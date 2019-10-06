@@ -3,7 +3,6 @@ var ruleContainerList = new Array();
 var ruleEditor;
 function manualMigration() {
     chrome.storage.local.get(["migrationDone"], function (result) {
-        console.log("migrationDone=" + result["migrationDone"]);
         if (!result["migrationDone"]) {
             document.getElementById("manualMigrationSection").style.display = "block";
             document.getElementById("manualMigrationLink").addEventListener("click", function () {

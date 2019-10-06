@@ -9,10 +9,9 @@ function createRuleTable (): void {
 
 function loadLists (): void {
 	cbStorage.loadAll (
-		function (rules:[Rule], groups:[WordGroup]) {
+		(rules:[Rule], groups:[WordGroup]) => {
 			ruleList = rules;
 			loadSmartRuleEditorSrc();
-			// saveUuidIfNotSet();
 		}
 	);
 }
@@ -64,7 +63,6 @@ chrome.runtime.onInstalled.addListener(function(details) {
 	} else if (details.reason=="update" ) {
 		console.log("DATA MIGRATION NEEDED? Checking...");
 		chrome.storage.local.get(["migrationDone"], function(result) {
-			console.log("migrationDone=" + result["migrationDone"]);
 			if (!result["migrationDone"]) {
 				console.log("Migration flag is empty. Start migration...");
 				migrateToChromeSync (function(){
@@ -75,7 +73,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
 				});
 			}
 		});
-	} 
+	}
 });
 function manualDataMigration() {
 	console.log("manualDataMigration");

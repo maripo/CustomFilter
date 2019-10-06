@@ -1,1 +1,3 @@
-window.onload = CustomBlockerUtil.processPage;
+window.onload = () => {
+  CustomBlockerUtil.processPage();
+};

@@ -4,7 +4,6 @@ let ruleEditor: PrefRuleEditor;
 
 function manualMigration () {
 	chrome.storage.local.get(["migrationDone"], function(result) {
-		console.log("migrationDone=" + result["migrationDone"]);
 		if (!result["migrationDone"]) {
 			document.getElementById("manualMigrationSection").style.display = "block";
 			document.getElementById("manualMigrationLink").addEventListener("click", function(){
@@ -306,8 +305,7 @@ let reloadBackground = function () {
 		let bgWindow = chrome.extension.getBackgroundPage();
 		bgWindow.reloadLists();
 	}
-	catch (ex)
-	{
+	catch (ex) {
 		alert(ex)
 	}
 }
@@ -395,7 +393,7 @@ class PrefRuleEditor {
 	getSaveAction () {
 		let self = this;
 
-		return function () {
+		return () => {
 			self.saveRule();
 		};
 	}
@@ -471,10 +469,12 @@ class PrefRuleEditor {
 			hide_block_xpath : (document.getElementById('rule_editor_hide_block_xpath') as HTMLInputElement).value,
 			hide_block_css : (document.getElementById('rule_editor_hide_block_css') as HTMLInputElement).value,
 		});
-		if (validateErrors.length>0) {
+		if (validateErrors.length > 0) {
+			// Validation Error
 			this.showMessage(validateErrors.join('<br/>'));
 			return;
 		}
+		// Validation OK
 		this.rule.title = (document.getElementById('rule_editor_title') as HTMLInputElement).value;
 		this.rule.site_regexp = (document.getElementById('rule_editor_site_regexp') as HTMLInputElement).value;
 		this.rule.example_url = (document.getElementById('rule_editor_example_url') as HTMLInputElement).value;

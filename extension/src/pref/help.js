@@ -1,2 +1,4 @@
-window.onload = CustomBlockerUtil.processPage;
+window.onload = function () {
+    CustomBlockerUtil.processPage();
+};
 //# sourceMappingURL=help.js.map

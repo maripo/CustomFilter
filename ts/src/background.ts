@@ -110,7 +110,7 @@ class CustomBlockerTab {
 		try {
 			chrome.browserAction.setIcon(
 				{
-					path:((this.appliedRules.length>0)?'icon.png':'icon_disabled.png'),
+					path:"icon/" + ((this.appliedRules.length>0)?'icon.png':'icon_disabled.png'),
 					tabId:this.tabId
 				});
 		} catch (ex) {
@@ -281,8 +281,8 @@ function loadSmartRuleEditorSrc() {
 						var applied = appliedRules.length>0;
 						chrome.browserAction.setIcon(
 						{
-							path:(applied)?'icon.png':'icon_disabled.png',
-							tabId:tabId
+							path: "icon/" + (applied)?'icon.png':'icon_disabled.png',
+							tabId: tabId
 						});
 
 					}
@@ -311,14 +311,14 @@ function _setIconDisabled (isDisabled, tabId): void
 {
 	if (localStorage.badgeDisabled!="true") {
 		chrome.browserAction.setBadgeText({
-			text:(isDisabled)?'OFF':'',
+			text: (isDisabled)?'OFF':'',
 			tabId: tabId
 		});
 	}
 	chrome.browserAction.setIcon(
 	{
-		path:(isDisabled)?'icon_disabled.png':'icon.png',
-		tabId:tabId
+		path: "icon/" + (isDisabled)?'icon_disabled.png':'icon.png',
+		tabId: tabId
 	});
 
 }

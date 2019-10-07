@@ -278,10 +278,11 @@ function loadSmartRuleEditorSrc() {
 						_setIconDisabled(!applied, tabId);
 					else {
 						let appliedRules = (tabMap[tabId]) ? tabMap[tabId].appliedRules : [];
-						var applied = appliedRules.length>0;
+						let applied = appliedRules.length>0;
+						let iconPath =  "icon/" + ((applied)?'icon3.png':'icon_disabled.png');
 						chrome.browserAction.setIcon(
 						{
-							path: "icon/" + (applied)?'icon.png':'icon_disabled.png',
+							path: iconPath,
 							tabId: tabId
 						});
 

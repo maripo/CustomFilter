@@ -54,6 +54,7 @@ class WordGroupPage {
 			keywordSpan.className = (word.is_regexp)?"keyword regex":"keyword normal";
 			keywordSpan.innerHTML = word.word;
 			keywordsDiv.appendChild(keywordSpan);
+			keywordsDiv.appendChild(document.createTextNode(" "));
 		}
 		li.appendChild(keywordsDiv);
 		return li;
@@ -186,6 +187,7 @@ class WordGroupWrapper {
 				keywordSpan.className = (this.group.words[i].is_regexp)?"keyword regex":"keyword normal";
 				keywordSpan.innerHTML = this.group.words[i].word;
 				keywordsDiv.appendChild(keywordSpan);
+				keywordsDiv.appendChild(document.createTextNode(" "));
 			}
 			this.li.appendChild(keywordsDiv);
 		}

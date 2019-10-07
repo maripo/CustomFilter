@@ -68,7 +68,7 @@ h2 {
 		width:175px;
 		margin-top:2px;
 		float:right;
-		height:inherit;
+		/*height:inherit;*/
 		line-height:17px;
 		text-align: right;
 	}
@@ -109,29 +109,33 @@ h2 {
 		left:250px;
 		top:22px;
 	}
-	div.keywords span.blockAnyway {
-		margin-right:4px;
-		padding:0px 2px;
-		background-color:#dfd!important;
-		border: solid 1px #4d4!important;
-	}
-	div.keywords span.keyword {
-		margin-right:4px;
-		padding:1px 4px;
-		border-radius:4px!important;
-		font-size:0.6rem;
-	}
-	div.keywords span.regex {
-		background-color:#fed3de!important;
-		border: solid 1px #fb5c86!important;
-	}
-	div.keywords span.group {
-		background-color:#ffffff!important;
-		border: solid 1px #aaaaaa!important;
-	}
-	div.keywords span.normal {
-		background-color:#cdedf8!important;
-		border: solid 1px #249bc3!important;
+	.keywords {
+		clear: right;
+		white-space: nowrap;
+		span.blockAnyway {
+			margin-right:4px;
+			padding:0px 2px;
+			background-color:#dfd!important;
+			border: solid 1px #4d4!important;
+		}
+		span.keyword {
+			margin-right:4px;
+			padding:1px 4px;
+			border-radius:4px!important;
+			font-size:0.6rem;
+		}
+		span.regex {
+			background-color:#fed3de!important;
+			border: solid 1px #fb5c86!important;
+		}
+		span.group {
+			background-color:#ffffff!important;
+			border: solid 1px #aaaaaa!important;
+		}
+		span.normal {
+			background-color:#cdedf8!important;
+			border: solid 1px #249bc3!important;
+		}
 	}
 	li .exampleUrl {
 		background-image:url("/img/button/link.png");

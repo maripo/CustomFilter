@@ -172,6 +172,7 @@ var RuleContainer = (function () {
                 keywordSpan.className = (word.is_regexp) ? "keyword regex" : "keyword normal";
                 keywordSpan.innerHTML = word.word;
                 keywordsDiv.appendChild(keywordSpan);
+                keywordsDiv.appendChild(document.createTextNode(" "));
             }
             for (var _b = 0, _c = this.rule.wordGroups; _b < _c.length; _b++) {
                 var group = _c[_b];
@@ -179,6 +180,7 @@ var RuleContainer = (function () {
                 keywordSpan.className = "keyword group";
                 keywordSpan.innerHTML = group.name;
                 keywordsDiv.appendChild(keywordSpan);
+                keywordsDiv.appendChild(document.createTextNode(" "));
             }
         }
         informationDiv.appendChild(titleDiv);

@@ -109,8 +109,7 @@ function isMatchedByRule (rule:Rule, filterString:string) {
 
 function isMatchedByWords (rule:Rule, filterString:string) {
 	if (!rule.words) return false;
-	for (let i=0; i<rule.words.length; i++)
-	{
+	for (let i=0; i<rule.words.length; i++) {
 		if (rule.words[i].word.toLowerCase().indexOf(filterString)>=0)
 			return true;
 	}
@@ -205,12 +204,14 @@ class RuleContainer {
 				keywordSpan.className = (word.is_regexp)?"keyword regex":"keyword normal";
 				keywordSpan.innerHTML = word.word
 				keywordsDiv.appendChild(keywordSpan);
+				keywordsDiv.appendChild(document.createTextNode(" "));
 			}
 			for (let group of this.rule.wordGroups) {
 				let keywordSpan = document.createElement('SPAN');
 				keywordSpan.className = "keyword group";
 				keywordSpan.innerHTML = group.name;
 				keywordsDiv.appendChild(keywordSpan);
+				keywordsDiv.appendChild(document.createTextNode(" "));
 			}
 		}
 

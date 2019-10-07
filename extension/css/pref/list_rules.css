@@ -61,7 +61,7 @@ h2 {
     width: 175px;
     margin-top: 2px;
     float: right;
-    height: inherit;
+    /*height:inherit;*/
     line-height: 17px;
     text-align: right; }
   .rule-list li:hover div.buttonContainer {
@@ -94,25 +94,28 @@ h2 {
     font-size: 9px;
     left: 250px;
     top: 22px; }
-  .rule-list div.keywords span.blockAnyway {
-    margin-right: 4px;
-    padding: 0px 2px;
-    background-color: #dfd !important;
-    border: solid 1px #4d4 !important; }
-  .rule-list div.keywords span.keyword {
-    margin-right: 4px;
-    padding: 1px 4px;
-    border-radius: 4px !important;
-    font-size: 0.6rem; }
-  .rule-list div.keywords span.regex {
-    background-color: #fed3de !important;
-    border: solid 1px #fb5c86 !important; }
-  .rule-list div.keywords span.group {
-    background-color: #ffffff !important;
-    border: solid 1px #aaaaaa !important; }
-  .rule-list div.keywords span.normal {
-    background-color: #cdedf8 !important;
-    border: solid 1px #249bc3 !important; }
+  .rule-list .keywords {
+    clear: right;
+    white-space: nowrap; }
+    .rule-list .keywords span.blockAnyway {
+      margin-right: 4px;
+      padding: 0px 2px;
+      background-color: #dfd !important;
+      border: solid 1px #4d4 !important; }
+    .rule-list .keywords span.keyword {
+      margin-right: 4px;
+      padding: 1px 4px;
+      border-radius: 4px !important;
+      font-size: 0.6rem; }
+    .rule-list .keywords span.regex {
+      background-color: #fed3de !important;
+      border: solid 1px #fb5c86 !important; }
+    .rule-list .keywords span.group {
+      background-color: #ffffff !important;
+      border: solid 1px #aaaaaa !important; }
+    .rule-list .keywords span.normal {
+      background-color: #cdedf8 !important;
+      border: solid 1px #249bc3 !important; }
   .rule-list li .exampleUrl {
     background-image: url("/img/button/link.png");
     background-size: 14px 14px;

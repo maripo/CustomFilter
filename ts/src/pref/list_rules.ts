@@ -150,7 +150,7 @@ class RuleContainer {
 		this.selected = false;
 	}
 	applyClassName () {
-		this.liElement.className = (this.filtered)?'filtered':null;
+		this.liElement.className = (this.filtered)? 'rule-list__item rule-list__item--filtered filtered':'rule-list__item';
 	}
 
 	getLiElement (): HTMLElement {
@@ -201,14 +201,14 @@ class RuleContainer {
 		} else {
 			for (let word of this.rule.words) {
 				let keywordSpan = document.createElement('SPAN');
-				keywordSpan.className = (word.is_regexp)?"keyword regex":"keyword normal";
+				keywordSpan.className = (word.is_regexp)?"keyword keyword--regex":"keyword keyword--normal";
 				keywordSpan.innerHTML = word.word
 				keywordsDiv.appendChild(keywordSpan);
 				keywordsDiv.appendChild(document.createTextNode(" "));
 			}
 			for (let group of this.rule.wordGroups) {
 				let keywordSpan = document.createElement('SPAN');
-				keywordSpan.className = "keyword group";
+				keywordSpan.className = "keyword keyword--group";
 				keywordSpan.innerHTML = group.name;
 				keywordsDiv.appendChild(keywordSpan);
 				keywordsDiv.appendChild(document.createTextNode(" "));

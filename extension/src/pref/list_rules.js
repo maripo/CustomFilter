@@ -125,7 +125,7 @@ var RuleContainer = (function () {
         this.selected = false;
     };
     RuleContainer.prototype.applyClassName = function () {
-        this.liElement.className = (this.filtered) ? 'filtered' : null;
+        this.liElement.className = (this.filtered) ? 'rule-list__item rule-list__item--filtered filtered' : 'rule-list__item';
     };
     RuleContainer.prototype.getLiElement = function () {
         var _this = this;
@@ -169,7 +169,7 @@ var RuleContainer = (function () {
             for (var _i = 0, _a = this.rule.words; _i < _a.length; _i++) {
                 var word = _a[_i];
                 var keywordSpan = document.createElement('SPAN');
-                keywordSpan.className = (word.is_regexp) ? "keyword regex" : "keyword normal";
+                keywordSpan.className = (word.is_regexp) ? "keyword keyword--regex" : "keyword keyword--normal";
                 keywordSpan.innerHTML = word.word;
                 keywordsDiv.appendChild(keywordSpan);
                 keywordsDiv.appendChild(document.createTextNode(" "));
@@ -177,7 +177,7 @@ var RuleContainer = (function () {
             for (var _b = 0, _c = this.rule.wordGroups; _b < _c.length; _b++) {
                 var group = _c[_b];
                 var keywordSpan = document.createElement('SPAN');
-                keywordSpan.className = "keyword group";
+                keywordSpan.className = "keyword keyword--group";
                 keywordSpan.innerHTML = group.name;
                 keywordsDiv.appendChild(keywordSpan);
                 keywordsDiv.appendChild(document.createTextNode(" "));

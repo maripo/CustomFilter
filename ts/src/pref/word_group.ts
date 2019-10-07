@@ -37,6 +37,7 @@ class WordGroupPage {
 	}
 	getInterface (group:WordGroup) : HTMLElement {
 		let li = document.createElement("li");
+		li.className = "rule-list__item";
 		li.innerHTML = group.name;
 
 		let buttonContainer = document.createElement('DIV');
@@ -51,7 +52,7 @@ class WordGroupPage {
 		let keywords = new Array();
 		for (let word of group.words) {
 			let keywordSpan = document.createElement('SPAN');
-			keywordSpan.className = (word.is_regexp)?"keyword regex":"keyword normal";
+			keywordSpan.className = (word.is_regexp)?"keyword keyword--regex":"keyword keyword--normal";
 			keywordSpan.innerHTML = word.word;
 			keywordsDiv.appendChild(keywordSpan);
 			keywordsDiv.appendChild(document.createTextNode(" "));
@@ -184,7 +185,7 @@ class WordGroupWrapper {
 			console.log("words.length=" + String(this.group.words.length));
 			for (let i=0, l=this.group.words.length; i<l; i++) {
 				let keywordSpan = document.createElement('SPAN');
-				keywordSpan.className = (this.group.words[i].is_regexp)?"keyword regex":"keyword normal";
+				keywordSpan.className = (this.group.words[i].is_regexp)?"keyword keyword--regex":"keyword keyword--normal";
 				keywordSpan.innerHTML = this.group.words[i].word;
 				keywordsDiv.appendChild(keywordSpan);
 				keywordsDiv.appendChild(document.createTextNode(" "));

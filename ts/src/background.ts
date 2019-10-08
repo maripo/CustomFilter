@@ -107,10 +107,11 @@ class CustomBlockerTab {
 
 	execCallbackSetApplied (param): void {
 		this.appliedRules = param.list as [Rule];
+		let iconPath = "icon/" + ((this.appliedRules.length>0)?'icon.png':'icon_disabled.png');
 		try {
 			chrome.browserAction.setIcon(
 				{
-					path:"icon/" + ((this.appliedRules.length>0)?'icon.png':'icon_disabled.png'),
+					path: iconPath,
 					tabId:this.tabId
 				});
 		} catch (ex) {
@@ -279,7 +280,7 @@ function loadSmartRuleEditorSrc() {
 					else {
 						let appliedRules = (tabMap[tabId]) ? tabMap[tabId].appliedRules : [];
 						let applied = appliedRules.length>0;
-						let iconPath =  "icon/" + ((applied)?'icon3.png':'icon_disabled.png');
+						let iconPath =  "icon/" + ((applied)?'icon.png':'icon_disabled.png');
 						chrome.browserAction.setIcon(
 						{
 							path: iconPath,
@@ -316,9 +317,10 @@ function _setIconDisabled (isDisabled, tabId): void
 			tabId: tabId
 		});
 	}
+	let iconPath = "icon/" + ((isDisabled)?'icon_disabled.png':'icon.png');
 	chrome.browserAction.setIcon(
 	{
-		path: "icon/" + (isDisabled)?'icon_disabled.png':'icon.png',
+		path: iconPath,
 		tabId: tabId
 	});
 

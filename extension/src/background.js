@@ -59,9 +59,10 @@ var CustomBlockerTab = (function () {
     };
     CustomBlockerTab.prototype.execCallbackSetApplied = function (param) {
         this.appliedRules = param.list;
+        var iconPath = "icon/" + ((this.appliedRules.length > 0) ? 'icon.png' : 'icon_disabled.png');
         try {
             chrome.browserAction.setIcon({
-                path: "icon/" + ((this.appliedRules.length > 0) ? 'icon.png' : 'icon_disabled.png'),
+                path: iconPath,
                 tabId: this.tabId
             });
         }
@@ -213,7 +214,7 @@ function loadSmartRuleEditorSrc() {
             else {
                 var appliedRules = (tabMap[tabId]) ? tabMap[tabId].appliedRules : [];
                 var applied = appliedRules.length > 0;
-                var iconPath = "icon/" + ((applied) ? 'icon3.png' : 'icon_disabled.png');
+                var iconPath = "icon/" + ((applied) ? 'icon.png' : 'icon_disabled.png');
                 chrome.browserAction.setIcon({
                     path: iconPath,
                     tabId: tabId
@@ -246,8 +247,9 @@ function _setIconDisabled(isDisabled, tabId) {
             tabId: tabId
         });
     }
+    var iconPath = "icon/" + ((isDisabled) ? 'icon_disabled.png' : 'icon.png');
     chrome.browserAction.setIcon({
-        path: "icon/" + (isDisabled) ? 'icon_disabled.png' : 'icon.png',
+        path: iconPath,
         tabId: tabId
     });
 }

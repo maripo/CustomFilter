@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name" : "CustomBlocker",
-  "version" : "4.0.4",
+  "version" : "4.0.5",
   "default_locale": "en",
   "description" : "__MSG_extDescription__",
   "browser_action": {

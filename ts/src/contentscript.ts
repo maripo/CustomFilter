@@ -107,7 +107,7 @@ class BackgroundCommunicator {
 		if (!window.smartRuleCreatorDialog) {
 			window.smartRuleCreatorDialog = new SmartRuleCreatorDialog(RuleEditor.getMaxZIndex() + 1, request.src);
 		}
-		var creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText, request.needSuggestion);
+		let creator = new SmartRuleCreator(lastRightClickedElement, request.appliedRuleList, request.selectionText, request.needSuggestion);
 	}
 
 	bgPort:any/* Port */;

@@ -304,16 +304,17 @@ var SmartRuleCreatorDialog = (function () {
             for (var i = 0; i < creator.suggestedPathList.length; i++) {
                 var path = creator.suggestedPathList[i];
                 path.title = chrome.i18n.getMessage('smartRuleEditorSuggestedTitlePrefix') + (i + 1);
-                var li = this.createLiElement(path.title, path.hidePath.elements.length, path.searchPath.elements.length, chrome.i18n.getMessage('smartRuleEditorSuggestedButtonLabel'));
-                li.addEventListener('mouseover', this.getSuggestedPathHoverAction(path, li), true);
-                li.addEventListener('click', this.getSuggestedPathClickAction(path, li), true);
-                li.className = 'option';
-                this.ul.appendChild(li);
+                var li_1 = this.createLiElement(path.title, path.hidePath.elements.length, path.searchPath.elements.length, chrome.i18n.getMessage('smartRuleEditorSuggestedButtonLabel'));
+                li_1.addEventListener('mouseover', this.getSuggestedPathHoverAction(path, li_1), true);
+                li_1.addEventListener('click', this.getSuggestedPathClickAction(path, li_1), true);
+                li_1.className = 'option';
+                this.ul.appendChild(li_1);
             }
         }
         this.input_keyword.value = creator.selectionText || '';
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
         var _left = Math.min(event.clientX + document.body.scrollLeft, document.body.clientWidth - 190);
-        var _top = event.clientY + document.body.scrollTop;
+        var _top = event.clientY + scrollTop;
         this.div.style.left = _left + 'px';
         this.div.style.top = _top + 'px';
         var divElements = this.div.getElementsByTagName('*');

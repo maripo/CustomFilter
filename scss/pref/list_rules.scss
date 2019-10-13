@@ -147,10 +147,13 @@ h2 {
 	}
 }
 .keyword {
-	margin-right:4px;
-	padding:1px 4px;
+	padding:0 4px;
 	border-radius:4px!important;
 	font-size:0.6rem;
+	display: inline-block;
+	line-height: 12px;
+	height:12px;
+	margin-bottom: 4px;
 	&--regex {
 		background-color:#fed3de!important;
 		border: solid 1px #fb5c86!important;

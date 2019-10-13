@@ -165,6 +165,7 @@ class RuleContainer {
 		exampleLink.addEventListener("click", ()=>{
 			window.open(this.rule.example_url);
 		});
+		this.liElement.addEventListener('click', this.getSelectAction(), false);
 		let buttonContainer = document.createElement('DIV');
 		buttonContainer.className = 'buttonContainer';
 		buttonContainer.appendChild(exampleLink);
@@ -258,33 +259,32 @@ class RuleContainer {
 	}
 
 	getDisableAction (inputButton: HTMLInputElement) {
-		let rule = this.rule;
-		return function (event) {
+		return (event) => {
+				event.stopPropagation();
+				let rule = this.rule
 				cbStorage.toggleRule(rule, function() {
-				// Toggle enabled flag and save
 				inputButton.value = (rule.is_disabled)?'OFF':'ON';
 				inputButton.className = (rule.is_disabled)?'uiButton buttonOff':'uiButton buttonOn';
 				});
 		}
 	}
 	getSelectAction () {
-		let self = this;
-		return function ()
-		{
+		return (event) => {
+			// event.stopPropagation();
 			document.getElementById('rule_editor_alert').style.display = 'none';
-			ruleEditor.selectRule(self.rule);
+			ruleEditor.selectRule(this.rule);
 			deselectAll();
-			self.selected = true;
-			self.applyClassName();
+			this.selected = true;
+			this.applyClassName();
 		};
 	}
 	getDeleteAction () {
-		let self = this;
-		return function () {
+		return (event) => {
+			event.stopPropagation();
 			if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
-				cbStorage.deleteRule(self.rule, function(){});
-				self.liElement.parentNode.removeChild(self.liElement);
-				removeElement (self);
+				cbStorage.deleteRule(this.rule, function(){});
+				this.liElement.parentNode.removeChild(this.liElement);
+				removeElement(this);
 				showCount();
 				reloadBackground();
 			}

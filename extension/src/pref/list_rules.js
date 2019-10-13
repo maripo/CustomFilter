@@ -139,6 +139,7 @@ var RuleContainer = (function () {
         exampleLink.addEventListener("click", function () {
             window.open(_this.rule.example_url);
         });
+        this.liElement.addEventListener('click', this.getSelectAction(), false);
         var buttonContainer = document.createElement('DIV');
         buttonContainer.className = 'buttonContainer';
         buttonContainer.appendChild(exampleLink);
@@ -220,8 +221,10 @@ var RuleContainer = (function () {
         return button;
     };
     RuleContainer.prototype.getDisableAction = function (inputButton) {
-        var rule = this.rule;
+        var _this = this;
         return function (event) {
+            event.stopPropagation();
+            var rule = _this.rule;
             cbStorage.toggleRule(rule, function () {
                 inputButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
                 inputButton.className = (rule.is_disabled) ? 'uiButton buttonOff' : 'uiButton buttonOn';
@@ -229,22 +232,23 @@ var RuleContainer = (function () {
         };
     };
     RuleContainer.prototype.getSelectAction = function () {
-        var self = this;
-        return function () {
+        var _this = this;
+        return function (event) {
             document.getElementById('rule_editor_alert').style.display = 'none';
-            ruleEditor.selectRule(self.rule);
+            ruleEditor.selectRule(_this.rule);
             deselectAll();
-            self.selected = true;
-            self.applyClassName();
+            _this.selected = true;
+            _this.applyClassName();
         };
     };
     RuleContainer.prototype.getDeleteAction = function () {
-        var self = this;
-        return function () {
+        var _this = this;
+        return function (event) {
+            event.stopPropagation();
             if (window.confirm(chrome.i18n.getMessage('dialogDelete'))) {
-                cbStorage.deleteRule(self.rule, function () { });
-                self.liElement.parentNode.removeChild(self.liElement);
-                removeElement(self);
+                cbStorage.deleteRule(_this.rule, function () { });
+                _this.liElement.parentNode.removeChild(_this.liElement);
+                removeElement(_this);
                 showCount();
                 reloadBackground();
             }

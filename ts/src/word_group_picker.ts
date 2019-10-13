@@ -49,7 +49,6 @@ class WordGroupPicker {
 	}
 
 	setRule (rule:Rule) {
-		console.log("setRule rule=" + rule);
 		this.rule = rule;
 	}
 }

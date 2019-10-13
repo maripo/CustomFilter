@@ -117,30 +117,3 @@ block content
         a(href='https://docs.google.com/spreadsheet/viewform?formkey=dGRTeWxoSEVRa1J4a0NJU0dhQklsT1E6MQ') コンタクトフォーム
         | からお寄せください。
   script(type='text/javascript', src='../src/analytics.js')
-
-//- block content
-  head
-    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
-    title ヘルプ | CustomBlocker
-    link(rel='stylesheet', type='text/css', href='../css/rule_editor.css')
-    link(rel='stylesheet', type='text/css', href='../css/pref/list_rules.css')
-    link(rel='stylesheet', type='text/css', href='../css/pref/help.css')
-    script(type='text/javascript', src='../src/CustomBlocker.js')
-    script(type='text/javascript', src='../src/pref/list_rules.js')
-    script(type='text/javascript', src='../src/pref/help.js')
-  body
-    #header
-      h1
-        img(src='../img/top_title.png', alt='CustomBlocker for Google Chrome')
-      .donate
-        a#donate_link.custom_filter_localize_donate(href='#donate') Donate
-      ul
-        li
-          a(href='index.html?p=p3')
-            span.custom_filter_localize_prefTitle ルールの管理
-        li
-          a#word_group_link(href='word_group.html')
-            span.custom_filter_localize_word_group Word Groups
-        li.selected
-          a#help_link(href='help_ja.html')
-            span.custom_filter_localize_help Help

@@ -97,10 +97,13 @@ class RuleExecutor {
 		}
 	}
 	static execBlock ():void {
+		if (!needExecBlock) {
+			return;
+		}
+		needExecBlock = false;
 		if (!rules) return;
 		for (let rule of rules) {
 			if (!rule.is_disabled) {
-
 				RuleExecutor.applyRule(rule, false,
 					function (node:HTMLElement) {
 						hiddenNodeList.add(node);

@@ -108,6 +108,10 @@ var RuleExecutor = (function () {
         }
     };
     RuleExecutor.execBlock = function () {
+        if (!needExecBlock) {
+            return;
+        }
+        needExecBlock = false;
         if (!rules)
             return;
         var _loop_2 = function (rule) {

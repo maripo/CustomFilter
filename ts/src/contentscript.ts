@@ -150,3 +150,7 @@ document.body.oncontextmenu = function(event){
 	lastRightClickedElement=event.srcElement;
 	lastRightClickEvent=event
 };
+let needExecBlock = true;
+document.body.addEventListener('DOMNodeInserted', (event)=>{
+	needExecBlock = true;
+});

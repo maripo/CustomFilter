@@ -128,4 +128,8 @@ document.body.oncontextmenu = function (event) {
     lastRightClickedElement = event.srcElement;
     lastRightClickEvent = event;
 };
+var needExecBlock = true;
+document.body.addEventListener('DOMNodeInserted', function (event) {
+    needExecBlock = true;
+});
 //# sourceMappingURL=contentscript.js.map

@@ -186,6 +186,16 @@ class RuleEditorFrame {
 		this.refreshPathSections();
 		this.refreshXPathSelectedStyles();
 	}
+	// TODO this is ad-hoc fix.
+	reloadBG () {
+			try {
+				let bgWindow = chrome.extension.getBackgroundPage();
+				bgWindow.reloadLists();
+			}
+			catch (ex) {
+				alert(ex)
+			}
+	}
 	saveRule () {
 		let dialog = this;
 		let validateErrors = this.validateInput();
@@ -196,6 +206,7 @@ class RuleEditorFrame {
 		this.applyInput();
 		console.log(this.rule);
 		postMessageToParent({command:"customblocker_save_rule", rule:this.rule});
+		setTimeout(()=>{this.reloadBG()}, 250);
 	}
 	close () {
 		postMessageToParent({command:"customblocker_close"});

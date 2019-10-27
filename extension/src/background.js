@@ -15,6 +15,7 @@ function addToExistingTabList(tabIdToAdd) {
     existingTabs[tabIdToAdd] = true;
 }
 function reloadLists() {
+    console.log("reloadLists");
     loadLists();
 }
 function openRulePicker(selectedRule) {

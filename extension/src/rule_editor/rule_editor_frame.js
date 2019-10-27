@@ -140,7 +140,17 @@ var RuleEditorFrame = (function () {
         this.refreshPathSections();
         this.refreshXPathSelectedStyles();
     };
+    RuleEditorFrame.prototype.reloadBG = function () {
+        try {
+            var bgWindow = chrome.extension.getBackgroundPage();
+            bgWindow.reloadLists();
+        }
+        catch (ex) {
+            alert(ex);
+        }
+    };
     RuleEditorFrame.prototype.saveRule = function () {
+        var _this = this;
         var dialog = this;
         var validateErrors = this.validateInput();
         if (validateErrors.length > 0) {
@@ -150,6 +160,7 @@ var RuleEditorFrame = (function () {
         this.applyInput();
         console.log(this.rule);
         postMessageToParent({ command: "customblocker_save_rule", rule: this.rule });
+        setTimeout(function () { _this.reloadBG(); }, 250);
     };
     RuleEditorFrame.prototype.close = function () {
         postMessageToParent({ command: "customblocker_close" });

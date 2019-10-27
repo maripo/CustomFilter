@@ -53,6 +53,7 @@ interface HTMLElement {
 }
 
 function reloadLists (): void {
+	console.log("reloadLists")
 	loadLists();
 }
 

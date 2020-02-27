@@ -1,5 +1,5 @@
-#smart_rule_editor_body .section h2,
-#rule_editor_body .section h2 {
+.smart-rule-editor-body .section h2,
+.rule-editor-body .section h2 {
 	color:#444!important;
 	font-size:12px!important;
 	line-height:110%!important;
@@ -10,21 +10,21 @@
 	display:block!important;
 	border:none!important;
 }
-#smart_rule_editor_body .section h3,
-#rule_editor_body .section h3 {
+.smart-rule-editor-body .section h3,
+.rule-editor-body .section h3 {
 	font-size:13px!important;
 	font-weight:bold!important;
 }
-#smart_rule_editor_body .section h4 {
+.smart-rule-editor-body .section h4 {
 	font-size:12px!important;
 	font-weight:normal!important;
 	padding:0px 0px 0px 10px!important;
 }
-#rule_editor_body h4 {
+.rule-editor-body h4 {
 	font-size:12px!important;
 }
-#smart_rule_editor_body .section h2 span.text,
-#rule_editor_body .section h2 span.text{
+.smart-rule-editor-body .section h2 span.text,
+.rule-editor-body .section h2 span.text{
 	background-color:white!important;
 }
 
@@ -32,8 +32,8 @@ div.customblocker_rule_dialog {
 	font-size : small!important;
 }
 
-#smart_rule_editor_body  .section div.label,
-#rule_editor_body  .section div.label {
+.smart-rule-editor-body  .section div.label,
+.rule-editor-body  .section div.label {
 	width:45px!important;
 	font-size:75%!important;
 	float:left!important;
@@ -43,8 +43,8 @@ div.customblocker_rule_dialog {
 	color:black!important;
 }
 
-#smart_rule_editor_body input[type="text"],
-#rule_editor_body input[type="text"] {
+.smart-rule-editor-body input[type="text"],
+.rule-editor-body input[type="text"] {
 	height:initial!important;
 	border:solid 1px #888!important;
 	float:none!important;
@@ -55,12 +55,12 @@ div.customblocker_rule_dialog {
 	padding-left:2px!important;
 }
 
-#smart_rule_editor_body input[type="button"],
-#rule_editor_body input[type="button"] {
+.smart-rule-editor-body input[type="button"],
+.rule-editor-body input[type="button"] {
 	font-size:11px!important;
 }
 
-#rule_editor_body a.help,
+.rule-editor-body a.help,
 #smart_rule_editor_preview a.help {;
 	color:white!important;
 	text-decoration:none!important;
@@ -80,11 +80,11 @@ div.customblocker_rule_dialog {
 	width:100px!important;
 }
 
-#smart_rule_editor_body span.word, #smart_rule_editor_preview span.word {
+.smart-rule-editor-body span.word, #smart_rule_editor_preview span.word {
 	font-size:11px!important;
 }
-#rule_editor_body .section,
-#smart_rule_editor_body .section {
+.rule-editor-body .section,
+.smart-rule-editor-body .section {
 	clear:left;
 	margin:6px 8px 2px!important;
 	padding:2px 6px!important;
@@ -92,35 +92,35 @@ div.customblocker_rule_dialog {
 	border-radius:0px!important;
 }
 
-#rule_editor_body .section div.content,
-#smart_rule_editor_body .section div.content {
+.rule-editor-body .section div.content,
+.smart-rule-editor-body .section div.content {
 	clear:left;
 	margin:0px!important;
 	padding:4px!important;
 }
 
-#rule_editor_body div.selector_radio_container,
-#smart_rule_editor_body div.selector_radio_container
+.rule-editor-body div.selector_radio_container,
+.smart-rule-editor-body div.selector_radio_container
 {
 	font-size:10px!important;
 	line-height:10px!important;
 	text-align:left!important;
 	padding-left:49px!important;
 }
-#rule_editor_body div.bottom_button_container,
-#smart_rule_editor_body div.bottom_button_container {
+.rule-editor-body div.bottom_button_container,
+.smart-rule-editor-body div.bottom_button_container {
 	text-align:center!important;
 	padding:4px 4px!important;
 }
-#rule_editor_body label,
-#smart_rule_editor_body label {
+.rule-editor-body label,
+.smart-rule-editor-body label {
 	font-size:11px!important;
 	display:inline!important;
 	float:initial!important;
 	color:black!important;
 	font-weight:normal!important;
 }
-#rule_editor_body input.xpath_picker {
+.rule-editor-body input.xpath_picker {
 	background-image:url(../img/wand_transparent.png)!important;
 	background-size: 14px 14px!important;
 	background-color: #2fb947!important;
@@ -130,9 +130,9 @@ div.customblocker_rule_dialog {
 	color:#fff!important;
 	background-position: 3px 3px !important;	
 }
-#rule_editor_body input.xpath_picker:active {
+.rule-editor-body input.xpath_picker:active {
 	background-color: #2aa440!important;
 }
-#rule_editor_body .rule_editor_condition_section {
+.rule-editor-body .rule_editor_condition_section {
 	margin-left:16px!important;
 }

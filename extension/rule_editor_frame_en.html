@@ -8,10 +8,10 @@
     <link rel="stylesheet" type="text/css" href="./css/keywords.css">
     <title>CustomBlocker Rule Editor</title>
   </head>
-  <body style="width: 400px;">
+  <body style="width: 400px;margin:0">
     <div id="rule_editor_outline">
-      <div class="customblocker_rule_dialog" id="rule_editor_body">
-        <section class="section">
+      <div class="rule-editor-body customblocker_rule_dialog" id="rule_editor_body">
+        <section class="section rule-editor-body__section">
           <div class="sectionBody">
             <div class="input_section">
               <div class="label">Name</div>
@@ -21,7 +21,7 @@
             </div>
           </div>
         </section>
-        <section class="section">
+        <section class="section rule-editor-body__section">
           <h2><span class="text">Target Sites</span></h2>
           <div class="sectionBody">
             <div class="input_section">
@@ -44,7 +44,7 @@
             <div class="description">The asterisk (*) matches zero or more characters. This rule is applied on matched sites.</div>
           </div>
         </section>
-        <section class="section">
+        <section class="section rule-editor-body__section">
           <h2><span class="text">Elements to Hide</span></h2>
           <div class="sectionBody">
             <div class="content">
@@ -73,7 +73,7 @@
             </div>
           </div>
         </section>
-        <section class="section">
+        <section class="section rule-editor-body__section">
           <h2><span class="text">Condition</span></h2>
           <div class="sectionBody">
             <!-- Radio Buttons-->

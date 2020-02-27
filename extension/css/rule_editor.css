@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*
- * Rule Editor
- */
+* Rule Editor
+*/
 #rule_editor_container {
   background-color: white !important;
   text-align: left !important;
@@ -14,12 +14,12 @@
   border-radius: 0px !important;
   -webkit-box-shadow: 1px 1px 2px #0008 !important; }
 
-#rule_editor_body {
+.rule-editor-body {
   cursor: default !important;
   color: black !important;
   font-size: 12px !important;
   width: 400px; }
-  #rule_editor_body * {
+  .rule-editor-body * {
     text-align: left;
     background: none;
     text-indent: 0px !important;
@@ -30,14 +30,14 @@
     margin: 0px !important;
     border-radius: 0px !important;
     -webkit-border-radius: 0px !important; }
-  #rule_editor_body label {
+  .rule-editor-body label {
     float: none !important;
     color: black !important;
     font-size: 100% !important;
     width: auto !important;
     display: inline !important;
     font-weight: normal !important; }
-  #rule_editor_body a {
+  .rule-editor-body a {
     text-indent: 0px !important;
     position: static !important;
     font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
@@ -47,11 +47,11 @@
     margin-left: 0px !important;
     margin-top: 0px !important;
     margin-bottom: 0px !important; }
-  #rule_editor_body div.input_section {
+  .rule-editor-body div.input_section {
     clear: both !important;
     height: 24px !important;
     line-height: 24px !important; }
-  #rule_editor_body input {
+  .rule-editor-body input {
     height: auto !important;
     color: black !important;
     font-size: 12px !important;
@@ -61,36 +61,32 @@
     box-shadow: none !important;
     outline: none !important;
     border: initial !important; }
-  #rule_editor_body input.uiButton {
+  .rule-editor-body input.uiButton {
     border-radius: 0px !important;
     margin-left: 2px !important;
     vertical-align: middle !important;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) !important;
     color: #fff !important;
-    text-align: center; }
-
-#rule_editor_body div,
-#rule_editor_body h2 {
-  overflow: visible !important;
-  height: auto;
-  left: auto !important;
-  top: auto !important; }
-
-#rule_editor_body input[type="text"] {
-  border: solid 1px #888 !important;
-  float: none !important;
-  min-height: initial !important;
-  min-width: initial !important;
-  box-shadow: none !important; }
-
-#rule_editor_body .section .description {
-  clear: both !important;
-  float: none !important;
-  font-size: 10px !important;
-  color: #444 !important; }
-
-#rule_editor_body .footer input.uiButton {
-  padding: 3px 6px !important; }
+    text-align: center;
+    padding: 3px 6px !important; }
+  .rule-editor-body input[type="text"] {
+    border: solid 1px #888 !important;
+    float: none !important;
+    min-height: initial !important;
+    min-width: initial !important;
+    box-shadow: none !important; }
+  .rule-editor-body .section .description {
+    clear: both !important;
+    float: none !important;
+    font-size: 10px !important;
+    color: #444 !important; }
+  .rule-editor-body .footer input.uiButton {
+    padding: 3px 6px !important; }
+  .rule-editor-body div, .rule-editor-body h2 {
+    overflow: visible !important;
+    height: auto;
+    left: auto !important;
+    top: auto !important; }
 
 #rule_editor_save_button, #rule_editor_add_keyword_button {
   background-color: #0db3ea !important; }
@@ -169,51 +165,44 @@
   text-align: left !important;
   text-indent: 0px !important;
   -webkit-box-shadow: 1px 1px 2px #000; }
+  #xpath_picker_body li {
+    text-indent: 2px !important;
+    cursor: default !important;
+    padding-top: 1px !important;
+    border-bottom: solid 1px #bbb !important;
+    background-color: #fff !important; }
+  #xpath_picker_body li.upper a {
+    background-size: 8px 8px !important;
+    background-image: url(../img/icon_upper.png) !important;
+    background-position: 2px 7px !important;
+    background-repeat: no-repeat !important;
+    text-indent: 12px !important; }
+  #xpath_picker_body ul a:hover {
+    background-color: #ffc; }
+  #xpath_picker_body ul a {
+    display: block;
+    text-decoration: none;
+    color: black !important;
+    padding: 2px;
+    font-size: 10px; }
+  #xpath_picker_body ul a span.xpath {
+    margin-left: 4px; }
+  #xpath_picker_body ul a span.badge {
+    background-color: #0db3ea !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 0px !important;
+    font-size: 9px !important;
+    padding: 0px 2px 0px 2px !important;
+    font-weight: normal !important;
+    display: inline !important; }
+  #xpath_picker_body ul, #xpath_picker_body li {
+    text-indent: 0px !important;
+    list-style-type: none;
+    margin: 0px !important;
+    padding: 0px !important; }
 
-#xpath_picker_body ul, #xpath_picker_body li {
-  text-indent: 0px !important;
-  list-style-type: none;
-  margin: 0px !important;
-  padding: 0px !important; }
-
-#xpath_picker_body li {
-  text-indent: 2px !important;
-  cursor: default !important;
-  padding-top: 1px !important;
-  border-bottom: solid 1px #bbb !important;
-  background-color: #fff !important; }
-
-#xpath_picker_body li.upper a {
-  background-size: 8px 8px !important;
-  background-image: url(../img/icon_upper.png) !important;
-  background-position: 2px 7px !important;
-  background-repeat: no-repeat !important;
-  text-indent: 12px !important; }
-
-#xpath_picker_body ul a:hover {
-  background-color: #ffc; }
-
-#xpath_picker_body ul a {
-  display: block;
-  text-decoration: none;
-  color: black !important;
-  padding: 2px;
-  font-size: 10px; }
-
-#xpath_picker_body ul a span.xpath {
-  margin-left: 4px; }
-
-#xpath_picker_body ul a span.badge {
-  background-color: #0db3ea !important;
-  color: #fff !important;
-  border: none !important;
-  border-radius: 0px !important;
-  font-size: 9px !important;
-  padding: 0px 2px 0px 2px !important;
-  font-weight: normal !important;
-  display: inline !important; }
-
-#rule_editor_body_drag {
+.rule_editor_body_drag {
   height: 22px !important;
   margin-bottom: 8px !important;
   font-weight: normal !important;
@@ -226,25 +215,23 @@
   font-size: 100% !important;
   border-top-left-radius: 0px !important;
   border-top-right-radius: 0px !important; }
+  .rule_editor_body_drag h1 {
+    width: 180px !important;
+    color: black !important;
+    border: none !important;
+    font-size: 14px !important;
+    line-height: 18px !important;
+    font-weight: bold !important;
+    text-indent: 8px !important;
+    padding-top: 6px !important; }
+  .rule_editor_body_drag a.close {
+    text-decoration: none;
+    height: inherit;
+    color: #fff;
+    float: right;
+    text-align: right; }
 
-#rule_editor_body_drag h1 {
-  width: 180px !important;
-  color: black !important;
-  border: none !important;
-  font-size: 14px !important;
-  line-height: 18px !important;
-  font-weight: bold !important;
-  text-indent: 8px !important;
-  padding-top: 6px !important; }
-
-#rule_editor_body_drag a.close {
-  text-decoration: none;
-  height: inherit;
-  color: #fff;
-  float: right;
-  text-align: right; }
-
-#rule_editor_body .footer {
+.rule-editor-body .footer {
   text-align: center !important;
   padding: 2px 0px 4px !important; }
 
@@ -258,14 +245,6 @@
   font-size: 12px;
   display: none; }
 
-#rule_editor_body div.section_alert {
-  color: red;
-  display: none;
-  font-size: 85%; }
-
-#rule_editor_body div.bottom_button_container {
-  padding: 2px !important; }
-
 #rule_editor_closer {
   background-image: url(../img/rule_editor_close.png) !important;
   background-repeat: no-repeat !important;
@@ -277,7 +256,15 @@
   margin-top: 4px !important;
   cursor: pointer !important; }
 
-#rule_editor_body span.rule_editor_count {
+.rule-editor-body div.section_alert {
+  color: red;
+  display: none;
+  font-size: 85%; }
+
+.rule-editor-body div.bottom_button_container {
+  padding: 2px !important; }
+
+.rule-editor-body .rule_editor_count {
   border-width: 1px;
   border-style: solid;
   font-size: 11px;
@@ -285,11 +272,11 @@
   font-weight: bold !important;
   border-radius: 0px !important; }
 
-#rule_editor_body span.rule_editor_count_hide {
+.rule-editor-body .rule_editor_count_hide {
   background-color: #959595 !important;
   padding: 1px 2px !important; }
 
-#rule_editor_body span.rule_editor_count_search {
+.rule-editor-body .rule_editor_count_search {
   background-color: #0db3ea !important;
   padding: 1px 2px !important; }
 

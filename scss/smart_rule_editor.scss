@@ -1,6 +1,6 @@
 /**
- * Smart Rule Editor Dialog
- */
+* Smart Rule Editor Dialog
+*/
 #smart_rule_creator_dialog {
 	position: absolute;
 	font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
@@ -18,80 +18,76 @@
 	-webkit-box-shadow: 1px 1px 1px #000;
 	width:184px;
 	border:solid 1px #888;
-}
-#smart_rule_creator_dialog * {
-	text-align:left;
-	background:none;
-	text-indent:0px!important;
-	position:static;
-	font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
-	margin:0px;
-	padding:0px!important;
-	margin:0px!important;
-	border-radius: 0px!important;
-	-webkit-border-radius: 0px!important;
-}
-/**
- * Rule List
-*/
-#smart_rule_creator_dialog li.option {
-	text-indent:2px!important;
-	cursor:default!important;
-	padding-top:1px!important;
-	border-bottom:solid 1px #bbb!important;
-	background-color:#fff!important;
-}
-#smart_rule_creator_dialog li.option input[type="button"]{
-	display:none;
-	float:right;
-	height:16px!important;
-	font-size:10px!important;
-	line-height:16px!important;
-
-}
-#smart_rule_creator_dialog li.option:hover input{
-	display:inline;
-}
-#smart_rule_creator_dialog ul.active li.option:hover {
-	background-color:#fbe496!important;
-}
-#smart_rule_creator_dialog li.selected {
-	background-color:#fbe496!important;
-}
-#smart_rule_creator_dialog li {
-	height:18px!important;
-	font-size:12px!important;
-	list-style-type:none!important;
-	list-style-image:none!important;
-}
-/* Count badge */
-#smart_rule_creator_dialog li.option span.searchCount {
-	background-color:#0db3ea!important;
-	color:#fff!important;
-	font-size:9px!important;
-	border-radius:0px!important;
-	margin-right:2px!important;
-	padding:1px 2px!important;
-}
-#smart_rule_creator_dialog li.option span.hideCount {
-	background-color:#959595;
-	color:white;
-	font-size:9px;
-	height:11px;
-	border-radius:0px!important;
-	margin-right:2px!important;
-	padding:1px 2px!important;
-}
-#smart_rule_creator_dialog li.smartEditorSectionTitle {
-	outline-top: solid 1px #ffffff!important;
-	border-bottom:solid 1px #959595!important;
-	text-indent:4px!important;
-	line-height:18px;
-	height:18px;
-	background-color: #fff!important;
-	cursor:move!important;
-	color:#000;
-	padding-top:1px!important;
+	* {
+		text-align:left;
+		background:none;
+		text-indent:0px!important;
+		position:static;
+		font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
+		margin:0px;
+		padding:0px!important;
+		margin:0px!important;
+		border-radius: 0px!important;
+		-webkit-border-radius: 0px!important;
+	}
+	li.option {
+		text-indent:2px!important;
+		cursor:default!important;
+		padding-top:1px!important;
+		border-bottom:solid 1px #bbb!important;
+		background-color:#fff!important;
+	}
+	li.option input[type="button"]{
+		display:none;
+		float:right;
+		height:16px!important;
+		font-size:10px!important;
+		line-height:16px!important;
+		
+	}
+	li.option:hover input{
+		display:inline;
+	}
+	ul.active li.option:hover {
+		background-color:#fbe496!important;
+	}
+	li.selected {
+		background-color:#fbe496!important;
+	}
+	li {
+		height:18px!important;
+		font-size:12px!important;
+		list-style-type:none!important;
+		list-style-image:none!important;
+	}
+	li.option span.searchCount {
+		background-color:#0db3ea!important;
+		color:#fff!important;
+		font-size:9px!important;
+		border-radius:0px!important;
+		margin-right:2px!important;
+		padding:1px 2px!important;
+	}
+	li.option span.hideCount {
+		background-color:#959595;
+		color:white;
+		font-size:9px;
+		height:11px;
+		border-radius:0px!important;
+		margin-right:2px!important;
+		padding:1px 2px!important;
+	}
+	li.smartEditorSectionTitle {
+		outline-top: solid 1px #ffffff!important;
+		border-bottom:solid 1px #959595!important;
+		text-indent:4px!important;
+		line-height:18px;
+		height:18px;
+		background-color: #fff!important;
+		cursor:move!important;
+		color:#000;
+		padding-top:1px!important;
+	}
 }
 #smart_rule_creator_dialog_edit {
 	background-color:white;
@@ -103,18 +99,18 @@
 }
 
 /**
-	Dialog Body
+Dialog Body
 */
 
-#smart_rule_editor_body {
+.smart-rule-editor-body {
+	.section div.input {
+		margin-left:120px;
+	}
+	div.advanced {
+	}
 }
 
-#smart_rule_editor_body .section div.input {
-	margin-left:120px;
-}
-#smart_rule_editor_body div.advanced {
-}
-#smart_rule_creator_dialog input.uiButton, #smart_rule_editor_body input.uiButton {
+#smart_rule_creator_dialog input.uiButton, .smart-rule-editor-body input.uiButton {
 	border:none!important;
 	padding-right:2px!important;
 	padding-left:2px!important;
@@ -128,9 +124,9 @@
 /* List buttons */
 #smart_rule_creator_dialog li input.uiButton {
 	background-color: #0db3ea!important;
-
+	
 }
-#smart_rule_editor_body input[type="button"]:active, #smart_rule_creator_dialog input[type="button"]:active {
+.smart-rule-editor-body input[type="button"]:active, #smart_rule_creator_dialog input[type="button"]:active {
 	background-color: #0d9fd1!important;
 }
 
@@ -139,7 +135,7 @@
 }
 #smart_rule_editor_cancel {
 	background-color:#959595!important;
-
+	
 }
 #smart_rule_editor_close {
 	background-color:#959595!important;
@@ -160,9 +156,9 @@
 }
 
 /**
- Preview
- */
- /* Body */
+Preview
+*/
+/* Body */
 #smart_rule_editor_preview {
 	position:relative;
 }
@@ -238,13 +234,13 @@ div.section_detail_link {
 	text-align:right!important;
 }
 /**
-	Input fields
+Input fields
 */
 
 #smart_rule_editor_title, #smart_rule_editor_url,#smart_rule_editor_example_url, #smart_rule_editor_site_description,
 #smart_rule_editor_search_block_css, #smart_rule_editor_search_block_xpath, #smart_rule_editor_search_block_description,
 #smart_rule_editor_hide_block_css, #smart_rule_editor_hide_block_xpath, #smart_rule_editor_hide_block_description
- {
+{
 	width:216px;
 }
 #smart_rule_editor_preview_suggested {

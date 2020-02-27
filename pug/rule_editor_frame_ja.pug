@@ -7,16 +7,16 @@ html
     link(rel='stylesheet', type='text/css', href='./css/rule_editor.css')
     link(rel='stylesheet', type='text/css', href='./css/keywords.css')
     title CustomBlocker Rule Editor
-  body(style='width: 400px;', onload='')
+  body(style='width:400px;margin:0')
     #rule_editor_outline
-      #rule_editor_body.customblocker_rule_dialog
-        section.section
+      #rule_editor_body.rule-editor-body.customblocker_rule_dialog
+        section.section.rule-editor-body__section
           .sectionBody
             .input_section
               .label ルール名
               .sectionBody
                 input#rule_editor_title.rule_editor_textbox(type='text')
-        section.section
+        section.section.rule-editor-body__section
           h2
             span.text 対象サイト
           .sectionBody
@@ -36,7 +36,7 @@ html
               .label Description
               input#rule_editor_site_description.rule_editor_textbox(type='text')
             .description 「*」は全ての文字列とマッチします。
-        section.section
+        section.section.rule-editor-body__section
           h2
             span.text 隠す要素
           .sectionBody
@@ -65,7 +65,7 @@ html
                 .label Description
                 input#rule_editor_hide_block_description.rule_editor_textbox(type='text')
               .description ここで指定した単位で要素を隠します。
-        section.section
+        section.section.rule-editor-body__section
           h2
             span.text 条件
           .sectionBody

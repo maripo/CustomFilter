@@ -34,7 +34,7 @@ h2 {
 	margin: 0px;
 	overflow-y:scroll;
 }
-#rule_editor_body {
+.rule-editor-body {
 	width:340px;
 }
 .rule-list {
@@ -230,7 +230,7 @@ List Buttons
 	}
 }
 
-#rule_editor_body {
+.rule-editor-body {
 	border:solid 1px #888;
 	margin-left:4px;
 }

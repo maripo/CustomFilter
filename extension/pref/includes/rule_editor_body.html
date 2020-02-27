@@ -1,0 +1,120 @@
+
+<div class="rule-editor-body customblocker_rule_dialog" id="rule_editor_body">
+  <section class="section rule-editor-body__section">
+    <div class="input_section">
+      <div class="label"><span class="custom_filter_localize_sectionRuleTitle">Title</span></div>
+      <input id="rule_editor_title" type="text"/>
+    </div>
+  </section>
+  <section class="section rule-editor-body__section">
+    <h2><span class="custom_filter_localize_sectionSite text">Site</span></h2>
+    <div class="input_section">
+      <div class="label"><span class="custom_filter_localize_url">URL</span></div>
+      <input id="rule_editor_site_regexp" type="text"/>
+    </div>
+    <div>
+      <input id="specify_url_by_regexp_checkbox" type="checkbox"/>
+      <label for="specify_url_by_regexp_checkbox">Use RegExp</label>
+    </div>
+    <div class="input_section">
+      <div class="label"><span class="custom_filter_localize_exampleUrl">Example URL</span></div>
+      <input id="rule_editor_example_url" type="text"/>
+    </div>
+    <div class="input_section" style="display: none">
+      <div class="label"><span class="custom_filter_localize_description">Description</span></div>
+      <input id="rule_editor_site_description" type="text"/>
+    </div>
+    <div class="description"><span class="custom_filter_localize_descriptionSite">This rule is applied on matched sites.</span></div>
+  </section>
+  <section class="section rule-editor-body__section" style="position: relative !important">
+    <h2><span class="custom_filter_localize_sectionHide text">Elements to Hide</span></h2>
+    <div class="input_section" id="rule_editor_section_hide_xpath">
+      <div class="label">XPath</div>
+      <input id="rule_editor_hide_block_xpath" type="text"/>
+    </div>
+    <div class="input_section" id="rule_editor_section_hide_css">
+      <div class="label">CSS Selector</div>
+      <input id="rule_editor_hide_block_css" type="text"/>
+    </div>
+    <div class="input_section" style="display: none">
+      <div class="label"><span class="custom_filter_localize_description">Description</span></div>
+      <input id="rule_editor_hide_block_description" type="text"/>
+    </div>
+    <div class="selector_radio_container">
+      <input id="rule_editor_radio_hide_xpath" type="radio" name="rule_editor_radio_hide"/>
+      <label for="rule_editor_radio_hide_xpath">XPath</label>
+      <input id="rule_editor_radio_hide_css" type="radio" name="rule_editor_radio_hide"/>
+      <label for="rule_editor_radio_hide_css">CSS</label>
+    </div>
+    <div class="description"><span class="custom_filter_localize_descriptionHide">Matched elements will disappear if they meet the condition.</span></div>
+  </section>
+  <section class="section rule-editor-body__section" style="position: relative !important">
+    <h2><span class="custom_filter_localize_condition text">Search Region</span></h2>
+    <div>
+      <input id="rule_editor_block_anyway" type="radio" name="rule_editor_block_anyway"/>
+      <label class="custom_filter_localize_blockAnyway" for="rule_editor_block_anyway">Block Anyway</label>
+    </div>
+    <div>
+      <input id="rule_editor_block_anyway_false" type="radio" name="rule_editor_block_anyway"/>
+      <label class="custom_filter_localize_filterWithKeywords" for="rule_editor_block_anyway_false">Filter with keywords</label>
+    </div>
+    <div id="rule_editor_hide_detail">
+      <div class="input_section" id="rule_editor_section_search_xpath">
+        <div class="label">XPath</div>
+        <input id="rule_editor_search_block_xpath" type="text"/>
+      </div>
+      <div class="input_section" id="rule_editor_section_search_css">
+        <div class="label">CSS Selector</div>
+        <input id="rule_editor_search_block_css" type="text"/>
+      </div>
+      <div class="input_section" style="display: none">
+        <div class="label"><span class="custom_filter_localize_description">Description</span></div>
+        <input id="rule_editor_search_block_description" type="text"/>
+      </div>
+      <div class="selector_radio_container">
+        <input id="rule_editor_radio_search_xpath" type="radio" name="rule_editor_radio_search"/>
+        <label for="rule_editor_radio_search_xpath">XPath</label>
+        <input id="rule_editor_radio_search_css" type="radio" name="rule_editor_radio_search"/>
+        <label for="rule_editor_radio_search_css">CSS</label>
+      </div>
+      <div class="description"><span class="custom_filter_localize_descriptionSearch">The filter works when these elements contain "Words".</span></div>
+      <h3><span class="custom_filter_localize_sectionWord">Words</span></h3>
+      <div>
+        <input id="rule_editor_keyword" type="text"/>
+        <input class="uiButton" id="rule_editor_add_keyword_button" type="button" value="ADD"/>
+      </div>
+      <div>
+        <!--  Complete Matching-->
+        <input id="rule_editor_keyword_complete_matching_checkbox" type="checkbox"/>
+        <label for="rule_editor_keyword_complete_matching_checkbox"><span class="custom_filter_localize_complete_matching">Complete Match</span></label>
+        <!--  RegExp-->
+        <input id="rule_editor_keyword_regexp_checkbox" type="checkbox"/>
+        <label for="rule_editor_keyword_regexp_checkbox"><span class="custom_filter_localize_regex">RegEx</span></label>
+        <!--  Ignore Case-->
+        <input id="rule_editor_keyword_case_sensitive_checkbox" type="checkbox"/>
+        <label for="rule_editor_keyword_case_sensitive_checkbox"><span class="custom_filter_localize_case_sensitive">Case Sensitive</span></label>
+        <!--  Include link URL-->
+        <input id="rule_editor_keyword_include_href_checkbox" type="checkbox"/>
+        <label for="rule_editor_keyword_include_href_checkbox"><span class="custom_filter_localize_include_href">Include URL</span></label>
+      </div>
+      <div class="smart_rule_editor_keywords" id="rule_editor_keywords"></div>
+      <h3>Word Groups</h3>
+      <div id="rule_editor_keyword_groups"></div>
+      <div>
+        <select id="select_word_groups">
+          <option>----</option>
+        </select><a class="custom_filter_localize_manageGroups" href="word_group.html">Manage groups</a>
+      </div>
+    </div>
+  </section>
+  <div id="rule_editor_alert">
+    <!--  Alert Message-->
+  </div>
+  <div class="bottom_button_container">
+    <input class="uiButton" id="rule_editor_save_button" type="button" value="Save"/>
+    <div style="display:none">
+      <input id="rule_editor_save_merge_checkbox" type="checkbox"/>merge
+    </div>
+  </div>
+</div>
+<!--  rule_editor_body-->

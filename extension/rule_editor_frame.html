@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/rule_editor_common.css">
+    <link rel="stylesheet" type="text/css" href="./css/rule_editor.css">
+    <link rel="stylesheet" type="text/css" href="./css/keywords.css">
+    <title>CustomBlocker Rule Editor</title>
+  </head>
+  <body style="width: 400px;">
+    <div id="rule_editor_outline">
+      <div class="customblocker_rule_dialog" id="rule_editor_body">
+        <section class="section">
+          <div class="sectionBody">
+            <div class="input_section">
+              <div class="label">Name</div>
+              <div class="sectionBody">
+                <input class="rule_editor_textbox" id="rule_editor_title" type="text">
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section">
+          <h2><span class="text">Target Sites</span></h2>
+          <div class="sectionBody">
+            <div class="input_section">
+              <div class="label">URL</div>
+              <input class="rule_editor_textbox" id="rule_editor_site_regexp" type="text"><a class="help" href="site.html"> ?</a>
+            </div>
+            <div style="padding-left: 49px !important">
+              <input id="specify_url_by_regexp_checkbox" type="checkbox">
+              <label for="specify_url_by_regexp_checkbox">Use RegExp</label>
+            </div>
+            <div class="section_alert" id="rule_editor_alert_site_regexp">This expression does not match this site.</div>
+            <div class="input_section" style="display: none">
+              <div class="label">Example URL</div>
+              <input class="rule_editor_textbox" id="rule_editor_example_url" type="text">
+            </div>
+            <div class="input_section" style="display: none">
+              <div class="label">Description</div>
+              <input class="rule_editor_textbox" id="rule_editor_site_description" type="text">
+            </div>
+            <div class="description">
+              The asterisk (*) matches zero or more
+              characters. This rule is applied on matched sites.
+            </div>
+          </div>
+        </section>
+        <section class="section">
+          <h2><span class="text">Elements to Hide</span></h2>
+          <div class="sectionBody">
+            <div class="content">
+              <div class="input_section" id="rule_editor_section_hide_xpath" style="display: none;">
+                <div class="label"><span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_xpath"></span> XPath</div>
+                <input class="rule_editor_textbox" id="rule_editor_hide_block_xpath" type="text">
+                <input class="uiButton xpath_picker" id="rule_editor_button_hide_block_xpath" type="button" value="Suggest"><a class="help" href="hide.html"> ?</a>
+              </div>
+              <div class="input_section" id="rule_editor_section_hide_css" style="display: block;">
+                <div class="label"><span class="rule_editor_count rule_editor_count_hide" id="rule_editor_count_hide_block_css"> 51</span> CSS</div>
+                <input class="rule_editor_textbox" id="rule_editor_hide_block_css" type="text">
+                <input class="uiButton xpath_picker" id="rule_editor_button_hide_block_css" type="button" value="Suggest"><a class="help" href="hide.html"> ?</a>
+              </div>
+              <div class="selector_radio_container">
+                <input id="rule_editor_radio_hide_xpath" type="radio" name="rule_editor_radio_hide">
+                <label for="rule_editor_radio_hide_xpath"> XPath</label>
+                <input id="rule_editor_radio_hide_css" type="radio" name="rule_editor_radio_hide" checked="">
+                <label for="rule_editor_radio_hide_css"> CSS</label>
+              </div>
+              <div class="section_alert" id="rule_editor_alert_hide_block_xpath" style="display: none;">Invalid XPath</div>
+              <div class="input_section" style="display: none">
+                <div class="label">Description</div>
+                <input class="rule_editor_textbox" id="rule_editor_hide_block_description" type="text">
+              </div>
+              <div class="description">
+                Matched elements will disappear if
+                they meet the condition.
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section">
+          <h2><span class="text">Condition</span></h2>
+          <div class="sectionBody">
+            <!-- Radio Buttons-->
+            <div>
+              <div>
+                <input id="rule_editor_block_anyway" type="radio" name="rule_editor_block_anyway">
+                <label for="rule_editor_block_anyway"> Block Anyway</label><a class="help" href="block_anyway.html"> ?</a>
+              </div>
+              <div>
+                <input id="rule_editor_block_anyway_false" type="radio" name="rule_editor_block_anyway">
+                <label for="rule_editor_block_anyway_false">
+                  Filter with
+                  Keywords
+                </label>
+              </div>
+            </div>
+            <!-- Condition-->
+            <div class="rule_editor_condition_section" id="rule_editor_hide_detail">
+              <h4>Keywords</h4>
+              <div id="rule_editor_keywords" style="margin-left: 0;"></div>
+              <!-- New word-->
+              <div>
+                <div class="rule_editor_content_for_label">
+                  <input class="rule_editor_textbox" id="rule_editor_keyword" type="text"><a class="help" href="keywords.html"> ?</a>
+                  <input class="uiButton" id="rule_editor_add_keyword_button" type="button" value="Add"><br>
+                  <!-- Complete Match-->
+                  <input id="rule_editor_keyword_complete_matching_checkbox" type="checkbox">
+                  <label for="rule_editor_keyword_complete_matching_checkbox">
+                    Complete
+                    Match
+                  </label>
+                  <!-- RegEx-->
+                  <input id="rule_editor_keyword_regexp_checkbox" type="checkbox">
+                  <label for="rule_editor_keyword_regexp_checkbox">RegEx</label>
+                  <!-- Ignore Case-->
+                  <input id="rule_editor_keyword_case_sensitive_checkbox" type="checkbox">
+                  <label for="rule_editor_keyword_case_sensitive_checkbox">
+                    Case
+                    Sensitive
+                  </label>
+                  <!-- Include link URL-->
+                  <input id="rule_editor_keyword_include_href_checkbox" type="checkbox">
+                  <label for="rule_editor_keyword_include_href_checkbox">
+                    Include
+                    Link URL
+                  </label>
+                </div>
+              </div>
+              <h4>Keyword groups</h4>
+              <div id="rule_editor_keyword_groups" style="margin-left: 0;"></div>
+              <div>
+                <select id="rule_editor_keyword_group_select">
+                  <option>-----</option>
+                </select><a href="pref/word_group.html" target="_blank">Manage groups</a>
+              </div>
+              <h4>Search Range</h4>
+              <div class="input_section" id="rule_editor_section_search_xpath" style="display: none;">
+                <div class="label"><span class="rule_editor_count rule_editor_count_search" id="rule_editor_count_search_block_xpath"></span> XPath</div>
+                <input class="rule_editor_textbox" id="rule_editor_search_block_xpath" type="text">
+                <input class="uiButton xpath_picker" id="rule_editor_button_search_block_xpath" type="button" value="Suggest"><a class="help" href="search.html"> ?</a>
+              </div>
+              <div class="input_section" id="rule_editor_section_search_css" style="display: block;">
+                <div class="label"><span class="rule_editor_count rule_editor_count_search" id="rule_editor_count_search_block_css"> 83</span> CSS</div>
+                <input class="rule_editor_textbox" id="rule_editor_search_block_css" type="text">
+                <input class="uiButton xpath_picker" id="rule_editor_button_search_block_css" type="button" value="Suggest"><a class="help" href="search.html"> ?</a>
+              </div>
+              <div class="selector_radio_container">
+                <input id="rule_editor_radio_search_xpath" type="radio" name="rule_editor_radio_search">
+                <label for="rule_editor_radio_search_xpath"> XPath</label>
+                <input id="rule_editor_radio_search_css" type="radio" name="rule_editor_radio_search" checked="">
+                <label for="rule_editor_radio_search_css"> CSS</label>
+              </div>
+              <div class="section_alert" id="rule_editor_alert_search_block_xpath" style="display: none;">Invalid XPath</div>
+              <div class="input_section" style="display: none">
+                <div class="label">Description</div>
+                <input class="rule_editor_textbox" id="rule_editor_search_block_description" type="text">
+              </div>
+              <div class="description">
+                The filter works when these elements
+                contain "Keywords".
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer class="footer">
+          <input class="uiButton" id="rule_editor_save_button" type="button" value="Save">
+          <input class="uiButton" id="rule_editor_test_button" type="button" value="Test Rule">
+          <input class="uiButton" id="rule_editor_close_button" type="button" value="Close">
+        </footer>
+        <div id="rule_editor_alert"></div>
+      </div>
+      <script type="text/javascript" src="src/CustomBlocker.js"></script>
+      <script type="text/javascript" src="src/word_group_picker.js"></script>
+      <script type="text/javascript" src="src/rule_editor/rule_editor_frame.js"></script>
+    </div>
+  </body>
+</html>

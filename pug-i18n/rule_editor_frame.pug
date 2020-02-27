@@ -1,0 +1,141 @@
+doctype html
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    link(rel='stylesheet', type='text/css', href='../css/reset.css')
+    link(rel='stylesheet', type='text/css', href='../css/rule_editor_common.css')
+    link(rel='stylesheet', type='text/css', href='../css/rule_editor.css')
+    link(rel='stylesheet', type='text/css', href='../css/keywords.css')
+    title CustomBlocker Rule Editor
+  body(style='width:400px;margin:0')
+    #rule_editor_outline
+      #rule_editor_body.rule-editor-body.customblocker_rule_dialog
+
+        section.section.rule-editor-body__section
+          .sectionBody
+            .input_section
+              .label #{$i18n.ruleEditor.name.title}
+              .sectionBody
+                input#rule_editor_title.rule_editor_textbox(type='text')
+
+        section.section.rule-editor-body__section
+          h2 #{$i18n.ruleEditor.site.title}
+          .sectionBody
+            .input_section
+              .label #{$i18n.ruleEditor.site.url}
+              input#rule_editor_site_regexp.rule_editor_textbox(type='text')
+              a.help(href='site.html')  ?
+            div(style='padding-left: 49px !important')
+              input#specify_url_by_regexp_checkbox(type='checkbox')
+              label(for='specify_url_by_regexp_checkbox') #{$i18n.ruleEditor.site.regex}
+            #rule_editor_alert_site_regexp.section_alert
+              | #{$i18n.ruleEditor.site.alertNoMatch}
+            .input_section(style='display: none')
+              .label #{$i18n.ruleEditor.site.exampleURL}
+              input#rule_editor_example_url.rule_editor_textbox(type='text')
+            .input_section(style='display: none')
+              .label #{$i18n.ruleEditor.site.description}
+              input#rule_editor_site_description.rule_editor_textbox(type='text')
+            .description #{$i18n.ruleEditor.site.wildCard}
+
+        section.section.rule-editor-body__section
+          h2 #{$i18n.ruleEditor.hide.title}
+          .sectionBody
+            .content
+              #rule_editor_section_hide_xpath.input_section(style='display: none;')
+                .label
+                  span#rule_editor_count_hide_block_xpath.rule_editor_count.rule_editor_count_hide
+                  |  #{$i18n.ruleEditor.hide.xpath}
+                input#rule_editor_hide_block_xpath.rule_editor_textbox(type='text')
+                input#rule_editor_button_hide_block_xpath.uiButton.xpath_picker(type='button', value=$i18n.ruleEditor.hide.suggest)
+                a.help(href='hide.html')  ?
+              #rule_editor_section_hide_css.input_section(style='display: block;')
+                .label
+                  span#rule_editor_count_hide_block_css.rule_editor_count.rule_editor_count_hide  51
+                  | #{$i18n.ruleEditor.hide.css}
+                input#rule_editor_hide_block_css.rule_editor_textbox(type='text')
+                input#rule_editor_button_hide_block_css.uiButton.xpath_picker(type='button', value=$i18n.ruleEditor.hide.suggest)
+                a.help(href='hide.html')  ?
+              .selector_radio_container
+                input#rule_editor_radio_hide_xpath(type='radio', name='rule_editor_radio_hide')
+                label(for='rule_editor_radio_hide_xpath') #{$i18n.ruleEditor.hide.xpath}
+                input#rule_editor_radio_hide_css(type='radio', name='rule_editor_radio_hide', checked='')
+                label(for='rule_editor_radio_hide_css') #{$i18n.ruleEditor.hide.css}
+              #rule_editor_alert_hide_block_xpath.section_alert(style='display: none;') #{$i18n.ruleEditor.hide.invalidXPath}
+              .input_section(style='display: none')
+                .label #{$i18n.ruleEditor.site.description}
+                input#rule_editor_hide_block_description.rule_editor_textbox(type='text')
+              .description #{$i18n.ruleEditor.hide.howto}
+
+        section.section.rule-editor-body__section
+          h2
+            span.text #{$i18n.ruleEditor.condition.title}
+          .sectionBody
+            // Radio Buttons
+            div
+              div
+                input#rule_editor_block_anyway(type='radio', name='rule_editor_block_anyway')
+                label(for='rule_editor_block_anyway') #{$i18n.ruleEditor.condition.blockAnyway}
+                a.help(href='block_anyway.html')  ?
+              div
+                input#rule_editor_block_anyway_false(type='radio', name='rule_editor_block_anyway')
+                label(for='rule_editor_block_anyway_false') #{$i18n.ruleEditor.condition.useKeywords}
+            // Condition
+            #rule_editor_hide_detail.rule_editor_condition_section
+              h4 #{$i18n.ruleEditor.condition.words.title}
+              #rule_editor_keywords(style='margin-left: 0;')
+              div
+                div
+                  input#rule_editor_keyword.rule_editor_textbox(type='text')
+                  a.help(href='keywords.html')  ?
+                  input#rule_editor_add_keyword_button.uiButton(type='button', value='Add')
+                  br
+                  input#rule_editor_keyword_complete_matching_checkbox(type='checkbox')
+                  label(for='rule_editor_keyword_complete_matching_checkbox') #{$i18n.ruleEditor.condition.words.completeMatching}
+                  input#rule_editor_keyword_regexp_checkbox(type='checkbox')
+                  label(for='rule_editor_keyword_regexp_checkbox') #{$i18n.ruleEditor.condition.words.regexp}
+                  // Ignore Case
+                  input#rule_editor_keyword_case_sensitive_checkbox(type='checkbox')
+                  label(for='rule_editor_keyword_case_sensitive_checkbox') #{$i18n.ruleEditor.condition.words.caseSensitive}
+                  // Include link URL
+                  input#rule_editor_keyword_include_href_checkbox(type='checkbox')
+                  label(for='rule_editor_keyword_include_href_checkbox') #{$i18n.ruleEditor.condition.words.includeHref}
+              h4 #{$i18n.ruleEditor.condition.groups.title}
+              #rule_editor_keyword_groups(style='margin-left: 0;')
+              div
+                select#rule_editor_keyword_group_select
+                  option -----
+                a(href=$i18n.ruleEditor.condition.groups.manageLink, target='_blank') #{$i18n.ruleEditor.condition.groups.manage}
+              h4 #{$i18n.ruleEditor.condition.search.title}
+              #rule_editor_section_search_xpath.input_section(style='display: none;')
+                .label
+                  span#rule_editor_count_search_block_xpath.rule_editor_count.rule_editor_count_search
+                  | #{$i18n.ruleEditor.hide.xpath}
+                input#rule_editor_search_block_xpath.rule_editor_textbox(type='text')
+                input#rule_editor_button_search_block_xpath.uiButton.xpath_picker(type='button', value=$i18n.ruleEditor.hide.suggest)
+                a.help(href='search.html')  ?
+              #rule_editor_section_search_css.input_section(style='display: block;')
+                .label
+                  span#rule_editor_count_search_block_css.rule_editor_count.rule_editor_count_search 83
+                  | #{$i18n.ruleEditor.hide.css}
+                input#rule_editor_search_block_css.rule_editor_textbox(type='text')
+                input#rule_editor_button_search_block_css.uiButton.xpath_picker(type='button', value=$i18n.ruleEditor.hide.suggest)
+                a.help(href='search.html')  ?
+              .selector_radio_container
+                input#rule_editor_radio_search_xpath(type='radio', name='rule_editor_radio_search')
+                label(for='rule_editor_radio_search_xpath') #{$i18n.ruleEditor.hide.xpath}
+                input#rule_editor_radio_search_css(type='radio', name='rule_editor_radio_search', checked='')
+                label(for='rule_editor_radio_search_css') #{$i18n.ruleEditor.hide.css}
+              #rule_editor_alert_search_block_xpath.section_alert(style='display: none;') #{$i18n.ruleEditor.hide.invalidXPath}
+              .input_section(style='display: none')
+                .label Description
+                input#rule_editor_search_block_description.rule_editor_textbox(type='text')
+              .description #{$i18n.ruleEditor.condition.search.howto}
+        footer.footer
+          input#rule_editor_save_button.uiButton(type='button', value=$i18n.ruleEditor.button.save)
+          input#rule_editor_test_button.uiButton(type='button', value=$i18n.ruleEditor.button.test)
+          input#rule_editor_close_button.uiButton(type='button', value=$i18n.ruleEditor.button.close)
+        #rule_editor_alert
+      script(type='text/javascript', src='../src/word_group_picker.js')
+      script(type='text/javascript', src='../src/rule_editor/rule_editor_frame.js')
+      script(type='text/javascript', src='../src/CustomBlocker.js')

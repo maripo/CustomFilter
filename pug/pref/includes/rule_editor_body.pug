@@ -1,0 +1,119 @@
+#rule_editor_body.rule-editor-body.customblocker_rule_dialog
+  section.section.rule-editor-body__section
+    .input_section
+      .label
+        span.custom_filter_localize_sectionRuleTitle Title
+      input#rule_editor_title(type='text')
+  section.section.rule-editor-body__section
+    h2
+      span.custom_filter_localize_sectionSite.text Site
+    .input_section
+      .label
+        span.custom_filter_localize_url URL
+      input#rule_editor_site_regexp(type='text')
+    div
+      input#specify_url_by_regexp_checkbox(type='checkbox')
+      label(for='specify_url_by_regexp_checkbox') Use RegExp
+    .input_section
+      .label
+        span.custom_filter_localize_exampleUrl Example URL
+      input#rule_editor_example_url(type='text')
+    .input_section(style='display: none')
+      .label
+        span.custom_filter_localize_description Description
+      input#rule_editor_site_description(type='text')
+    .description
+      span.custom_filter_localize_descriptionSite This rule is applied on matched sites.
+  section.section.rule-editor-body__section(style='position: relative !important')
+    h2
+      span.custom_filter_localize_sectionHide.text Elements to Hide
+    .input_section#rule_editor_section_hide_xpath
+      .label XPath
+      input#rule_editor_hide_block_xpath(type='text')
+    .input_section#rule_editor_section_hide_css
+      .label CSS Selector
+      input#rule_editor_hide_block_css(type='text')
+    .input_section(style='display: none')
+      .label
+        span.custom_filter_localize_description Description
+      input#rule_editor_hide_block_description(type='text')
+    .selector_radio_container
+      input#rule_editor_radio_hide_xpath(type='radio' name='rule_editor_radio_hide')
+      |
+      label(for='rule_editor_radio_hide_xpath') XPath
+      |
+      input#rule_editor_radio_hide_css(type='radio' name='rule_editor_radio_hide')
+      |
+      label(for='rule_editor_radio_hide_css') CSS
+    .description
+      span.custom_filter_localize_descriptionHide Matched elements will disappear if they meet the condition.
+  section.section.rule-editor-body__section(style='position: relative !important')
+    h2
+      span.custom_filter_localize_condition.text Search Region
+    div
+      input#rule_editor_block_anyway(type='radio' name='rule_editor_block_anyway')
+      |
+      label.custom_filter_localize_blockAnyway(for='rule_editor_block_anyway') Block Anyway
+    div
+      input#rule_editor_block_anyway_false(type='radio' name='rule_editor_block_anyway')
+      |
+      label.custom_filter_localize_filterWithKeywords(for='rule_editor_block_anyway_false') Filter with keywords
+    #rule_editor_hide_detail
+      .input_section#rule_editor_section_search_xpath
+        .label XPath
+        input#rule_editor_search_block_xpath(type='text')
+      .input_section#rule_editor_section_search_css
+        .label CSS Selector
+        input#rule_editor_search_block_css(type='text')
+      .input_section(style='display: none')
+        .label
+          span.custom_filter_localize_description Description
+        input#rule_editor_search_block_description(type='text')
+      .selector_radio_container
+        input#rule_editor_radio_search_xpath(type='radio' name='rule_editor_radio_search')
+        |
+        label(for='rule_editor_radio_search_xpath') XPath
+        |
+        input#rule_editor_radio_search_css(type='radio' name='rule_editor_radio_search')
+        |
+        label(for='rule_editor_radio_search_css') CSS
+      .description
+        span.custom_filter_localize_descriptionSearch The filter works when these elements contain "Words".
+      h3
+        span.custom_filter_localize_sectionWord Words
+      div
+        input#rule_editor_keyword(type='text')
+        input#rule_editor_add_keyword_button.uiButton(type='button' value='ADD')
+      div
+        //  Complete Matching
+        input#rule_editor_keyword_complete_matching_checkbox(type='checkbox')
+        label(for='rule_editor_keyword_complete_matching_checkbox')
+          span.custom_filter_localize_complete_matching Complete Match
+        //  RegExp
+        input#rule_editor_keyword_regexp_checkbox(type='checkbox')
+        label(for='rule_editor_keyword_regexp_checkbox')
+          span.custom_filter_localize_regex RegEx
+        //  Ignore Case
+        input#rule_editor_keyword_case_sensitive_checkbox(type='checkbox')
+        label(for='rule_editor_keyword_case_sensitive_checkbox')
+          span.custom_filter_localize_case_sensitive Case Sensitive
+        //  Include link URL
+        input#rule_editor_keyword_include_href_checkbox(type='checkbox')
+        label(for='rule_editor_keyword_include_href_checkbox')
+          span.custom_filter_localize_include_href Include URL
+      #rule_editor_keywords.smart_rule_editor_keywords
+      h3 Word Groups
+      #rule_editor_keyword_groups
+      div
+        select#select_word_groups
+          option ----
+        a.custom_filter_localize_manageGroups(href='word_group.html') Manage groups
+  #rule_editor_alert
+    //  Alert Message
+  .bottom_button_container
+    input.uiButton#rule_editor_save_button(type='button' value='Save')
+    div(style='display:none')
+      input#rule_editor_save_merge_checkbox(type='checkbox')
+      | merge
+
+//  rule_editor_body

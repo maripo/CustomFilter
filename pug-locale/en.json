@@ -1,0 +1,52 @@
+{
+  "ruleEditor" : {
+    "test" : "Pug i18n Test",
+    "name" : {
+      "title" : "Name"
+    },
+    "site" : {
+      "title" : "Target Sites",
+      "url" : "URL",
+      "regex" : "Use RegExp",
+      "alertNoMatch" : "This expression does not match this site.",
+      "exampleURL" : "Example URL",
+      "description" : "Description",
+      "wildCard" : "The asterisk (*) matches zero or more characters. This rule is applied to matched sites."
+
+    },
+    "hide" : {
+      "title" : "Elements to Hide",
+      "suggest" : "Suggest",
+      "xpath" : "XPath",
+      "css" : "CSS",
+      "invalidXPath" : "Invalid XPath",
+      "howto" : "Matched elements will disappear if they meet the condition."
+    },
+    "condition" : {
+      "title" : "Condition",
+      "blockAnyway" : "Block Anyway",
+      "useKeywords" : "Filter with Keywords",
+      "words" : {
+        "title" : "Keywords",
+        "completeMatching" : "Complete Match",
+        "regexp" : "RegEx",
+        "caseSensitive" : "Case Sensitive",
+        "includeHref" : "Include Link URL"
+      },
+      "groups" : {
+        "title" : "Keyword Groups",
+        "manage" : "Manage groups",
+        "manageLink" : "../pref/word_group.html"
+      },
+      "search" : {
+        "title" : "Search Range",
+        "howto" : "The filter works when these elements contain \"Keywords\"."
+      }
+    },
+    "button" : {
+      "save" : "Save",
+      "test" : "Test",
+      "close" : "Close"
+    }
+  }
+}

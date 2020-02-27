@@ -1,0 +1,51 @@
+{
+  "ruleEditor" : {
+    "test" : "Pug i18n テスト",
+    "name" : {
+      "title" : "ルール名"
+    },
+    "site" : {
+      "title" : "対象サイト",
+      "url" : "URL",
+      "regex" : "正規表現で指定",
+      "alertNoMatch" : "このサイトのURLとマッチしません。",
+      "exampleURL" : "URL例",
+      "description" : "メモ",
+      "wildCard" : "「*」は全ての文字列とマッチします。"
+    },
+    "hide" : {
+      "title" : "隠す要素",
+      "suggest" : "候補を表示",
+      "xpath" : "XPath",
+      "css" : "CSS",
+      "invalidXPath" : "XPathが無効です",
+      "howto" : "ここで指定した単位で要素を隠します。"
+    },
+    "condition" : {
+      "title" : "条件",
+      "blockAnyway" : "無条件で隠す",
+      "useKeywords" : "キーワードを使ってフィルタ",
+      "words" : {
+        "title" : "キーワード",
+        "completeMatching" : "完全一致",
+        "regexp" : "正規表現",
+        "caseSensitive" : "大文字小文字を区別",
+        "includeHref" : "リンクURLも検索"
+      },
+      "groups" : {
+        "title" : "キーワードグループ",
+        "manage" : "グループを管理",
+        "manageLink" : "../pref/word_group.html"
+      },
+      "search" : {
+        "title" : "検索範囲",
+        "howto" : "この範囲にNGワードが含まれていたときのみルールが発動します。"
+      }
+    },
+    "button" : {
+      "save" : "保存",
+      "test" : "テスト",
+      "close" : "閉じる"
+    }
+  }
+}

@@ -3,7 +3,7 @@
  */
 #smart_rule_creator_dialog {
 	position: absolute;
-	font-family:sans-serif!important;
+	font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
 	margin:0px!important;
 	margin-top:0px!important;
 	margin-right:0px!important;
@@ -15,7 +15,7 @@
 	font-weight:normal!important;
 	text-align:left!important;
 	text-indent:0px!important;
-	-webkit-box-shadow: 1px 1px 1px #000; 
+	-webkit-box-shadow: 1px 1px 1px #000;
 	width:184px;
 	border:solid 1px #888;
 }
@@ -24,7 +24,7 @@
 	background:none;
 	text-indent:0px!important;
 	position:static;
-	font-family:sans-serif!important;
+	font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
 	margin:0px;
 	padding:0px!important;
 	margin:0px!important;
@@ -47,7 +47,7 @@
 	height:16px!important;
 	font-size:10px!important;
 	line-height:16px!important;
-	
+
 }
 #smart_rule_creator_dialog li.option:hover input{
 	display:inline;
@@ -109,7 +109,7 @@
 #smart_rule_editor_body {
 }
 
-#smart_rule_editor_body div.section div.input {
+#smart_rule_editor_body .section div.input {
 	margin-left:120px;
 }
 #smart_rule_editor_body div.advanced {
@@ -128,7 +128,7 @@
 /* List buttons */
 #smart_rule_creator_dialog li input.uiButton {
 	background-color: #0db3ea!important;
-	
+
 }
 #smart_rule_editor_body input[type="button"]:active, #smart_rule_creator_dialog input[type="button"]:active {
 	background-color: #0d9fd1!important;
@@ -139,7 +139,7 @@
 }
 #smart_rule_editor_cancel {
 	background-color:#959595!important;
-	
+
 }
 #smart_rule_editor_close {
 	background-color:#959595!important;

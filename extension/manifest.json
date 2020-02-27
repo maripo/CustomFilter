@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name" : "CustomBlocker",
-  "version" : "4.1.1",
+  "version" : "4.1.2",
   "default_locale": "en",
   "description" : "__MSG_extDescription__",
   "browser_action": {
@@ -39,7 +39,9 @@
     "img/keyword_include_href_blue.png",
     "img/keyword_regexp_blue.png",
     "rule_editor_frame_ja.html",
-    "rule_editor_frame_en.html"
+    "rule_editor_frame_en.html",
+    "en/rule_editor_frame.html",
+    "ja/rule_editor_frame.html"
   ],
   "content_scripts" : [
     {

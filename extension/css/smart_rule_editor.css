@@ -1,9 +1,10 @@
+@charset "UTF-8";
 /**
  * Smart Rule Editor Dialog
  */
 #smart_rule_creator_dialog {
   position: absolute;
-  font-family: sans-serif !important;
+  font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
   margin: 0px !important;
   margin-top: 0px !important;
   margin-right: 0px !important;
@@ -24,7 +25,7 @@
   background: none;
   text-indent: 0px !important;
   position: static;
-  font-family: sans-serif !important;
+  font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
   margin: 0px;
   padding: 0px !important;
   margin: 0px !important;
@@ -103,7 +104,7 @@
 /**
 	Dialog Body
 */
-#smart_rule_editor_body div.section div.input {
+#smart_rule_editor_body .section div.input {
   margin-left: 120px; }
 
 #smart_rule_creator_dialog input.uiButton, #smart_rule_editor_body input.uiButton {

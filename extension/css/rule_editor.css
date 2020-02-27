@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
  * Rule Editor
  */
@@ -23,7 +24,7 @@
     background: none;
     text-indent: 0px !important;
     position: relative !important;
-    font-family: sans-serif !important;
+    font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
     margin: 0px !important;
     padding: 0px !important;
     margin: 0px !important;
@@ -39,7 +40,7 @@
   #rule_editor_body a {
     text-indent: 0px !important;
     position: static !important;
-    font-family: sans-serif !important;
+    font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
     margin: 0px !important;
     padding: 0px !important;
     margin-right: 0px !important;
@@ -82,7 +83,7 @@
   min-width: initial !important;
   box-shadow: none !important; }
 
-#rule_editor_body div.section div.description {
+#rule_editor_body .section .description {
   clear: both !important;
   float: none !important;
   font-size: 10px !important;
@@ -154,7 +155,7 @@
   width: 100px; }
 
 #xpath_picker_body {
-  font-family: sans-serif !important;
+  font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
   margin: 0px !important;
   margin-top: 0px !important;
   margin-right: 0px !important;
@@ -243,7 +244,7 @@
   float: right;
   text-align: right; }
 
-#rule_editor_body div.footer {
+#rule_editor_body .footer {
   text-align: center !important;
   padding: 2px 0px 4px !important; }
 

@@ -289,7 +289,7 @@ class RuleEditor {
 		frameContainer.style.border = '1px solid #888';
 		frameContainer.style.boxShadow = "0px 1px 1px rgba(0,0,0,0.5)";
 		var iframe = document.createElement("IFRAME") as HTMLIFrameElement;
-		iframe.setAttribute("src", chrome.extension.getURL('/rule_editor_frame_'+ chrome.i18n.getMessage('extLocale') + '.html'));
+		iframe.setAttribute("src", chrome.extension.getURL(chrome.i18n.getMessage('extLocale') + '/rule_editor_frame.html'));
 		iframe.setAttribute("scrolling", "no");
 		iframe.setAttribute("frameborder", "0");
 		iframe.style.width = '400px';

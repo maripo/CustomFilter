@@ -19,7 +19,8 @@ html
                 input#rule_editor_title.rule_editor_textbox(type='text')
 
         section.section.rule-editor-body__section
-          h2 #{$i18n.ruleEditor.site.title}
+          h2
+            span.text #{$i18n.ruleEditor.site.title}
           .sectionBody
             .input_section
               .label #{$i18n.ruleEditor.site.url}
@@ -39,7 +40,8 @@ html
             .description #{$i18n.ruleEditor.site.wildCard}
 
         section.section.rule-editor-body__section
-          h2 #{$i18n.ruleEditor.hide.title}
+          h2
+            span.text #{$i18n.ruleEditor.hide.title}
           .sectionBody
             .content
               #rule_editor_section_hide_xpath.input_section(style='display: none;')

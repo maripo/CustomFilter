@@ -125,6 +125,10 @@ h2 {
       padding: 0px 2px;
       background-color: #dfd !important;
       border: solid 1px #4d4 !important; }
+  .rule-list li div.buttonContainer .exampleUrl, .rule-list li div.buttonContainer .buttonDelete, .rule-list li div.buttonContainer .buttonEdit {
+    visibility: hidden; }
+  .rule-list li:hover div.buttonContainer .exampleUrl, .rule-list li:hover div.buttonContainer .buttonDelete, .rule-list li:hover div.buttonContainer .buttonEdit {
+    visibility: visible; }
 
 .keyword {
   padding: 0 4px;
@@ -143,16 +147,6 @@ h2 {
   .keyword--normal {
     background-color: #cdedf8 !important;
     border: solid 1px #249bc3 !important; }
-
-.rule-list li div.buttonContainer .exampleUrl,
-.rule-list li div.buttonContainer .buttonDelete,
-.rule-list li div.buttonContainer .buttonEdit {
-  visibility: hidden; }
-
-.rule-list li:hover div.buttonContainer .exampleUrl,
-.rule-list li:hover div.buttonContainer .buttonDelete,
-.rule-list li:hover div.buttonContainer .buttonEdit {
-  visibility: visible; }
 
 .editor-frame {
   display: flex;

@@ -145,7 +145,18 @@ h2 {
 			border: solid 1px #4d4!important;
 		}
 	}
+	li div.buttonContainer {
+		.exampleUrl, .buttonDelete, .buttonEdit {
+			visibility: hidden;
+		}
+	}
+	li:hover div.buttonContainer {
+		.exampleUrl, .buttonDelete, .buttonEdit {
+			visibility:visible;
+		}
+	}
 }
+
 .keyword {
 	padding:0 4px;
 	border-radius:4px!important;
@@ -166,17 +177,6 @@ h2 {
 		background-color:#cdedf8!important;
 		border: solid 1px #249bc3!important;
 	}
-}
-
-.rule-list li div.buttonContainer .exampleUrl,
-.rule-list li div.buttonContainer .buttonDelete,
-.rule-list li div.buttonContainer .buttonEdit {
-	visibility: hidden;
-}
-.rule-list li:hover div.buttonContainer .exampleUrl,
-.rule-list li:hover div.buttonContainer .buttonDelete,
-.rule-list li:hover div.buttonContainer .buttonEdit {
-	visibility:visible;
 }
 
 .editor-frame {

@@ -84,7 +84,7 @@ class Popup {
 				divCount.innerHTML = (rule.hiddenCount)?rule.hiddenCount.toString():'0';
 
 				let buttonContainer = document.createElement('SPAN');
-				buttonContainer.className = 'buttonContainer';
+				buttonContainer.className = 'button-container';
 
 				let editButton = document.createElement('INPUT') as HTMLInputElement;
 				editButton.type = 'BUTTON';

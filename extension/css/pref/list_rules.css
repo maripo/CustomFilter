@@ -1,45 +1,34 @@
 @charset "UTF-8";
-body {
-  font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
-  max-width: 910px; }
-
-h1 {
-  font-size: 150%;
-  margin: 0px;
-  padding: 0px; }
-
-h2 {
-  font-size: 120%; }
-
-.donate {
-  text-align: right;
-  width: 200px;
-  height: auto;
-  position: absolute;
-  top: 0px;
-  right: 0px; }
-  .donate a {
-    text-decoration: none;
-    color: #0db3ea;
-    font-size: 120%; }
-
-#prefMain {
-  width: 910px; }
-
-.rule-listContainer {
-  width: auto;
-  height: 457px;
-  padding: 0px;
-  margin: 0px;
-  overflow-y: scroll; }
-
-.rule-editor-body {
-  width: 340px; }
-
 .rule-list {
   padding: 0px;
   margin: 0px;
   font-size: 12px; }
+  .rule-list__item__information {
+    margin-right: 100px;
+    height: inherit; }
+    .rule-list__item__information img.favicon {
+      position: absolute;
+      left: 2px;
+      top: 2px; }
+    .rule-list__item__information div.title {
+      position: absolute;
+      line-height: 16px;
+      vertical-align: middle;
+      left: 20px;
+      top: 2px;
+      height: 16px;
+      font-size: 12px; }
+    .rule-list__item__information div.url {
+      position: absolute;
+      font-size: 10px;
+      left: 10px;
+      top: 20px;
+      color: #444; }
+    .rule-list__item__information div.keywords {
+      position: absolute;
+      font-size: 9px;
+      left: 250px;
+      top: 22px; }
   .rule-list li {
     height: 37px;
     list-style-type: none;
@@ -79,44 +68,18 @@ h2 {
       position: absolute;
       left: 10px;
       top: 10px; }
-    .rule-list li .information {
-      margin-right: 100px;
-      height: inherit; }
-      .rule-list li .information img.favicon {
-        position: absolute;
-        left: 2px;
-        top: 2px; }
-      .rule-list li .information div.title {
-        position: absolute;
-        line-height: 16px;
-        vertical-align: middle;
-        left: 20px;
-        top: 2px;
-        height: 16px;
-        font-size: 12px; }
-      .rule-list li .information div.url {
-        position: absolute;
-        font-size: 10px;
-        left: 10px;
-        top: 20px;
-        color: #444; }
-      .rule-list li .information div.keywords {
-        position: absolute;
-        font-size: 9px;
-        left: 250px;
-        top: 22px; }
   .rule-list li.filtered {
     display: none; }
   .rule-list li.selected {
     background-color: #fff080; }
-  .rule-list li div.buttonContainer {
+  .rule-list li div.button-container {
     width: 175px;
     margin-top: 2px;
     float: right;
     /*height:inherit;*/
     line-height: 17px;
     text-align: right; }
-  .rule-list li:hover div.buttonContainer {
+  .rule-list li:hover div.button-container {
     visibility: visible; }
   .rule-list .keywords {
     clear: right; }
@@ -125,9 +88,9 @@ h2 {
       padding: 0px 2px;
       background-color: #dfd !important;
       border: solid 1px #4d4 !important; }
-  .rule-list li div.buttonContainer .exampleUrl, .rule-list li div.buttonContainer .buttonDelete, .rule-list li div.buttonContainer .buttonEdit {
+  .rule-list li div.button-container .exampleUrl, .rule-list li div.button-container .buttonDelete, .rule-list li div.button-container .buttonEdit {
     visibility: hidden; }
-  .rule-list li:hover div.buttonContainer .exampleUrl, .rule-list li:hover div.buttonContainer .buttonDelete, .rule-list li:hover div.buttonContainer .buttonEdit {
+  .rule-list li:hover div.button-container .exampleUrl, .rule-list li:hover div.button-container .buttonDelete, .rule-list li:hover div.button-container .buttonEdit {
     visibility: visible; }
 
 .keyword {
@@ -148,6 +111,70 @@ h2 {
     background-color: #cdedf8 !important;
     border: solid 1px #249bc3 !important; }
 
+.header {
+  padding: 0px;
+  margin-bottom: 6px;
+  position: relative; }
+  .header__title {
+    font-weight: normal; }
+  .header__donate {
+    text-align: right;
+    width: 200px;
+    height: auto;
+    position: absolute;
+    top: 0px;
+    right: 0px; }
+    .header__donate a {
+      text-decoration: none;
+      color: #0db3ea;
+      font-size: 120%; }
+  .header__tabs {
+    height: 24px;
+    padding: 0px;
+    margin: 8px 0px; }
+    .header__tabs__tab {
+      display: block;
+      list-style-type: none;
+      width: 25%;
+      height: inherit;
+      float: left;
+      text-align: center;
+      color: #666; }
+      .header__tabs__tab__link {
+        height: inherit;
+        display: block;
+        text-decoration: none;
+        line-height: 24px;
+        color: inherit; }
+      .header__tabs__tab--selected {
+        background-color: #0db3ea;
+        color: white; }
+
+body {
+  font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
+  max-width: 910px; }
+
+h1 {
+  font-size: 150%;
+  margin: 0px;
+  padding: 0px; }
+
+h2 {
+  font-size: 120%; }
+
+#prefMain {
+  width: 910px; }
+
+.rule-listContainer {
+  width: auto;
+  height: 457px;
+  padding: 0px;
+  margin: 0px;
+  overflow-y: scroll; }
+
+.rule-editor-body {
+  width: 340px; }
+
 .editor-frame {
   display: flex;
   flex-direction: row-reverse; }
@@ -160,34 +187,34 @@ h2 {
 /*
 List Buttons
 */
-.buttonContainer input {
+.button-container input {
   border: none;
   text-indent: -9999px;
   background: none;
   margin: 0 0.2rem; }
 
-.buttonContainer input.buttonOn {
+.button-container input.buttonOn {
   background-image: url("/img/button/on.png");
   background-size: 42px 13px;
   background-repeat: no-repeat;
   width: 42px;
   height: 13px; }
 
-.buttonContainer input.buttonOff {
+.button-container input.buttonOff {
   background-image: url("/img/button/off.png");
   background-size: 42px 13px;
   background-repeat: no-repeat;
   width: 42px;
   height: 13px; }
 
-.buttonContainer input.buttonEdit {
+.button-container input.buttonEdit {
   background-image: url("/img/button/edit.png");
   background-size: 14px 14px;
   background-repeat: no-repeat;
   width: 14px;
   height: 14px; }
 
-.buttonContainer input.buttonDelete {
+.button-container input.buttonDelete {
   background-image: url("/img/button/delete.png");
   background-size: 14px 14px;
   background-repeat: no-repeat;
@@ -203,38 +230,6 @@ List Buttons
   padding: 10px;
   text-align: center;
   color: #888; }
-
-/*
-Header & Footer
-*/
-.header {
-  padding: 0px;
-  margin-bottom: 6px;
-  position: relative; }
-  .header h1 {
-    font-weight: normal; }
-
-.tabs {
-  height: 24px;
-  padding: 0px;
-  margin: 8px 0px; }
-  .tabs__tab {
-    display: block;
-    list-style-type: none;
-    width: 25%;
-    height: inherit;
-    float: left;
-    text-align: center;
-    color: #666; }
-    .tabs__tab__link {
-      height: inherit;
-      display: block;
-      text-decoration: none;
-      line-height: 24px;
-      color: inherit; }
-    .tabs__tab--selected {
-      background-color: #0db3ea;
-      color: white; }
 
 #search_box {
   background-image: url(../../img/search_icon.png);

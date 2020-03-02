@@ -18,18 +18,18 @@ html
       // Extra JS
   body
     header.header
-      h1
+      h1.header__title
         img(src='../img/top_title.png', alt='CustomBlocker for Google Chrome')
-      .donate
+      .header__donate
         a#donate_link.custom_filter_localize_donate(href='#donate') Donate
-      nav.tabs
-        .tabs__tab(class=(tab=="index") ? "tabs__tab--selected":"")
-          a.tabs__tab__link(href='index.html?p=p4')
+      nav.header__tabs
+        .header__tabs__tab(class=(tab=="index") ? "header__tabs__tab--selected":"")
+          a.header__tabs__tab__link(href='index.html?p=p4')
             span.custom_filter_localize_prefTitle Manage Rules
-        .tabs__tab(class=(tab=="group") ? "tabs__tab--selected":"")
-          a.tabs__tab__link#word_group_link(href='word_group.html')
+        .header__tabs__tab(class=(tab=="group") ? "header__tabs__tab--selected":"")
+          a.header__tabs__tab__link#word_group_link(href='word_group.html')
             span.custom_filter_localize_word_group Word Groups
-        .tabs__tab(class=(tab=="help") ? "tabs__tab--selected":"")
-          a.tabs__tab__link#help_link(href='help_en.html')
+        .header__tabs__tab(class=(tab=="help") ? "header__tabs__tab--selected":"")
+          a.header__tabs__tab__link#help_link(href='help_en.html')
             span.custom_filter_localize_help Help
     block content

@@ -167,7 +167,7 @@ class RuleContainer {
 		});
 		this.liElement.addEventListener('click', this.getSelectAction(), false);
 		let buttonContainer = document.createElement('DIV');
-		buttonContainer.className = 'buttonContainer';
+		buttonContainer.className = 'button-container';
 		buttonContainer.appendChild(exampleLink);
 		buttonContainer.appendChild(this.createSelectButton());
 		buttonContainer.appendChild(this.createDeleteButton());
@@ -177,7 +177,7 @@ class RuleContainer {
 		this.liElement.appendChild(buttonContainer);
 
 		let informationDiv = document.createElement('DIV');
-		informationDiv.className = 'information';
+		informationDiv.className = 'rule-list__item__information';
 
 		this.liElement.appendChild(informationDiv);
 

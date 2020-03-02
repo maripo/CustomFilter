@@ -4,16 +4,15 @@ body {
   padding: 0px;
   font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif; }
 
-#header {
+.header {
   height: 30px;
   background-color: #ddd;
   line-height: 30px; }
-
-#header .menu {
-  width: 260px;
-  height: inherit;
-  float: right;
-  text-align: right; }
+  .header .menu {
+    width: 260px;
+    height: inherit;
+    float: right;
+    text-align: right; }
 
 p {
   margin: 4px; }

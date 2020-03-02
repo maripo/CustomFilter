@@ -1,38 +1,39 @@
+@import './block/button-container.scss';
 body {
 	margin:0px;
 	padding:0px;
 	font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
 }
-#header {
+.header {
 	height:30px;
 	line-height:30px;
 	padding-top:7px;
 	padding-right:6px;
+	.menu {
+		width:280px;
+		height:inherit;
+		float:right;
+		text-align:right;
+		font-size:10px;
+	}
+	h1 {
+		font-size:1.4px;
+		margin-right:200px;
+		width:auto;
+		margin-top:0px;
+		margin-left:0px;
+		margin-bottom:0px;
+		padding:0px;
+		height:inherit;
+		color: #333;
+		margin-left:4px;
+		font-weight:normal;
+	}
 }
 a {
 	text-decoration:none;
 	color:#0db3ea;
 	font-size:120%;
-}
-#header .menu {
-	width:280px;
-	height:inherit;
-	float:right;
-	text-align:right;
-	font-size:10px;
-}
-#header h1 {
-	font-size:1.4px;
-	margin-right:200px;
-	width:auto;
-	margin-top:0px;
-	margin-left:0px;
-	margin-bottom:0px;
-	padding:0px;
-	height:inherit;
-	color: #333;
-	margin-left:4px;
-	font-weight:normal;
 }
 #content {
 	padding:7px;
@@ -152,56 +153,7 @@ Applied Rules
 	}
 }
 
-.buttonContainer {
-	float:right;
-	width:120px;
-	height: inherit;
-	text-align:right;
-	height:inherit;
-	margin:0px;
-	padding:0px;
-	input  {
-		border:none;
-		text-indent:-9999px;
-		background: none;
-		margin: 0 0.2rem;
-	}
-	input.buttonOn {
-		background-image:url("/img/button/on.png");
-		background-size: 42px 13px;
-		background-repeat: no-repeat;
-		width: 42px;
-		height: 13px;
-	}
-	input.buttonOff {
-		background-image:url("/img/button/off.png");
-		background-size: 42px 13px;
-		background-repeat: no-repeat;
-		width: 42px;
-		height: 13px;
-	}
-	input.buttonEdit {
-		background-image:url("/img/button/edit.png");
-		background-size: 14px 14px;
-		background-repeat: no-repeat;
-		width: 14px;
-		height: 14px;
-	}
-	input.buttonDelete {
-		background-image:url("/img/button/delete.png");
-		background-size: 14px 14px;
-		background-repeat: no-repeat;
-		width: 14px;
-		height: 14px;
-	}
-}
 
-li .buttonContainer .buttonDelete, li .buttonContainer .buttonEdit {
-	visibility: hidden;
-}
-li:hover .buttonContainer .buttonDelete, li:hover .buttonContainer .buttonEdit {
-	visibility:visible;
-}
 .note {
 	background-color: #cdedf8 !important;
 	border: solid 1px #249bc3 !important;

@@ -1,3 +1,6 @@
+@import '../block/rule-list.scss';
+@import '../block/keyword.scss';
+@import '../block/header.scss';
 body {
 	font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
 	max-width:910px;
@@ -9,19 +12,6 @@ h1 {
 }
 h2 {
 	font-size:120%;
-}
-.donate {
-	text-align:right;
-	width:200px;
-	height:auto;
-	position:absolute;
-	top:0px;
-	right:0px;
-	a {
-		text-decoration:none;
-		color:#0db3ea;
-		font-size:120%;
-	}
 }
 
 #prefMain {
@@ -36,147 +26,6 @@ h2 {
 }
 .rule-editor-body {
 	width:340px;
-}
-.rule-list {
-	padding:0px;
-	margin:0px;
-	font-size:12px;
-	li {
-		height:37px;
-		list-style-type:none;
-		margin:0px;
-		padding:0px;
-		position:relative;
-		cursor:pointer;
-		overflow:hidden;
-		color:#444;
-		border-top:1px solid #ddd;
-		&:last-child {
-			border-bottom:1px solid #ddd;
-		}
-		&:hover {
-			background-color:#eef8ff;
-		}
-		.exampleUrl {
-			background-image:url("/img/button/link.png");
-			background-size: 14px 14px;
-			background-repeat: no-repeat;
-			width: 14px;
-			height: 14px;
-			display: inline-block;
-		}
-		.sub_import {
-			position:absolute;
-			left:50px;
-			top:0px;
-			width:400px;
-		}
-		.sub_export {
-			position:absolute;
-			left:36px;
-			top:0px;
-			width:400px;
-		}
-		img.importIcon {
-			position:absolute;
-			left:34px;
-			top:2px;
-		}
-		input.check {
-			position:absolute;
-			left:10px;
-			top:10px;
-		}
-		.information {
-			margin-right:100px;
-			height:inherit;
-			img.favicon {
-				position:absolute;
-				left:2px;
-				top:2px;
-			}
-			div.title {
-				position:absolute;
-				line-height:16px;
-				vertical-align:middle;
-				left:20px;
-				top:2px;
-				height:16px;
-				font-size:12px;
-			}
-			div.url {
-				position:absolute;
-				font-size:10px;
-				left:10px;
-				top:20px;
-				color:#444;
-			}
-			div.keywords {
-				position:absolute;
-				font-size:9px;
-				left:250px;
-				top:22px;
-			}
-		}
-	}
-	li.filtered {
-		display:none;
-	}
-	li.selected {
-		background-color:#fff080;
-	}
-	li div.buttonContainer {
-		width:175px;
-		margin-top:2px;
-		float:right;
-		/*height:inherit;*/
-		line-height:17px;
-		text-align: right;
-	}
-	li:hover div.buttonContainer {
-		visibility: visible;
-	}
-	.keywords {
-		clear: right;
-		span.blockAnyway {
-			margin-right:4px;
-			padding:0px 2px;
-			background-color:#dfd!important;
-			border: solid 1px #4d4!important;
-		}
-	}
-	li div.buttonContainer {
-		.exampleUrl, .buttonDelete, .buttonEdit {
-			visibility: hidden;
-		}
-	}
-	li:hover div.buttonContainer {
-		.exampleUrl, .buttonDelete, .buttonEdit {
-			visibility:visible;
-		}
-	}
-}
-
-.keyword {
-	padding:0 4px;
-	border-radius:4px!important;
-	font-size:0.6rem;
-	display: inline-block;
-	line-height: 12px;
-	height:12px;
-	margin-bottom: 4px;
-	&--regex {
-		background-color:#fed3de!important;
-		border: solid 1px #fb5c86!important;
-	}
-	&--group {
-		background-color:#ffffff!important;
-		border: solid 1px #aaaaaa!important;
-	}
-	&--normal {
-		background-color:#cdedf8!important;
-		border: solid 1px #249bc3!important;
-	}
 }
 
 .editor-frame {
@@ -193,7 +42,7 @@ h2 {
 /*
 List Buttons
 */
-.buttonContainer {
+.button-container {
 	input  {
 		border:none;
 		text-indent:-9999px;
@@ -239,43 +88,6 @@ List Buttons
 	padding:10px;
 	text-align:center;
 	color:#888;
-}
-/*
-Header & Footer
-*/
-
-.header {
-	padding:0px;
-	margin-bottom:6px;
-	position:relative;
-	h1{
-		font-weight:normal;
-	}
-}
-.tabs {
-	height:24px;
-	padding:0px;
-	margin:8px 0px;
-	&__tab {
-		display:block;
-		list-style-type:none;
-		width:25%;
-		height:inherit;
-		float:left;
-		text-align:center;
-		color: #666;
-		&__link {
-			height:inherit;
-			display:block;
-			text-decoration:none;
-			line-height:24px;
-			color: inherit;;
-		}
-		&--selected {
-			background-color:#0db3ea;
-			color:white;
-		}
-	}
 }
 
 #search_box {

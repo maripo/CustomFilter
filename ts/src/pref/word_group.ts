@@ -41,7 +41,7 @@ class WordGroupPage {
 		li.innerHTML = group.name;
 
 		let buttonContainer = document.createElement('DIV');
-		buttonContainer.className = 'buttonContainer';
+		buttonContainer.className = 'button-container';
 		buttonContainer.appendChild(this.createSelectButton(group));
 		buttonContainer.appendChild(this.createDeleteButton(group));
 		li.appendChild(buttonContainer);
@@ -173,7 +173,7 @@ class WordGroupWrapper {
 			this.li.innerHTML = this.group.name;
 
 			let buttonContainer = document.createElement('DIV');
-			buttonContainer.className = 'buttonContainer';
+			buttonContainer.className = 'button-container';
 			buttonContainer.appendChild(this.createSelectButton());
 			buttonContainer.appendChild(this.createDeleteButton());
 			this.li.appendChild(buttonContainer);

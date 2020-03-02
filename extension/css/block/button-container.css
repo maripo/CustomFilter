@@ -1,0 +1,44 @@
+.button-container {
+  float: right;
+  width: 120px;
+  height: inherit;
+  text-align: right;
+  height: inherit;
+  margin: 0px;
+  padding: 0px; }
+  .button-container input {
+    border: none;
+    text-indent: -9999px;
+    background: none;
+    margin: 0 0.2rem; }
+  .button-container input.buttonOn {
+    background-image: url("/img/button/on.png");
+    background-size: 42px 13px;
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 13px; }
+  .button-container input.buttonOff {
+    background-image: url("/img/button/off.png");
+    background-size: 42px 13px;
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 13px; }
+  .button-container input.buttonEdit {
+    background-image: url("/img/button/edit.png");
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px; }
+  .button-container input.buttonDelete {
+    background-image: url("/img/button/delete.png");
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px; }
+
+/* Visibility switching */
+li .button-container .buttonDelete, li .button-container .buttonEdit {
+  visibility: hidden; }
+
+li:hover .button-container .buttonDelete, li:hover .button-container .buttonEdit {
+  visibility: visible; }

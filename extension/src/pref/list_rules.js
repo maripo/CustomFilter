@@ -141,7 +141,7 @@ var RuleContainer = (function () {
         });
         this.liElement.addEventListener('click', this.getSelectAction(), false);
         var buttonContainer = document.createElement('DIV');
-        buttonContainer.className = 'buttonContainer';
+        buttonContainer.className = 'button-container';
         buttonContainer.appendChild(exampleLink);
         buttonContainer.appendChild(this.createSelectButton());
         buttonContainer.appendChild(this.createDeleteButton());
@@ -149,7 +149,7 @@ var RuleContainer = (function () {
         buttonContainer.appendChild(this.disableBox);
         this.liElement.appendChild(buttonContainer);
         var informationDiv = document.createElement('DIV');
-        informationDiv.className = 'information';
+        informationDiv.className = 'rule-list__item__information';
         this.liElement.appendChild(informationDiv);
         var titleDiv = document.createElement('DIV');
         titleDiv.className = 'title';

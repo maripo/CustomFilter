@@ -14,10 +14,10 @@
 
  	constructor (targetElement:HTMLElement, appliedRuleList:Rule[],
     selectionText:string, needSuggestion:boolean) {
-		CustomBlockerUtil.applyCss('/css/reset.css');
-		CustomBlockerUtil.applyCss('/css/smart_rule_editor.css');
+		CustomBlockerUtil.applyCss('/css/context/reset.css');
+		CustomBlockerUtil.applyCss('/css/context/smart_rule_editor.css');
 		CustomBlockerUtil.applyCss('/css/rule_editor_common.css');
-		CustomBlockerUtil.applyCss('/css/keywords.css');
+		CustomBlockerUtil.applyCss('/css/context/keywords.css');
 		this.appliedRuleList = appliedRuleList;
 		this.targetElement = targetElement;
 		this.selectionText = selectionText;
@@ -436,7 +436,7 @@ class SmartRuleCreatorDialog {
 
 		let button = <HTMLInputElement>document.createElement('INPUT');
 		button.type = 'button';
-		button.className = "uiButton";
+		button.className = "ui-button";
 		button.value = buttonTitle;
 
 		li.appendChild(spanHideCount);

@@ -71,23 +71,5 @@
     display: none; }
   .rule-list li.selected {
     background-color: #fff080; }
-  .rule-list li div.button-container {
-    width: 175px;
-    margin-top: 2px;
-    float: right;
-    /*height:inherit;*/
-    line-height: 17px;
-    text-align: right; }
-  .rule-list li:hover div.button-container {
-    visibility: visible; }
   .rule-list .keywords {
     clear: right; }
-    .rule-list .keywords span.blockAnyway {
-      margin-right: 4px;
-      padding: 0px 2px;
-      background-color: #dfd !important;
-      border: solid 1px #4d4 !important; }
-  .rule-list li div.button-container .exampleUrl, .rule-list li div.button-container .buttonDelete, .rule-list li div.button-container .buttonEdit {
-    visibility: hidden; }
-  .rule-list li:hover div.button-container .exampleUrl, .rule-list li:hover div.button-container .buttonDelete, .rule-list li:hover div.button-container .buttonEdit {
-    visibility: visible; }

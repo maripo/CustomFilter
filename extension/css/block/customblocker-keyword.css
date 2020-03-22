@@ -1,5 +1,5 @@
 /* Definition */
-.customblocker-keyword, .keyword {
+.customblocker-keyword {
   margin: 0px 2px 2px 0px !important;
   padding-left: 4px !important;
   padding-right: 4px !important;
@@ -16,7 +16,7 @@
   .customblocker-keyword--not-complete-matching {
     background-color: #cdedf8 !important;
     border: solid 1px #249bc3 !important; }
-  .customblocker-keyword--regexp, .keyword--regex {
+  .customblocker-keyword--regexp {
     background-color: #dcc !important;
     border: solid 1px #baa !important; }
   .customblocker-keyword--not-regexp {
@@ -36,16 +36,3 @@
     height: 13px !important;
     vertical-align: middle !important;
     margin: 0px 3px 0px 0px !important; }
-
-.keyword--group {
-  border: solid 1px #888888 !important; }
-
-.keyword--normal {
-  background-color: #cdedf8 !important;
-  border: solid 1px #249bc3 !important; }
-
-.keyword--block-anyway {
-  margin-right: 4px;
-  padding: 0px 2px;
-  background-color: #dfd !important;
-  border: solid 1px #4d4 !important; }

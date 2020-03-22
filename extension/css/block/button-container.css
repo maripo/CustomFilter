@@ -4,8 +4,10 @@
   height: inherit;
   text-align: right;
   height: inherit;
-  margin: 0px;
-  padding: 0px; }
+  margin: 2px 0 0;
+  padding: 0px;
+  width: 175px;
+  line-height: 17px; }
   .button-container input {
     border: none;
     text-indent: -9999px;
@@ -36,9 +38,10 @@
     width: 14px;
     height: 14px; }
 
-/* Visibility switching */
-li .button-container .buttonDelete, li .button-container .buttonEdit {
+/* Default visibility */
+li div.button-container .exampleUrl, li div.button-container .buttonDelete, li div.button-container .buttonEdit {
   visibility: hidden; }
 
-li:hover .button-container .buttonDelete, li:hover .button-container .buttonEdit {
+/* Hover styles */
+li:hover .button-container .exampleUrl, li:hover .button-container .buttonDelete, li:hover .button-container .buttonEdit {
   visibility: visible; }

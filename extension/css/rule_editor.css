@@ -20,15 +20,15 @@
   font-size: 12px !important;
   width: 400px; }
   .rule-editor-body * {
+    /* TODO: Too strong for pref pages */
     text-align: left;
     background: none;
     text-indent: 0px !important;
     position: relative !important;
     font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
-    margin: 0px !important;
-    padding: 0px !important;
-    margin: 0px !important;
-    border-radius: 0px !important;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 0px;
     -webkit-border-radius: 0px !important; }
   .rule-editor-body label {
     float: none !important;
@@ -61,14 +61,14 @@
     box-shadow: none !important;
     outline: none !important;
     border: initial !important; }
-  .rule-editor-body input.uiButton {
+  .rule-editor-body input.ui-button {
     border-radius: 0px !important;
     margin-left: 2px !important;
     vertical-align: middle !important;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) !important;
     color: #fff !important;
     text-align: center;
-    padding: 3px 6px !important; }
+    padding: 3px 6px; }
   .rule-editor-body input[type="text"] {
     border: solid 1px #888 !important;
     float: none !important;
@@ -80,13 +80,35 @@
     float: none !important;
     font-size: 10px !important;
     color: #444 !important; }
-  .rule-editor-body .footer input.uiButton {
+  .rule-editor-body .footer input.ui-button {
     padding: 3px 6px !important; }
   .rule-editor-body div, .rule-editor-body h2 {
     overflow: visible !important;
     height: auto;
     left: auto !important;
     top: auto !important; }
+  .rule-editor-body .section_alert {
+    color: red;
+    display: none;
+    font-size: 85%; }
+  .rule-editor-body .bottom_button_container {
+    padding: 2px !important; }
+  .rule-editor-body .rule_editor_count {
+    border-width: 1px;
+    border-style: solid;
+    font-size: 11px;
+    color: white !important;
+    font-weight: bold !important;
+    border-radius: 0px !important; }
+  .rule-editor-body .rule_editor_count_hide {
+    background-color: #959595 !important;
+    padding: 1px 2px !important; }
+  .rule-editor-body .rule_editor_count_search {
+    background-color: #0db3ea !important;
+    padding: 1px 2px !important; }
+  .rule-editor-body .footer {
+    text-align: center !important;
+    padding: 2px 0px 4px !important; }
 
 #rule_editor_save_button, #rule_editor_add_keyword_button {
   background-color: #0db3ea !important; }
@@ -231,10 +253,6 @@
     float: right;
     text-align: right; }
 
-.rule-editor-body .footer {
-  text-align: center !important;
-  padding: 2px 0px 4px !important; }
-
 #rule_editor_alert {
   background-color: #fea !important;
   border: solid 1px #fc0 !important;
@@ -255,30 +273,6 @@
   height: 18px !important;
   margin-top: 4px !important;
   cursor: pointer !important; }
-
-.rule-editor-body div.section_alert {
-  color: red;
-  display: none;
-  font-size: 85%; }
-
-.rule-editor-body div.bottom_button_container {
-  padding: 2px !important; }
-
-.rule-editor-body .rule_editor_count {
-  border-width: 1px;
-  border-style: solid;
-  font-size: 11px;
-  color: white !important;
-  font-weight: bold !important;
-  border-radius: 0px !important; }
-
-.rule-editor-body .rule_editor_count_hide {
-  background-color: #959595 !important;
-  padding: 1px 2px !important; }
-
-.rule-editor-body .rule_editor_count_search {
-  background-color: #0db3ea !important;
-  padding: 1px 2px !important; }
 
 #rule_editor_container div.block_anyway div.rule_editor_keyword_section,
 #rule_editor_container div.block_anyway div.rule_editor_search_section {

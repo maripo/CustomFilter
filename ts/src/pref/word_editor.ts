@@ -24,8 +24,8 @@ class WordEditor {
 			span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_include_href",suffix,"include_href"));
 		}
 		span.innerHTML += CustomBlockerUtil.escapeHTML(word.word);
-		span.className = 'word ' 
-			+ ((word.is_complete_matching)?'complete_matching':'not_complete_matching');
+		span.className = 'word word--' 
+			+ ((word.is_complete_matching)?'complete-matching':'not-complete-matching');
 		let deleteButton = CustomBlockerUtil.createDeleteButton();
 		deleteButton.addEventListener('click', this.getDeleteWordAction(word, span), true);
 		

@@ -1,5 +1,5 @@
 /* Definition */
-.customblocker-keyword, .keyword {
+.customblocker-keyword, #smart_rule_editor_keywords span.word, #smart_rule_editor_preview_keywords span.word {
   margin: 0px 2px 2px 0px !important;
   padding-left: 4px !important;
   padding-right: 4px !important;
@@ -10,19 +10,19 @@
   display: inline-block !important;
   height: 14px !important;
   line-height: 14px !important; }
-  .customblocker-keyword--complete-matching {
+  .customblocker-keyword--complete-matching, #smart_rule_editor_keywords span.complete_matching, #smart_rule_editor_preview_keywords span.complete_matching {
     background-color: #fed3de !important;
     border: solid 1px #fb5c86 !important; }
-  .customblocker-keyword--not-complete-matching {
+  .customblocker-keyword--not-complete-matching, #smart_rule_editor_keywords span.not_complete_matching, #smart_rule_editor_preview_keywords span.not_complete_matching {
     background-color: #cdedf8 !important;
     border: solid 1px #249bc3 !important; }
-  .customblocker-keyword--regexp, .keyword--regex {
+  .customblocker-keyword--regexp {
     background-color: #dcc !important;
     border: solid 1px #baa !important; }
   .customblocker-keyword--not-regexp {
     background-color: #ccd !important;
     border: solid 1px #aab !important; }
-  .customblocker-keyword__delete-button {
+  .customblocker-keyword__delete-button, #smart_rule_editor_keywords span.word .deleteButton, #smart_rule_editor_preview_keywords span.word .deleteButton {
     width: 16px !important;
     height: 16px !important;
     border: none !important;
@@ -31,21 +31,10 @@
     background-position: 4px 4px;
     background-size: 7px 7px !important;
     vertical-align: middle; }
-  .customblocker-keyword__img--option {
+  .customblocker-keyword__img--option, #smart_rule_editor_keywords span.word img.option, #smart_rule_editor_preview_keywords span.word img.option {
     width: 13px !important;
     height: 13px !important;
     vertical-align: middle !important;
     margin: 0px 3px 0px 0px !important; }
 
-.keyword--group {
-  border: solid 1px #888888 !important; }
-
-.keyword--normal {
-  background-color: #cdedf8 !important;
-  border: solid 1px #249bc3 !important; }
-
-.keyword--block-anyway {
-  margin-right: 4px;
-  padding: 0px 2px;
-  background-color: #dfd !important;
-  border: solid 1px #4d4 !important; }
+/* For content scripts (Strong) */

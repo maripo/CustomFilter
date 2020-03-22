@@ -63,7 +63,7 @@ class WordGroupPage {
 	createSelectButton (group:WordGroup): HTMLInputElement {
 		let button = document.createElement('INPUT') as HTMLInputElement;
 		button.type = 'BUTTON';
-		button.className = 'uiButton buttonEdit';
+		button.className = 'ui-button buttonEdit';
 		button.value = chrome.i18n.getMessage('buttonLabelEdit');
 		button.addEventListener('click', ()=>{this.selectWordGroup(group);}, true);
 		return button;
@@ -71,7 +71,7 @@ class WordGroupPage {
 	createDeleteButton (group:WordGroup): HTMLInputElement {
 		let button = document.createElement('INPUT') as HTMLInputElement;
 		button.type = 'BUTTON';
-		button.className = 'uiButton buttonDelete';
+		button.className = 'ui-button buttonDelete';
 		button.value = chrome.i18n.getMessage('buttonLabelDelete');
 		button.addEventListener('click', ()=>{this.deleteWordGroup(group);}, true);
 		return button;
@@ -197,7 +197,7 @@ class WordGroupWrapper {
 	createSelectButton (): HTMLInputElement {
 		let button = document.createElement('INPUT') as HTMLInputElement;
 		button.type = 'BUTTON';
-		button.className = 'uiButton buttonEdit';
+		button.className = 'ui-button buttonEdit';
 		button.value = chrome.i18n.getMessage('buttonLabelEdit');
 		// button.addEventListener('click', this.getSelectAction(), true);
 		return button;
@@ -205,7 +205,7 @@ class WordGroupWrapper {
 	createDeleteButton (): HTMLInputElement {
 		let button = document.createElement('INPUT') as HTMLInputElement;
 		button.type = 'BUTTON';
-		button.className = 'uiButton buttonDelete';
+		button.className = 'ui-button buttonDelete';
 		button.value = chrome.i18n.getMessage('buttonLabelDelete');
 		// button.addEventListener('click', this.getDeleteAction(), true);
 		return button;

@@ -1,3 +1,42 @@
+/* Definition */
+.customblocker-keyword, #rule_editor_keywords .word, #rule_editor_keywords .group, #rule_editor_keyword_groups .word, #rule_editor_keyword_groups .group {
+  margin: 0px 2px 2px 0px !important;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  display: inline-block !important;
+  height: 14px !important;
+  line-height: 14px !important; }
+  .customblocker-keyword--complete-matching, #rule_editor_keywords .word--complete-matching, #rule_editor_keywords .group--complete-matching, #rule_editor_keyword_groups .word--complete-matching, #rule_editor_keyword_groups .group--complete-matching {
+    background-color: #fed3de !important;
+    border: solid 1px #fb5c86 !important; }
+  .customblocker-keyword--not-complete-matching, #rule_editor_keywords .word--not-complete-matching, #rule_editor_keywords .group--not-complete-matching, #rule_editor_keyword_groups .word--not-complete-matching, #rule_editor_keyword_groups .group--not-complete-matching {
+    background-color: #cdedf8 !important;
+    border: solid 1px #249bc3 !important; }
+  .customblocker-keyword--regexp, #rule_editor_container .block_anyway .regexp {
+    background-color: #dcc !important;
+    border: solid 1px #baa !important; }
+  .customblocker-keyword--not-regexp, #rule_editor_container .block_anyway .not_regexp {
+    background-color: #ccd !important;
+    border: solid 1px #aab !important; }
+  .customblocker-keyword__delete-button, #rule_editor_keywords .word__delete-button, #rule_editor_keywords .group__delete-button, #rule_editor_keyword_groups .word__delete-button, #rule_editor_keyword_groups .group__delete-button {
+    width: 16px !important;
+    height: 16px !important;
+    border: none !important;
+    background-image: url(../img/keyword_delete.png) !important;
+    background-repeat: no-repeat;
+    background-position: 4px 4px;
+    background-size: 7px 7px !important;
+    vertical-align: middle; }
+  .customblocker-keyword__img--option, #rule_editor_keywords .word .option, #rule_editor_keywords .group .option, #rule_editor_keyword_groups .word .option, #rule_editor_keyword_groups .group .option {
+    width: 13px !important;
+    height: 13px !important;
+    vertical-align: middle !important;
+    margin: 0px 3px 0px 0px !important; }
+
 /**
 	Keyword Container
 	(for keyword)
@@ -5,70 +44,8 @@
 .rule_editor_keywords {
   padding: 2px 5px 2px 15px !important; }
 
-#rule_editor_keywords span.word,
-#smart_rule_editor_keywords span.word,
-#smart_rule_editor_preview_keywords span.word,
-#rule_editor_keyword_groups span.group {
-  margin: 0px 2px 2px 0px !important;
-  padding-left: 4px !important;
-  padding-right: 0px !important;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-  border-radius: 4px !important;
-  font-size: 12px !important;
-  display: inline-block !important;
-  height: 16px !important;
-  line-height: 16px !important; }
-
-#rule_editor_keywords span.word img.option,
-#smart_rule_editor_keywords span.word img.option,
-#smart_rule_editor_preview_keywords span.word img.option {
-  width: 13px !important;
-  height: 13px !important;
-  vertical-align: middle !important;
-  margin: 0px 3px 0px 0px !important; }
-
-#rule_editor_keywords span.complete_matching,
-#smart_rule_editor_keywords span.complete_matching,
-#smart_rule_editor_preview_keywords span.complete_matching {
-  background-color: #fed3de !important;
-  border: solid 1px #fb5c86 !important; }
-
-#rule_editor_keywords span.not_complete_matching,
-#smart_rule_editor_keywords span.not_complete_matching,
-#smart_rule_editor_preview_keywords span.not_complete_matching {
-  background-color: #cdedf8 !important;
-  border: solid 1px #249bc3 !important; }
-
-/**
-	Group (name and delete button)
-*/
-#rule_editor_keyword_groups span.group {
+/* For extension paths (Weak) */
+#rule_editor_keywords .group, #rule_editor_keyword_groups .group {
   border: solid 1px #888888 !important; }
 
-/**
-	"Block Anyway"
-*/
-#rule_editor_container div.block_anyway span.not_regexp {
-  background-color: #ccd !important;
-  border: solid 1px #aab !important; }
-
-#rule_editor_container div.block_anyway span.regexp {
-  background-color: #dcc !important;
-  border: solid 1px #baa !important; }
-
-/**
-	Delete Button (Normal & Hover)
-*/
-#rule_editor_keywords span.word .deleteButton,
-#smart_rule_editor_keywords span.word .deleteButton,
-#smart_rule_editor_preview_keywords span.word .deleteButton,
-#rule_editor_keyword_groups span.group .deleteButton {
-  width: 16px !important;
-  height: 16px !important;
-  border: none !important;
-  background-image: url(../img/keyword_delete.png) !important;
-  background-repeat: no-repeat;
-  background-position: 4px 4px;
-  background-size: 7px 7px !important;
-  vertical-align: middle; }
+/* Block anyway (Only in list) */

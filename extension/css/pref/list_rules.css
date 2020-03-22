@@ -72,44 +72,60 @@
     display: none; }
   .rule-list li.selected {
     background-color: #fff080; }
-  .rule-list li div.button-container {
-    width: 175px;
-    margin-top: 2px;
-    float: right;
-    /*height:inherit;*/
-    line-height: 17px;
-    text-align: right; }
-  .rule-list li:hover div.button-container {
-    visibility: visible; }
   .rule-list .keywords {
     clear: right; }
-    .rule-list .keywords span.blockAnyway {
-      margin-right: 4px;
-      padding: 0px 2px;
-      background-color: #dfd !important;
-      border: solid 1px #4d4 !important; }
-  .rule-list li div.button-container .exampleUrl, .rule-list li div.button-container .buttonDelete, .rule-list li div.button-container .buttonEdit {
-    visibility: hidden; }
-  .rule-list li:hover div.button-container .exampleUrl, .rule-list li:hover div.button-container .buttonDelete, .rule-list li:hover div.button-container .buttonEdit {
-    visibility: visible; }
 
-.keyword {
-  padding: 0 4px;
+/* Definition */
+.customblocker-keyword, .keyword {
+  margin: 0px 2px 2px 0px !important;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
   border-radius: 4px !important;
-  font-size: 0.6rem;
-  display: inline-block;
-  line-height: 12px;
-  height: 12px;
-  margin-bottom: 4px; }
-  .keyword--regex {
+  font-size: 12px !important;
+  display: inline-block !important;
+  height: 14px !important;
+  line-height: 14px !important; }
+  .customblocker-keyword--complete-matching {
     background-color: #fed3de !important;
     border: solid 1px #fb5c86 !important; }
-  .keyword--group {
-    background-color: #ffffff !important;
-    border: solid 1px #aaaaaa !important; }
-  .keyword--normal {
+  .customblocker-keyword--not-complete-matching {
     background-color: #cdedf8 !important;
     border: solid 1px #249bc3 !important; }
+  .customblocker-keyword--regexp, .keyword--regex {
+    background-color: #dcc !important;
+    border: solid 1px #baa !important; }
+  .customblocker-keyword--not-regexp {
+    background-color: #ccd !important;
+    border: solid 1px #aab !important; }
+  .customblocker-keyword__delete-button {
+    width: 16px !important;
+    height: 16px !important;
+    border: none !important;
+    background-image: url(../img/keyword_delete.png) !important;
+    background-repeat: no-repeat;
+    background-position: 4px 4px;
+    background-size: 7px 7px !important;
+    vertical-align: middle; }
+  .customblocker-keyword__img--option {
+    width: 13px !important;
+    height: 13px !important;
+    vertical-align: middle !important;
+    margin: 0px 3px 0px 0px !important; }
+
+.keyword--group {
+  border: solid 1px #888888 !important; }
+
+.keyword--normal {
+  background-color: #cdedf8 !important;
+  border: solid 1px #249bc3 !important; }
+
+.keyword--block-anyway {
+  margin-right: 4px;
+  padding: 0px 2px;
+  background-color: #dfd !important;
+  border: solid 1px #4d4 !important; }
 
 .header {
   padding: 0px;
@@ -150,6 +166,54 @@
         background-color: #0db3ea;
         color: white; }
 
+.button-container {
+  float: right;
+  width: 120px;
+  height: inherit;
+  text-align: right;
+  height: inherit;
+  margin: 2px 0 0;
+  padding: 0px;
+  width: 175px;
+  line-height: 17px; }
+  .button-container input {
+    border: none;
+    text-indent: -9999px;
+    background: none;
+    margin: 0 0.2rem; }
+  .button-container input.buttonOn {
+    background-image: url("/img/button/on.png");
+    background-size: 42px 13px;
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 13px; }
+  .button-container input.buttonOff {
+    background-image: url("/img/button/off.png");
+    background-size: 42px 13px;
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 13px; }
+  .button-container input.buttonEdit {
+    background-image: url("/img/button/edit.png");
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px; }
+  .button-container input.buttonDelete {
+    background-image: url("/img/button/delete.png");
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px; }
+
+/* Default visibility */
+li div.button-container .exampleUrl, li div.button-container .buttonDelete, li div.button-container .buttonEdit {
+  visibility: hidden; }
+
+/* Hover styles */
+li:hover .button-container .exampleUrl, li:hover .button-container .buttonDelete, li:hover .button-container .buttonEdit {
+  visibility: visible; }
+
 body {
   font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
   max-width: 910px; }
@@ -173,7 +237,9 @@ h2 {
   overflow-y: scroll; }
 
 .rule-editor-body {
-  width: 340px; }
+  width: 340px;
+  border: solid 1px #888;
+  margin-left: 4px; }
 
 .editor-frame {
   display: flex;
@@ -183,47 +249,6 @@ h2 {
   .editor-frame__list {
     flex: 1;
     padding-right: 0.5em; }
-
-/*
-List Buttons
-*/
-.button-container input {
-  border: none;
-  text-indent: -9999px;
-  background: none;
-  margin: 0 0.2rem; }
-
-.button-container input.buttonOn {
-  background-image: url("/img/button/on.png");
-  background-size: 42px 13px;
-  background-repeat: no-repeat;
-  width: 42px;
-  height: 13px; }
-
-.button-container input.buttonOff {
-  background-image: url("/img/button/off.png");
-  background-size: 42px 13px;
-  background-repeat: no-repeat;
-  width: 42px;
-  height: 13px; }
-
-.button-container input.buttonEdit {
-  background-image: url("/img/button/edit.png");
-  background-size: 14px 14px;
-  background-repeat: no-repeat;
-  width: 14px;
-  height: 14px; }
-
-.button-container input.buttonDelete {
-  background-image: url("/img/button/delete.png");
-  background-size: 14px 14px;
-  background-repeat: no-repeat;
-  width: 14px;
-  height: 14px; }
-
-.rule-editor-body {
-  border: solid 1px #888;
-  margin-left: 4px; }
 
 #ruleEmptyAlert {
   display: none;
@@ -251,7 +276,7 @@ span.word img.option {
   width: 14px;
   height: 14px; }
 
-div.rule_count {
+.rule-count {
   font-size: 80%;
   color: #444; }
 

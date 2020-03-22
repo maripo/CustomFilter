@@ -121,6 +121,9 @@ var RuleContainer = (function () {
         this.liElement = null;
         this.filtered = false;
     }
+    RuleContainer.prototype.getKeywordClass = function (suffix) {
+        return 'keyword keyword--' + suffix;
+    };
     RuleContainer.prototype.deselect = function () {
         this.selected = false;
     };
@@ -133,7 +136,7 @@ var RuleContainer = (function () {
             return this.liElement;
         this.liElement = document.createElement('LI');
         var exampleLink = document.createElement('INPUT');
-        exampleLink.className = 'uiButton exampleUrl';
+        exampleLink.className = 'ui-button exampleUrl';
         exampleLink.setAttribute("value", "link");
         exampleLink.setAttribute("type", "button");
         exampleLink.addEventListener("click", function () {
@@ -163,14 +166,14 @@ var RuleContainer = (function () {
         if (this.rule.block_anyway) {
             var span = document.createElement('SPAN');
             span.innerHTML = chrome.i18n.getMessage('blockAnyway');
-            span.className = 'keyword blockAnyway';
+            span.className = this.getKeywordClass("block-anyway");
             keywordsDiv.appendChild(span);
         }
         else {
             for (var _i = 0, _a = this.rule.words; _i < _a.length; _i++) {
                 var word = _a[_i];
                 var keywordSpan = document.createElement('SPAN');
-                keywordSpan.className = (word.is_regexp) ? "keyword keyword--regex" : "keyword keyword--normal";
+                keywordSpan.className = (word.is_regexp) ? this.getKeywordClass("regex") : this.getKeywordClass("normal");
                 keywordSpan.innerHTML = word.word;
                 keywordsDiv.appendChild(keywordSpan);
                 keywordsDiv.appendChild(document.createTextNode(" "));
@@ -178,7 +181,7 @@ var RuleContainer = (function () {
             for (var _b = 0, _c = this.rule.wordGroups; _b < _c.length; _b++) {
                 var group = _c[_b];
                 var keywordSpan = document.createElement('SPAN');
-                keywordSpan.className = "keyword keyword--group";
+                keywordSpan.className = this.getKeywordClass("group");
                 keywordSpan.innerHTML = group.name;
                 keywordsDiv.appendChild(keywordSpan);
                 keywordsDiv.appendChild(document.createTextNode(" "));
@@ -199,7 +202,7 @@ var RuleContainer = (function () {
         var input = document.createElement('INPUT');
         input.type = 'BUTTON';
         input.value = (this.rule.is_disabled) ? 'OFF' : 'ON';
-        input.className = (this.rule.is_disabled) ? 'uiButton buttonOff' : 'uiButton buttonOn';
+        input.className = (this.rule.is_disabled) ? 'ui-button buttonOff' : 'ui-button buttonOn';
         span.appendChild(input);
         input.addEventListener('click', this.getDisableAction(input), true);
         return span;
@@ -207,7 +210,7 @@ var RuleContainer = (function () {
     RuleContainer.prototype.createSelectButton = function () {
         var button = document.createElement('INPUT');
         button.type = 'BUTTON';
-        button.className = 'uiButton buttonEdit';
+        button.className = 'ui-button buttonEdit';
         button.value = chrome.i18n.getMessage('buttonLabelEdit');
         button.addEventListener('click', this.getSelectAction(), true);
         return button;
@@ -215,7 +218,7 @@ var RuleContainer = (function () {
     RuleContainer.prototype.createDeleteButton = function () {
         var button = document.createElement('INPUT');
         button.type = 'BUTTON';
-        button.className = 'uiButton buttonDelete';
+        button.className = 'ui-button buttonDelete';
         button.value = chrome.i18n.getMessage('buttonLabelDelete');
         button.addEventListener('click', this.getDeleteAction(), true);
         return button;
@@ -227,7 +230,7 @@ var RuleContainer = (function () {
             var rule = _this.rule;
             cbStorage.toggleRule(rule, function () {
                 inputButton.value = (rule.is_disabled) ? 'OFF' : 'ON';
-                inputButton.className = (rule.is_disabled) ? 'uiButton buttonOff' : 'uiButton buttonOn';
+                inputButton.className = (rule.is_disabled) ? 'ui-button buttonOff' : 'ui-button buttonOn';
             });
         };
     };

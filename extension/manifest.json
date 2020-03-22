@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name" : "CustomBlocker",
-  "version" : "4.1.3",
+  "version" : "4.1.4",
   "default_locale": "en",
   "description" : "__MSG_extDescription__",
   "browser_action": {
@@ -15,12 +15,13 @@
       "page":"background_page.html"
   },
   "web_accessible_resources": [
-    "css/reset.css",
+    "css/context/reset.css",
     "css/rule_editor_common.css",
     "css/rule_editor.css",
-    "css/smart_rule_editor.css",
-    "css/keywords.css",
-    "css/rule_editor_cursor.css",
+    "css/context/smart_rule_editor.css",
+    "css/context/keywords.css",
+    "css/context/rule_editor_cursor.css",
+    
     "img/loading.gif",
     "img/smart_path_preview_img.png",
     "img/word_delete.png",
@@ -38,6 +39,7 @@
     "img/keyword_case_sensitive_blue.png",
     "img/keyword_include_href_blue.png",
     "img/keyword_regexp_blue.png",
+    
     "rule_editor_frame_ja.html",
     "rule_editor_frame_en.html",
     "en/rule_editor_frame.html",

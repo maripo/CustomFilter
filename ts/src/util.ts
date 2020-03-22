@@ -376,7 +376,7 @@ class CustomBlockerUtil {
 		var span = document.createElement('SPAN');
 		var button = document.createElement('INPUT');
 		button.setAttribute("avoidStyle", "true");
-		button.className = 'deleteButton';
+		button.className = 'word__delete-button';
 		button.setAttribute("typte", "button");
 		button.setAttribute("href", 'javascript:void(0)');
 		return button;
@@ -395,8 +395,8 @@ class CustomBlockerUtil {
 			span.appendChild(CustomBlockerUtil.createKeywordOptionIcon("keyword_include_href",suffix,"include_href"));
 		}
 		span.innerHTML += word.word;
-		span.className = 'word '
-			+ ((word.is_complete_matching)?'complete_matching':'not_complete_matching');
+		span.className = 'word word--'
+			+ ((word.is_complete_matching)?'complete-matching':'not-complete-matching');
 		span.setAttribute("avoidStyle", "true");
 		return span;
 	}

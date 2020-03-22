@@ -1,0 +1,48 @@
+/* Definition */
+.customblocker-keyword {
+	margin:0px 2px 2px 0px!important;
+	padding-left:4px!important;
+	padding-right:4px!important;
+	padding-top:0px!important;
+	padding-bottom:0px!important;
+	border-radius:4px!important;
+	font-size:12px!important;
+	display:inline-block!important;
+	height:14px!important;
+	line-height:14px!important;
+	&--complete-matching {
+		background-color:#fed3de!important;
+		border: solid 1px #fb5c86!important;
+	}
+	&--not-complete-matching {
+		background-color:#cdedf8!important;
+		border: solid 1px #249bc3!important;
+	}
+	&--regexp {
+		background-color:#dcc!important;
+		border: solid 1px #baa!important;
+	}
+	&--not-regexp {
+		background-color:#ccd!important;
+		border: solid 1px #aab!important;
+	}
+	&__delete-button {
+		width:16px!important;
+		height:16px!important;
+		border:none!important;
+		background-image:url(../img/keyword_delete.png)!important;
+		background-repeat:no-repeat;
+		background-position:4px 4px;
+		background-size:7px 7px!important;
+		vertical-align:middle;
+	}
+	&__img {
+		// Icon
+		&--option {
+			width:13px!important;
+			height:13px!important;
+			vertical-align:middle!important;
+			margin:0px 3px 0px 0px!important;
+		}
+	}
+}

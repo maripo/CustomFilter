@@ -1,9 +1,9 @@
 var SmartRuleCreator = (function () {
     function SmartRuleCreator(targetElement, appliedRuleList, selectionText, needSuggestion) {
-        CustomBlockerUtil.applyCss('/css/reset.css');
-        CustomBlockerUtil.applyCss('/css/smart_rule_editor.css');
+        CustomBlockerUtil.applyCss('/css/context/reset.css');
+        CustomBlockerUtil.applyCss('/css/context/smart_rule_editor.css');
         CustomBlockerUtil.applyCss('/css/rule_editor_common.css');
-        CustomBlockerUtil.applyCss('/css/keywords.css');
+        CustomBlockerUtil.applyCss('/css/context/keywords.css');
         this.appliedRuleList = appliedRuleList;
         this.targetElement = targetElement;
         this.selectionText = selectionText;
@@ -335,7 +335,7 @@ var SmartRuleCreatorDialog = (function () {
         spanTitle.innerHTML = title;
         var button = document.createElement('INPUT');
         button.type = 'button';
-        button.className = "uiButton";
+        button.className = "ui-button";
         button.value = buttonTitle;
         li.appendChild(spanHideCount);
         li.appendChild(spanSearchCount);

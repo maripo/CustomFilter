@@ -1,0 +1,8 @@
+#smart_rule_editor_container, #rule_editor_container {
+  all: initial; }
+  #smart_rule_editor_container *, #rule_editor_container * {
+    all: initial; }
+
+#smart_rule_editor_container div,
+#rule_editor_container div {
+  display: block; }

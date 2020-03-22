@@ -1,3 +1,4 @@
+@import './block/customblocker-keyword.scss';
 /**
 	Keyword Container
 	(for keyword)
@@ -6,76 +7,32 @@
 	padding: 2px 5px 2px 15px!important;
 }
 
-
-#rule_editor_keywords span.word,
-#smart_rule_editor_keywords span.word,
-#smart_rule_editor_preview_keywords span.word,
-#rule_editor_keyword_groups span.group {
-	margin:0px 2px 2px 0px!important;
-	padding-left:4px!important;
-	padding-right:0px!important;
-	padding-top:0px!important;
-	padding-bottom:0px!important;
-	border-radius:4px!important;
-	font-size:12px!important;
-	display:inline-block!important;
-	height:16px!important;
-	line-height:16px!important;
+/* For extension paths (Weak) */
+#rule_editor_keywords, #rule_editor_keyword_groups {
+	.word, .group {
+		@extend .customblocker-keyword;
+		&__delete-button {
+			@extend .customblocker-keyword__delete-button;
+		}
+		// Icon
+		.option {
+			@extend .customblocker-keyword__img--option;	
+		}
+		&--complete-matching {
+			@extend .customblocker-keyword--complete-matching;
+		}
+		&--not-complete-matching {
+			@extend .customblocker-keyword--not-complete-matching;
+		}
+	}
+	.group {
+		border: solid 1px #888888!important;
+	}
 }
-#rule_editor_keywords span.word img.option,
-#smart_rule_editor_keywords span.word img.option,
-#smart_rule_editor_preview_keywords span.word img.option {
-	width:13px!important;
-	height:13px!important;
-	vertical-align:middle!important;
-	margin:0px 3px 0px 0px!important;
+/* Block anyway (Only in list) */
+#rule_editor_container .block_anyway .not_regexp {
+	@extend .customblocker-keyword--not-regexp;
 }
-
-#rule_editor_keywords span.complete_matching,
-#smart_rule_editor_keywords span.complete_matching,
-#smart_rule_editor_preview_keywords span.complete_matching {
-	background-color:#fed3de!important;
-	border: solid 1px #fb5c86!important;
-}
-#rule_editor_keywords span.not_complete_matching,
-#smart_rule_editor_keywords span.not_complete_matching,
-#smart_rule_editor_preview_keywords span.not_complete_matching {
-	background-color:#cdedf8!important;
-	border: solid 1px #249bc3!important;
-}
-/**
-	Group (name and delete button)
-*/
-#rule_editor_keyword_groups span.group {
-	border: solid 1px #888888!important;
-
-}
-/**
-	"Block Anyway"
-*/
-#rule_editor_container div.block_anyway span.not_regexp {
-	background-color:#ccd!important;
-	border: solid 1px #aab!important;
-}
-#rule_editor_container div.block_anyway span.regexp {
-	background-color:#dcc!important;
-	border: solid 1px #baa!important;
-}
-
-/**
-	Delete Button (Normal & Hover)
-*/
-
-#rule_editor_keywords span.word .deleteButton,
-#smart_rule_editor_keywords span.word .deleteButton,
-#smart_rule_editor_preview_keywords span.word .deleteButton,
-#rule_editor_keyword_groups span.group .deleteButton {
-	width:16px!important;
-	height:16px!important;
-	border:none!important;
-	background-image:url(../img/keyword_delete.png)!important;
-	background-repeat:no-repeat;
-	background-position:4px 4px;
-	background-size:7px 7px!important;
-	vertical-align:middle;
+#rule_editor_container .block_anyway .regexp {
+	@extend .customblocker-keyword--regexp;
 }

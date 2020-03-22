@@ -1,6 +1,7 @@
 @import '../block/rule-list.scss';
 @import '../block/keyword.scss';
 @import '../block/header.scss';
+@import '../block/button-container.scss';
 body {
 	font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','YuGothic','Yu Gothic','メイリオ','Meiryo','ＭＳ ゴシック','Lucida Grande', 'Helvetica', 'Arial', sans-serif;
 	max-width:910px;
@@ -26,6 +27,8 @@ h2 {
 }
 .rule-editor-body {
 	width:340px;
+	border:solid 1px #888;
+	margin-left:4px;
 }
 
 .editor-frame {
@@ -39,50 +42,7 @@ h2 {
 		padding-right:0.5em;
 	}
 }
-/*
-List Buttons
-*/
-.button-container {
-	input  {
-		border:none;
-		text-indent:-9999px;
-		background: none;
-		margin: 0 0.2rem;
-	}
-	input.buttonOn {
-		background-image:url("/img/button/on.png");
-		background-size: 42px 13px;
-		background-repeat: no-repeat;
-		width: 42px;
-		height: 13px;
-	}
-	input.buttonOff {
-		background-image:url("/img/button/off.png");
-		background-size: 42px 13px;
-		background-repeat: no-repeat;
-		width: 42px;
-		height: 13px;
-	}
-	input.buttonEdit {
-		background-image:url("/img/button/edit.png");
-		background-size: 14px 14px;
-		background-repeat: no-repeat;
-		width: 14px;
-		height: 14px;
-	}
-	input.buttonDelete {
-		background-image:url("/img/button/delete.png");
-		background-size: 14px 14px;
-		background-repeat: no-repeat;
-		width: 14px;
-		height: 14px;
-	}
-}
 
-.rule-editor-body {
-	border:solid 1px #888;
-	margin-left:4px;
-}
 #ruleEmptyAlert {
 	display:none;
 	padding:10px;
@@ -112,7 +72,7 @@ span.word {
 		height:14px;
 	}
 }
-div.rule_count {
+.rule-count {
 	font-size:80%;
 	color: #444;
 }

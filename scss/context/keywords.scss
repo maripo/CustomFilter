@@ -1,0 +1,20 @@
+@import '../block/customblocker-keyword.scss';
+
+/* For content scripts (Strong) */
+#smart_rule_editor_keywords, #smart_rule_editor_preview_keywords {
+	span.word {
+		@extend .customblocker-keyword;
+		.deleteButton {
+			@extend .customblocker-keyword__delete-button;
+		}
+		img.option {
+			@extend .customblocker-keyword__img--option;
+		}
+	}
+	span.complete_matching {
+		@extend .customblocker-keyword--complete-matching;
+	}
+	span.not_complete_matching {
+		@extend .customblocker-keyword--not-complete-matching;
+	}
+}

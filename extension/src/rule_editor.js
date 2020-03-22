@@ -58,11 +58,11 @@ var RuleEditor = (function () {
             });
             RuleElement.appendFunctions(node);
         }
-        CustomBlockerUtil.applyCss('/css/reset.css');
+        CustomBlockerUtil.applyCss('/css/context/reset.css');
+        CustomBlockerUtil.applyCss('/css/context/rule_editor_cursor.css');
         CustomBlockerUtil.applyCss('/css/rule_editor.css');
         CustomBlockerUtil.applyCss('/css/rule_editor_common.css');
-        CustomBlockerUtil.applyCss('/css/keywords.css');
-        CustomBlockerUtil.applyCss('/css/rule_editor_cursor.css');
+        CustomBlockerUtil.applyCss('/css/context/keywords.css');
         if (!this.pathPickerDialog) {
             this.pathPickerDialog = new PathPickerDialog(this.maxZIndex + 2, this);
         }

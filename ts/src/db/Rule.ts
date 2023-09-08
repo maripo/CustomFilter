@@ -55,11 +55,9 @@ class LegacyRulePeer extends DbPeer {
 		let scope = this;
 		this.select('', function (rules:[LegacyRule]): void {
 			let count = '' + rules.length;
-			Analytics.trackEvent('loadRuleList', count);
 			// Add words to parent rules
 			LegacyWordPeer.getInstance().select('', function (words:LegacyWord[]): void {
 				var count = '' + words.length;
-				Analytics.trackEvent('loadWordList', count);
 				let ruleMap = new Array();
 				for (var i=0, l=rules.length; i<l; i++) {
 					ruleMap[rules[i].rule_id] = rules[i];

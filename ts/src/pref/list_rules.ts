@@ -379,15 +379,6 @@ class PrefRuleEditor {
 			}
 		}
 	}
-	renderGroups (groups:WordGroup[]) {
-		document.getElementById("rule_editor_keyword_groups").innerHTML = "";
-		groups.forEach((group)=>{
-			CustomBlockerUtil.createWordGroupElement(group, ()=>{ this.removeGroup(group) });
-			document.getElementById("rule_editor_keyword_groups").appendChild(
-				CustomBlockerUtil.createWordGroupElement(group, ()=>{ this.removeGroup(group) })
-			);
-		});
-	}
 
 	static setVisibilityOfConditionDetail () {
 		document.getElementById('rule_editor_hide_detail').style.display =

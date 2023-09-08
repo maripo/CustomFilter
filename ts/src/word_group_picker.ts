@@ -23,7 +23,7 @@ class WordGroupPicker {
 		emptyOption.innerHTML = "----";
 		this.select.appendChild(emptyOption);
 		if (!this.groups) return;
-		this.selectableGroups = [];
+		this.selectableGroups = [] as [WordGroup];
 		for (let group of this.groups) {
 			let contains = false;
 			if (this.rule) {

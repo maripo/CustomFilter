@@ -17,7 +17,6 @@
         "src/index.ts",
         "src/contentscript.ts",
         "src/util.ts",
-        "src/analytics.ts",
         "src/background.ts",
         "src/word_group_picker.ts",
         "src/background_legacy.ts",

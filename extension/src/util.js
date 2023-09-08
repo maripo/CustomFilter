@@ -206,7 +206,7 @@ var CustomBlockerUtil = (function () {
                 var links = note.getElementsByTagName("a");
                 for (var j = 0; j < links.length; j++) {
                     var link = links[j];
-                    if (link.className.indexOf("note__dismiss" >= 0)) {
+                    if (link.className.indexOf("note__dismiss") >= 0) {
                         link.addEventListener("click", function () {
                             note.style.display = "none";
                             localStorage[noteKey] = "true";

@@ -20,7 +20,6 @@ function reloadLists() {
 }
 function openRulePicker(selectedRule) {
     var status = (selectedRule) ? 'edit' : 'create';
-    Analytics.trackEvent('openRulePicker', status);
     try {
         chrome.tabs.getSelected(null, function (tab) {
             var tabInfo = tabMap[tab.id];
@@ -210,8 +209,8 @@ function loadSmartRuleEditorSrc() {
             }
         }
         try {
-            if ('true' == localStorage.blockDisabled)
-                _setIconDisabled(!applied, tabId);
+            if ('true' == localStorage.blockDisabled) {
+            }
             else {
                 var appliedRules = (tabMap[tabId]) ? tabMap[tabId].appliedRules : [];
                 var applied = appliedRules.length > 0;
@@ -270,12 +269,10 @@ function getBadgeTooltipString(count) {
 }
 function menuCreateOnRightClick(clicked, tab) {
     sendQuickRuleCreationRequest(clicked, tab, true);
-    Analytics.trackEvent('contextMenu', 'create');
 }
 ;
 function menuAddOnRightClick(clicked, tab) {
     sendQuickRuleCreationRequest(clicked, tab, false);
-    Analytics.trackEvent('contextMenu', 'add');
 }
 ;
 function sendQuickRuleCreationRequest(clicked, tab, needSuggestion) {

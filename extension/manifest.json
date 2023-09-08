@@ -9,7 +9,6 @@
       "default_icon": "icon/icon_disabled.png",
       "default_popup": "index.html"
   },
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "options_page":"pref/index.html",
   "background": {
       "page":"background_page.html"

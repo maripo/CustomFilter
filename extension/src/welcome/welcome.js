@@ -80,7 +80,6 @@ var Welcome = (function () {
         catch (ex) {
             alert(ex);
         }
-        Analytics.trackEvent('contextMenu', 'count' + rulesToUse.length);
     };
     Welcome.getAlreadyInstalledLabel = function () {
         var span = document.createElement('SPAN');

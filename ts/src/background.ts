@@ -59,7 +59,6 @@ function reloadLists (): void {
 
 function openRulePicker (selectedRule:Rule): void {
 	let status = (selectedRule)?'edit':'create';
-	Analytics.trackEvent('openRulePicker', status);
 	try {
 		chrome.tabs.getSelected(null,function(tab) {
 			let tabInfo = tabMap[tab.id];
@@ -268,40 +267,40 @@ function loadSmartRuleEditorSrc() {
 				tabMap[tabId] = null;
 			});
 	chrome.tabs.onSelectionChanged.addListener (function(_tabId:number, selectInfo) {
-				let tabId = _tabId;
-				for (let _index in existingTabs) {
-					var tabIdToDisable = parseInt(_index);
-					if (tabIdToDisable && tabIdToDisable!=tabId) {
-						CustomBlockerTab.postMessage(tabIdToDisable, {command: 'stop' });
-					}
-				}
-				try {
-					if ('true' == localStorage.blockDisabled)
-						_setIconDisabled(!applied, tabId);
-					else {
-						let appliedRules = (tabMap[tabId]) ? tabMap[tabId].appliedRules : [];
-						let applied = appliedRules.length>0;
-						let iconPath =  "icon/" + ((applied)?'icon.png':'icon_disabled.png');
-						chrome.browserAction.setIcon(
-						{
-							path: iconPath,
-							tabId: tabId
-						});
+		let tabId = _tabId;
+		for (let _index in existingTabs) {
+			var tabIdToDisable = parseInt(_index);
+			if (tabIdToDisable && tabIdToDisable!=tabId) {
+				CustomBlockerTab.postMessage(tabIdToDisable, {command: 'stop' });
+			}
+		}
+		try {
+			if ('true' == localStorage.blockDisabled) {
+				// _setIconDisabled(!applied, tabId); // TODO
+			} else {
+				let appliedRules = (tabMap[tabId]) ? tabMap[tabId].appliedRules : [];
+				let applied = appliedRules.length>0;
+				let iconPath =  "icon/" + ((applied)?'icon.png':'icon_disabled.png');
+				chrome.browserAction.setIcon(
+				{
+					path: iconPath,
+					tabId: tabId
+				});
 
-					}
-					CustomBlockerTab.postMessage(tabId, { command: 'resume' });
-					if (tabBadgeMap[tabId])
-					{
-						if (localStorage.badgeDisabled!="true") {
-							chrome.browserAction.setBadgeText({
-								text: tabBadgeMap[tabId],
-								tabId: tabId
-							});
-						}
-					}
+			}
+			CustomBlockerTab.postMessage(tabId, { command: 'resume' });
+			if (tabBadgeMap[tabId])
+			{
+				if (localStorage.badgeDisabled!="true") {
+					chrome.browserAction.setBadgeText({
+						text: tabBadgeMap[tabId],
+						tabId: tabId
+					});
 				}
-				catch (ex) {console.log(ex);}
-			});
+			}
+		}
+		catch (ex) {console.log(ex);}
+	});
 }
 function setIconDisabled (isDisabled): void
 {
@@ -344,12 +343,10 @@ function getBadgeTooltipString (count): string {
 
 function menuCreateOnRightClick(clicked, tab): void {
 	sendQuickRuleCreationRequest(clicked, tab, true);
-	Analytics.trackEvent('contextMenu', 'create');
 };
 
 function menuAddOnRightClick(clicked, tab): void {
 	sendQuickRuleCreationRequest(clicked, tab, false);
-	Analytics.trackEvent('contextMenu', 'add');
 };
 
 function sendQuickRuleCreationRequest (clicked, tab, needSuggestion:boolean): void {

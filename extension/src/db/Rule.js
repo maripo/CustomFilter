@@ -52,10 +52,8 @@ var LegacyRulePeer = (function (_super) {
         var scope = this;
         this.select('', function (rules) {
             var count = '' + rules.length;
-            Analytics.trackEvent('loadRuleList', count);
             LegacyWordPeer.getInstance().select('', function (words) {
                 var count = '' + words.length;
-                Analytics.trackEvent('loadWordList', count);
                 var ruleMap = new Array();
                 for (var i = 0, l = rules.length; i < l; i++) {
                     ruleMap[rules[i].rule_id] = rules[i];

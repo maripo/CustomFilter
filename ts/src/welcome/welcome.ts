@@ -85,7 +85,6 @@ class Welcome {
 		catch (ex) {
 			alert(ex)
 		}
-		Analytics.trackEvent('contextMenu', 'count' + rulesToUse.length);
 	}
 	static getAlreadyInstalledLabel (): HTMLElement {
 		let span = document.createElement('SPAN');

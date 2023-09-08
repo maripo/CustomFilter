@@ -208,7 +208,7 @@ class CustomBlockerUtil {
 			}
 		}
 		let keyPrefix = "customblocker_note_";
-		let notes = document.querySelectorAll(".note--dismissable");
+		let notes = document.querySelectorAll<HTMLElement>(".note--dismissable");
 		if (notes) {
 			for (let i=0; i<notes.length; i++) {
 				let note = notes[i];
@@ -221,7 +221,7 @@ class CustomBlockerUtil {
 				let links = note.getElementsByTagName("a");
 				for (let j=0; j<links.length; j++) {
 					let link = links[j];
-					if (link.className.indexOf("note__dismiss" >= 0)) {
+					if (link.className.indexOf("note__dismiss") >= 0) {
 						link.addEventListener("click", ()=>{
 							note.style.display = "none";
 							localStorage[noteKey] = "true";

@@ -330,14 +330,6 @@ var PrefRuleEditor = (function () {
             }
         }
     };
-    PrefRuleEditor.prototype.renderGroups = function (groups) {
-        var _this = this;
-        document.getElementById("rule_editor_keyword_groups").innerHTML = "";
-        groups.forEach(function (group) {
-            CustomBlockerUtil.createWordGroupElement(group, function () { _this.removeGroup(group); });
-            document.getElementById("rule_editor_keyword_groups").appendChild(CustomBlockerUtil.createWordGroupElement(group, function () { _this.removeGroup(group); }));
-        });
-    };
     PrefRuleEditor.setVisibilityOfConditionDetail = function () {
         document.getElementById('rule_editor_hide_detail').style.display =
             (document.getElementById('rule_editor_block_anyway').checked) ? 'none' : 'block';
